@@ -1,0 +1,148 @@
+<div class="header">
+  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
+    <a class="navbar-brand col-sm-4" href="#">
+      <div class="row justify-content-start">
+        <div class="col-sm-1">
+          <img src="../../../../assets/img/title_icon.png" width="30" height="30" class="d-inline-block align-top"
+               alt="">
+        </div>
+        <div class="col-sm-3">
+          <h3><b>Electronic Devices Market</b></h3>
+        </div>
+
+
+      </div>
+
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <div class="dropdown">
+            <a class="nav-link" href="#"><b>Categories</b></a>
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" role="button" href="#"><b>Tender</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Group Buying</b></a>
+        </li>
+        <li class="nav-item" hidden>
+          <a class="nav-link" href="#"><b>Manage</b></a>
+        </li>
+      </ul>
+      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
+        <li class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <b>
+              <i class="fa fa-user-o" aria-hidden="true"></i>
+              <span class="hidden-xs">My Profile</span>
+            </b>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+          </div>
+        </li>
+      </ul>
+      <ul *ngIf="!user" class="nav navbar-right pull-right col-sm-3">
+        <li class="nav-item dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <b>
+              <i class="fa fa-user-o" aria-hidden="true"></i>
+              <span class="hidden-xs">My Profile</span>
+            </b>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" style="cursor:default">
+            <a class="dropdown-item" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>
+              Login </a>
+            <a class="dropdown-item" href="#"><i class="fa fa-fw fa-cog"></i> Register</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+<router-outlet></router-outlet>
+
+
+<div class="footer align-items-end col-sm-12" style="margin-top: 20px">
+  <div class="row" style="background-color: #e3f2fd;">
+    <div class="col-md-3">
+      <h3>About Us</h3>
+      <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>
+    </div>
+    <div class="col-md-3">
+      <h3>My Account</h3>
+      <ul>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#">Wishlist</a></li>
+
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <p><i class="fa fa-home" aria-hidden="true"></i>100 Quang Trung Street , Go Vap District, Ho Chi Minh City.</p>
+      <p><i class="fa fa-phone" aria-hidden="true"></i>+84 123 4567 890 , +1234 777 888</p>
+      <p><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>abc@gmail.com</a></p>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form #loginForm="ngForm">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-user fa-fw"></i> Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="form-group">
+              <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                <input class="form-control" type="text" placeholder="Email address" name="email" ngModel>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                <input class="form-control" type="password" placeholder="Password" name="password" ngModel>
+              </div>
+            </div>
+
+            <a href="#">Forgot Password?</a>
+          </div>
+        </div>
+        <div class="modal-footer align-self-center">
+          <button type="submit" class="btn btn-primary" (click)="login(loginForm.value)">Login</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#loginModal">Open Modal</button>
