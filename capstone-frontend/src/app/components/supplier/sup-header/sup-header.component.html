@@ -1,17 +1,8 @@
 <div class="header">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand col-sm-4" routerLink="/home">
-      <div class="row justify-content-start">
-        <div class="col-sm-1">
-        </div>
-        <div class="col-sm-3">
-          <h3><b>Electronic Devices Market</b></h3>
-        </div>
-
-
-      </div>
-
-    </a>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><b>Electronic Devices Market</b></a>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -21,8 +12,8 @@
             Product
           </a>
           <div class="dropdown-menu" aria-labelledby="product">
-            <a class="dropdown-item" href="#">All Products</a>
-            <a class="dropdown-item" routerLink="/supplier/create-post1">Dis play a new product</a>
+            <a class="dropdown-item" routerLink="/supplier/post-list">All Products</a>
+            <a class="dropdown-item" routerLink="/supplier/create-post1">Display a new product</a>
           </div>
         </li>
         <li class="nav-item ">
@@ -32,10 +23,16 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Group Buying</a>
+          <a class="nav-link" href="#">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            Group Buying
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tender</a>
+          <a class="nav-link" href="#">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+            Tender
+          </a>
         </li>
 
       </ul>

@@ -281,10 +281,10 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label text-right">
-                  Waranty
+                  Warranty
                 </label>
                 <div class="col-sm-7 form-inline">
-                  <input type="text" class="form-control" name="Warranty" ngModel>
+                  <input type="number" min="0" class="form-control" name="Warranty" ngModel>
                   <select class="form-control" name="TimeOfWaranty" ngModel>
                     <option *ngFor="let time of times"
                             value="{{time}}">{{time}}
@@ -340,7 +340,7 @@
                   Min. Order Quantity
                 </label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control" name="MinOrderQuantity" ngModel>
+                  <input type="number" min="0" class="form-control" name="MinOrderQuantity" ngModel>
                 </div>
                 / Select Unit
               </div>
@@ -368,7 +368,7 @@
                   Supply Ability
                 </label>
                 <div class="col-sm-10 form-inline">
-                  <input type="text" class="form-control" name="SupplierAbility" ngModel>
+                  <input type="number" min="0" class="form-control" name="SupplierAbility" ngModel>
                   <select class="form-control" name="UnitOfTime" ngModel>
                     <option *ngFor="let unit of units"
                             value="{{unit}}">{{unit}}
@@ -386,7 +386,7 @@
                   Max Order
                 </label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control" name="MaxNumberOrder" ngModel>
+                  <input type="number" min="0" class="form-control" name="MaxNumberOrder" ngModel>
                 </div>
                 /1 day
               </div>
