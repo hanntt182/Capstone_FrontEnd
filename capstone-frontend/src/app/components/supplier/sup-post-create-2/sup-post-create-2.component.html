@@ -1,0 +1,481 @@
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link"><strong>Select Category</strong></a>
+    <a class="nav-item nav-link"><strong><i class="fa fa-chevron-right" aria-hidden="true"></i></strong></a>
+    <a class="nav-item nav-link active"><strong>Fill in Product Information</strong></a>
+    <a class="nav-item nav-link"><strong><i class="fa fa-chevron-right" aria-hidden="true"></i></strong></a>
+    <a class="nav-item nav-link"><strong>Waiting for approved</strong></a>
+  </nav>
+</div>
+<form #createPost2Form="ngForm">
+
+  <div class="main-content" style="margin-top: 10px; margin-bottom: 20px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <h5>Basic Information</h5>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Post Title
+                  <i class="fa fa-question-circle-o" aria-hidden="true"
+                     data-toggle="tooltip" data-placement="right" title="Title of your post. It can be a short description of your product."></i>
+                </label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="PostTitle" ngModel>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Product Name
+                  <i class="fa fa-question-circle-o" aria-hidden="true"
+                     data-toggle="tooltip" data-placement="right" title="Name of product"></i>
+                </label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="ProductName" ngModel>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Product Photo
+                  <i class="fa fa-question-circle-o" aria-hidden="true"
+                     data-toggle="tooltip" data-placement="right" title="The standard of making a photo."></i>
+                </label>
+                <div class="col-sm-2">
+                  <button onclick="document.querySelector('#photo').click()">
+                    Browse
+                  </button>
+                  <input hidden type="file" accept="image/jpeg, image/png" multiple (change)="onChange($event)" class="form-control-file" id="photo">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right"></label>
+                <div class="col-sm-10">
+                  <label style="font-weight: normal;font-size: 14px;height: 30px;line-height: 30px;color:#999;">
+                    Image file size should be less than 5MB. Supported formats: .jpeg .jpg .png.<br>
+                    Recommended image size is more than 640px * 640px. Images should be clear and easy for buyers to view at a glance.
+                  </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                  <img *ngFor="let link of links"
+                       src="{{link}}"
+                       height="80" width="80"
+                       style="border: 1px solid #ddd; background: #f9f9f9;"/>
+                </div>
+              </div>
+              <div *ngIf="photoError==true" class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                  <div class="alert alert-danger" role="alert" style="height:70%">
+                    <small>Only allowed to upload up to 5 files.</small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <div class="row">
+
+              </div>
+              <h5>Products Details</h5>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Brand Name
+                </label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="BrandName" ngModel>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Color
+                </label>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Beige" ngModel>
+                      Beige
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Black" ngModel>
+                      Black
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Blue" ngModel>
+                      Blue
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Brown" ngModel>
+                      Brown
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Champagne" ngModel>
+                      Champagne
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right"></label>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Clear" ngModel>
+                      Clear
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Coffee" ngModel>
+                      Coffee
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Gold" ngModel>
+                      Gold
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Gray" ngModel>
+                      Gray
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Green" ngModel>
+                      Green
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right"></label>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Ivory" ngModel>
+                      Ivory
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Khaki" ngModel>
+                      Khaki
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Multi" ngModel>
+                      Multi
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Orange" ngModel>
+                      Orange
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Pink" ngModel>
+                      Pink
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right"></label>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Purple" ngModel>
+                      Purple
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Red" ngModel>
+                      Red
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Silver" ngModel>
+                      Silver
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="White" ngModel>
+                      White
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="Color" value="Yellow" ngModel>
+                      Yellow
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Waranty
+                </label>
+                <div class="col-sm-7 form-inline">
+                  <input type="text" class="form-control" name="Warranty" ngModel>
+                  <select class="form-control" name="TimeOfWaranty" ngModel>
+                    <option *ngFor="let time of times"
+                            value="{{time}}">{{time}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <div class="row">
+
+              </div>
+              <h5>Trade Information</h5>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Price
+                </label>
+                <div class="col-sm-10 form-inline">
+                  <input type="text" class="form-control" name="MinPrice" placeholder="Min Price" ngModel>
+                  -
+                  <input type="text" class="form-control" name="MaxPrice" placeholder="Max Price" ngModel> per
+                  <select class="form-control" name="UnitOfPrice" ngModel>
+                    <option *ngFor="let unit of units"
+                            value="{{unit}}">{{unit}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right"></label>
+                <div class="col-sm-10">
+                  <label style="font-weight: normal;font-size: 14px;height: 30px;line-height: 30px;color:#999;">
+                    Please include both the amount and type of unit
+                  </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Min. Order Quantity
+                </label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="MinOrderQuantity" ngModel>
+                </div>
+                / Select Unit
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <div class="row">
+              </div>
+              <h5>Logistics Information</h5>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Supply Ability
+                </label>
+                <div class="col-sm-10 form-inline">
+                  <input type="text" class="form-control" name="SupplierAbility" ngModel>
+                  <select class="form-control" name="UnitOfTime" ngModel>
+                    <option *ngFor="let unit of units"
+                            value="{{unit}}">{{unit}}
+                    </option>
+                  </select> per
+                  <select class="form-control" name="Time" ngModel>
+                    <option *ngFor="let time of times"
+                            value="{{time}}">{{time}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">
+                  Max Order
+                </label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" name="MaxNumberOrder" ngModel>
+                </div>
+                /1 day
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</form>
+
+
+<div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="background: white">
+          <div class="card-content justify-content-sm-center"
+               style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+            <div class="row">
+            </div>
+            <h5>Logistics Information</h5>
+            <div class="row">
+              <div class="col-sm-4 text-center">
+                <label>Description Name</label>
+              </div>
+              <div class="col-sm-8 text-center">
+                <label>Description Value</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="formDescription">
+                  <div formArrayName="descriptions">
+                    <div *ngFor="let description of formDescription.controls['descriptions'].controls; let i=index">
+                      <div [formGroupName]="i">
+                        <div class="row">
+                          <div class="form-group col-sm-4">
+                            <!--<input class="form-control" type="text" formControlName="descriptionName">-->
+                            <select class="form-control" formControlName="DescriptionID"
+                                    (change)="onChangeDes($event.target.value)" required>
+                              <option *ngFor="let description of descriptions; let  i = index" type="number"
+                                      value="{{description.descriptionID}}">
+                                {{description.descriptionName}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <input *ngIf="descriptionType=='text'" class="form-control" type="text"
+                                   formControlName="DescriptionValue">
+                            <select *ngIf="descriptionType=='questionable'" class="form-control">
+                              <option>True</option>
+                              <option>False</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-sm-1" *ngIf="formDescription.controls['descriptions'].length > 1"
+                               (click)="removeDescription(i)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </div>
+                          <span class="glyphicon glyphicon-remove pull-right"
+                                *ngIf="formDescription.controls['descriptions'].length > 1"
+                                (click)="removeDescription(i)"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-20">
+                    <a (click)="addDescription()" style="cursor: default">
+                      More description +
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 text-center" style="margin-bottom: 10px">
+  <input type="submit" value="Create Post" class="btn btn-success"
+         (click)="createPost(createPost2Form.value, formDescription)">
+</div>
+
+
+

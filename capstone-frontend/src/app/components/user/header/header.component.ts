@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Constants} from './../../../constants';
-import {LoginService} from "../../../services/login.service";
-import {Router} from "@angular/router";
+import {LoginService} from '../../../services/login.service';
+import {Router} from '@angular/router';
 import * as $ from 'jquery';
+import {CatalogService} from '../../../services/catalog.service';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +12,11 @@ import * as $ from 'jquery';
 })
 export class HeaderComponent implements OnInit {
   public user;
+  public catalogs;
 
   constructor(private constants: Constants,
               private loginService: LoginService,
+              private catalogService: CatalogService,
               private router: Router) {
   }
 
@@ -21,6 +24,9 @@ export class HeaderComponent implements OnInit {
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
+    this.catalogService.getCatalogs(this.constants.GETLISTCATALOG).subscribe((response: any) => {
+      this.catalogs = response;
+    });
   }
 
   login(loginValue) {
@@ -38,6 +44,7 @@ export class HeaderComponent implements OnInit {
         $('#loginModal').hide();
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
+        alert('Login successfully');
       }
     }, error => {
       console.log(error);
@@ -48,6 +55,10 @@ export class HeaderComponent implements OnInit {
     this.user = null;
     this.loginService.setLogin(false);
     localStorage.removeItem('currentUser');
+    alert('Logged out!!!');
+  }
 
+  chooseCatalog(catalogId) {
+    this.router.navigate(['/catalog/' + catalogId]);
   }
 }

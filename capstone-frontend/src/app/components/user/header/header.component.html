@@ -1,6 +1,6 @@
 <div class="header">
-  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
-    <a class="navbar-brand col-sm-4" href="#">
+  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #FFFFFF;">
+    <a class="navbar-brand col-sm-4" routerLink="/home">
       <div class="row justify-content-start">
         <div class="col-sm-1">
           <img src="../../../../assets/img/title_icon.png" width="30" height="30" class="d-inline-block align-top"
@@ -24,10 +24,11 @@
         <li class="nav-item active">
           <div class="dropdown">
             <a class="nav-link" href="#"><b>Categories</b></a>
-            <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+            <div class="dropdown-content" style="cursor:default">
+              <a *ngFor="let catalog of catalogs"
+              (click)="chooseCatalog(catalog.catalogId)">
+                {{catalog.catalogName}}
+              </a>
             </div>
           </div>
         </li>
@@ -45,15 +46,18 @@
         <li class="nav-item dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <b>
-              <i class="fa fa-user-o" aria-hidden="true"></i>
+              <i class="fa fa-user-circle" aria-hidden="true"></i>
               <span class="hidden-xs">My Profile</span>
             </b>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a>
+            <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
+            <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
+            <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+            <a class="dropdown-item" href=""><i class="fa fa-info-circle" aria-hidden="true"></i> Manage</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
           </div>
         </li>
       </ul>
@@ -76,12 +80,14 @@
   </nav>
 </div>
 
+<div class="row container-fluid">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
 
 
-<div class="footer align-items-end col-sm-12" style="margin-top: 20px">
-  <div class="row" style="background-color: #e3f2fd;">
+<div class="footer fixed-bottom col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
+  <div class="row" >
     <div class="col-md-3">
       <h3>About Us</h3>
       <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>
