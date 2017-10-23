@@ -9,6 +9,7 @@ import {SupHeaderComponent} from './components/supplier/sup-header/sup-header.co
 import {AdMainComponent} from './components/admin/ad-main/ad-main.component';
 import {SupMainComponent} from './components/supplier/sup-main/sup-main.component';
 import {SupPostListComponent} from "./components/supplier/sup-post-list/sup-post-list.component";
+import {ProductDetailComponent} from "./components/user/product-detail/product-detail.component";
 
 
 const routing: Routes = [
@@ -17,7 +18,8 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
-      {path: 'catalog/:catalogId', component: BrandsListComponent}
+      {path: 'catalog/:catalogId', component: BrandsListComponent},
+      {path: 'product-detail', component: ProductDetailComponent}
     ]
   },
   {

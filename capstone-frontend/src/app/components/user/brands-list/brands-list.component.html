@@ -1,14 +1,17 @@
-<div class="row text-center">
-  <h3>List Products</h3>
-  <div>
-    <b></b>
-    <span><i></i></span>
-    <b class="line"></b>
+<div class="container">
+  <div class="row text-center">
+    <h3>List Products</h3>
+    <div>
+      <b></b>
+      <span><i></i></span>
+      <b class="line"></b>
+    </div>
   </div>
+  <nav class="nav-sidebar">
+    <ul class="nav tabs justify-content-center">
+      <li *ngFor="let brand of brands; let i = index"><a routerLinkActive="" [routerLink]="['./']"
+                                                         data-toggle="tab">{{brand.brandName}}</a></li>
+    </ul>
+  </nav>
 </div>
-<nav class="nav-sidebar">
-  <ul class="nav tabs justify-content-center">
-    <li *ngFor="let brand of brands; let i = index"><a routerLinkActive="" [routerLink]="['./']"
-                                                       data-toggle="tab">{{brand.brandName}}</a></li>
-  </ul>
-</nav>
+

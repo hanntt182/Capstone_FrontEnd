@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {appRoutes} from './app.routes';
 import {ToastModule} from 'ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ImageZoomModule } from 'angular2-image-zoom';
 
 import {Constants} from './constants';
 
@@ -27,6 +28,7 @@ import {PostService} from './services/post.service';
 import { AdMainComponent } from './components/admin/ad-main/ad-main.component';
 import { SupMainComponent } from './components/supplier/sup-main/sup-main.component';
 import { SupPostListComponent } from './components/supplier/sup-post-list/sup-post-list.component';
+import { ProductDetailComponent } from './components/user/product-detail/product-detail.component';
 
 
 
@@ -43,12 +45,14 @@ import { SupPostListComponent } from './components/supplier/sup-post-list/sup-po
     SupHeaderComponent,
     AdMainComponent,
     SupMainComponent,
-    SupPostListComponent
+    SupPostListComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
-    BrowserAnimationsModule, ToastModule.forRoot()
+    BrowserAnimationsModule, ToastModule.forRoot(),
+    ImageZoomModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService],
   bootstrap: [AppComponent]
