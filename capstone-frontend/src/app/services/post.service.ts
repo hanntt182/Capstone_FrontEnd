@@ -27,8 +27,16 @@ export class PostService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
-  searchPostSupplier(apiUrl, data): Observable<any>{
+  searchPostSupplier(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  getListPost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  searchPost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map(((response: Response) => response.json()));
   }
 
 }

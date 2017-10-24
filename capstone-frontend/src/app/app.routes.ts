@@ -9,6 +9,11 @@ import {SupHeaderComponent} from './components/supplier/sup-header/sup-header.co
 import {AdMainComponent} from './components/admin/ad-main/ad-main.component';
 import {SupMainComponent} from './components/supplier/sup-main/sup-main.component';
 import {SupPostListComponent} from "./components/supplier/sup-post-list/sup-post-list.component";
+import {ProductDetailComponent} from "./components/user/product-detail/product-detail.component";
+import {SearchPostComponent} from "./components/user/search-post/search-post.component";
+import {BuyHeaderComponent} from "./components/buyer/buy-header/buy-header.component";
+import {BuyMainComponent} from "./components/buyer/buy-main/buy-main.component";
+import {BuyOrderListComponent} from "./components/buyer/buy-order-list/buy-order-list.component";
 
 
 const routing: Routes = [
@@ -17,7 +22,9 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
-      {path: 'catalog/:catalogId', component: BrandsListComponent}
+      {path: 'catalog/:catalogId', component: BrandsListComponent},
+      {path: 'product-detail', component: ProductDetailComponent},
+      {path: 'search/:searchValue', component: SearchPostComponent}
     ]
   },
   {
@@ -29,6 +36,14 @@ const routing: Routes = [
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},
       {path: 'create-post3', component: SupPostCreate3Component}
+    ]
+  },
+  {
+    path: 'buyer', component: BuyHeaderComponent,
+    children: [
+      {path: '', redirectTo: 'main', pathMatch: 'full'},
+      {path: 'main', component: BuyMainComponent},
+      {path: 'order-list', component: BuyOrderListComponent}
     ]
   },
   {

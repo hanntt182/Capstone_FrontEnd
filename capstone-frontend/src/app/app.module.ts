@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {appRoutes} from './app.routes';
 import {ToastModule} from 'ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ImageZoomModule } from 'angular2-image-zoom';
 
 import {Constants} from './constants';
 
@@ -18,15 +19,24 @@ import {SupPostCreate2Component} from './components/supplier/sup-post-create-2/s
 import {SupPostCreate1Component} from './components/supplier/sup-post-create-1/sup-post-create-1.component';
 import {SupPostCreate3Component} from './components/supplier/sup-post-create-3/sup-post-create-3.component';
 import { SupHeaderComponent } from './components/supplier/sup-header/sup-header.component';
+import { AdMainComponent } from './components/admin/ad-main/ad-main.component';
+import { SupMainComponent } from './components/supplier/sup-main/sup-main.component';
+import { SupPostListComponent } from './components/supplier/sup-post-list/sup-post-list.component';
+import { ProductDetailComponent } from './components/user/product-detail/product-detail.component';
+import { SearchPostComponent } from './components/user/search-post/search-post.component';
 
 /*Service*/
 import {LoginService} from './services/login.service';
 import {CatalogService} from './services/catalog.service';
 import {CommonService} from './services/common.service';
 import {PostService} from './services/post.service';
-import { AdMainComponent } from './components/admin/ad-main/ad-main.component';
-import { SupMainComponent } from './components/supplier/sup-main/sup-main.component';
-import { SupPostListComponent } from './components/supplier/sup-post-list/sup-post-list.component';
+import { SupOrderListComponent } from './components/supplier/sup-order-list/sup-order-list.component';
+import { BuyHeaderComponent } from './components/buyer/buy-header/buy-header.component';
+import { BuyMainComponent } from './components/buyer/buy-main/buy-main.component';
+import { BuyOrderListComponent } from './components/buyer/buy-order-list/buy-order-list.component';
+import { StaffMainComponent } from './components/staff/staff-main/staff-main.component';
+import { StaffHeaderComponent } from './components/staff/staff-header/staff-header.component';
+import { AdHeaderComponent } from './components/admin/ad-header/ad-header.component';
 
 
 
@@ -43,12 +53,22 @@ import { SupPostListComponent } from './components/supplier/sup-post-list/sup-po
     SupHeaderComponent,
     AdMainComponent,
     SupMainComponent,
-    SupPostListComponent
+    SupPostListComponent,
+    ProductDetailComponent,
+    SearchPostComponent,
+    SupOrderListComponent,
+    BuyHeaderComponent,
+    BuyMainComponent,
+    BuyOrderListComponent,
+    StaffMainComponent,
+    StaffHeaderComponent,
+    AdHeaderComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
-    BrowserAnimationsModule, ToastModule.forRoot()
+    BrowserAnimationsModule, ToastModule.forRoot(),
+    ImageZoomModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService],
   bootstrap: [AppComponent]

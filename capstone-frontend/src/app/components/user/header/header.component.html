@@ -1,16 +1,10 @@
 <div class="header">
-  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #FFFFFF;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <a class="navbar-brand col-sm-4" routerLink="/home">
       <div class="row justify-content-start">
-        <div class="col-sm-1">
-          <img src="../../../../assets/img/title_icon.png" width="30" height="30" class="d-inline-block align-top"
-               alt="">
-        </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <h3><b>Electronic Devices Market</b></h3>
         </div>
-
-
       </div>
 
     </a>
@@ -23,39 +17,70 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <div class="dropdown">
-            <a class="nav-link" href="#"><b>Categories</b></a>
+            <a class="nav-link" href="#">Categories</a>
             <div class="dropdown-content" style="cursor:default">
               <a *ngFor="let catalog of catalogs"
-              (click)="chooseCatalog(catalog.catalogId)">
+                 (click)="chooseCatalog(catalog.catalogId)">
                 {{catalog.catalogName}}
               </a>
             </div>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" role="button" href="#"><b>Tender</b></a>
+          <a class="nav-link" role="button" href="#">Tender</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><b>Group Buying</b></a>
+          <a class="nav-link" href="#">Group Buying</a>
         </li>
         <li class="nav-item" hidden>
-          <a class="nav-link" href="#"><b>Manage</b></a>
+          <a class="nav-link" href="#">Manage</a>
         </li>
       </ul>
-      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
+      <form #searchForm="ngForm" class="form-inline">
+          <div class="input-group">
+            <!--<select class="form-control">
+              <option value="">Products</option>
+              <option>Suppliers</option>
+            </select>-->
+            <input type="text" class="form-control" name="search" placeholder="Search..." ngModel>
+          </div>
+        <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">Search</button>
+      </form>
+      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-2">
         <li class="nav-item dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <b>
-              <i class="fa fa-user-circle" aria-hidden="true"></i>
-              <span class="hidden-xs">My Profile</span>
-            </b>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+            <span class="hidden-xs">My Profile</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
             <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
             <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href=""><i class="fa fa-info-circle" aria-hidden="true"></i> Manage</a>
+            <div *ngIf="user.role == 'SUPPLIER'">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/supplier">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Manage</a>
+            </div>
+            <div *ngIf="user.role == 'BUYER'">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/buyer">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Manage</a>
+            </div>
+            <div *ngIf="user.role == 'STAFF'">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/supplier">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Manage</a>
+            </div>
+            <div *ngIf="user.role == 'ADMIN'">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/admin">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Manage</a>
+            </div>
+
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
           </div>
@@ -80,14 +105,12 @@
   </nav>
 </div>
 
-<div class="row container-fluid">
-  <router-outlet></router-outlet>
-</div>
+
+<router-outlet></router-outlet>
 
 
-
-<div class="footer fixed-bottom col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
-  <div class="row" >
+<div class="footer col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
+  <div class="row">
     <div class="col-md-3">
       <h3>About Us</h3>
       <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>
@@ -152,3 +175,5 @@
   </div>
 </div>
 <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#loginModal">Open Modal</button>
+
+
