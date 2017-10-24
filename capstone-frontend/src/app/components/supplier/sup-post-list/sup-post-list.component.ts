@@ -36,10 +36,8 @@ export class SupPostListComponent implements OnInit {
       'Status': status,
       'pageNumber': page
     };
-    console.log(data);
     this.postService.searchPostSupplier(this.constants.SEARCHPOSTSUPPLIER, data).subscribe((response: any) => {
       this.posts = response.content;
-      console.log(this.posts);
       this.totalPage = response.totalPages;
       for (let i = 1; i <= this.totalPage; i++) {
         this.pages.push(i);

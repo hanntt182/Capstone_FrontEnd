@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
 <div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
   <div class="container">
@@ -8,35 +9,53 @@
           <div class="card-content justify-content-sm-center"
                style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
 
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#approved" (click)="changePage('APPROVED', '', 1)">
-                Approved </a></li>
-              <li><a data-toggle="tab" href="#editing" (click)="changePage('EDITING', '', 1)"> Editing </a></li>
-              <li><a data-toggle="tab" href="#pending" (click)="changePage('PENDING', '', 1)"> Pending </a></li>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab"
+                   aria-controls="waiting" aria-selected="true" (click)="changePage('WAITING', '', 1)"> Waiting </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="requiredEdit-tab" data-toggle="tab" href="#requiredEdit" role="tab"
+                   aria-controls="requiredEdit" aria-selected="false" (click)="changePage('REQUIREDEDIT', '', 1)"> Required Edit </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="editing-tab" data-toggle="tab" href="#editing" role="tab"
+                   aria-controls="editing" aria-selected="false" (click)="changePage('EDITING', '', 1)"> Editing </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab"
+                   aria-controls="active" aria-selected="false" (click)="changePage('ACTIVE', '', 1)"> Active </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="soldout-tab" data-toggle="tab" href="#soldout" role="tab"
+                   aria-controls="soldout" aria-selected="false" (click)="changePage('SOLDOUT', '', 1)"> Sold out </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed" role="tab"
+                   aria-controls="closed" aria-selected="false" (click)="changePage('CLOSED', '', 1)"> Closed </a>
+              </li>
             </ul>
 
-            <div class="tab-content">
-              <div id="approved" class="tab-pane fade in active">
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="waiting" role="tabpanel" aria-labelledby="home-tab">
                 <h5></h5>
-                <div class="row justify-content-start">
-                  <form #searchApprovedForm="ngForm" class="form-inline">
+                  <form #searchWaitingForm="ngForm" class="form-inline">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="searchApproved" ngModel>
+                      <input type="text" class="form-control" name="searchWaiting" ngModel>
                     </div>
                     <button type="submit" class="btn btn-default"
-                            (click)="changePage('APPROVED', searchApprovedForm.value.searchApproved, 1)">Search
+                            (click)="changePage('WAITING', searchWaitingForm.value.searchWaiting, 1)">Search
                     </button>
                   </form>
-                </div>
                 <table class="table table-responsive table-hover">
                   <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Last Updated</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -56,13 +75,13 @@
                   </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
+                  <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('APPROVED',searchApprovedForm.value, page)">{{page}}</a>
+                         (click)="changePage('WAITING',searchApprovedForm.value, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -70,27 +89,25 @@
                   </ul>
                 </nav>
               </div>
-              <div id="editing" class="tab-pane fade">
+              <div class="tab-pane fade" id="requiredEdit" role="tabpanel" aria-labelledby="profile-tab">
                 <h5></h5>
-                <div class="row justify-content-start">
-                  <form #searchEditingForm="ngForm" class="form-inline">
+                  <form #searchRequiredEditForm="ngForm" class="form-inline">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="searchEditing" ngModel>
+                      <input type="text" class="form-control" name="searchRequiredEdit" ngModel>
                     </div>
                     <button type="submit" class="btn btn-default"
-                            (click)="changePage('EDITING', searchEditingForm.value.searchEditing, 1)">Search
+                            (click)="changePage('REQUIREDEDIT', searchRequiredEditForm.value.searchRequiredEdit, 1)">Search
                     </button>
                   </form>
-                </div>
                 <table class="table table-responsive table-hover">
                   <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Last Updated</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -110,13 +127,13 @@
                   </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
+                  <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('EDITING',searchEditingForm.value, page)">{{page}}</a>
+                         (click)="changePage('REQUIREDEDIT',searchEditingForm.value, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -124,27 +141,25 @@
                   </ul>
                 </nav>
               </div>
-              <div id="pending" class="tab-pane fade">
+              <div class="tab-pane fade" id="active" role="tabpanel" aria-labelledby="contact-tab">
                 <h5></h5>
-                <div class="row justify-content-start">
-                  <form #searchPendingForm="ngForm" class="form-inline">
+                  <form #searchActiveForm="ngForm" class="form-inline">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="email" name="searchPending" ngModel>
+                      <input type="text" class="form-control" name="searchActive" ngModel>
                     </div>
                     <button type="submit" class="btn btn-default"
-                            (click)="changePage('PENDING', searchPendingForm.value.searchPending, 1)">Search
+                            (click)="changePage('ACTIVE', searchActiveForm.value.searchActive, 1)">Search
                     </button>
                   </form>
-                </div>
                 <table class="table table-responsive table-hover">
                   <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Last Updated</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -164,13 +179,13 @@
                   </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
+                  <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
                       <a class="page-link" href="#" tabindex="-1">Previous</a>
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('PENDING',searchPendingForm.value, page)">{{page}}</a>
+                         (click)="changePage('ACTIVE',searchPendingForm.value, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -178,6 +193,111 @@
                   </ul>
                 </nav>
               </div>
+              <div class="tab-pane fade" id="soldout" role="tabpanel" aria-labelledby="contact-tab">
+                <h5></h5>
+                <form #searchSoldoutForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="searchSoldout" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage('SOLDOUT', searchSoldoutForm.value.searchSoldout, 1)">Search
+                  </button>
+                </form>
+                <table class="table table-responsive table-hover">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let post of posts; let i = index">
+                    <th>{{i + 1}}</th>
+                    <td>{{post.product.productName}}</td>
+                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                    <td>{{post.lastUpdatedDay}}</td>
+                    <td>{{post.status.statusName}}</td>
+                    <td>
+                      <button type="button" class="btn btn-info">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        View detail
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-start">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pages">
+                      <a class="page-link" [routerLink]="['./']"
+                         (click)="changePage('SOLDOUT',searchPendingForm.value, page)">{{page}}</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="contact-tab">
+                <h5></h5>
+                <form #searchClosedForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="searchClosed" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage('CLOSED', searchClosedForm.value.searchClosed, 1)">Search
+                  </button>
+                </form>
+                <table class="table table-responsive table-hover">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let post of posts; let i = index">
+                    <th>{{i + 1}}</th>
+                    <td>{{post.product.productName}}</td>
+                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                    <td>{{post.lastUpdatedDay}}</td>
+                    <td>{{post.status.statusName}}</td>
+                    <td>
+                      <button type="button" class="btn btn-info">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        View detail
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-start">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pages">
+                      <a class="page-link" [routerLink]="['./']"
+                         (click)="changePage('CLOSED',searchPendingForm.value, page)">{{page}}</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
             </div>
 
 
