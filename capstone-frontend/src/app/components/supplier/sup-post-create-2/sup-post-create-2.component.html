@@ -24,7 +24,10 @@
                      data-toggle="tooltip" data-placement="right" title="Title of your post. It can be a short description of your product."></i>
                 </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="PostTitle" ngModel>
+                  <input type="text" class="form-control" name="PostTitle" maxlength="254" ngModel required #postTitle="ngModel">
+                  <div [hidden]="postTitle.valid || postTitle.pristine" class="error">
+                    Title is required!
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
@@ -34,7 +37,10 @@
                      data-toggle="tooltip" data-placement="right" title="Name of product"></i>
                 </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="ProductName" ngModel>
+                  <input type="text" class="form-control" name="ProductName" maxlength="254" required ngModel #productName="ngModel">
+                  <div [hidden]="productName.valid || productName.pristine" class="error">
+                    Product name is required!
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
@@ -102,7 +108,10 @@
                   Brand Name
                 </label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" name="BrandName" ngModel>
+                  <input type="text" class="form-control" name="BrandName" ngModel required #brandName="ngModel">
+                  <div [hidden]="brandName.valid || brandName.pristine" class="error">
+                    Brand name is required!
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
@@ -284,14 +293,27 @@
                   Warranty
                 </label>
                 <div class="col-sm-7 form-inline">
-                  <input type="number" min="0" class="form-control" name="Warranty" ngModel>
-                  <select class="form-control" name="TimeOfWaranty" ngModel>
+                  <input type="number" min="0" class="form-control" name="Warranty" pattern="^[0-9]*" ngModel required #warranty="ngModel">
+                  <select class="form-control" name="TimeOfWaranty" ngModel required #timeOfWarranty="ngModel" ngModel>
                     <option *ngFor="let time of times"
-                            value="{{time}}">{{time}}
+                            value="{{time}}" >{{time}}
                     </option>
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div [hidden]="warranty.valid || warranty.pristine" class="error col-md-6">
+                  Warranty is required or invalid!
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div [hidden]="timeOfWarranty.dirty || timeOfWarranty.pristine" class="error col-md-6">
+                  Time is required!
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -317,9 +339,9 @@
                   Price
                 </label>
                 <div class="col-sm-10 form-inline">
-                  <input type="text" class="form-control" name="MinPrice" placeholder="Min Price" ngModel>
+                  <input type="number" class="form-control" name="MinPrice" placeholder="Min Price" pattern="^[0-9]+(\.[0-9]{1,2})?" ngModel required #minPrice="ngModel">
                   -
-                  <input type="text" class="form-control" name="MaxPrice" placeholder="Max Price" ngModel> per
+                  <input type="number" class="form-control" name="MaxPrice" placeholder="Max Price" pattern="^[0-9]+(\.[0-9]{1,2})?" ngModel required #maxPrice="ngModel"> per
                   <select class="form-control" name="UnitOfPrice" ngModel>
                     <option *ngFor="let unit of units"
                             value="{{unit}}">{{unit}}
@@ -333,6 +355,15 @@
                   <label style="font-weight: normal;font-size: 14px;height: 30px;line-height: 30px;color:#999;">
                     Please include both the amount and type of unit
                   </label>
+                  <div [hidden]="minPrice.pristine || minPrice.valid" class="error">
+                    Min Price is required or invalid
+                  </div>
+                  <div [hidden]="maxPrice.pristine || maxPrice.valid" class="error">
+                    Max Price is required or invalid
+                  </div>
+                  <div [hidden]="(minPrice.value < maxPrice.value) || minPrice.pristine ||  maxPrice.pristine" class="error">
+                    Min Price should be less than Max price
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
@@ -340,9 +371,15 @@
                   Min. Order Quantity
                 </label>
                 <div class="col-sm-3">
-                  <input type="number" min="0" class="form-control" name="MinOrderQuantity" ngModel>
+                  <input type="number" min="0" class="form-control" name="MinOrderQuantity" pattern="^[0-9]+" ngModel required #minOrderQuantity="ngModel">
                 </div>
                 / Select Unit
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div [hidden]="minOrderQuantity.valid || minOrderQuantity.pristine" class="error col-md-6">
+                  Quantity is required or invalid!
+                </div>
               </div>
             </div>
           </div>
@@ -368,7 +405,7 @@
                   Supply Ability
                 </label>
                 <div class="col-sm-10 form-inline">
-                  <input type="number" min="0" class="form-control" name="SupplierAbility" ngModel>
+                  <input type="number" min="0" class="form-control" name="SupplierAbility" pattern="^[0-9]+" ngModel required #supAbility="ngModel">
                   <select class="form-control" name="UnitOfTime" ngModel>
                     <option *ngFor="let unit of units"
                             value="{{unit}}">{{unit}}
@@ -381,14 +418,27 @@
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div [hidden]="supAbility.pristine || supAbility.valid" class="error">
+                  Supplier ability is required or invalid
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label text-right">
                   Max Order
                 </label>
                 <div class="col-sm-3">
-                  <input type="number" min="0" class="form-control" name="MaxNumberOrder" ngModel>
+                  <input type="number" min="0" class="form-control" name="MaxNumberOrder" ngModel required pattern="^[0-9]+" #maxNumberOrder="ngModel">
                 </div>
                 /1 day
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div [hidden]="maxNumberOrder.pristine || maxNumberOrder.valid" class="error">
+                  Max number order is required or invalid
+                </div>
               </div>
             </div>
           </div>
