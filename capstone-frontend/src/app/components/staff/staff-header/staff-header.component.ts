@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-staff-header',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffHeaderComponent implements OnInit {
 
-  constructor() { }
+  public user;
+
+  constructor() {
+  }
 
   ngOnInit() {
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
   }
 
 }

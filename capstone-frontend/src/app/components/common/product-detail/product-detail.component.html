@@ -1,0 +1,189 @@
+<div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card" style="background: white">
+        <div class="card-content justify-content-sm-center"
+             style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+          <div class="row">
+            <div class="col-sm-5 justify-content-center" style="border-right: 1px solid grey">
+              <div class="row" style="padding: 10px">
+                <img imageZoom="" lensBorder="1" src="{{mainImage}}"
+                     style="width: 350px; height: 350px;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';">
+              </div>
+              <div class="row justify-content-center">
+                <img src="{{post.primaryImage}}"
+                     (mouseover)="setImage($event)"
+                     height="80" width="80" style="border: 1px solid #ddd;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
+                <img src="{{post.postImages[0].extraImage}}"
+                     (mouseover)="setImage($event)"
+                     height="80" width="80" style="border: 1px solid #ddd;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
+                <img src="{{post.postImages[1].extraImage}}"
+                     (mouseover)="setImage($event)"
+                     height="80" width="80" style="border: 1px solid #ddd;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
+                <img src="{{post.postImages[2].extraImage}}"
+                     (mouseover)="setImage($event)"
+                     height="80" width="80" style="border: 1px solid #ddd;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
+                <img src="{{post.postImages[3].extraImage}}"
+                     (mouseover)="setImage($event)"
+                     height="80" width="80" style="border: 1px solid #ddd;"
+                     onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
+              </div>
+
+            </div>
+            <div class="col-sm-7">
+              <div class="row" style="padding: 20px">
+                <h4>{{post.postTitle}}</h4>
+              </div>
+              <div class="row" style="padding-left: 20px">
+                <h5>{{post.product.productName}}</h5>
+              </div>
+              <div class="row" style="padding-left: 20px">
+                <p class="text-secondary">{{post.brand.brandName}} - {{post.catalog.catalogName}}</p>
+              </div>
+              <div class="row" style="padding: 20px; font-size: 20px">
+                <b>{{post.minPrice}} - {{post.maxPrice}}</b> / {{post.unit}} | {{post.minOrderQuantity}}
+                {{post.unit}}(Min. Order)
+              </div>
+              <div class="row" style="padding:20px; background-color: #f2f3f7">
+                <div class="row col-sm-12">
+                  <label class="col-sm-3">Supply Ability:</label>
+                  <label class="col-sm-9">{{post.supplierAbility}}</label>
+
+                  <label class="col-sm-3">Supplier Name:</label>
+                  <label class="col-sm-9">{{post.supplier.username}}</label>
+                </div>
+                <!--Supply Ability:  {{post.supplierAbility}}<br>
+                Supplier Name:  {{post.supplier.username}} <br>-->
+                <div class="row col-sm-12 justify-content-center" style="padding: 30px">
+                  <button type="button" class="btn btn-info">Contact Supplier</button>
+                  <label class="col-sm-1"></label>
+                  <button type="button" class="btn btn-outline-info"> Start Order</button>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card" style="background: white">
+        <div class="card-content justify-content-sm-center"
+             style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#productDetails" role="tab"
+                 aria-controls="home" aria-selected="true"><h5>Product Details</h5></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#companyProfile" role="tab"
+                 aria-controls="profile" aria-selected="false"><h5>Company Profile</h5></a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="productDetails" role="tabpanel" aria-labelledby="home-tab">
+              <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
+                <h4>Overview</h4>
+                <div class="row col-sm-12">
+                  <label class="col-sm-3">Product Name</label>
+                  <label class="col-sm-9">{{post.product.productName}}</label>
+
+                  <label class="col-sm-3">Brand Name</label>
+                  <label class="col-sm-9">{{post.brand.brandName}}</label>
+
+                  <label class="col-sm-3">Catagory</label>
+                  <label class="col-sm-9">{{post.catalog.catalogName}}</label>
+
+                  <label class="col-sm-3">Color</label>
+                  <label class="col-sm-9">{{post.color.colorName}}</label>
+
+                  <label class="col-sm-3">Warranty</label>
+                  <label class="col-sm-9">{{post.warranty}}</label>
+                </div>
+              </div>
+              <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
+                <h4>Shipping</h4>
+                <div class="row col-sm-12">
+                  <label class="col-sm-3">Delivery Time</label>
+                  <label class="col-sm-9">ffffff</label>
+                </div>
+              </div>
+              <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
+                <h4>Product Description</h4>
+                <div class="row col-sm-12">
+                  <table class="table table-responsive table-bordered">
+                    <thead>
+                    <tr>
+                      <td scope="col">#</td>
+                      <td scope="col">Description Name</td>
+                      <td scope="col">Description Value</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let description of post.postDescriptions; let i = index">
+                      <td scope="row">{{i + 1}}</td>
+                      <td>{{description.postDescriptionID.description.descriptionName}}</td>
+                      <td>{{description.descriptionValue}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="companyProfile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="row col-sm-12" style="padding: 20px;">
+                <h4>Company Information</h4>
+                <div class="row col-sm-12">
+                  <img src="{{post.supplier.companyLogo}}" alt="Company Logo" class="img-thumbnail"
+                       style="max-width: 200px; max-height: 200px">
+                </div>
+                <div class="row col-sm-12">
+                  <label class="col-sm-3">Company Name</label>
+                  <label class="col-sm-9">{{post.supplier.companyName}}</label>
+
+                  <label class="col-sm-3">Address</label>
+                  <label class="col-sm-9">{{post.supplier.companyAddress}}</label>
+
+                  <label class="col-sm-3">Phone</label>
+                  <label class="col-sm-9">{{post.supplier.companyPhone}}</label>
+
+                  <label class="col-sm-3">Website</label>
+                  <label class="col-sm-9">{{post.supplier.companyWebsite}}</label>
+
+                  <label class="col-sm-3">Established Year</label>
+                  <label class="col-sm-9">{{post.supplier.establishedYear}}</label>
+
+                  <label class="col-sm-3">Email</label>
+                  <label class="col-sm-9">{{post.supplier.companyEmail}}</label>
+
+                  <label class="col-sm-3">Fax</label>
+                  <label class="col-sm-9">{{post.supplier.companyFax}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

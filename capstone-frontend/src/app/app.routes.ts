@@ -9,11 +9,14 @@ import {SupHeaderComponent} from './components/supplier/sup-header/sup-header.co
 import {AdMainComponent} from './components/admin/ad-main/ad-main.component';
 import {SupMainComponent} from './components/supplier/sup-main/sup-main.component';
 import {SupPostListComponent} from "./components/supplier/sup-post-list/sup-post-list.component";
-import {ProductDetailComponent} from "./components/user/product-detail/product-detail.component";
+import {ProductDetailComponent} from "./components/common/product-detail/product-detail.component";
 import {SearchPostComponent} from "./components/user/search-post/search-post.component";
 import {BuyHeaderComponent} from "./components/buyer/buy-header/buy-header.component";
 import {BuyMainComponent} from "./components/buyer/buy-main/buy-main.component";
 import {BuyOrderListComponent} from "./components/buyer/buy-order-list/buy-order-list.component";
+import {StaffHeaderComponent} from "./components/staff/staff-header/staff-header.component";
+import {StaffMainComponent} from "./components/staff/staff-main/staff-main.component";
+import {StaffPostListComponent} from "./components/staff/staff-post-list/staff-post-list.component";
 
 
 const routing: Routes = [
@@ -44,6 +47,15 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
       {path: 'order-list', component: BuyOrderListComponent}
+    ]
+  },
+  {
+    path: 'staff', component: StaffHeaderComponent,
+    children: [
+      {path: '', redirectTo: 'main', pathMatch: 'full'},
+      {path: 'main', component: StaffMainComponent},
+      {path: 'post-list', component: StaffPostListComponent},
+      {path: 'post-detail/:postId', component: ProductDetailComponent},
     ]
   },
   {
