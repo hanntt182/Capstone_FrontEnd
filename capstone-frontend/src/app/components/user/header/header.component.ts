@@ -4,6 +4,8 @@ import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
 import {CatalogService} from '../../../services/catalog.service';
+import {CommonService} from "../../../services/common.service";
+import {PostService} from "../../../services/post.service";
 
 @Component({
   selector: 'app-header',
@@ -13,11 +15,14 @@ import {CatalogService} from '../../../services/catalog.service';
 export class HeaderComponent implements OnInit {
   public user;
   public catalogs;
+  public posts;
 
   constructor(private constants: Constants,
               private loginService: LoginService,
               private catalogService: CatalogService,
-              private router: Router) {
+              private router: Router,
+              private commonService: CommonService,
+              private postService: PostService) {
   }
 
   ngOnInit() {
@@ -60,5 +65,9 @@ export class HeaderComponent implements OnInit {
 
   chooseCatalog(catalogId) {
     this.router.navigate(['/catalog/' + catalogId]);
+  }
+
+  search(searchForm) {
+    this.router.navigate(['/search/' + searchForm.search]);
   }
 }

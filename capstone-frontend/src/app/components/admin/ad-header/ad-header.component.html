@@ -1,0 +1,72 @@
+<div class="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><b>Electronic Devices Market</b></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="#">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Staff
+          </a>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-right pull-right col-sm-3">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <b>
+              <i class="fa fa-user-circle" aria-hidden="true"></i>
+              <span class="hidden-xs">My Profile</span>
+            </b>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="profile">
+            <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
+            <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
+            <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href=""><i class="fa fa-info-circle" aria-hidden="true"></i> Home</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+
+<router-outlet></router-outlet>
+
+
+
+
+<div class="footer col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
+  <div class="row" >
+    <div class="col-md-3">
+      <h3>About Us</h3>
+      <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>
+    </div>
+    <div class="col-md-3">
+      <h3>My Account</h3>
+      <ul>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#">Wishlist</a></li>
+
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <p><i class="fa fa-home" aria-hidden="true"></i>100 Quang Trung Street , Go Vap District, Ho Chi Minh City.</p>
+      <p><i class="fa fa-phone" aria-hidden="true"></i>+84 123 4567 890 , +1234 777 888</p>
+      <p><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>abc@gmail.com</a></p>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
