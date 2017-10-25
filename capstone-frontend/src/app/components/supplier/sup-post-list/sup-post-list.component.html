@@ -58,7 +58,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let post of posts; let i = index">
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
                       <th scope="row">{{i + 1}}</th>
                       <td>{{post.product.productName}}</td>
                       <td>{{post.minPrice}} - {{post.maxPrice}}</td>

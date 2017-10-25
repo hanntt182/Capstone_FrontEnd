@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Constants} from './../../../constants';
 import {PostService} from "../../../services/post.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sup-post-list',
@@ -16,7 +17,8 @@ export class SupPostListComponent implements OnInit {
   public totalPage: number;
 
   constructor(private constants: Constants,
-              private postService: PostService) {
+              private postService: PostService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -47,6 +49,9 @@ export class SupPostListComponent implements OnInit {
     });
   }
 
-
+  viewPostDetail(postId) {
+    console.log(postId);
+    this.router.navigate(['/supplier/post-detail/' + postId]);
+  }
 
 }

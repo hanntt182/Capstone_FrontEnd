@@ -37,6 +37,7 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: SupMainComponent},
       {path: 'post-list', component: SupPostListComponent},
+      {path: 'post-detail/:postId', component: ProductDetailComponent},
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},
       {path: 'create-post3', component: SupPostCreate3Component}
