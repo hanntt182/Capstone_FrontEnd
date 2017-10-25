@@ -21,6 +21,10 @@ import {StaffPostDetailComponent} from "./components/staff/staff-post-detail/sta
 import {CreateOrderComponent} from "./components/user/create-order/create-order.component";
 import {SupNegoDetailComponent} from "./components/supplier/sup-nego-detail/sup-nego-detail.component";
 import {BuyNegoDetailComponent} from "./components/buyer/buy-nego-detail/buy-nego-detail.component";
+import {AdminRoleGuard} from "./guards/check-role/admin-role.guard";
+import {StaffRoleGuard} from "./guards/check-role/staff-role.guard";
+import {BuyRoleGuard} from "./guards/check-role/buy-role.guard";
+import {SupRoleGuard} from "./guards/check-role/sup-role.guard";
 
 
 const routing: Routes = [
@@ -36,7 +40,7 @@ const routing: Routes = [
     ]
   },
   {
-    path: 'supplier', component: SupHeaderComponent,
+    path: 'supplier', component: SupHeaderComponent, canActivate: [SupRoleGuard],
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: SupMainComponent},
@@ -49,7 +53,7 @@ const routing: Routes = [
     ]
   },
   {
-    path: 'buyer', component: BuyHeaderComponent,
+    path: 'buyer', component: BuyHeaderComponent, canActivate: [BuyRoleGuard],
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
@@ -58,7 +62,7 @@ const routing: Routes = [
     ]
   },
   {
-    path: 'staff', component: StaffHeaderComponent,
+    path: 'staff', component: StaffHeaderComponent, canActivate: [StaffRoleGuard],
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: StaffMainComponent},
@@ -67,7 +71,7 @@ const routing: Routes = [
     ]
   },
   {
-    path: 'admin', component: SupHeaderComponent,
+    path: 'admin', component: SupHeaderComponent, canActivate: [AdminRoleGuard],
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: AdMainComponent}

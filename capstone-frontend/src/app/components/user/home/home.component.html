@@ -1,10 +1,10 @@
 <!--Banner Start-->
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="home" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#home" data-slide-to="0" class="active"></li>
+    <li data-target="#home" data-slide-to="1"></li>
+    <li data-target="#home" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -20,11 +20,11 @@
            style="max-height: 400px;width: 100%">
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+  <a class="carousel-control-prev" href="#home" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#home" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
@@ -33,30 +33,23 @@
 <!--Banner End-->
 
 <!--Category-->
-
+<div style="margin: 20px; padding: 20px">
 <div class="header text-center">
   <h3 class="title"><b>---------- CATEGORIES ----------</b></h3>
 </div>
-<div class="main-content">
+<div class="main-content" style="padding: 10px">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card" style="background:	#D3D3D3">
-          <div class="card-content">
-            <h4 class="card-title text-center">content</h4>
-            <div>
-              <button routerLink="/create-post1">Add product</button>
-              <br><br><br><br><br><br><br><br><br><br>
-
-            </div>
-          </div>
-        </div>
+    <div class="row text-center justify-content-center"><h5>this website .......</h5></div>
+    <div class="row col-sm-12 text-center justify-content-center">
+      <div class="col-sm-2" *ngFor="let catalog of catalogs">
+        <h5>Category</h5>
+        <img src="./../../../../assets/img/tablet-catalog.png" style="height: 150px; width: 150px">
       </div>
 
     </div>
   </div>
 </div>
-
+</div>
 
 <!--Tender-->
 <div class="header text-center">
@@ -100,6 +93,203 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!--List Product-->
+<div class="header text-center">
+  <h3 class="title"><b>---------- sửa sau ----------</b></h3>
+</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <!--<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>-->
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row justify-content-around text-center" style="padding: 20px">
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                      <h4 class="card-title">Card title</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                      <h4 class="card-title">Card title</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                      <h4 class="card-title">Card title</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                      <h4 class="card-title">Card title</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                      <a href="#" class="btn btn-primary">Find Out More!</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+
+              <div class="row justify-content-around" style="padding: 20px">
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="carousel-item">
+
+              <div class="row justify-content-around" style="padding: 20px">
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-center col-sm-3">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <img src="./../../../../assets/img/banner_1"
+                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                    </div>
+                    <div class="col-sm-7">
+                      <h5>Post Titleeeee</h5>
+                      <div class="row">Product Name: aaaa</div>
+                      <div class="row">Supplier: ABC</div>
+                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
+                      <div class="row">Required Quanity: 500</div>
+                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <a style="justify-content: flex-start" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <i class="fa fa-chevron-left fa-2x" aria-hidden="true" style="color: black"></i>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a style="justify-content: flex-end"  class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <i class="fa fa-chevron-right fa-2x" aria-hidden="true" style="color: black"></i>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Constants} from './../../../constants';
+import {CatalogService} from "../../../services/catalog.service";
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public catalogs;
+
+  constructor(private constants: Constants,
+              private catalogService: CatalogService) { }
 
   ngOnInit() {
+    this.catalogService.getCatalogs(this.constants.GETLISTCATALOG).subscribe((response: any) =>{
+      this.catalogs = response;
+    });
   }
 
 }

@@ -64,11 +64,15 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
-                  <img *ngFor="let link of links"
-                       src="{{link}}"
-                       height="80" width="80"
-                       style="border: 1px solid #ddd; background: #f9f9f9;"/>
+                <div class="col-sm-10 row">
+                  <div class="col-sm-2 text-center" *ngFor="let link of links; let i = index">
+                    <img src="{{link}}"
+                         height="80" width="80"
+                         style="border: 1px solid #ddd; background: #f9f9f9;"/>
+                    <label (click)="remove(i)">Remove</label>
+                  </div>
+
+
                 </div>
               </div>
               <div *ngIf="photoError==true" class="form-group row">
@@ -269,7 +273,7 @@
                         <div class="row">
                           <div class="form-group col-sm-4">
                             <!--<input class="form-control" type="text" formControlName="descriptionName">-->
-                            <select class="form-control" formControlName="DescriptionID" required>
+                            <select class="form-control" formControlName="DescriptionID" (change)="checkDupDes($event)" required>
                               <option *ngFor="let description of descriptions; let  i = index" type="number"
                                       value="{{description.descriptionID}}">
                                 {{description.descriptionName}}
@@ -284,9 +288,6 @@
                                (click)="removeDescription(i)">
                             <i class="fa fa-times" aria-hidden="true"></i>
                           </div>
-                          <span class="glyphicon glyphicon-remove pull-right"
-                                *ngIf="formDescription.controls['descriptions'].length > 1"
-                                (click)="removeDescription(i)"></span>
                         </div>
                       </div>
                     </div>

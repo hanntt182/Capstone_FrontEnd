@@ -19,7 +19,7 @@ export class SupPostCreate2Component implements OnInit {
   public photoError: boolean = false;
   public formDescription: FormGroup;
   public descriptions;
-  public descriptionType = 'text';
+  public descriptionChosens;
   public units = ['piece', 'box', 'unit', 'pair'];
   public times = ['day', 'week', 'month', 'year', 'hour'];
   public colors;
@@ -46,6 +46,7 @@ export class SupPostCreate2Component implements OnInit {
 
     this.postService.getListDescription(this.constants.GETLISTDESCRIPTION).subscribe((response: any) => {
       this.descriptions = response;
+      console.log(this.descriptions);
     });
 
     this.postService.getListColor(this.constants.GETLISTCOLOR).subscribe((response: any) => {
@@ -74,10 +75,22 @@ export class SupPostCreate2Component implements OnInit {
     control.removeAt(i);
   }
 
+  checkDupDes(event) {
+    console.log(event.target.value);
+    this.postService.getListDescription(this.constants.GETLISTDESCRIPTION).subscribe((response: any) => {
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].descriptionID == event.target.value) {
+          this.descriptions.splice(i, 1);
+          console.log(this.descriptions);
+        }
+      }
+      console.log(this.descriptions);
+    });
+  }
 
 
   onChange($event) {
-    if (this.images.length > 4 || $event.srcElement.files.length > 5) {
+    if ((this.images.length + $event.srcElement.files.length) > 5) {
       this.photoError = true;
     } else {
       this.photoError = false;
@@ -94,6 +107,11 @@ export class SupPostCreate2Component implements OnInit {
         reader.readAsDataURL(f);
       }
     }
+  }
+
+  remove(index) {
+    this.images.splice(index, 1);
+    this.links.splice(index, 1);
   }
 
 
@@ -133,6 +151,6 @@ export class SupPostCreate2Component implements OnInit {
       console.log(error);
     });
 
-this.router.navigate(['supplier/create-post3'])
+    this.router.navigate(['supplier/create-post3'])
   }
 }
