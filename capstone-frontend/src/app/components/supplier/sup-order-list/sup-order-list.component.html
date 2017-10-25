@@ -25,8 +25,8 @@
                    aria-controls="finished" aria-selected="false" (click)="changePage('FINISHED', '', 1)"> Finished </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="denied-tab" data-toggle="tab" href="#denied" role="tab"
-                   aria-controls="denied" aria-selected="false" (click)="changePage('DENIED', '', 1)"> Denied </a>
+                <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab"
+                   aria-controls="cancel" aria-selected="false" (click)="changePage('CANCEL', '', 1)"> Cancel </a>
               </li>
             </ul>
 
@@ -249,14 +249,14 @@
                   </ul>
                 </nav>
               </div>
-              <div class="tab-pane fade" id="denied" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="tab-pane fade" id="cancel" role="tabpanel" aria-labelledby="contact-tab">
                 <h5></h5>
-                <form #searchDeniedForm="ngForm" class="form-inline">
+                <form #searchCancelForm="ngForm" class="form-inline">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="searchDenied" ngModel>
+                    <input type="text" class="form-control" name="searchCancel" ngModel>
                   </div>
                   <button type="submit" class="btn btn-default"
-                          (click)="changePage('DENIED', searchDeniedForm.value.searchDenied, 1)">Search
+                          (click)="changePage('CANCEL', searchCancelForm.value.searchCancel, 1)">Search
                   </button>
                 </form>
                 <div class="table-responsive">
@@ -289,7 +289,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('DENIED',searchDeniedForm.value, page)">{{page}}</a>
+                         (click)="changePage('CANCEL',searchCancelForm.value, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
