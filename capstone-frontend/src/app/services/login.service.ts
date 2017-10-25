@@ -32,5 +32,9 @@ export class LoginService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  registration(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
 
 }

@@ -48,6 +48,7 @@ import {AdminRoleGuard} from './guards/check-role/admin-role.guard';
 import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
+import { RegisterComponent } from './components/user/register/register.component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
     StaffPostDetailComponent,
     CreateOrderComponent,
     SupNegoDetailComponent,
-    BuyNegoDetailComponent
+    BuyNegoDetailComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

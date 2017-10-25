@@ -25,6 +25,7 @@ import {AdminRoleGuard} from "./guards/check-role/admin-role.guard";
 import {StaffRoleGuard} from "./guards/check-role/staff-role.guard";
 import {BuyRoleGuard} from "./guards/check-role/buy-role.guard";
 import {SupRoleGuard} from "./guards/check-role/sup-role.guard";
+import {RegisterComponent} from "./components/user/register/register.component";
 
 
 const routing: Routes = [
@@ -33,6 +34,7 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
+      {path: 'register', component: RegisterComponent},
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},
       {path: 'search/:searchValue', component: SearchPostComponent},
