@@ -18,6 +18,9 @@ import {StaffHeaderComponent} from "./components/staff/staff-header/staff-header
 import {StaffMainComponent} from "./components/staff/staff-main/staff-main.component";
 import {StaffPostListComponent} from "./components/staff/staff-post-list/staff-post-list.component";
 import {StaffPostDetailComponent} from "./components/staff/staff-post-detail/staff-post-detail.component";
+import {CreateOrderComponent} from "./components/user/create-order/create-order.component";
+import {SupNegoDetailComponent} from "./components/supplier/sup-nego-detail/sup-nego-detail.component";
+import {BuyNegoDetailComponent} from "./components/buyer/buy-nego-detail/buy-nego-detail.component";
 
 
 const routing: Routes = [
@@ -28,7 +31,8 @@ const routing: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},
-      {path: 'search/:searchValue', component: SearchPostComponent}
+      {path: 'search/:searchValue', component: SearchPostComponent},
+      {path: 'create-order', component: CreateOrderComponent}
     ]
   },
   {
@@ -40,7 +44,8 @@ const routing: Routes = [
       {path: 'post-detail/:postId', component: ProductDetailComponent},
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},
-      {path: 'create-post3', component: SupPostCreate3Component}
+      {path: 'create-post3', component: SupPostCreate3Component},
+      {path: 'negotiation', component: SupNegoDetailComponent}
     ]
   },
   {
@@ -48,7 +53,8 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
-      {path: 'order-list', component: BuyOrderListComponent}
+      {path: 'order-list', component: BuyOrderListComponent},
+      {path: 'negotiation', component: BuyNegoDetailComponent}
     ]
   },
   {

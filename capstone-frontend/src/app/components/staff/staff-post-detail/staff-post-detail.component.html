@@ -4,12 +4,15 @@
     <form #reviewForm="ngForm">
       <div class="form-group">
         <label for="review">Review</label>
-        <input type="text" class="form-control" name="review" id="review" aria-describedby="Help" placeholder="Enter review..." ngModel>
+        <input type="text" class="form-control" name="review" id="review" aria-describedby="Help"
+               placeholder="Enter review..." ngModel>
         <small id="Help" class="form-text text-muted">Please fill in this field if you want to review this post.</small>
       </div>
-      <button type="button" class="btn btn-danger" [disabled]="reviewForm.value.review == ''" (click)="reviewPost(reviewForm.value)"> Review </button>
-      <button type="button" class="btn btn-success" (click)="approvePost()"> Approve </button>
-      <button type="button" class="btn btn-secondary" routerLink="/staff/post-list"> Back </button>
+      <button type="button" class="btn btn-danger" [disabled]="reviewForm.value.review == ''"
+              (click)="reviewPost(reviewForm.value)"> Review
+      </button>
+      <button type="button" class="btn btn-success" (click)="approvePost()"> Approve</button>
+      <button type="button" class="btn btn-secondary" routerLink="/staff/post-list"> Back</button>
     </form>
   </div>
 </div>
@@ -69,12 +72,8 @@
                 <button type="button" class="btn btn-outline-info"> Start Order</button>
               </div>
             </div>
-
-
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

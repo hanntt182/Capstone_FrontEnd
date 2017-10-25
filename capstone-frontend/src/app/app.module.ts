@@ -40,6 +40,8 @@ import { AdHeaderComponent } from './components/admin/ad-header/ad-header.compon
 import { StaffPostListComponent } from './components/staff/staff-post-list/staff-post-list.component';
 import { StaffPostDetailComponent } from './components/staff/staff-post-detail/staff-post-detail.component';
 import { CreateOrderComponent } from './components/user/create-order/create-order.component';
+import { SupNegoDetailComponent } from './components/supplier/sup-nego-detail/sup-nego-detail.component';
+import { BuyNegoDetailComponent } from './components/buyer/buy-nego-detail/buy-nego-detail.component';
 
 
 
@@ -68,7 +70,9 @@ import { CreateOrderComponent } from './components/user/create-order/create-orde
     AdHeaderComponent,
     StaffPostListComponent,
     StaffPostDetailComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    SupNegoDetailComponent,
+    BuyNegoDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

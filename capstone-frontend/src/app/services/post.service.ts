@@ -55,4 +55,8 @@ export class PostService {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
+  getListColor(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
+
 }
