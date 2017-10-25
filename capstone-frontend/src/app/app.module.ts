@@ -39,6 +39,7 @@ import { StaffHeaderComponent } from './components/staff/staff-header/staff-head
 import { AdHeaderComponent } from './components/admin/ad-header/ad-header.component';
 import { StaffPostListComponent } from './components/staff/staff-post-list/staff-post-list.component';
 import { StaffPostDetailComponent } from './components/staff/staff-post-detail/staff-post-detail.component';
+import { CreateOrderComponent } from './components/user/create-order/create-order.component';
 
 
 
@@ -66,7 +67,8 @@ import { StaffPostDetailComponent } from './components/staff/staff-post-detail/s
     StaffHeaderComponent,
     AdHeaderComponent,
     StaffPostListComponent,
-    StaffPostDetailComponent
+    StaffPostDetailComponent,
+    CreateOrderComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
