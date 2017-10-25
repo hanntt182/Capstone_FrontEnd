@@ -17,6 +17,7 @@ import {BuyOrderListComponent} from "./components/buyer/buy-order-list/buy-order
 import {StaffHeaderComponent} from "./components/staff/staff-header/staff-header.component";
 import {StaffMainComponent} from "./components/staff/staff-main/staff-main.component";
 import {StaffPostListComponent} from "./components/staff/staff-post-list/staff-post-list.component";
+import {SupOrderListComponent} from "./components/supplier/sup-order-list/sup-order-list.component";
 
 
 const routing: Routes = [
@@ -35,6 +36,7 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: SupMainComponent},
+      {path: 'order-list', component: SupOrderListComponent},
       {path: 'post-list', component: SupPostListComponent},
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},

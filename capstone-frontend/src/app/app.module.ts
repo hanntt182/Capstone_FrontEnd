@@ -38,6 +38,7 @@ import { StaffMainComponent } from './components/staff/staff-main/staff-main.com
 import { StaffHeaderComponent } from './components/staff/staff-header/staff-header.component';
 import { AdHeaderComponent } from './components/admin/ad-header/ad-header.component';
 import { StaffPostListComponent } from './components/staff/staff-post-list/staff-post-list.component';
+import { SupNegotiationComponent } from './sup-negotiation/sup-negotiation.component';
 
 
 
@@ -64,7 +65,8 @@ import { StaffPostListComponent } from './components/staff/staff-post-list/staff
     StaffMainComponent,
     StaffHeaderComponent,
     AdHeaderComponent,
-    StaffPostListComponent
+    StaffPostListComponent,
+    SupNegotiationComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

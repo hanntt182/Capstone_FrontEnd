@@ -8,3 +8,8 @@
 body,html{
   height: 100%;
 }
+.error{
+  padding: 3px;
+  color: red;
+  font-size: small;
+}
