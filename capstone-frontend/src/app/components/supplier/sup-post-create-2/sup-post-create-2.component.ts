@@ -74,13 +74,7 @@ export class SupPostCreate2Component implements OnInit {
     control.removeAt(i);
   }
 
-  onChangeDes(descriptionID) {
-    for (let i = 0; i < this.descriptions.length; i++) {
-      if (this.descriptions[i].descriptionID == descriptionID) {
-        this.descriptionType = this.descriptions[i].descriptionType;
-      }
-    }
-  }
+
 
   onChange($event) {
     if (this.images.length > 4 || $event.srcElement.files.length > 5) {

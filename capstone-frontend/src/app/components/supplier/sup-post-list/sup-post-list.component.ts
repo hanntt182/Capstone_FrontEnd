@@ -50,7 +50,6 @@ export class SupPostListComponent implements OnInit {
   }
 
   viewPostDetail(postId) {
-    console.log(postId);
     this.router.navigate(['/supplier/post-detail/' + postId]);
   }
 

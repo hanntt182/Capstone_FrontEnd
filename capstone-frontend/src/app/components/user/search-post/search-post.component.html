@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row justify-content-center" style="padding: 20px">
-    <div class="card text-center col-sm-4" *ngFor="let post of posts" style="margin: 10px">
+    <div class="card text-center col-sm-4" *ngFor="let post of posts" style="margin: 10px; padding: 10px">
       <div class="row">
         <div class="col-sm-5">
           <img src="{{post.primaryImage}}"
@@ -12,7 +12,7 @@
           <div class="row">Supplier: {{post.supplier.companyName}}</div>
           <div class="row"><b>Price: {{post.minPrice}} - {{post.maxPrice}} / {{post.unit}}</b></div>
           <div class="row">Required Quanity: {{post.minOrderQuantity}}</div>
-          <button type="button" class="btn btn-primary" routerLink="create-order">Order</button>
+          <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
         </div>
       </div>
     </div>

@@ -72,7 +72,6 @@ export class ProductDetailComponent implements OnInit {
         this.establishedYear = response.supplier.establishedYear;
         this.companyEmail = response.supplier.companyEmail;
         this.companyFax = response.supplier.companyFax;
-        console.log(this.post);
       });
     });
   }
