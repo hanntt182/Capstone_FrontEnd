@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Constants } from './../../../constants'
-import {PostService} from "../../../services/post.service";
-import {Router} from "@angular/router";
+import { Constants } from './../../../constants';
+import {PostService} from '../../../services/post.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-staff-post-list',

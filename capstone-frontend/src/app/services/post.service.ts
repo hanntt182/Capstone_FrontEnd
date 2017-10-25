@@ -47,4 +47,12 @@ export class PostService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  approvePost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  reviewPost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
 }

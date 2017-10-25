@@ -17,6 +17,7 @@ import {BuyOrderListComponent} from "./components/buyer/buy-order-list/buy-order
 import {StaffHeaderComponent} from "./components/staff/staff-header/staff-header.component";
 import {StaffMainComponent} from "./components/staff/staff-main/staff-main.component";
 import {StaffPostListComponent} from "./components/staff/staff-post-list/staff-post-list.component";
+import {StaffPostDetailComponent} from "./components/staff/staff-post-detail/staff-post-detail.component";
 
 
 const routing: Routes = [
@@ -55,7 +56,7 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: StaffMainComponent},
       {path: 'post-list', component: StaffPostListComponent},
-      {path: 'post-detail/:postId', component: ProductDetailComponent},
+      {path: 'post-detail/:postId', component: StaffPostDetailComponent}
     ]
   },
   {

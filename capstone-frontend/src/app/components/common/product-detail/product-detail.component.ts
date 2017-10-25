@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostService} from '../../../services/post.service';
-import { Constants} from './../../../constants'
+import { Constants} from './../../../constants';
 
 @Component({
   selector: 'app-product-detail',
