@@ -1,3 +1,229 @@
-<p>
-  sup-nego-detail works!
-</p>
+
+<div class="container-fluid" style="margin-right: auto">
+  <div class="row">
+    <div class="col-8">
+
+      <!--Header-->
+      <div class="row header-wrap">
+        <div class="chat-header col-sm-12">
+          <div class="row" style="margin-top: 10px">
+            <div class="col-1">
+              <img src="../../../../assets/img/fb.jpg" height="50" width="50"/>
+            </div>
+            <div class="col-4" style="margin-top: 10px">
+              <label>Buyer Name: </label>
+              <label>Teo teo</label>
+            </div>
+            <div class="col-4" style="margin-top: 10px">
+              <label>Phone: </label>
+              <label>0202020202</label>
+            </div>
+          </div>
+          <div class="offset-11">
+            <button class="btn btn-link" data-toggle="collapse"
+                    data-parent="#accordion"
+                    data-target="#collapse1" ngModel aria-expanded="true">Show more
+            </button>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-3">
+                        <h5>Basic information</h5>
+                      </div>
+                      <div class="col-4 offset-5">
+                        <h5>Contact Information</h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-2">
+                        <label>Country:</label>
+                      </div>
+                      <div class="col-6" style="text-align: left">
+                        <label>Viet Nam</label>
+                      </div>
+                      <div class="col-2">
+                        <label>Address:</label>
+                      </div>
+                      <div class="col-2">
+                        <label>yayaya</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Messages-->
+      <div class="row content-wrap messages" style="padding-top: 20px">
+        <div class="msg">
+          <div class="media-body">
+            <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
+            <h5 class="media-heading">Walter White</h5>
+            <small class="col-sm-11">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna.
+              Phasellus semper scelerisque purus, et semper nisl lacinia sit amet. Praesent venenatis turpis vitae purus
+              semper, eget sagittis velit venenatis. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+              per inceptos himenaeos...
+            </small>
+          </div>
+        </div>
+        <div class="msg">
+          <div class="media-body">
+            <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
+            <h5 class="media-heading">Walter White</h5>
+            <small class="col-sm-11">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna.
+              Phasellus semper scelerisque purus, et semper nisl lacinia sit amet. Praesent venenatis turpis vitae purus
+              semper, eget sagittis velit venenatis. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+              per inceptos himenaeos...
+            </small>
+          </div>
+        </div>
+        <div class="msg">
+          <div class="media-body">
+            <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
+            <h5 class="media-heading">Walter White</h5>
+            <small class="col-sm-11">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna.
+              Phasellus semper scelerisque purus, et semper nisl lacinia sit amet. Praesent venenatis turpis vitae purus
+              semper, eget sagittis velit venenatis. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+              per inceptos himenaeos...
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!--Message box & Send Button-->
+      <div class="row send-wrap">
+        <div class="send-message">
+          <div class="message-text">
+            <textarea class="no-resize-bar form-control" rows="2" placeholder="Write a message..."></textarea>
+          </div>
+          <div class="send-button">
+            <a class="btn">Send <i class="fa fa-send"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="container">
+        <div class="row">
+          <div class="card container-fluid" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <h5 id="product">Product Details</h5>
+              <div class="form-group row">
+                <div class="col-4">
+                  <img class="img-thumbnail" src="../../../../assets/img/laptop-512.png" height="150" width="150"/>
+                </div>
+                <div class="col-sm-3 col-form-label text-right">
+                  <div>
+                    <label>
+                      Quantity:
+                    </label>
+                  </div>
+                  <div>
+                    <label style="padding-top: 5px">
+                      Unit Price:
+                    </label>
+                  </div>
+                  <hr width="0%"/>
+                  <div style="padding-top: 30px">
+                    <label>
+                      Total Price:
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-5 col-form-label text-left">
+                  <div>
+                    <label>Day la so luong</label>
+                  </div>
+                  <div style="padding-top: 5px">
+                    <label>Day la gia</label>
+                  </div>
+                  <hr/>
+                  <div style="padding-top: 30px">
+                    <label>Day la total</label>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-top: 10px">
+          <div class="card container-fluid" style="background: white">
+            <div class="card-content justify-content-sm-center"
+                 style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+              <h5>Shipping</h5>
+              <div class="form-group row" style="padding-top: 10px">
+                <div class="col-sm-4 col-form-label text-right">
+                  <div>
+                    <label>
+                      Shipping Method:
+                    </label>
+                  </div>
+                  <div>
+                    <label style="padding-top: 25px">
+                      Shipping Address:
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-8 col-form-label text-left">
+                  <div>
+                    <label>phuong thuc giao hang (Air plane, Sea, Train,...)</label>
+                  </div>
+                  <div style="padding-top: 25px">
+                    <label>Dia chi thang Buyer</label>
+                  </div>
+                  <div class="text-right" style="padding-top: 40px">
+                    <label>Shipping Fee:  </label>
+                    <label>200</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div style="padding-top: 10px">
+
+            <div class="row">
+              <div class="col-7">
+                <div style="text-align: right; margin-top: 30px">
+                  <label>Products Amount:</label>
+                </div>
+              </div>
+              <div class="col-5" style="margin-top: 30px">
+                <label>Gia san pham here</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-7">
+                <div class="offset-4" style="text-align: right; margin-top: 20px">
+                  <label>Total Order Amount:</label>
+                </div>
+              </div>
+              <div class="col-5" style="margin-top: 20px">
+                <label>Gia sp + ship</label>
+              </div>
+            </div>
+            <div class="row offset-8" style="padding-top: 20px; padding-bottom: 20px">
+              <div>
+                <input type="submit" value="Confirm" class="btn btn-success">
+              </div>
+              <div style="padding-left: 20px">
+                <input type="submit" value="Cancel" class="btn btn-danger" >
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
