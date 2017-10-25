@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
 <div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
   <div class="container">
     <div class="row">
@@ -11,19 +8,16 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab"
+                <a class="nav-link" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab"
                    aria-controls="waiting" aria-selected="true" (click)="changePage('WAITING', '', 1)"> Waiting </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="requiredEdit-tab" data-toggle="tab" href="#requiredEdit" role="tab"
-                   aria-controls="requiredEdit" aria-selected="false" (click)="changePage('REQUIREDEDIT', '', 1)"> Required Edit </a>
+                   aria-controls="requiredEdit" aria-selected="false" (click)="changePage('REQUIREDEDIT', '', 1)">
+                  Required Edit </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="editing-tab" data-toggle="tab" href="#editing" role="tab"
-                   aria-controls="editing" aria-selected="false" (click)="changePage('EDITING', '', 1)"> Editing </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab"
+                <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab"
                    aria-controls="active" aria-selected="false" (click)="changePage('ACTIVE', '', 1)"> Active </a>
               </li>
               <li class="nav-item">
@@ -37,43 +31,45 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="waiting" role="tabpanel" aria-labelledby="home-tab">
+              <div class="tab-pane fade" id="waiting" role="tabpanel" aria-labelledby="home-tab">
                 <h5></h5>
-                  <form #searchWaitingForm="ngForm" class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="searchWaiting" ngModel>
-                    </div>
-                    <button type="submit" class="btn btn-default"
-                            (click)="changePage('WAITING', searchWaitingForm.value.searchWaiting, 1)">Search
-                    </button>
-                  </form>
-                <table class="table table-responsive table-hover">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let post of posts; let i = index">
-                    <th>{{i + 1}}</th>
-                    <td>{{post.product.productName}}</td>
-                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
-                    <td>{{post.lastUpdatedDay}}</td>
-                    <td>{{post.status.statusName}}</td>
-                    <td>
-                      <button type="button" class="btn btn-info">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        View detail
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <form #searchWaitingForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="searchWaiting" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage('WAITING', searchWaitingForm.value.searchWaiting, 1)">Search
+                  </button>
+                </form>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Last Updated</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{post.product.productName}}</td>
+                      <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                      <td>{{post.lastUpdatedDay}}</td>
+                      <td>{{post.status.statusName}}</td>
+                      <td>
+                        <button type="button" class="btn btn-info">
+                          <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          View detail
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
@@ -91,41 +87,44 @@
               </div>
               <div class="tab-pane fade" id="requiredEdit" role="tabpanel" aria-labelledby="profile-tab">
                 <h5></h5>
-                  <form #searchRequiredEditForm="ngForm" class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="searchRequiredEdit" ngModel>
-                    </div>
-                    <button type="submit" class="btn btn-default"
-                            (click)="changePage('REQUIREDEDIT', searchRequiredEditForm.value.searchRequiredEdit, 1)">Search
-                    </button>
-                  </form>
-                <table class="table table-responsive table-hover">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let post of posts; let i = index">
-                    <th>{{i + 1}}</th>
-                    <td>{{post.product.productName}}</td>
-                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
-                    <td>{{post.lastUpdatedDay}}</td>
-                    <td>{{post.status.statusName}}</td>
-                    <td>
-                      <button type="button" class="btn btn-info">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        View detail
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <form #searchRequiredEditForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="searchRequiredEdit" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage('REQUIREDEDIT', searchRequiredEditForm.value.searchRequiredEdit, 1)">
+                    Search
+                  </button>
+                </form>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Last Updated</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{post.product.productName}}</td>
+                      <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                      <td>{{post.lastUpdatedDay}}</td>
+                      <td>{{post.status.statusName}}</td>
+                      <td>
+                        <button type="button" class="btn btn-info">
+                          <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          View detail
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
@@ -141,43 +140,45 @@
                   </ul>
                 </nav>
               </div>
-              <div class="tab-pane fade" id="active" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="contact-tab">
                 <h5></h5>
-                  <form #searchActiveForm="ngForm" class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="searchActive" ngModel>
-                    </div>
-                    <button type="submit" class="btn btn-default"
-                            (click)="changePage('ACTIVE', searchActiveForm.value.searchActive, 1)">Search
-                    </button>
-                  </form>
-                <table class="table table-responsive table-hover">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let post of posts; let i = index">
-                    <th>{{i + 1}}</th>
-                    <td>{{post.product.productName}}</td>
-                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
-                    <td>{{post.lastUpdatedDay}}</td>
-                    <td>{{post.status.statusName}}</td>
-                    <td>
-                      <button type="button" class="btn btn-info">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        View detail
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <form #searchActiveForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="searchActive" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage('ACTIVE', searchActiveForm.value.searchActive, 1)">Search
+                  </button>
+                </form>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Last Updated</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{post.product.productName}}</td>
+                      <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                      <td>{{post.lastUpdatedDay}}</td>
+                      <td>{{post.status.statusName}}</td>
+                      <td>
+                        <button type="button" class="btn btn-info">
+                          <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          View detail
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
@@ -203,33 +204,28 @@
                           (click)="changePage('SOLDOUT', searchSoldoutForm.value.searchSoldout, 1)">Search
                   </button>
                 </form>
-                <table class="table table-responsive table-hover">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let post of posts; let i = index">
-                    <th>{{i + 1}}</th>
-                    <td>{{post.product.productName}}</td>
-                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
-                    <td>{{post.lastUpdatedDay}}</td>
-                    <td>{{post.status.statusName}}</td>
-                    <td>
-                      <button type="button" class="btn btn-info">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        View detail
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Last Updated</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{post.product.productName}}</td>
+                      <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                      <td>{{post.lastUpdatedDay}}</td>
+                      <td>{{post.status.statusName}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
                     <li class="page-item disabled">
@@ -255,33 +251,28 @@
                           (click)="changePage('CLOSED', searchClosedForm.value.searchClosed, 1)">Search
                   </button>
                 </form>
-                <table class="table table-responsive table-hover">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let post of posts; let i = index">
-                    <th>{{i + 1}}</th>
-                    <td>{{post.product.productName}}</td>
-                    <td>{{post.minPrice}} - {{post.maxPrice}}</td>
-                    <td>{{post.lastUpdatedDay}}</td>
-                    <td>{{post.status.statusName}}</td>
-                    <td>
-                      <button type="button" class="btn btn-info">
-                        <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        View detail
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Last Updated</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let post of posts; let i = index" (click)="viewPostDetail(post.postId)">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{post.product.productName}}</td>
+                      <td>{{post.minPrice}} - {{post.maxPrice}}</td>
+                      <td>{{post.lastUpdatedDay}}</td>
+                      <td>{{post.status.statusName}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
                     <li class="page-item disabled">

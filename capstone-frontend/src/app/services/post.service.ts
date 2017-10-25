@@ -36,7 +36,27 @@ export class PostService {
   }
 
   searchPost(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map(((response: Response) => response.json()));
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  searchPostStaff(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  viewPostDetail(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  approvePost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  reviewPost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  getListColor(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 
 }

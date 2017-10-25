@@ -22,7 +22,7 @@ import { SupHeaderComponent } from './components/supplier/sup-header/sup-header.
 import { AdMainComponent } from './components/admin/ad-main/ad-main.component';
 import { SupMainComponent } from './components/supplier/sup-main/sup-main.component';
 import { SupPostListComponent } from './components/supplier/sup-post-list/sup-post-list.component';
-import { ProductDetailComponent } from './components/user/product-detail/product-detail.component';
+import { ProductDetailComponent } from './components/common/product-detail/product-detail.component';
 import { SearchPostComponent } from './components/user/search-post/search-post.component';
 
 /*Service*/
@@ -37,6 +37,11 @@ import { BuyOrderListComponent } from './components/buyer/buy-order-list/buy-ord
 import { StaffMainComponent } from './components/staff/staff-main/staff-main.component';
 import { StaffHeaderComponent } from './components/staff/staff-header/staff-header.component';
 import { AdHeaderComponent } from './components/admin/ad-header/ad-header.component';
+import { StaffPostListComponent } from './components/staff/staff-post-list/staff-post-list.component';
+import { StaffPostDetailComponent } from './components/staff/staff-post-detail/staff-post-detail.component';
+import { CreateOrderComponent } from './components/user/create-order/create-order.component';
+import { SupNegoDetailComponent } from './components/supplier/sup-nego-detail/sup-nego-detail.component';
+import { BuyNegoDetailComponent } from './components/buyer/buy-nego-detail/buy-nego-detail.component';
 
 
 
@@ -62,7 +67,12 @@ import { AdHeaderComponent } from './components/admin/ad-header/ad-header.compon
     BuyOrderListComponent,
     StaffMainComponent,
     StaffHeaderComponent,
-    AdHeaderComponent
+    AdHeaderComponent,
+    StaffPostListComponent,
+    StaffPostDetailComponent,
+    CreateOrderComponent,
+    SupNegoDetailComponent,
+    BuyNegoDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

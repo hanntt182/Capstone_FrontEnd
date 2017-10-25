@@ -22,6 +22,7 @@ export class SupPostCreate2Component implements OnInit {
   public descriptionType = 'text';
   public units = ['piece', 'box', 'unit', 'pair'];
   public times = ['day', 'week', 'month', 'year', 'hour'];
+  public colors;
 
   constructor(private commonService: CommonService,
               private _fb: FormBuilder,
@@ -45,6 +46,10 @@ export class SupPostCreate2Component implements OnInit {
 
     this.postService.getListDescription(this.constants.GETLISTDESCRIPTION).subscribe((response: any) => {
       this.descriptions = response;
+    });
+
+    this.postService.getListColor(this.constants.GETLISTCOLOR).subscribe((response: any) => {
+      this.colors = response;
     });
   }
 
