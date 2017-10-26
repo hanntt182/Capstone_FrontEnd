@@ -18,7 +18,7 @@
                  style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
               <h5>Basic Information</h5>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Post Title
                   <i class="fa fa-question-circle-o" aria-hidden="true"
                      data-toggle="tooltip" data-placement="right"
@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Product Name
                   <i class="fa fa-question-circle-o" aria-hidden="true"
                      data-toggle="tooltip" data-placement="right" title="Name of product"></i>
@@ -39,7 +39,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Product Photo
                   <i class="fa fa-question-circle-o" aria-hidden="true"
                      data-toggle="tooltip" data-placement="right" title="The standard of making a photo."></i>
@@ -53,8 +53,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right"></label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label text-right"></label>
+                <div class="col-sm-9">
                   <label style="font-weight: normal;font-size: 14px;height: 30px;line-height: 30px;color:#999;">
                     Image file size should be less than 5MB. Supported formats: .jpeg .jpg .png.<br>
                     Recommended image size is more than 640px * 640px. Images should be clear and easy for buyers to
@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
+                <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-10 row">
                   <div class="col-sm-2 text-center" *ngFor="let link of links; let i = index">
                     <img src="{{link}}"
@@ -76,7 +76,7 @@
                 </div>
               </div>
               <div *ngIf="photoError==true" class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
+                <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-8">
                   <div class="alert alert-danger" role="alert" style="height:70%">
                     <small>Only allowed to upload up to 5 files.</small>
@@ -105,7 +105,7 @@
               </div>
               <h5>Products Details</h5>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Brand Name
                 </label>
                 <div class="col-sm-7">
@@ -113,7 +113,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Color
                 </label>
                 <div class="col-sm-2">
@@ -125,7 +125,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Warranty
                 </label>
                 <div class="col-sm-7 form-inline">
@@ -158,10 +158,10 @@
               <h5>Trade Information</h5>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Price
                 </label>
-                <div class="col-sm-10 form-inline">
+                <div class="col-sm-9 form-inline">
                   <input type="text" class="form-control" name="MinPrice" placeholder="Min Price" ngModel>
                   -
                   <input type="text" class="form-control" name="MaxPrice" placeholder="Max Price" ngModel> per
@@ -173,15 +173,15 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right"></label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label text-right"></label>
+                <div class="col-sm-9">
                   <label style="font-weight: normal;font-size: 14px;height: 30px;line-height: 30px;color:#999;">
                     Please include both the amount and type of unit
                   </label>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Min. Order Quantity
                 </label>
                 <div class="col-sm-3">
@@ -209,10 +209,10 @@
               </div>
               <h5>Logistics Information</h5>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Supply Ability
                 </label>
-                <div class="col-sm-10 form-inline">
+                <div class="col-sm-9 form-inline">
                   <input type="number" min="0" class="form-control" name="SupplierAbility" ngModel>
                   <select class="form-control" name="UnitOfTime" ngModel>
                     <option *ngFor="let unit of units"
@@ -227,13 +227,45 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">
+                <label class="col-sm-3 col-form-label text-right">
                   Max Order
                 </label>
                 <div class="col-sm-3">
                   <input type="number" min="0" class="form-control" name="MaxNumberOrder" ngModel>
                 </div>
                 /1 day
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-right">
+                  Estimated shipping time
+                </label>
+                <div class="col-sm-9 form-inline">
+                  Ship at least <input type="number" min="0" class="form-control" name="EstimatedShippingTime" ngModel>
+                  <select class="form-control" name="shippingTime" ngModel>
+                    <option *ngFor="let time of times"
+                            value="{{time}}">{{time}}
+                    </option>
+                  </select> days after supplier received the payment.
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-right">
+                  Estimated delivery time
+                </label>
+                <div class="col-sm-2">
+                  <input type="number" min="0" class="form-control" name="EstimatedDeliveryTimeMin" ngModel>
+                </div>
+                <label> - </label>
+                <div class="col-sm-2">
+                  <input type="number" min="0" class="form-control" name="EstimatedDeliveryTimeMax" ngModel>
+                </div>
+                <div class="col-sm-2">
+                  <select class="form-control" name="deliveryTime" ngModel>
+                    <option *ngFor="let time of times"
+                            value="{{time}}">{{time}}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>

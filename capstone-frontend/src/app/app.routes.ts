@@ -26,6 +26,7 @@ import {StaffRoleGuard} from "./guards/check-role/staff-role.guard";
 import {BuyRoleGuard} from "./guards/check-role/buy-role.guard";
 import {SupRoleGuard} from "./guards/check-role/sup-role.guard";
 import {RegisterComponent} from "./components/user/register/register.component";
+import {SupPostUpdateComponent} from "./sup-post-update/sup-post-update.component";
 
 
 const routing: Routes = [
@@ -51,6 +52,7 @@ const routing: Routes = [
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},
       {path: 'create-post3', component: SupPostCreate3Component},
+      {path: 'update-post', component: SupPostUpdateComponent},
       {path: 'negotiation', component: SupNegoDetailComponent}
     ]
   },
