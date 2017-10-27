@@ -29,6 +29,7 @@ import {RegisterComponent} from "./components/user/register/register.component";
 import {SupPostUpdateComponent} from "./components/supplier/sup-post-update/sup-post-update.component";
 import {CreateOrderGuard} from "./guards/create-order.guard";
 import {SupOrderListComponent} from "./components/supplier/sup-order-list/sup-order-list.component";
+import {SupOrderConfirmComponent} from "./components/supplier/sup-order-confirm/sup-order-confirm.component";
 
 
 const routing: Routes = [
@@ -56,6 +57,7 @@ const routing: Routes = [
       {path: 'create-post3', component: SupPostCreate3Component},
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
       {path: 'order-list', component: SupOrderListComponent},
+      {path: 'order-confirm/:orderId', component: SupOrderConfirmComponent},
       {path: 'negotiation', component: SupNegoDetailComponent}
     ]
   },

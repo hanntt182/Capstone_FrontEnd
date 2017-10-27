@@ -54,6 +54,7 @@ import { CreateOrderGuard } from "./guards/create-order.guard";
 import { OrderService} from "./services/order.service";
 import { StaffOrderListComponent } from './components/staff/staff-order-list/staff-order-list.component';
 import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/sup-order-detail.component';
+import { SupOrderConfirmComponent } from './components/supplier/sup-order-confirm/sup-order-confirm.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/
     RegisterComponent,
     SupPostUpdateComponent,
     StaffOrderListComponent,
-    SupOrderDetailComponent
+    SupOrderDetailComponent,
+    SupOrderConfirmComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

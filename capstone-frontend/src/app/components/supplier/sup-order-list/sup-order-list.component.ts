@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Constants} from './../../../constants';
 import {OrderService} from "../../../services/order.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sup-order-list',
@@ -16,7 +17,8 @@ export class SupOrderListComponent implements OnInit {
   public totalPage: number;
 
   constructor(private constants: Constants,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -38,7 +40,15 @@ export class SupOrderListComponent implements OnInit {
     };
     this.orderService.searchOrderSupplier(this.constants.SEARCHORDERSUPPLIER, data).subscribe((response: any) => {
       this.orders = response.content;
+      this.totalPage = response.totalPages;
+      for (let i = 1; i <= this.totalPage; i++) {
+        this.pages.push(i);
+      }
     });
+  }
+
+  confirmOrder(orderID) {
+    this.router.navigate(['/supplier/order-confirm/' + orderID]);
   }
 
 }

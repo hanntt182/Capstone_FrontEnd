@@ -22,4 +22,16 @@ export class OrderService {
   searchOrderSupplier(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
+
+  searchOrderBuyer(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  searchOrder(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  confirmOrder(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
 }
