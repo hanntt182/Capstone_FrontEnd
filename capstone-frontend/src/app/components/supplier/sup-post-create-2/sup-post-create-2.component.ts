@@ -3,7 +3,7 @@ import {CommonService} from '../../../services/common.service';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Constants} from './../../../constants';
 import {PostService} from '../../../services/post.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sup-post-create-2',
@@ -12,17 +12,19 @@ import {Router} from "@angular/router";
 })
 export class SupPostCreate2Component implements OnInit {
   public user;
-  public post;
+  public catalogID;
   public PostID;
   public images = [];
   public links = [];
   public photoError: boolean = false;
   public formDescription: FormGroup;
   public descriptions;
-  public descriptionChosens;
+  public allDescriptionValue;
   public units = ['piece', 'box', 'unit', 'pair'];
   public times = ['day', 'week', 'month', 'year', 'hour'];
   public colors;
+  public feeShips;
+  public zoneName;
 
   constructor(private commonService: CommonService,
               private _fb: FormBuilder,
@@ -36,7 +38,7 @@ export class SupPostCreate2Component implements OnInit {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    this.post = this.commonService.getPost();
+    this.catalogID = this.commonService.getCatalogID();
 
     this.formDescription = this._fb.group({
       descriptions: this._fb.array([
@@ -46,11 +48,16 @@ export class SupPostCreate2Component implements OnInit {
 
     this.postService.getListDescription(this.constants.GETLISTDESCRIPTION).subscribe((response: any) => {
       this.descriptions = response;
-      console.log(this.descriptions);
     });
 
     this.postService.getListColor(this.constants.GETLISTCOLOR).subscribe((response: any) => {
       this.colors = response;
+    });
+
+    this.postService.getListZone(this.constants.GETLISTZONE).subscribe((response: any) => {
+      this.feeShips = response;
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -73,19 +80,6 @@ export class SupPostCreate2Component implements OnInit {
     // remove description from the list
     const control = <FormArray>this.formDescription.controls['descriptions'];
     control.removeAt(i);
-  }
-
-  checkDupDes(event) {
-    console.log(event.target.value);
-    this.postService.getListDescription(this.constants.GETLISTDESCRIPTION).subscribe((response: any) => {
-      for (let i = 0; i < response.length; i++) {
-        if (response[i].descriptionID == event.target.value) {
-          this.descriptions.splice(i, 1);
-          console.log(this.descriptions);
-        }
-      }
-      console.log(this.descriptions);
-    });
   }
 
 
@@ -121,7 +115,7 @@ export class SupPostCreate2Component implements OnInit {
     formData.append('PostTitle', createPost2Form.PostTitle);
     formData.append('ProductName', createPost2Form.ProductName);
     formData.append('BrandName', createPost2Form.BrandName);
-    formData.append('CatalogID', this.post.CatalogID);
+    formData.append('CatalogID', this.catalogID);
     formData.append('PrimaryImage', this.images[0]);
     formData.append('MinOrderQuantity', createPost2Form.MinOrderQuantity);
     formData.append('MinPrice', createPost2Form.MinPrice);
@@ -129,15 +123,25 @@ export class SupPostCreate2Component implements OnInit {
     formData.append('Unit', createPost2Form.UnitOfPrice);
     formData.append('MaxNumberOrder', createPost2Form.MaxNumberOrder);
     formData.append('SupplierAbility', createPost2Form.SupplierAbility + ' ' + createPost2Form.UnitOfTime + '/' + createPost2Form.Time);
-    formData.append('Color', createPost2Form.Color);
+    formData.append('ColorID', createPost2Form.Color);
     formData.append('Warranty', createPost2Form.Warranty + ' ' + createPost2Form.TimeOfWaranty);
-    formData.append('ExtraImage', this.images[1]);
-    formData.append('ExtraImage', this.images[2]);
-    formData.append('ExtraImage', this.images[3]);
-    formData.append('ExtraImage', this.images[4]);
+    for (let i = 1; i < this.images.length; i++) {
+      formData.append('ExtraImage', this.images[i]);
+    }
+    formData.append('EstimatedShippingTime', 'Ship at least ' + createPost2Form.EstimatedShippingTime
+    + createPost2Form.shippingTime + '(s) after supplier received the payment.');
+    formData.append('EstimatedDeliveryTime', createPost2Form.EstimatedDeliveryTimeMin
+    + createPost2Form.EstimatedDeliveryTimeMax + ' ' + createPost2Form.deliveryTime + '(s)');
+    formData.append('ZonePrice',  '1-' + createPost2Form.Extramural);
+    formData.append('ZonePrice',  '2-' + createPost2Form.Intramural);
+    for (let i = 0; i < formDescription.value.descriptions.length; i++) {
+      formData.append('Description', formDescription.value.descriptions[i].DescriptionID
+        + '-' + formDescription.value.descriptions[i].DescriptionValue);
+    }
 
     this.postService.createPost(this.constants.CREATEPOST, formData).subscribe((response: any) => {
-      this.PostID = response;
+      alert(response);
+      /*this.PostID = response;
       let data = {
         'PostID': Number(this.PostID),
         'Descriptions': formDescription.value.descriptions
@@ -146,11 +150,12 @@ export class SupPostCreate2Component implements OnInit {
         console.log(response1);
       }, error => {
         console.log(error);
-      });
+      });*/
     }, error => {
       console.log(error);
     });
+    this.router.navigate(['supplier/create-post3']);
 
-    this.router.navigate(['supplier/create-post3'])
+
   }
 }

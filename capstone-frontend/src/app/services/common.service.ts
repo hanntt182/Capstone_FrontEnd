@@ -7,6 +7,7 @@ export class CommonService {
   public Post: Post;
   public BrandID;
   public searchValue;
+  public catalogID;
 
 
   constructor() {
@@ -30,6 +31,14 @@ export class CommonService {
 
   getBrandID() {
     return this.BrandID;
+  }
+
+  setCatalogID(data) {
+    this.catalogID = data;
+  }
+
+  getCatalogID() {
+    return this.catalogID;
   }
 
   setSearchValue(data) {

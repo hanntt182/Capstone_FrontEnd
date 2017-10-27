@@ -26,7 +26,9 @@ import {StaffRoleGuard} from "./guards/check-role/staff-role.guard";
 import {BuyRoleGuard} from "./guards/check-role/buy-role.guard";
 import {SupRoleGuard} from "./guards/check-role/sup-role.guard";
 import {RegisterComponent} from "./components/user/register/register.component";
-import {SupPostUpdateComponent} from "./sup-post-update/sup-post-update.component";
+import {SupPostUpdateComponent} from "./components/supplier/sup-post-update/sup-post-update.component";
+import {CreateOrderGuard} from "./guards/create-order.guard";
+import {SupOrderListComponent} from "./components/supplier/sup-order-list/sup-order-list.component";
 
 
 const routing: Routes = [
@@ -39,7 +41,7 @@ const routing: Routes = [
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},
       {path: 'search/:searchValue', component: SearchPostComponent},
-      {path: 'create-order', component: CreateOrderComponent}
+      {path: 'create-order/:postID', component: CreateOrderComponent, canActivate: [CreateOrderGuard]}
     ]
   },
   {
@@ -52,7 +54,8 @@ const routing: Routes = [
       {path: 'create-post1', component: SupPostCreate1Component},
       {path: 'create-post2', component: SupPostCreate2Component},
       {path: 'create-post3', component: SupPostCreate3Component},
-      {path: 'update-post', component: SupPostUpdateComponent},
+      {path: 'update-post/:postId', component: SupPostUpdateComponent},
+      {path: 'order-list', component: SupOrderListComponent},
       {path: 'negotiation', component: SupNegoDetailComponent}
     ]
   },

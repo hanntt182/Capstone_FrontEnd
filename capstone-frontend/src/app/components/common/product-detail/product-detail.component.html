@@ -11,7 +11,7 @@
                    onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';">
             </div>
             <div class="row justify-content-center">
-              <img src="{{mainImage}}"
+              <img src="{{primaryImage}}"
                    (mouseover)="setImage($event)"
                    height="80" width="80" style="border: 1px solid #ddd;"
                    onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
@@ -50,7 +50,7 @@
               <div class="row col-sm-12 justify-content-center" style="padding: 30px">
                 <button type="button" class="btn btn-info">Contact Supplier</button>
                 <label class="col-sm-1"></label>
-                <button type="button" class="btn btn-outline-info"> Start Order</button>
+                <button type="button" class="btn btn-outline-info" (click)="createOrder(postId)"> Start Order</button>
               </div>
             </div>
 

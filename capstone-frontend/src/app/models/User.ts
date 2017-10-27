@@ -5,6 +5,7 @@ export class User {
   username;
   status;
   role;
+  address;
 
   constructor(data: any) {
     if (data) {
@@ -13,6 +14,7 @@ export class User {
       this.username = data.username;
       this.status = data.status;
       this.role = data.role;
+      this.address = data.address;
     }
   }
 }

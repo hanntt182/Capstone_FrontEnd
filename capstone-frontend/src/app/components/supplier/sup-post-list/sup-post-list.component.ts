@@ -53,4 +53,8 @@ export class SupPostListComponent implements OnInit {
     this.router.navigate(['/supplier/post-detail/' + postId]);
   }
 
+  updatePost(postId){
+    this.router.navigate(['/supplier/update-post/' + postId]);
+  }
+
 }

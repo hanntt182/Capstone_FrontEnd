@@ -77,7 +77,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('WAITING',searchApprovedForm.value, page)">{{page}}</a>
+                         (click)="changePage('WAITING',searchWaitingForm.value.searchWaiting, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -116,9 +116,9 @@
                       <td>{{post.lastUpdatedDay}}</td>
                       <td>{{post.status.statusName}}</td>
                       <td>
-                        <button type="button" class="btn btn-info">
+                        <button type="button" class="btn btn-info" (click)="updatePost(post.postId)">
                           <i class="fa fa-info-circle" aria-hidden="true"></i>
-                          View detail
+                          Update
                         </button>
                       </td>
                     </tr>
@@ -132,7 +132,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('REQUIREDEDIT',searchEditingForm.value, page)">{{page}}</a>
+                         (click)="changePage('REQUIREDEDIT',searchRequiredEditForm.value.searchRequiredEdit, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -186,7 +186,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('ACTIVE',searchPendingForm.value, page)">{{page}}</a>
+                         (click)="changePage('ACTIVE',searchActiveForm.value.searchActive, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -233,7 +233,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('SOLDOUT',searchPendingForm.value, page)">{{page}}</a>
+                         (click)="changePage('SOLDOUT',searchSoldoutForm.value.searchSoldout, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -280,7 +280,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage('CLOSED',searchPendingForm.value, page)">{{page}}</a>
+                         (click)="changePage('CLOSED',searchClosedForm.value.searchClosed, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>

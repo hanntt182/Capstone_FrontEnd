@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {CatalogService} from "../../../services/catalog.service";
 import {Constants} from './../../../constants';
 import {PostService} from "../../../services/post.service";
@@ -23,7 +23,8 @@ export class BrandsListComponent implements OnInit {
               private catalogService: CatalogService,
               private constants: Constants,
               private postService: PostService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -34,7 +35,6 @@ export class BrandsListComponent implements OnInit {
         for (let i = 0; i < this.catalogs.length; i++) {
           if (this.catalogs[i].catalogId == this.catalogId) {
             this.brands = this.catalogs[i].brands;
-            console.log(this.brands);
             this.showListPost(this.brands[0].brandId, this.innitialPage);
           }
         }
@@ -42,6 +42,10 @@ export class BrandsListComponent implements OnInit {
         console.log(error);
       });
     });
+  }
+
+  createOrder(postID){
+    this.router.navigate(['/create-order/' + postID]);
   }
 
   changePage(page) {
@@ -57,10 +61,8 @@ export class BrandsListComponent implements OnInit {
       'CatalogID': this.catalogId,
       'pageNumber': pageNumber
     };
-    console.log(data);
     this.postService.getListPost(this.constants.GETLISTPOST, data).subscribe((response: any) => {
       this.posts = response.content;
-      console.log(this.posts);
       this.totalPage = response.totalPages;
       for (let i = 1; i <= this.totalPage; i++) {
         this.pages.push(i);

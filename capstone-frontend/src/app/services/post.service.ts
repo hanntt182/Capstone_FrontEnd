@@ -15,17 +15,17 @@ export class PostService {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 
-  createPostDescription(apiUrl, data): Observable<any> {
+  /*createPostDescription(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
+  }*/
 
   createPost(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
-  getListPostSupplier(apiUrl, data): Observable<any> {
+  /*getListPostSupplier(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
-  }
+  }*/
 
   searchPostSupplier(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
@@ -56,6 +56,10 @@ export class PostService {
   }
 
   getListColor(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
+
+  getListZone(apiUrl): Observable<any> {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 

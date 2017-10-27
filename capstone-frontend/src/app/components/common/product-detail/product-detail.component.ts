@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import { Constants} from './../../../constants';
 
@@ -35,10 +35,12 @@ export class ProductDetailComponent implements OnInit {
   public establishedYear;
   public companyEmail;
   public companyFax;
+  public primaryImage;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
-              private constants: Constants) {
+              private constants: Constants,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -72,11 +74,16 @@ export class ProductDetailComponent implements OnInit {
         this.establishedYear = response.supplier.establishedYear;
         this.companyEmail = response.supplier.companyEmail;
         this.companyFax = response.supplier.companyFax;
+        this.primaryImage = response.primaryImage;
       });
     });
   }
 
   setImage($event) {
     this.mainImage = $event.target.src;
+  }
+
+  createOrder(postId) {
+    this.router.navigate(['/create-order/' + postId]);
   }
 }

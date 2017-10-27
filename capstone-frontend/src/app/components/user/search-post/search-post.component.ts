@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PostService} from '../../../services/post.service';
 import {Constants} from './../../../constants';
 import {CommonService} from '../../../services/common.service';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {post} from "selenium-webdriver/http";
 
 @Component({
@@ -17,11 +17,13 @@ export class SearchPostComponent implements OnInit {
   public pages: any[] = [1];
   public totalPage: number;
   public searchValue;
+  public post;
 
   constructor(private postService: PostService,
               private constants: Constants,
               private commonService: CommonService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -42,7 +44,6 @@ export class SearchPostComponent implements OnInit {
     };
     this.postService.searchPost(this.constants.SEARCHPOST, data).subscribe((response: any) => {
       this.posts = response.content;
-      console.log(this.posts);
       this.totalPage = response.totalPages;
       for (let i = 1; i <= this.totalPage; i++) {
         this.pages.push(i);
@@ -50,6 +51,10 @@ export class SearchPostComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  createOrder(postID) {
+    this.router.navigate(['/create-order/' + postID]);
   }
 
 }

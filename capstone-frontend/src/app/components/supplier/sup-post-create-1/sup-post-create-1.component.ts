@@ -23,11 +23,8 @@ public catalogs;
   }
 
   changeToCreate2(createPost1Form) {
-    console.log(createPost1Form);
-    let data = {
-      CatalogID: createPost1Form.catalog
-    };
-    this.commonService.setPost(data);
+    let data = createPost1Form.catalog;
+    this.commonService.setCatalogID(data);
     this.router.navigate(['supplier/create-post2']);
   }
 

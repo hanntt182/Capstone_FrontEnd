@@ -49,7 +49,11 @@ import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import { RegisterComponent } from './components/user/register/register.component';
-import { SupPostUpdateComponent } from './sup-post-update/sup-post-update.component';
+import { SupPostUpdateComponent } from './components/supplier/sup-post-update/sup-post-update.component';
+import { CreateOrderGuard } from "./guards/create-order.guard";
+import { OrderService} from "./services/order.service";
+import { StaffOrderListComponent } from './components/staff/staff-order-list/staff-order-list.component';
+import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/sup-order-detail.component';
 
 
 @NgModule({
@@ -80,7 +84,9 @@ import { SupPostUpdateComponent } from './sup-post-update/sup-post-update.compon
     SupNegoDetailComponent,
     BuyNegoDetailComponent,
     RegisterComponent,
-    SupPostUpdateComponent
+    SupPostUpdateComponent,
+    StaffOrderListComponent,
+    SupOrderDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
@@ -89,7 +95,7 @@ import { SupPostUpdateComponent } from './sup-post-update/sup-post-update.compon
     ImageZoomModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
-    StaffRoleGuard, SupRoleGuard, BuyRoleGuard],
+    StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
