@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Post} from "../models/Post";
+import {Order} from "../models/Order";
 
 
 @Injectable()
 export class CommonService {
-  public Post: Post;
+  public Post;
   public BrandID;
   public searchValue;
   public catalogID;
+  public order;
 
 
   constructor() {
@@ -15,6 +17,14 @@ export class CommonService {
 
   showLoginForm() {
     document.getElementById('openModalButton').click();
+  }
+
+  setOrder(data) {
+    this.order = new Order(data);
+  }
+
+  getOrder() {
+    return this.order;
   }
 
   setPost(data) {

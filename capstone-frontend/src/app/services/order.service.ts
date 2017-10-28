@@ -34,4 +34,20 @@ export class OrderService {
   confirmOrder(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
+
+  viewOrderDetail(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  paymentBuyer(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  confirmShipping(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  cancleOrder(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
 }

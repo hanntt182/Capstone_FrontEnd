@@ -8,7 +8,7 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="auditing-tab" data-toggle="tab" href="#success" role="tab"
+                <a class="nav-link active" id="auditing-tab" data-toggle="tab" href="#success" role="tab"
                    aria-controls="shipping" aria-selected="false" (click)="changePage('SUCCESS', '', 1)">
                   Success </a>
               </li>
@@ -51,11 +51,11 @@
                 </div>
 
                 <div class="table-responsive" *ngFor="let order of orders" >
-                  <table class="table" style="border: solid 1px #e9ecef">
+                  <table class="table hvr-glow" style="border: solid 1px #e9ecef">
                     <thead style="background-color: #e9ecef">
                     <tr>
                       <th scope="col" style="width: 400px"><small>Order No. {{order.orderID}}</small></th>
-                      <th scope="col" style="width: 250px"><small class="col-sm-2">{{order.createdDay}}</small></th>
+                      <th scope="col" style="width: 250px"><small>{{order.createdDay}}</small></th>
                       <th scope="col" style="width: 200px"><small></small></th>
                       <th scope="col"><small></small></th>
                     </tr>
@@ -68,15 +68,29 @@
                         <img src="{{order.post.primaryImage}}" style="max-width: 100px;max-height: 100px">
                       </td>
                       <td style="width: 250px">
-                        <small class="col-sm-2"> Product Amount </small><small class="col-sm-2">{{order.productPrice}}</small><br>
-                        <small class="col-sm-2"> Shipping Fee </small><small class="col-sm-2">{{order.shipPrice}}</small><br>
-                        <small class="col-sm-2"> Order Amount </small> <small class="col-sm-2" style="color: orangered"> {{order.totalPrice}}</small>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Product Amount </small></div>
+                          <div class="col-sm-5"><small>{{order.productPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Shipping Fee </small></div>
+                          <div class="col-sm-5"><small>{{order.shipPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Order Amount </small></div>
+                          <div class="col-sm-5"><small style="color: orangered"> {{order.totalPrice}}</small></div>
+                        </div>
                       </td>
                       <td style="width: 200px">{{order.status.statusName}}</td>
                       <td>
                         <i class="fa fa-info-circle" aria-hidden="true"
                            data-toggle="tooltip" data-placement="right"
-                           title="View detail" style="color: #2f96b4; font-size: 25px"></i>
+                           title="View detail" style="color: #2f96b4; font-size: 25px"
+                           (click)="viewOrderDetail(order.orderID)"></i>
+                        <i class="fa fa-check-circle" aria-hidden="true"
+                           data-toggle="tooltip" data-placement="right"
+                           title="Confirm this order" style="color: #2f96b4; font-size: 25px"
+                           (click)="confirmOrder(order.orderID)"></i>
                       </td>
                     </tr>
                     </tbody>
@@ -127,11 +141,11 @@
                 </div>
 
                 <div class="table-responsive" *ngFor="let order of orders" >
-                  <table class="table" style="border: solid 1px #e9ecef">
+                  <table class="table hvr-glow" style="border: solid 1px #e9ecef">
                     <thead style="background-color: #e9ecef">
                     <tr>
                       <th scope="col" style="width: 400px"><small>Order No. {{order.orderID}}</small></th>
-                      <th scope="col" style="width: 250px"><small class="col-sm-2">{{order.createdDay}}</small></th>
+                      <th scope="col" style="width: 250px"><small>{{order.createdDay}}</small></th>
                       <th scope="col" style="width: 200px"><small></small></th>
                       <th scope="col"><small></small></th>
                     </tr>
@@ -144,15 +158,29 @@
                         <img src="{{order.post.primaryImage}}" style="max-width: 100px;max-height: 100px">
                       </td>
                       <td style="width: 250px">
-                        <small class="col-sm-2"> Product Amount </small><small class="col-sm-2">{{order.productPrice}}</small><br>
-                        <small class="col-sm-2"> Shipping Fee </small><small class="col-sm-2">{{order.shipPrice}}</small><br>
-                        <small class="col-sm-2"> Order Amount </small> <small class="col-sm-2" style="color: orangered"> {{order.totalPrice}}</small>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Product Amount </small></div>
+                          <div class="col-sm-5"><small>{{order.productPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Shipping Fee </small></div>
+                          <div class="col-sm-5"><small>{{order.shipPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Order Amount </small></div>
+                          <div class="col-sm-5"><small style="color: orangered"> {{order.totalPrice}}</small></div>
+                        </div>
                       </td>
                       <td style="width: 200px">{{order.status.statusName}}</td>
                       <td>
                         <i class="fa fa-info-circle" aria-hidden="true"
                            data-toggle="tooltip" data-placement="right"
-                           title="View detail" style="color: #2f96b4; font-size: 25px"></i>
+                           title="View detail" style="color: #2f96b4; font-size: 25px"
+                           (click)="viewOrderDetail(order.orderID)"></i>
+                        <i class="fa fa-check-circle" aria-hidden="true"
+                           data-toggle="tooltip" data-placement="right"
+                           title="Confirm this order" style="color: #2f96b4; font-size: 25px"
+                           (click)="confirmOrder(order.orderID)"></i>
                       </td>
                     </tr>
                     </tbody>
@@ -202,11 +230,11 @@
                 </div>
 
                 <div class="table-responsive" *ngFor="let order of orders" >
-                  <table class="table" style="border: solid 1px #e9ecef">
+                  <table class="table hvr-glow" style="border: solid 1px #e9ecef">
                     <thead style="background-color: #e9ecef">
                     <tr>
                       <th scope="col" style="width: 400px"><small>Order No. {{order.orderID}}</small></th>
-                      <th scope="col" style="width: 250px"><small class="col-sm-2">{{order.createdDay}}</small></th>
+                      <th scope="col" style="width: 250px"><small>{{order.createdDay}}</small></th>
                       <th scope="col" style="width: 200px"><small></small></th>
                       <th scope="col"><small></small></th>
                     </tr>
@@ -219,15 +247,29 @@
                         <img src="{{order.post.primaryImage}}" style="max-width: 100px;max-height: 100px">
                       </td>
                       <td style="width: 250px">
-                        <small class="col-sm-2"> Product Amount </small><small class="col-sm-2">{{order.productPrice}}</small><br>
-                        <small class="col-sm-2"> Shipping Fee </small><small class="col-sm-2">{{order.shipPrice}}</small><br>
-                        <small class="col-sm-2"> Order Amount </small> <small class="col-sm-2" style="color: orangered"> {{order.totalPrice}}</small>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Product Amount </small></div>
+                          <div class="col-sm-5"><small>{{order.productPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Shipping Fee </small></div>
+                          <div class="col-sm-5"><small>{{order.shipPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Order Amount </small></div>
+                          <div class="col-sm-5"><small style="color: orangered"> {{order.totalPrice}}</small></div>
+                        </div>
                       </td>
                       <td style="width: 200px">{{order.status.statusName}}</td>
                       <td>
                         <i class="fa fa-info-circle" aria-hidden="true"
                            data-toggle="tooltip" data-placement="right"
-                           title="View detail" style="color: #2f96b4; font-size: 25px"></i>
+                           title="View detail" style="color: #2f96b4; font-size: 25px"
+                           (click)="viewOrderDetail(order.orderID)"></i>
+                        <i class="fa fa-check-circle" aria-hidden="true"
+                           data-toggle="tooltip" data-placement="right"
+                           title="Confirm this order" style="color: #2f96b4; font-size: 25px"
+                           (click)="confirmOrder(order.orderID)"></i>
                       </td>
                     </tr>
                     </tbody>

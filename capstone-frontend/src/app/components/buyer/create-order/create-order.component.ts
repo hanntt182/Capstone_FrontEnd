@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../services/common.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
-import {Constants} from './../../../constants';
+import {Constants} from '../../../constants';
 import {OrderService} from "../../../services/order.service";
 
 @Component({

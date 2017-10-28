@@ -1,3 +1,183 @@
-<p>
-  sup-order-detail works!
-</p>
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="col-md-12">
+    <div class="card" style="background: white">
+      <div class="card-content"
+           style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+
+        <div class="row col-sm-12">
+          <h4>Order Details</h4>
+        </div>
+
+        <div class="row" style="background-color: #F2F3F7; margin: 20px; padding: 20px">
+          <div class="row col-sm-12">
+            <small class="col-sm-4">Order No. {{order?.orderID}}</small>
+            <small class="col-sm-4">Order Date {{order?.createdDay}}</small>
+          </div>
+          <div class="row col-sm-12" style="margin-top: 10px">
+            <div class="col-sm-6" style="border-right: solid 1px grey">
+              <div class="row col-sm-10"><h5>Supplier</h5></div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <img src="{{order?.post.supplier.companyLogo}}"
+                       style="width: 70px; height: 70px">
+                </div>
+                <div class="col-sm-9">
+                  <b>{{order?.post.supplier.companyName}}</b><br>
+                  Contact Name: {{order?.post.supplier.username}}<br>
+                  Company Address: {{order?.post.supplier.companyAddress}}<br>
+                  Company Tel: {{order?.post.supplier.companyPhone}} <br>
+                  Company Email: {{order?.post.supplier.companyPhone.companyEmail}}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row col-sm-10" ><h5>Buyer</h5></div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <b>{{order?.buyer.username}}</b><br>
+                  Contact Name: {{order?.buyer.username}}<br>
+                  Address: {{order?.buyer.address[0].address}} <br>
+                  Tel: {{order?.buyer.phone}} <br>
+                  Email: {{order?.buyer.email}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row col-sm-12">
+          <h5>Product Details</h5>
+        </div>
+
+        <div class="row" style=" margin: 20px;">
+          <table class="table table-bordered" style="border: solid 1px #E6E7EB;">
+            <thead style="background-color: #F2F3F7">
+            <tr>
+              <td scope="col">Product Name</td>
+              <td scope="col">Quantity</td>
+              <td scope="col">Unit</td>
+              <td scope="col">Unit Price</td>
+              <td scope="col">Amount</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td scope="row">{{order?.post.product.productName}}</td>
+              <td>{{order?.quantity}}</td>
+              <td>{{order?.post.unit}}</td>
+              <td>{{order?.offerPrice}}</td>
+              <td>{{order?.productPrice}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row col-sm-12">
+          <h5>Shipping</h5>
+        </div>
+
+        <div class="row" style=" margin: 20px;">
+          <table class="table table-bordered" style="border: solid 1px #E6E7EB;margin: 0px;padding: 0px">
+            <thead style="background-color: #F2F3F7">
+            <tr>
+              <td scope="col">Shipping Method</td>
+              <td scope="col">Estimated Shipping Time</td>
+              <td scope="col">Estimated Delivery Time</td>
+              <td scope="col">Shipping Fee</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td scope="row">{{order?.address.city.zone.zoneName}}</td>
+              <td *ngIf="order?.post.estimatedShippingTime!=''">{{order?.post.estimatedShippingTime}}</td>
+              <td *ngIf="order?.post.estimatedShippingTime==''">No information</td>
+              <td *ngIf="order?.post.estimatedDeliveryTime!=''">{{order?.post.estimatedDeliveryTime}}</td>
+              <td *ngIf="order?.post.estimatedDeliveryTime==''">No information</td>
+              <td>{{order?.shipPrice}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table table-bordered" style="border: solid 1px #E6E7EB; margin-top: -1px">
+            <thead style="background-color: #F2F3F7">
+            <tr>
+              <td scope="col">Shipping Address</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td scope="row">{{order?.address.address}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row col-sm-12">
+          <h5>Additional Remarks</h5>
+        </div>
+
+        <div class="row" style="border: solid 1px #E6E7EB; height: 100px; margin: 20px; padding: 20px">
+          {{order?.requiredContent}}
+        </div>
+
+        <div class="row col-sm-12">
+          <h5>Payment Details</h5>
+        </div>
+
+        <div class="row" style=" margin: 20px;">
+          <table class="table table-bordered" style="border: solid 1px #E6E7EB;">
+            <thead style="background-color: #F2F3F7">
+            <tr>
+              <td scope="col">Available payment method for the order</td>
+              <td scope="col">Total Order Amount</td>
+              <td scope="col">Payment Status</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td scope="row"></td>
+              <td>{{order?.totalPrice}}</td>
+              <td *ngIf="order?.paid==true"><b class="text-success">PAID</b></td>
+              <td *ngIf="order?.paid==false"><b class="text-danger">UNPAID</b></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div *ngIf="order?.status.statusName=='WAITING'" class="card" style="background: white; margin-top: 20px; margin-bottom: 20px">
+      <div class="card-content"
+           style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+        <div class="row text-center justify-content-center">
+          <div class="row col-sm-12">
+            <h5>Shipping Time</h5>
+          </div>
+          <form #confirmOrderForm="ngForm">
+            <div class="form-group form-inline">
+              <label style="padding-right: 10px">Ship at least</label>
+              <input type="text" class="form-control" name="shippingTime" ngModel>
+              <label style="padding-left: 10px">days after supplier received the payment.</label>
+            </div>
+            <small style="margin: 10px" class="form-text text-muted">Please fill in delivery time to confirm this
+              order.
+            </small>
+            <button type="button" class="btn btn-success"
+                    (click)="confirmOrder(confirmOrderForm.value)">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Confirm Order
+            </button>
+            <button type="button" class="btn btn-danger"
+                    (click)="cancelOrder()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cancel Order</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

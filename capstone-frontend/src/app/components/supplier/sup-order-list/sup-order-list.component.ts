@@ -47,8 +47,9 @@ export class SupOrderListComponent implements OnInit {
     });
   }
 
-  confirmOrder(orderID) {
-    this.router.navigate(['/supplier/order-confirm/' + orderID]);
+
+  viewOrderDetail(orderID) {
+    this.router.navigate(['/supplier/order-detail/' + orderID]);
   }
 
 }

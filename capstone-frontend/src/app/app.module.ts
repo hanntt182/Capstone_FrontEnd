@@ -24,12 +24,10 @@ import {SupMainComponent} from './components/supplier/sup-main/sup-main.componen
 import {SupPostListComponent} from './components/supplier/sup-post-list/sup-post-list.component';
 import {ProductDetailComponent} from './components/common/product-detail/product-detail.component';
 import {SearchPostComponent} from './components/user/search-post/search-post.component';
-
-/*Service*/
-import {LoginService} from './services/login.service';
-import {CatalogService} from './services/catalog.service';
-import {CommonService} from './services/common.service';
-import {PostService} from './services/post.service';
+import { RegisterComponent } from './components/user/register/register.component';
+import { SupPostUpdateComponent } from './components/supplier/sup-post-update/sup-post-update.component';
+import { StaffOrderListComponent } from './components/staff/staff-order-list/staff-order-list.component';
+import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/sup-order-detail.component';
 import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {BuyHeaderComponent} from './components/buyer/buy-header/buy-header.component';
 import {BuyMainComponent} from './components/buyer/buy-main/buy-main.component';
@@ -39,22 +37,23 @@ import {StaffHeaderComponent} from './components/staff/staff-header/staff-header
 import {AdHeaderComponent} from './components/admin/ad-header/ad-header.component';
 import {StaffPostListComponent} from './components/staff/staff-post-list/staff-post-list.component';
 import {StaffPostDetailComponent} from './components/staff/staff-post-detail/staff-post-detail.component';
-import {CreateOrderComponent} from './components/user/create-order/create-order.component';
+import {CreateOrderComponent} from './components/buyer/create-order/create-order.component';
 import {SupNegoDetailComponent} from './components/supplier/sup-nego-detail/sup-nego-detail.component';
+
+/*Service*/
+import {LoginService} from './services/login.service';
+import {CatalogService} from './services/catalog.service';
+import {CommonService} from './services/common.service';
+import {PostService} from './services/post.service';
 import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
+import { OrderService} from './services/order.service';
 
 /*Guard*/
 import {AdminRoleGuard} from './guards/check-role/admin-role.guard';
 import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
-import { RegisterComponent } from './components/user/register/register.component';
-import { SupPostUpdateComponent } from './components/supplier/sup-post-update/sup-post-update.component';
-import { CreateOrderGuard } from "./guards/create-order.guard";
-import { OrderService} from "./services/order.service";
-import { StaffOrderListComponent } from './components/staff/staff-order-list/staff-order-list.component';
-import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/sup-order-detail.component';
-import { SupOrderConfirmComponent } from './components/supplier/sup-order-confirm/sup-order-confirm.component';
+import { CreateOrderGuard } from './guards/create-order.guard';
 
 
 @NgModule({
@@ -87,8 +86,7 @@ import { SupOrderConfirmComponent } from './components/supplier/sup-order-confir
     RegisterComponent,
     SupPostUpdateComponent,
     StaffOrderListComponent,
-    SupOrderDetailComponent,
-    SupOrderConfirmComponent
+    SupOrderDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

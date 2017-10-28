@@ -23,7 +23,7 @@ export class StaffOrderListComponent implements OnInit {
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
-    this.changePage('WAITING', '', this.innitialPage);
+    this.changePage('SUCCESS', '', this.innitialPage);
   }
 
   changePage(status, searchValue, page) {

@@ -54,9 +54,6 @@ export class ProductDetailComponent implements OnInit {
         this.mainImage = this.post.primaryImage;
         this.descriptions = response.postDescriptions;
         this.extraImages = response.postImages;
-        this.postTitle = response.postTitle;
-        this.productName = response.product.productName;
-        this.brandName = response.brand.brandName;
         this.catalogName = response.catalog.catalogName;
         this.minPrice = response.minPrice;
         this.maxPrice = response.maxPrice;

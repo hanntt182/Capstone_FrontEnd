@@ -8,28 +8,29 @@ import {SupPostCreate3Component} from './components/supplier/sup-post-create-3/s
 import {SupHeaderComponent} from './components/supplier/sup-header/sup-header.component';
 import {AdMainComponent} from './components/admin/ad-main/ad-main.component';
 import {SupMainComponent} from './components/supplier/sup-main/sup-main.component';
-import {SupPostListComponent} from "./components/supplier/sup-post-list/sup-post-list.component";
-import {ProductDetailComponent} from "./components/common/product-detail/product-detail.component";
-import {SearchPostComponent} from "./components/user/search-post/search-post.component";
-import {BuyHeaderComponent} from "./components/buyer/buy-header/buy-header.component";
-import {BuyMainComponent} from "./components/buyer/buy-main/buy-main.component";
-import {BuyOrderListComponent} from "./components/buyer/buy-order-list/buy-order-list.component";
-import {StaffHeaderComponent} from "./components/staff/staff-header/staff-header.component";
-import {StaffMainComponent} from "./components/staff/staff-main/staff-main.component";
-import {StaffPostListComponent} from "./components/staff/staff-post-list/staff-post-list.component";
-import {StaffPostDetailComponent} from "./components/staff/staff-post-detail/staff-post-detail.component";
-import {CreateOrderComponent} from "./components/user/create-order/create-order.component";
-import {SupNegoDetailComponent} from "./components/supplier/sup-nego-detail/sup-nego-detail.component";
-import {BuyNegoDetailComponent} from "./components/buyer/buy-nego-detail/buy-nego-detail.component";
-import {AdminRoleGuard} from "./guards/check-role/admin-role.guard";
-import {StaffRoleGuard} from "./guards/check-role/staff-role.guard";
-import {BuyRoleGuard} from "./guards/check-role/buy-role.guard";
-import {SupRoleGuard} from "./guards/check-role/sup-role.guard";
-import {RegisterComponent} from "./components/user/register/register.component";
-import {SupPostUpdateComponent} from "./components/supplier/sup-post-update/sup-post-update.component";
-import {CreateOrderGuard} from "./guards/create-order.guard";
-import {SupOrderListComponent} from "./components/supplier/sup-order-list/sup-order-list.component";
-import {SupOrderConfirmComponent} from "./components/supplier/sup-order-confirm/sup-order-confirm.component";
+import {SupPostListComponent} from './components/supplier/sup-post-list/sup-post-list.component';
+import {ProductDetailComponent} from './components/common/product-detail/product-detail.component';
+import {SearchPostComponent} from './components/user/search-post/search-post.component';
+import {BuyHeaderComponent} from './components/buyer/buy-header/buy-header.component';
+import {BuyMainComponent} from './components/buyer/buy-main/buy-main.component';
+import {BuyOrderListComponent} from './components/buyer/buy-order-list/buy-order-list.component';
+import {StaffHeaderComponent} from './components/staff/staff-header/staff-header.component';
+import {StaffMainComponent} from './components/staff/staff-main/staff-main.component';
+import {StaffPostListComponent} from './components/staff/staff-post-list/staff-post-list.component';
+import {StaffPostDetailComponent} from './components/staff/staff-post-detail/staff-post-detail.component';
+import {CreateOrderComponent} from './components/buyer/create-order/create-order.component';
+import {SupNegoDetailComponent} from './components/supplier/sup-nego-detail/sup-nego-detail.component';
+import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
+import {AdminRoleGuard} from './guards/check-role/admin-role.guard';
+import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
+import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
+import {SupRoleGuard} from './guards/check-role/sup-role.guard';
+import {RegisterComponent} from './components/user/register/register.component';
+import {SupPostUpdateComponent} from './components/supplier/sup-post-update/sup-post-update.component';
+import {CreateOrderGuard} from './guards/create-order.guard';
+import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
+import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
+import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
 
 
 const routing: Routes = [
@@ -57,7 +58,7 @@ const routing: Routes = [
       {path: 'create-post3', component: SupPostCreate3Component},
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
       {path: 'order-list', component: SupOrderListComponent},
-      {path: 'order-confirm/:orderId', component: SupOrderConfirmComponent},
+      {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
       {path: 'negotiation', component: SupNegoDetailComponent}
     ]
   },
@@ -76,7 +77,8 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: StaffMainComponent},
       {path: 'post-list', component: StaffPostListComponent},
-      {path: 'post-detail/:postId', component: StaffPostDetailComponent}
+      {path: 'post-detail/:postId', component: StaffPostDetailComponent},
+      {path: 'order-list', component: StaffOrderListComponent},
     ]
   },
   {
