@@ -173,6 +173,11 @@
                       Shipping Address:
                     </label>
                   </div>
+                  <div>
+                    <label style="padding-top: 25px">
+                      Shipping Days:
+                    </label>
+                  </div>
                 </div>
                 <div class="col-sm-8 col-form-label text-left">
                   <div>
@@ -180,6 +185,9 @@
                   </div>
                   <div style="padding-top: 25px">
                     <label>Dia chi thang Buyer</label>
+                  </div>
+                  <div style="padding-top: 25px">
+                    <label>10</label>
                   </div>
                   <div class="text-right" style="padding-top: 40px">
                     <label>Shipping Fee:  </label>
@@ -192,6 +200,19 @@
           </div>
         </div>
         <div style="padding-top: 10px">
+          <div class="row">
+            <div class="col-7">
+              <div style="text-align: right; margin-top: 30px">
+                <label>Shipping Date:</label>
+              </div>
+            </div>
+            <div class="col-5" style="margin-top: 30px">
+              <input type="text" class="form-control" pattern="^[0-9]+" ngModel #shippingDay="ngModel">
+              <div [hidden]="shippingDay.valid || shippingDay.pristine" class="error">
+                Shipping day is invalid
+              </div>
+            </div>
+          </div>
 
             <div class="row">
               <div class="col-7">
