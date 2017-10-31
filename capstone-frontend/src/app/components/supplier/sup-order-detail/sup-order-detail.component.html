@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="row col-sm-10" ><h5>Buyer</h5></div>
+              <div class="row col-sm-10"><h5>Buyer</h5></div>
               <div class="row">
                 <div class="col-sm-12">
                   <b>{{order?.buyer.username}}</b><br>
@@ -81,7 +81,9 @@
             <thead style="background-color: #F2F3F7">
             <tr>
               <td scope="col">Shipping Method</td>
-              <td scope="col">Estimated Shipping Time</td>
+              <td *ngIf="order?.shippingTime==null" scope="col">Estimated Shipping Time</td>
+              <td *ngIf="order?.shippingTime!=null && order?.deliveryDay==null" scope="col">Shipping Time</td>
+              <td *ngIf="order?.deliveryDay!=null" scope="col">Shipping Day</td>
               <td scope="col">Estimated Delivery Time</td>
               <td scope="col">Shipping Fee</td>
             </tr>
@@ -89,10 +91,16 @@
             <tbody>
             <tr>
               <td scope="row">{{order?.address.city.zone.zoneName}}</td>
-              <td *ngIf="order?.post.estimatedShippingTime!=''">{{order?.post.estimatedShippingTime}}</td>
-              <td *ngIf="order?.post.estimatedShippingTime==''">No information</td>
-              <td *ngIf="order?.post.estimatedDeliveryTime!=''">{{order?.post.estimatedDeliveryTime}}</td>
-              <td *ngIf="order?.post.estimatedDeliveryTime==''">No information</td>
+              <td *ngIf="order?.shippingTime==null && order?.post.estimatedShippingTime!=null">
+                {{order?.post.estimatedShippingTime}}
+              </td>
+              <td *ngIf="order?.shippingTime==null && order?.post.estimatedShippingTime==null">No information</td>
+              <td *ngIf="order?.shippingTime!=null && order?.deliveryDay==null">Ship {{order?.shippingTime}} days after
+                receiving the payment.
+              </td>
+              <td *ngIf="order?.deliveryDay!=null">{{order?.deliveryDay}}</td>
+              <td *ngIf="order?.post.estimatedDeliveryTime!=null">{{order?.post.estimatedDeliveryTime}}</td>
+              <td *ngIf="order?.post.estimatedDeliveryTime==null">No information</td>
               <td>{{order?.shipPrice}}</td>
             </tr>
             </tbody>
@@ -112,14 +120,6 @@
         </div>
 
         <div class="row col-sm-12">
-          <h5>Additional Remarks</h5>
-        </div>
-
-        <div class="row" style="border: solid 1px #E6E7EB; height: 100px; margin: 20px; padding: 20px">
-          {{order?.requiredContent}}
-        </div>
-
-        <div class="row col-sm-12">
           <h5>Payment Details</h5>
         </div>
 
@@ -130,24 +130,39 @@
               <td scope="col">Available payment method for the order</td>
               <td scope="col">Total Order Amount</td>
               <td scope="col">Payment Status</td>
+              <td *ngIf="order?.receiptCode!=null && user.role=='BUYER'" scope="col">Receipt Code</td>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td scope="row"></td>
+              <td scope="row">{{order?.post.supplier.bank}}</td>
               <td>{{order?.totalPrice}}</td>
               <td *ngIf="order?.paid==true"><b class="text-success">PAID</b></td>
               <td *ngIf="order?.paid==false"><b class="text-danger">UNPAID</b></td>
+              <td *ngIf="order?.receiptCode!=null  && user.role=='BUYER'"><b
+                class="text-info">{{order?.receiptCode}}</b></td>
             </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="row col-sm-12">
+          <h5>Additional Remarks</h5>
+        </div>
+
+        <div class="row" style="border: solid 1px #E6E7EB; height: 100px; margin: 20px; padding: 20px">
+          {{order?.requiredContent}}
         </div>
 
 
       </div>
     </div>
 
-    <div *ngIf="order?.status.statusName=='WAITING'" class="card" style="background: white; margin-top: 20px; margin-bottom: 20px">
+    <!--CONFIRM ORDER-->
+
+    <!--For Supplier-->
+    <div *ngIf="order?.status.statusName=='WAITING' && user.role=='SUPPLIER'" class="card"
+         style="background: white; margin-top: 20px; margin-bottom: 20px">
       <div class="card-content"
            style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
         <div class="row text-center justify-content-center">
@@ -156,14 +171,24 @@
           </div>
           <form #confirmOrderForm="ngForm">
             <div class="form-group form-inline">
-              <label style="padding-right: 10px">Ship at least</label>
-              <input type="text" class="form-control" name="shippingTime" ngModel>
-              <label style="padding-left: 10px">days after supplier received the payment.</label>
+              <label style="padding-right: 10px">Ship </label>
+              <input type="number" class="form-control" name="shippingTime" [min]="0" ngModel #shippingTime="ngModel"
+                     required>
+              <label style="padding-left: 10px">days after receiving the payment.</label>
+            </div>
+            <div *ngIf="shippingTime.invalid && (shippingTime.dirty || shippingTime.touched)"
+                 class="error">
+              <div *ngIf="shippingTime.errors.required">
+                Shipping Time is required and must be a number.
+              </div>
+              <div *ngIf="shippingTime.errors?.min">
+                Shipping Time must be ≥ 0
+              </div>
             </div>
             <small style="margin: 10px" class="form-text text-muted">Please fill in delivery time to confirm this
               order.
             </small>
-            <button type="button" class="btn btn-success"
+            <button type="button" class="btn btn-success" [disabled]="!confirmOrderForm.valid"
                     (click)="confirmOrder(confirmOrderForm.value)">
               <i class="fa fa-check" aria-hidden="true"></i>
               Confirm Order
@@ -171,13 +196,118 @@
             <button type="button" class="btn btn-danger"
                     (click)="cancelOrder()">
               <i class="fa fa-times" aria-hidden="true"></i>
-              Cancel Order</button>
+              Cancel Order
+            </button>
           </form>
 
         </div>
       </div>
     </div>
 
+    <!--For Buyer-->
+    <div *ngIf="order?.status.statusName=='WAITING' && user.role=='BUYER'"
+         style=" margin-top: 20px; margin-bottom: 20px" class="row text-center justify-content-center">
+      <button type="button" class="btn btn-danger"
+              (click)="cancelOrder()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Cancel Order
+      </button>
+
+    </div>
+
+
+    <!--PAYMENT-->
+
+    <!--For Buyer-->
+    <div *ngIf="order?.status.statusName=='PAYING' && user.role=='BUYER'" class="card"
+         style="background: white; margin-top: 20px; margin-bottom: 20px">
+      <div class="card-content"
+           style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+        <div class="row text-center justify-content-center">
+
+          <button style="margin-right: 10px" type="button" class="btn btn-success"
+                  (click)="paymentOrder()">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Payment
+          </button>
+          <button type="button" class="btn btn-danger"
+                  (click)="cancelOrder()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancel Order
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!--For Supplier-->
+    <div *ngIf="order?.status.statusName=='PAYING' && user.role=='SUPPLIER'"
+         style=" margin-top: 20px; margin-bottom: 20px" class="row text-center justify-content-center">
+      <button type="button" class="btn btn-danger"
+              (click)="cancelOrder()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Cancel Order
+      </button>
+
+    </div>
+
+
+    <!--SHIPPING-->
+
+    <!--For Buyer-->
+    <div *ngIf="order?.status.statusName=='SHIPPING' && user.role=='BUYER'"
+         style=" margin-top: 20px; margin-bottom: 20px" class="row text-center justify-content-center">
+      <button type="button" class="btn btn-danger"
+              (click)="cancelOrder()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Cancel Order
+      </button>
+
+    </div>
+
+    <!--For Supplier-->
+    <div *ngIf="order?.status.statusName=='SHIPPING' && user.role=='SUPPLIER'" class="card"
+         style="background: white; margin-top: 20px; margin-bottom: 20px">
+      <div class="card-content"
+           style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+        <div class="row text-center justify-content-center">
+          <div class="row col-sm-12">
+            <h5>Receipt Code</h5>
+          </div>
+          <form #confirmShippingForm="ngForm">
+            <div class="form-group form-inline">
+              <label style="padding-right: 10px">Receipt Code </label>
+              <input type="text" class="form-control" name="receiptCode" ngModel>
+            </div>
+            <small style="margin: 10px" class="form-text text-muted">Please fill in the receipt code to complete order.
+            </small>
+            <button type="button" class="btn btn-success"
+                    (click)="confirmShipping(confirmShippingForm.value)">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Confirm Shipping
+            </button>
+            <button type="button" class="btn btn-danger"
+                    (click)="cancelOrder()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cancel Order
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!--SUCCESS-->
+    <!--For Staff-->
+    <div *ngIf="order?.status.statusName=='SUCCESS' && user.role=='STAFF'"
+         style=" margin-top: 20px; margin-bottom: 20px" class="row text-center justify-content-center">
+      <button type="button" class="btn btn-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Audit
+      </button>
+
+    </div>
 
   </div>
 </div>

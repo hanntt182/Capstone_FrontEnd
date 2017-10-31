@@ -44,13 +44,18 @@ export class BrandsListComponent implements OnInit {
     });
   }
 
-  createOrder(postID){
+  createOrder(postID) {
     this.router.navigate(['/create-order/' + postID]);
+  }
+
+  createNego(postID) {
+    this.router.navigate(['/negotiation/' + postID]);
   }
 
   changePage(page) {
     this.showListPost(this.commonService.getBrandID(), page);
   }
+
 
   showListPost(brandID, pageNumber) {
     for (let i = this.pages.length; i > 0; i--) {
@@ -72,5 +77,7 @@ export class BrandsListComponent implements OnInit {
     });
     this.commonService.setBrandID(brandID);
   }
+
+
 
 }

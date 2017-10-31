@@ -9,7 +9,7 @@
           </div>
           <div class="row col-sm-12">
             <div class="col-sm-7 text-left">
-              <b>Supplier {{companyName}}</b>
+              <b>Supplier {{post?.supplier.companyName}}</b>
             </div>
             <div class="col-sm-5 text-right">
               <div class="float-right">
@@ -22,13 +22,13 @@
           <div class="col-sm-12">
             <div class="collapse" id="collapseExample">
               <div style="margin: 10px">
-                <img src="{{companyLogo}}" style="max-height: 100px; height: auto; margin-left: 40px">
+                <img src="{{post?.supplier.companyLogo}}" style="max-height: 100px; height: auto; margin-left: 40px">
                 <div class="clearfix"></div>
                 <label class="col-sm-2 text-right"> Company Name </label>
-                <label class="col-sm-7"> {{companyName}} </label>
+                <label class="col-sm-7"> {{post?.supplier.companyName}} </label>
                 <div class="clearfix"></div>
                 <label class="col-sm-2 text-right"> Contact Name </label>
-                <label class="col-sm-7"> {{contactName}} </label>
+                <label class="col-sm-7"> {{post?.supplier.username}} </label>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -39,34 +39,62 @@
               <tr>
                 <th scope="col"> Product Name</th>
                 <th scope="col"></th>
-                <th scope="col"> Quantity</th>
-                <th scope="col"> Your offer (per unit price)</th>
-                <th scope="col"> Amount</th>
+                <th scope="col"> Quantity <span class="star">*</span></th>
+                <th scope="col"> Unit</th>
+                <th scope="col"> Your offer (per unit price)<span class="star">*</span></th>
+                <th scope="col"></th>
               </tr>
               </thead>
               <tbody>
               <tr>
                 <td scope="row">
-                  <img src="{{primaryImage}}" width="80px" height="80px">
+                  <img src="{{post?.primaryImage}}" width="80px" height="80px">
                 </td>
                 <td>
-                  <div class="row">{{postTitle}}</div>
-                  <div class="row">{{productName}}</div>
-                </td>
-                <td>
-                  <div class="form-group form-inline">
-                    <input type="number" class="form-control" min="{{minOrderQuantity}}"
-                           placeholder="Min: {{minOrderQuantity}}" name="quantity" ngModel
-                          (change)="countAmount(createOrderForm.value)" >
-                    <label> /{{unit}}</label>
-                  </div>
+                  <div class="row">{{post?.postTitle}}</div>
+                  <div class="row">{{post?.productName}}</div>
                 </td>
                 <td>
                   <div class="form-group">
-                    <input type="number" class="form-control" placeholder="{{minPrice}} ≤ price ≤ {{maxPrice}}"
-                           min="{{minPrice}}" max="{{maxPrice}}" name="offerPrice" ngModel
-                    (change)="countAmount(createOrderForm.value)">
+                    <input type="number" class="form-control" [min]="post?.minOrderQuantity"
+                           placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
+                           (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
+                    <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+                         class="error">
+                      <div *ngIf="quantity.errors.required">
+                        Quantity is required and must be a number.
+                      </div>
+                      <div *ngIf="quantity.errors?.min">
+                        Quantity must be ≥ {{post?.minOrderQuantity}}
+                      </div>
+                    </div>
                   </div>
+                </td>
+                <td scope="row">
+                  <label>{{post?.unit}}</label>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <input type="number" class="form-control"
+                           placeholder="{{post?.minPrice}} ≤ price ≤ {{post?.maxPrice}}"
+                           [min]="post?.minPrice" [max]="post?.maxPrice" name="offerPrice" ngModel
+                           (change)="countAmount(createOrderForm.value)" #offerPrice="ngModel" required>
+                    <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
+                         class="error">
+                      <div *ngIf="offerPrice.errors.required">
+                        Offer Price is required and must be a number.
+                      </div>
+                      <div *ngIf="offerPrice.errors?.min">
+                        Offer Price must be ≥ {{post?.minPrice}}
+                      </div>
+                      <div *ngIf="offerPrice.errors?.max">
+                        Offer Price must be ≤ {{post?.maxPrice}}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td scope="row">
+                  <label>/{{post?.unit}}</label>
                 </td>
               </tr>
               </tbody>
@@ -90,14 +118,15 @@
             <h4>Shipping Details</h4>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
-            <label class="col-sm-3 text-right"> Shipping Address </label>
+            <label class="col-sm-3 text-right"> Shipping Address <span class="star">*</span> </label>
             <label class="col-sm-9">
               <p>{{user.username}} {{user.phone}}</p>
               <div class="form-check">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel>
                   Existed Address
-                  <select class="form-control" (change)="countShippingFee(createOrderForm)" name="oldAddressId" ngModel>
+                  <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressId"
+                          ngModel>
                     <option selected>My address</option>
                     <option *ngFor="let address of addresses" value="{{address.addressID}}">{{address.address}}</option>
                   </select>
@@ -114,7 +143,8 @@
                   </div>
                   <div class="form-group form-inline">
                     <label class="col-sm-5">City</label>
-                    <select class="form-control col-sm-7" (change)="countShippingFee(createOrderForm)" name="newAddressCity" ngModel>
+                    <select class="form-control col-sm-7" (change)="countShippingFee(createOrderForm.value)"
+                            name="newAddressCity" ngModel>
                       <option selected>Choose city...</option>
                       <option *ngFor="let city of cities" value="{{city.cityID}}">{{city.city}}</option>
                     </select>
@@ -125,11 +155,13 @@
           </div>
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right">Estimated shipping time</label>
-            <label class="col-sm-9">Ship at least ..... days after supplier received the payment.</label>
+            <label *ngIf="post?.estimatedShippingTime!=null" class="col-sm-9">{{post?.estimatedShippingTime}}</label>
+            <label *ngIf="post?.estimatedShippingTime==null" class="col-sm-9">No information</label>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right">Estimated delivery time</label>
-            <label class="col-sm-9"> (3 - 13 days) </label>
+            <label *ngIf="post?.estimatedDeliveryTime!=null" class="col-sm-9">{{post?.estimatedDeliveryTime}}</label>
+            <label *ngIf="post?.estimatedDeliveryTime==null" class="col-sm-9">No information</label>
           </div>
         </div>
         <div class="card-footer text-right">
@@ -145,13 +177,19 @@
         <div class="card-content"
              style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
           <div class="row col-sm-12">
-            <h4>Order Remark</h4>
+            <h4>Order Remark<span class="star">*</span></h4>
           </div>
           <div class="row col-sm-12">
             <textarea class="form-control" name="remark" rows="3"
                       placeholder="Please add additional detailed product information to make it easier for the supplier to understand your exact requirements..."
-                      ngModel>
+                      ngModel #remark="ngModel" required>
             </textarea>
+          </div>
+          <div *ngIf="remark.invalid && (remark.dirty || remark.touched)"
+               class="error">
+            <div *ngIf="remark.errors.required">
+              Quantity is required.
+            </div>
           </div>
         </div>
       </div>
@@ -161,19 +199,23 @@
   <div class="container">
     <div class="row col-sm-12" style="padding-bottom: 20px; font-size: 16px">
       <label class="col-sm-8 text-right">Product(s) Amount</label>
-      <label class="col-sm-4"> US $222.222</label>
+      <label class="col-sm-4"> {{productAmount}} </label>
 
       <label class="col-sm-8 text-right">Shipping Amount</label>
-      <label class="col-sm-4"> US $2.222</label>
+      <label class="col-sm-4"> {{shippingFee}} </label>
 
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center" style="border-bottom: 1px dashed #8c8b8b"></div>
       <div class="clearfix"></div>
       <label class="col-sm-8 text-right">Total Order Amount</label>
-      <label class="col-sm-4" style="color: orangered"><h5>US $2.222</h5></label>
+      <label class="col-sm-4" style="color: orangered"><h5> {{productAmount + shippingFee}} </h5></label>
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center">
-        <button type="button" class="btn btn-info" (click)="createOrder(createOrderForm.value)"> Order</button>
+        <button
+          [disabled]="!createOrderForm.valid || createOrderForm.value.address==''"
+          type="button"
+          class="btn btn-info" (click)="createOrder(createOrderForm.value)"> Order
+        </button>
       </div>
     </div>
   </div>

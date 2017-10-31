@@ -31,6 +31,8 @@ import {CreateOrderGuard} from './guards/create-order.guard';
 import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
 import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
+import {BuyOrderPaymentComponent} from "./components/buyer/buy-order-payment/buy-order-payment.component";
+import {BuyNegoCreateComponent} from "./components/buyer/buy-nego-create/buy-nego-create.component";
 
 
 const routing: Routes = [
@@ -40,6 +42,7 @@ const routing: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'register', component: RegisterComponent},
+      {path: 'negotiation/:postID', component: BuyNegoCreateComponent},
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},
       {path: 'search/:searchValue', component: SearchPostComponent},
@@ -59,7 +62,7 @@ const routing: Routes = [
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
       {path: 'order-list', component: SupOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
-      {path: 'negotiation', component: SupNegoDetailComponent}
+      {path: 'negotiation-detail', component: SupNegoDetailComponent}
     ]
   },
   {
@@ -68,7 +71,9 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
       {path: 'order-list', component: BuyOrderListComponent},
-      {path: 'negotiation', component: BuyNegoDetailComponent}
+      {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
+      {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
+      {path: 'negotiation-detail/:negoId', component: BuyNegoDetailComponent}
     ]
   },
   {
@@ -79,6 +84,7 @@ const routing: Routes = [
       {path: 'post-list', component: StaffPostListComponent},
       {path: 'post-detail/:postId', component: StaffPostDetailComponent},
       {path: 'order-list', component: StaffOrderListComponent},
+      {path: 'order-detail/:orderId', component: SupOrderDetailComponent}
     ]
   },
   {

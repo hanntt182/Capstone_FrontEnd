@@ -8,7 +8,7 @@ export class CreateOrderGuard implements CanActivate {
 
   canActivate() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user.role != 'BUYER') {
+    if ((!user) || (user.role != 'BUYER')) {
       alert('Only user with role BUYER can create order');
       this.router.navigate(['/']);
     }

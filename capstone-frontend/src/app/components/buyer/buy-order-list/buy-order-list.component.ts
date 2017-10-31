@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Constants} from './../../../constants';
-import {OrderService} from "../../../services/order.service";
+import {OrderService} from '../../../services/order.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-buy-order-list',
@@ -16,7 +17,8 @@ export class BuyOrderListComponent implements OnInit {
   public totalPage: number;
 
   constructor(private constants: Constants,
-              private orderService: OrderService) { }
+              private orderService: OrderService,
+              private router: Router) { }
 
   ngOnInit() {
     if (!this.user) {
@@ -42,6 +44,10 @@ export class BuyOrderListComponent implements OnInit {
         this.pages.push(i);
       }
     });
+  }
+
+  viewOrderDetail(orderID) {
+    this.router.navigate(['/buyer/order-detail/' + orderID]);
   }
 
 }

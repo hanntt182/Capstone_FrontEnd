@@ -11,5 +11,16 @@ export class NegoService {
   constructor(private _http: Http) {
   }
 
+  createNegotiation(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  viewNegotiationDetail(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  sendMessage(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
 
 }

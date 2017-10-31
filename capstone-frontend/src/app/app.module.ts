@@ -6,6 +6,8 @@ import {appRoutes} from './app.routes';
 import {ToastModule} from 'ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ImageZoomModule} from 'angular2-image-zoom';
+import {MyDatePickerModule} from 'mydatepicker';
+import {CustomFormsModule} from 'ng2-validation';
 
 import {Constants} from './constants';
 
@@ -39,14 +41,18 @@ import {StaffPostListComponent} from './components/staff/staff-post-list/staff-p
 import {StaffPostDetailComponent} from './components/staff/staff-post-detail/staff-post-detail.component';
 import {CreateOrderComponent} from './components/buyer/create-order/create-order.component';
 import {SupNegoDetailComponent} from './components/supplier/sup-nego-detail/sup-nego-detail.component';
+import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
+import { BuyOrderPaymentComponent } from './components/buyer/buy-order-payment/buy-order-payment.component';
+import { BuyNegoCreateComponent } from './components/buyer/buy-nego-create/buy-nego-create.component';
 
 /*Service*/
 import {LoginService} from './services/login.service';
 import {CatalogService} from './services/catalog.service';
 import {CommonService} from './services/common.service';
 import {PostService} from './services/post.service';
-import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
 import { OrderService} from './services/order.service';
+import {NegoService} from './services/nego.service';
+
 
 /*Guard*/
 import {AdminRoleGuard} from './guards/check-role/admin-role.guard';
@@ -54,6 +60,11 @@ import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import { CreateOrderGuard } from './guards/create-order.guard';
+
+
+
+
+
 
 
 @NgModule({
@@ -86,16 +97,18 @@ import { CreateOrderGuard } from './guards/create-order.guard';
     RegisterComponent,
     SupPostUpdateComponent,
     StaffOrderListComponent,
-    SupOrderDetailComponent
+    SupOrderDetailComponent,
+    BuyOrderPaymentComponent,
+    BuyNegoCreateComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
     BrowserAnimationsModule, ToastModule.forRoot(),
-    ImageZoomModule
+    ImageZoomModule, CustomFormsModule, MyDatePickerModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
-    StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService],
+    StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

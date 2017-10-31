@@ -23,7 +23,8 @@
             <div class="row">Supplier: {{post.supplier.companyName}}</div>
             <div class="row"><b>Price: {{post.minPrice}} - {{post.maxPrice}} / {{post.unit}}</b></div>
             <div class="row">Required Quanity: {{post.minOrderQuantity}}</div>
-            <button type="button" class="btn btn-primary" (click)="createOrder(post.postId)">Order</button>
+            <button type="button" class="btn btn-info" (click)="createNego(post.postId)">Contact Supplier</button>
+            <button type="button" class="btn btn-outline-info" (click)="createOrder(post.postId)"> Start Order</button>
           </div>
         </div>
       </div>

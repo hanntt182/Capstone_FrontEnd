@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Constants} from './../../../constants';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {OrderService} from '../../../services/order.service';
-import {CommonService} from "../../../services/common.service";
+import {CommonService} from '../../../services/common.service';
 
 @Component({
   selector: 'app-sup-order-detail',
@@ -47,6 +47,8 @@ export class SupOrderDetailComponent implements OnInit {
     this.orderService.confirmOrder(this.constants.CONFIRMORDER, data).subscribe((response: any) => {
       alert(response);
       this.router.navigate(['/supplier/order-list']);
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -56,12 +58,31 @@ export class SupOrderDetailComponent implements OnInit {
       'OrderID': this.orderID
     };
     console.log(data);
-    /*this.orderService.cancleOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
+    this.orderService.cancleOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
       alert(response);
       this.router.navigate(['/supplier/order-list']);
     }, error => {
       console.log(error);
-    });*/
+    });
+  }
+
+  paymentOrder() {
+    this.router.navigate(['buyer/payment/' + this.orderID]);
+  }
+
+
+  confirmShipping(confirmShippingForm) {
+    let data = {
+      'OrderID': this.orderID,
+      'ReceiptCode': confirmShippingForm.receiptCode
+    };
+    this.orderService.confirmShipping(this.constants.CONFIRMSHIPPING, data).subscribe((response: any) => {
+      alert(response);
+      this.router.navigate(['/supplier/order-list']);
+    }, error => {
+      console.log(error);
+      alert(error._body);
+    });
   }
 
 }

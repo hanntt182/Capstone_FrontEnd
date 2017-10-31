@@ -25,3 +25,15 @@ body,html{
 .hvr-glow:hover, .hvr-glow:focus, .hvr-glow:active {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
+
+
+.error {
+  padding: 10px;
+  font-size: small;
+  color: red;
+}
+
+
+.star {
+  color: red;
+}

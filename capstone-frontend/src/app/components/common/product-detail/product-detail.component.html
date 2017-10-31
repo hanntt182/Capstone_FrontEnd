@@ -11,7 +11,7 @@
                    onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';">
             </div>
             <div class="row justify-content-center">
-              <img src="{{primaryImage}}"
+              <img src="{{post?.primaryImage}}"
                    (mouseover)="setImage($event)"
                    height="80" width="80" style="border: 1px solid #ddd;"
                    onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';"/>
@@ -34,19 +34,17 @@
               <p class="text-secondary">{{post?.brand.brandName}} - {{catalogName}}</p>
             </div>
             <div class="row" style="padding: 20px; font-size: 20px">
-              <b>{{minPrice}} - {{maxPrice}}</b> / {{unit}} | {{minOrderQuantity}}
-              {{unit}}(Min. Order)
+              <b>{{post?.minPrice}} - {{post?.maxPrice}}</b> / {{post?.unit}} | {{post?.minOrderQuantity}}
+              {{post?.unit}}(Min. Order)
             </div>
             <div class="row" style="padding:20px; background-color: #f2f3f7">
               <div class="row col-sm-12">
                 <label class="col-sm-3">Supply Ability:</label>
-                <label class="col-sm-9">{{supplierAbility}}</label>
+                <label class="col-sm-9">{{post?.supplierAbility}}</label>
 
                 <label class="col-sm-3">Supplier Name:</label>
-                <label class="col-sm-9">{{username}}</label>
+                <label class="col-sm-9">{{post?.supplier.username}}</label>
               </div>
-              <!--Supply Ability:  {{post.supplierAbility}}<br>
-              Supplier Name:  {{post.supplier.username}} <br>-->
               <div class="row col-sm-12 justify-content-center" style="padding: 30px">
                 <button type="button" class="btn btn-info">Contact Supplier</button>
                 <label class="col-sm-1"></label>
@@ -93,20 +91,33 @@
                 <label class="col-sm-9">{{post?.brand.brandName}}</label>
 
                 <label class="col-sm-3">Catagory</label>
-                <label class="col-sm-9">{{catalogName}}</label>
+                <label class="col-sm-9">{{post?.catalog.catalogName}}</label>
 
                 <label class="col-sm-3">Color</label>
-                <label class="col-sm-9">{{colorName}}</label>
+                <label class="col-sm-9">{{post?.color.colorName}}</label>
 
                 <label class="col-sm-3">Warranty</label>
-                <label class="col-sm-9">{{warranty}}</label>
+                <label class="col-sm-9">{{post?.warranty}}</label>
               </div>
             </div>
             <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
               <h4>Shipping</h4>
               <div class="row col-sm-12">
-                <label class="col-sm-3">Delivery Time</label>
-                <label class="col-sm-9">ffffff</label>
+                <label class="col-sm-3">Shipping Medthod</label>
+                <div class="col-sm-9">
+                  <div class="row" *ngFor="let postZone of postZones">
+                    <div class="col-sm-2">{{postZone.postZoneID.zone.zoneName}} : </div>
+                    <div class="col-sm-10">{{postZone.zonePrice}}</div>
+                  </div>
+                </div>
+
+                <label class="col-sm-3">Estimated Shipping Time</label>
+                <label *ngIf="post?.estimatedShippingTime!=''" class="col-sm-9">{{post?.estimatedShippingTime}}</label>
+                <label *ngIf="post?.estimatedShippingTime==''" class="col-sm-9"> No information </label>
+
+                <label class="col-sm-3">Estimated Delivery Time</label>
+                <label *ngIf="post?.estimatedDeliveryTime!=''"  class="col-sm-9">{{post?.estimatedDeliveryTime}}</label>
+                <label *ngIf="post?.estimatedDeliveryTime==''"  class="col-sm-9"> No information </label>
               </div>
             </div>
             <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
@@ -135,30 +146,30 @@
             <div class="row col-sm-12" style="padding: 20px;">
               <h4>Company Information</h4>
               <div class="row col-sm-12">
-                <img src="{{companyLogo}}" alt="Company Logo" class="img-thumbnail"
+                <img src="{{post?.supplier.companyLogo}}" alt="Company Logo" class="img-thumbnail"
                      style="max-width: 200px; max-height: 200px">
               </div>
               <div class="row col-sm-12">
                 <label class="col-sm-3">Company Name</label>
-                <label class="col-sm-9">{{companyName}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyName}}</label>
 
                 <label class="col-sm-3">Address</label>
-                <label class="col-sm-9">{{companyAddress}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyAddress}}</label>
 
                 <label class="col-sm-3">Phone</label>
-                <label class="col-sm-9">{{companyPhone}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyPhone}}</label>
 
                 <label class="col-sm-3">Website</label>
-                <label class="col-sm-9">{{companyWebsite}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyWebsite}}</label>
 
                 <label class="col-sm-3">Established Year</label>
-                <label class="col-sm-9">{{establishedYear}}</label>
+                <label class="col-sm-9">{{post?.supplier.establishedYear}}</label>
 
                 <label class="col-sm-3">Email</label>
-                <label class="col-sm-9">{{companyEmail}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyEmail}}</label>
 
                 <label class="col-sm-3">Fax</label>
-                <label class="col-sm-9">{{companyFax}}</label>
+                <label class="col-sm-9">{{post?.supplier.companyFax}}</label>
               </div>
             </div>
           </div>
