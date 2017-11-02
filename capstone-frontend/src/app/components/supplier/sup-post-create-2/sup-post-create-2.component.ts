@@ -13,18 +13,18 @@ import {Router} from '@angular/router';
 export class SupPostCreate2Component implements OnInit {
   public user;
   public catalogID;
-  public PostID;
   public images = [];
   public links = [];
   public photoError: boolean = false;
   public formDescription: FormGroup;
   public descriptions;
-  public allDescriptionValue;
-  public units = ['piece', 'box', 'unit', 'pair'];
-  public times = ['day', 'week', 'month', 'year', 'hour'];
+  public units = ['piece(s)', 'box(s)', 'unit(s)', 'pair(s)'];
+  public times = ['day(s)', 'week(s)', 'month(s)', 'year(s)', 'hour(s)'];
   public colors;
-  public feeShips;
-  public zoneName;
+  public shipMethods;
+  public minDay = [];
+  public maxDay = [];
+  public feeShip = [];
 
   constructor(private commonService: CommonService,
               private _fb: FormBuilder,
@@ -54,10 +54,8 @@ export class SupPostCreate2Component implements OnInit {
       this.colors = response;
     });
 
-    this.postService.getListZone(this.constants.GETLISTZONE).subscribe((response: any) => {
-      this.feeShips = response;
-    }, error => {
-      console.log(error);
+    this.postService.getListShip(this.constants.GETLISTSHIP).subscribe((response: any) => {
+      this.shipMethods = response;
     });
   }
 
@@ -128,12 +126,9 @@ export class SupPostCreate2Component implements OnInit {
     for (let i = 1; i < this.images.length; i++) {
       formData.append('ExtraImage', this.images[i]);
     }
-    formData.append('EstimatedShippingTime', 'Ship at least ' + createPost2Form.EstimatedShippingTime
-    + createPost2Form.shippingTime + '(s) after supplier received the payment.');
-    formData.append('EstimatedDeliveryTime', createPost2Form.EstimatedDeliveryTimeMin
-    + createPost2Form.EstimatedDeliveryTimeMax + ' ' + createPost2Form.deliveryTime + '(s)');
-    formData.append('ZonePrice',  '1-' + createPost2Form.Extramural);
-    formData.append('ZonePrice',  '2-' + createPost2Form.Intramural);
+    for (let i = 0; i < this.shipMethods.length; i++) {
+      formData.append('ShipFee', this.shipMethods[i].shipID + '-' + this.minDay[i] + '-' + this.maxDay[i] + '-' + this.feeShip[i]);
+    }
     for (let i = 0; i < formDescription.value.descriptions.length; i++) {
       formData.append('Description', formDescription.value.descriptions[i].DescriptionID
         + '-' + formDescription.value.descriptions[i].DescriptionValue);
@@ -141,16 +136,6 @@ export class SupPostCreate2Component implements OnInit {
 
     this.postService.createPost(this.constants.CREATEPOST, formData).subscribe((response: any) => {
       alert(response);
-      /*this.PostID = response;
-      let data = {
-        'PostID': Number(this.PostID),
-        'Descriptions': formDescription.value.descriptions
-      };
-      this.postService.createPostDescription(this.constants.CREATEPOSTDESCRIPTION, data).subscribe((response1: any) => {
-        console.log(response1);
-      }, error => {
-        console.log(error);
-      });*/
     }, error => {
       console.log(error);
     });

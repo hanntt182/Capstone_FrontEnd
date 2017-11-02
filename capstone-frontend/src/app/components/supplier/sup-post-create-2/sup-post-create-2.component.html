@@ -224,13 +224,20 @@
                   Quantity is required or invalid!
                 </div>
               </div>
-              <div class="form-group row form-inline">
+              <div class="form-group row">
                 <label class="col-sm-3 col-form-label text-right">
                   Fee Ship
                 </label>
-                <div class="col-sm-3" *ngFor="let feeShip of feeShips">
-                  <input type="number" min="0" placeholder="{{feeShip.zoneName}}" class="form-control"
-                         name="{{feeShip.zoneName}}" ngModel>
+              </div>
+              <div class="form-group row" *ngFor="let shipMethod of shipMethods; let i = index">
+                <label class="col-sm-3 col-form-label text-right"><i>{{shipMethod.shipName}}</i></label>
+                <div class="col-sm-9 form-group form-inline">
+                  <input type="number" min="0" [(ngModel)]="minDay[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+                  <label class="col-form-label"> day(s) - </label>
+                  <input type="number" min="0" [(ngModel)]="maxDay[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+                  <label class="col-form-label"> day(s) </label>
+                  <input type="number" min="0" [(ngModel)]="feeShip[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+                  <label class="col-form-label"> VND </label>
                 </div>
               </div>
             </div>
@@ -290,39 +297,6 @@
                 <div [hidden]="maxNumberOrder.pristine || maxNumberOrder.valid" class="error">
                   Max number order is required or invalid
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-right">
-                  Estimated shipping time
-                </label>
-                <div class="col-sm-9 form-inline">
-                  Ship at least <input type="number" min="0" class="form-control" name="EstimatedShippingTime" ngModel>
-                  <select class="form-control" name="shippingTime" ngModel>
-                    <option *ngFor="let time of times"
-                            value="{{time}}">{{time}}
-                    </option>
-                  </select> (s) after supplier received the payment.
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-right">
-                  Estimated delivery time
-                </label>
-                <div class="col-sm-2">
-                  <input type="number" min="0" class="form-control" name="EstimatedDeliveryTimeMin" ngModel>
-                </div>
-                <label> - </label>
-                <div class="col-sm-2">
-                  <input type="number" min="0" class="form-control" name="EstimatedDeliveryTimeMax" ngModel>
-                </div>
-                <div class="col-sm-2">
-                  <select class="form-control" name="deliveryTime" ngModel>
-                    <option *ngFor="let time of times"
-                            value="{{time}}">{{time}}
-                    </option>
-                  </select>
-                </div>
-                <label> (s) </label>
               </div>
             </div>
           </div>

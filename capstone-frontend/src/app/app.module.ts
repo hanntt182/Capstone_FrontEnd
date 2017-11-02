@@ -26,10 +26,10 @@ import {SupMainComponent} from './components/supplier/sup-main/sup-main.componen
 import {SupPostListComponent} from './components/supplier/sup-post-list/sup-post-list.component';
 import {ProductDetailComponent} from './components/common/product-detail/product-detail.component';
 import {SearchPostComponent} from './components/user/search-post/search-post.component';
-import { RegisterComponent } from './components/user/register/register.component';
-import { SupPostUpdateComponent } from './components/supplier/sup-post-update/sup-post-update.component';
-import { StaffOrderListComponent } from './components/staff/staff-order-list/staff-order-list.component';
-import { SupOrderDetailComponent } from './components/supplier/sup-order-detail/sup-order-detail.component';
+import {RegisterComponent} from './components/user/register/register.component';
+import {SupPostUpdateComponent} from './components/supplier/sup-post-update/sup-post-update.component';
+import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
+import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
 import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {BuyHeaderComponent} from './components/buyer/buy-header/buy-header.component';
 import {BuyMainComponent} from './components/buyer/buy-main/buy-main.component';
@@ -42,15 +42,15 @@ import {StaffPostDetailComponent} from './components/staff/staff-post-detail/sta
 import {CreateOrderComponent} from './components/buyer/create-order/create-order.component';
 import {SupNegoDetailComponent} from './components/supplier/sup-nego-detail/sup-nego-detail.component';
 import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
-import { BuyOrderPaymentComponent } from './components/buyer/buy-order-payment/buy-order-payment.component';
-import { BuyNegoCreateComponent } from './components/buyer/buy-nego-create/buy-nego-create.component';
+import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
+import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
 
 /*Service*/
 import {LoginService} from './services/login.service';
 import {CatalogService} from './services/catalog.service';
 import {CommonService} from './services/common.service';
 import {PostService} from './services/post.service';
-import { OrderService} from './services/order.service';
+import {OrderService} from './services/order.service';
 import {NegoService} from './services/nego.service';
 
 
@@ -59,10 +59,8 @@ import {AdminRoleGuard} from './guards/check-role/admin-role.guard';
 import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
-import { CreateOrderGuard } from './guards/create-order.guard';
-
-
-
+import {CreateOrderGuard} from './guards/create-order.guard';
+import {TenderListComponent} from './components/user/tender-list/tender-list.component';
 
 
 
@@ -99,7 +97,8 @@ import { CreateOrderGuard } from './guards/create-order.guard';
     StaffOrderListComponent,
     SupOrderDetailComponent,
     BuyOrderPaymentComponent,
-    BuyNegoCreateComponent
+    BuyNegoCreateComponent,
+    TenderListComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

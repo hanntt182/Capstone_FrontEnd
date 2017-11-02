@@ -59,7 +59,7 @@ export class PostService {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 
-  getListZone(apiUrl): Observable<any> {
+  getListShip(apiUrl): Observable<any> {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 

@@ -31,8 +31,9 @@ import {CreateOrderGuard} from './guards/create-order.guard';
 import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
 import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
-import {BuyOrderPaymentComponent} from "./components/buyer/buy-order-payment/buy-order-payment.component";
-import {BuyNegoCreateComponent} from "./components/buyer/buy-nego-create/buy-nego-create.component";
+import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
+import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
+import {TenderListComponent} from "./components/user/tender-list/tender-list.component";
 
 
 const routing: Routes = [
@@ -42,6 +43,7 @@ const routing: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'register', component: RegisterComponent},
+      {path: 'tender', component: TenderListComponent},
       {path: 'negotiation/:postID', component: BuyNegoCreateComponent},
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},
@@ -73,7 +75,7 @@ const routing: Routes = [
       {path: 'order-list', component: BuyOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
       {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
-      {path: 'negotiation-detail/:negoId', component: BuyNegoDetailComponent}
+      {path: 'negotiation/:negoStatus:negoId', component: BuyNegoDetailComponent}
     ]
   },
   {

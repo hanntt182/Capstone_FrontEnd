@@ -16,8 +16,11 @@ export class BuyNegoDetailComponent implements OnInit {
     dateFormat: 'dd.mm.yyyy',
   };
   public model: any = {date: {year: 2018, month: 10, day: 9}};
+  public model1 = Date.now();
   public negoID;
   public negotiation;
+  public user;
+  public messages;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -25,6 +28,14 @@ export class BuyNegoDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log(this.model);
+    console.log(this.model1);
+
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
+
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoID = params['negoId'];
     });
@@ -38,7 +49,16 @@ export class BuyNegoDetailComponent implements OnInit {
 
 
   sendMessage(sendMessageForm) {
-
+    let data = {
+      'NegotiationID': this.negoID,
+      'SenderID': this.user.userId,
+      'Message': sendMessageForm.message
+    };
+    this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
+      this.messages = response;
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

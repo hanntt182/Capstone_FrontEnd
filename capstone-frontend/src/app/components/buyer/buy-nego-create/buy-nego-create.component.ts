@@ -40,9 +40,8 @@ export class BuyNegoCreateComponent implements OnInit {
     this.negoService.createNegotiation(this.constants.CREATENEGOTIATION, data).subscribe((response: any) => {
       this.negoID = response;
       console.log(this.negoID);
-      this.router.navigate(['/buyer/negotiation-detail/' + this.negoID]);
+      this.router.navigate(['/buyer/negotiation/' + 'negotiating' + this.negoID]);
     });
-
   }
 
 }

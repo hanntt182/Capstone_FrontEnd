@@ -81,27 +81,15 @@
             <thead style="background-color: #F2F3F7">
             <tr>
               <td scope="col">Shipping Method</td>
-              <td *ngIf="order?.shippingTime==null" scope="col">Estimated Shipping Time</td>
-              <td *ngIf="order?.shippingTime!=null && order?.deliveryDay==null" scope="col">Shipping Time</td>
-              <td *ngIf="order?.deliveryDay!=null" scope="col">Shipping Day</td>
-              <td scope="col">Estimated Delivery Time</td>
+              <td scope="col">Shipping Time</td>
               <td scope="col">Shipping Fee</td>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td scope="row">{{order?.address.city.zone.zoneName}}</td>
-              <td *ngIf="order?.shippingTime==null && order?.post.estimatedShippingTime!=null">
-                {{order?.post.estimatedShippingTime}}
-              </td>
-              <td *ngIf="order?.shippingTime==null && order?.post.estimatedShippingTime==null">No information</td>
-              <td *ngIf="order?.shippingTime!=null && order?.deliveryDay==null">Ship {{order?.shippingTime}} days after
-                receiving the payment.
-              </td>
-              <td *ngIf="order?.deliveryDay!=null">{{order?.deliveryDay}}</td>
-              <td *ngIf="order?.post.estimatedDeliveryTime!=null">{{order?.post.estimatedDeliveryTime}}</td>
-              <td *ngIf="order?.post.estimatedDeliveryTime==null">No information</td>
-              <td>{{order?.shipPrice}}</td>
+              <td scope="row">{{order?.postShip.ship.shipName}}</td>
+              <td>{{order?.postShip.shippingMinTime}} day(s) - {{order?.postShip.shippingMaxTime}} day(s) after payment</td>
+              <td>{{order?.postShip.shippingFee}}</td>
             </tr>
             </tbody>
           </table>
