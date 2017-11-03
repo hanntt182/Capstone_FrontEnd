@@ -1,3 +1,332 @@
-<p>
-  sup-nego-detail works!
-</p>
+<div *ngIf="negoID==0" class="container-fluid">
+  <div class="row" style="height: 550px">
+    <div class="col-sm-3"
+         style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
+      <form>
+        <div class="col-md-12 row input-group">
+          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+      <div class="row align-items-start" style="margin: 0px; padding: 0px">
+        <div class="row col-sm-12 text-center justify-content-center"
+             style="color:#999;padding: 0px; margin: 0px; background-color: white">
+
+          <i class="fa fa-info-circle fa-4x" aria-hidden="true"></i>
+          Sorry, no results found. Please check your search terms and try again.
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center col-sm-9 justify-content-center">
+      <div class="col">
+
+        Welcome to Electronic Devices Market.<a routerLink="/home">Click here</a> to start searching for products and
+        suppliers that interest you.
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="negoID!=0" class="container-fluid">
+  <div class="row" style="height: 600px">
+    <div class="col-sm-3"
+         style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
+      <form #searchNegoForm="ngForm">
+        <div class="col-md-12 row input-group">
+          <input type="text" name="searchNego" ngModel class="form-control" placeholder="Search for..."
+                 aria-label="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" (click)="searchNego(searchNegoForm.value.searchNego)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+      <div class="row align-items-start" style=" border: 1px solid #E6E7EB; margin: 0px; padding: 0px">
+        <div *ngFor="let nego of negotiations" class="row col-sm-12" (click)="changeNego(nego.negotiationID)"
+             style="border-bottom: 1px solid #E6E7EB;padding: 0px; margin: 0px; background-color: white">
+          <img
+            src="{{nego.post.primaryImage}}"
+            style="width: 48px;height: 48px">
+          <strong class="col-sm-10">{{nego.post.postTitle}}</strong>
+          <div class="col-sm-8 offset-2">
+            <!--<img class="rounded-circle"
+                 src="https://sc02.alicdn.com/kf/HTB131ahSVXXXXbjXFXXq6xXFXXXq/Original-Unlocked-Redmi-Note-4-Xiaomi-32gb.jpg_100x100.jpg"
+                 style="width: 48px;height: 48px">--> {{nego.post.supplier.username}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-5" style="padding: 0px; position: relative; overflow: auto; ">
+      <div class="row col-sm-12"
+           style="padding: 10px; margin: 0px; background-color: white;border-bottom:   1px solid #E6E7EB">
+        <div class="row col-md-12">
+          <img
+            src="{{negotiation?.post.supplier.companyLogo}}"
+            style="width: 48px;height: 48px">
+          <label class="col-md-6">{{negotiation?.post.supplier.companyName}}</label>
+          <label class="col-sm-4">OrderID</label>
+        </div>
+
+        <div class="row col-md-12 justify-content-end">
+          <small data-toggle="collapse" data-target="#companyInfo" style="cursor: pointer">
+            Show more
+            <i class="fa fa-caret-down" aria-hidden="true"></i></small>
+        </div>
+
+        <div class="collapse col-sm-12" id="companyInfo">
+          <div class="row col-sm-12" style="font-size: 13px; padding: 0px">
+            <div class="col-sm-6" style="padding: 0px">
+              <div class="row col-sm-12">
+                <h6>Basic Information</h6>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Company Name</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyName}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Company Email</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyEmail}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Company Phone</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyPhone}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Company Website</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyWebsite}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Company Address</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyAddress}},
+                  {{negotiation?.post.supplier.companyCity}}</label>
+              </div>
+            </div>
+            <div class="col-sm-6" style="padding: 0px">
+              <div class="row col-sm-12">
+                <h6>Contact Information</h6>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">User Name</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.username}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Email</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.email}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6">Phone</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.phone}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="row col-sm-12 align-items-start"
+           style="padding: 10px; margin: 0px; overflow: auto;height: 400px">
+        <div *ngFor="let message of messages" class="row col-sm-12" style="padding: 0px; margin: 0px;">
+
+          <div *ngIf="message.sender.userId == user.userId" class="row col-sm-12 align-items-center">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-7">
+              <small>{{message.messageDay}}</small>
+              <div class="alert alert-info" role="alert">
+                {{message.message}}
+              </div>
+            </div>
+            <div class="col-sm-1">{{message.sender.username}}</div>
+          </div>
+
+          <div *ngIf="message.sender.userId != user.userId" class="row col-sm-12 align-items-center">
+            <div class="col-sm-1">{{message.sender.username}}</div>
+            <div class="col-sm-7">
+              <small>{{message.messageDay}}</small>
+              <div class="alert alert-secondary" role="alert">
+              {{message.message}}
+            </div>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="col-sm-11 rounded align-items-center"
+           style="bottom: 0; padding:15px; margin: 20px; background-color: white; box-shadow: 0 2px 6px 1px rgba(0,0,0,.1)">
+        <form #sendMessageForm="ngForm">
+          <div class="row">
+            <div class="col-md-9">
+              <input name="message" type="text" class="form-control" style="border: none"
+                     placeholder="Please type your message here..." ngModel>
+
+            </div>
+            <div class="col-md-3 justify-content-end">
+              <button type="submit" class="btn btn-secondary" (click)="sendMessage(sendMessageForm.value)">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <div class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
+      <form #createNegoOrder="ngForm">
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Products Details</h5>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-4">
+                <img
+                  src="{{negotiation?.post.primaryImage}}"
+                  style="width: 80px;height: 80px">
+              </div>
+              <div class="col-sm-8" style="border: 1px solid #E6E7EB">
+                {{negotiation?.post.postTitle}}
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <div class="col-sm-4">
+                <label><span class="star">*</span>Quantity: </label>
+              </div>
+              <div class="col-sm-5">
+                <input disabled name="quantity" ngModel type="text"
+                       class="form-control" value="{{negotiation?.quantity}}">
+              </div>
+              <div class="col-sm-3">
+                <label>{{negotiation?.post.unit}}</label>
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <div class="col-sm-4">
+                <label><span class="star">*</span>Unit Price: </label>
+              </div>
+              <div class="col-sm-5">
+                <input disabled type="text" name="offerPrice" ngModel
+                       class="form-control" value="{{negotiation?.offerPrice}}">
+              </div>
+              <div class="col-sm-3">
+                <label> /piece</label>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-right">
+            Product(s) Amount: <b>{{productAmount}} VND</b>
+          </div>
+        </div>
+
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Shipping</h5>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px;">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
+              <div class="col-sm-7">
+                <input disabled type="text" name="offerPrice" ngModel
+                       class="form-control" value="{{negotiation?.postShip.ship.shipName}}">
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Fee</label>
+              <input name="feeShip" ngModel class="col-sm-7 form-control"
+                     value="{{negotiation?.shipPrice}}" disabled>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
+              <label class="col-sm-5" style="padding: 0px;">Shipment Date:</label>
+              <div class="col-sm-7" style="padding: 0px; font-size: 14px">
+                Ship <input type="number" value="{{negotiation?.shippingTime}}" disabled style="width: 50px"> day(s) after
+                payment.
+
+                <!--<div class="form-check">
+                  <label class="form-check-label" style="font-size: 13px">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                           checked>
+                    Ship on specific day
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                                    [(ngModel)]="model" required></my-date-picker>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label" style="font-size: 13px">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                    Ship <input type="number" style="width: 50px"> day(s) after payment.
+                  </label>
+                </div>-->
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
+              <div class="col-sm-8" style="padding: 0px; font-size: 14px">
+                <input disabled type="text" name="shipAddress" ngModel
+                       class="form-control" value="{{negotiation?.address}}">
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card" style="margin: 20px; font-size: 15px">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Payment details</h5>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
+              <label class="col-sm-6" style="padding: 0px;">Available payment method.</label>
+              <label class="col-sm-6" style="padding: 0px;">{{negotiation?.post.supplier.bank}}</label>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
+              <label class="col-sm-6" style="padding: 0px;">Total order amount</label>
+              <label class="col-sm-6" style="padding: 0px;">{{totalAmount}} VND</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Order Remark<span class="star">*</span></h5>
+            </div>
+            <div class="row col-sm-12">
+            <textarea class="form-control" name="remark" rows="5"
+                      value="{{negotiation?.remark}}" disabled
+                      ngModel #remark="ngModel" required>
+            </textarea>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="row text-center justify-content-center">
+          <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">I have read and agree .....</span>
+          </label>
+        </div>-->
+
+        <div class="row text-right justify-content-end" style="margin-right: 50px">
+          Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
+        </div>
+
+
+      </form>
+    </div>
+
+
+  </div>
+</div>

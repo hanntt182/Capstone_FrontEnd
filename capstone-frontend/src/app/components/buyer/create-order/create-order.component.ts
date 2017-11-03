@@ -43,7 +43,7 @@ export class CreateOrderComponent implements OnInit {
     this.addresses = this.user.address;
 
     this.orderService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
-      this.cities = response;
+      this.cities = response.LtsItem;
     }, error => {
       console.log(error);
     });
@@ -68,8 +68,8 @@ export class CreateOrderComponent implements OnInit {
       'CityID': cityID
     };
     for (let i = 0; i < this.cities.length; i++) {
-      if (this.cities[i].cityID == cityID) {
-        this.city = this.cities[i].cityName;
+      if (this.cities[i].ID == cityID) {
+        this.city = this.cities[i].Title;
       }
     }
     this.orderService.getListDistrict(this.constants.GETLISTDISTRICT, data).subscribe((response: any) => {
@@ -85,8 +85,8 @@ export class CreateOrderComponent implements OnInit {
       'DistrictID': districtID
     };
     for (let i = 0; i < this.districts.length; i++) {
-      if (this.districts[i].districtID == districtID) {
-        this.district = this.districts[i].districtName;
+      if (this.districts[i].ID == districtID) {
+        this.district = this.districts[i].Title;
       }
     }
     this.orderService.getListWard(this.constants.GETLISTWARD, data).subscribe((response: any) => {
@@ -98,15 +98,14 @@ export class CreateOrderComponent implements OnInit {
 
   chooseWard(wardID) {
     for (let i = 0; i < this.wards.length; i++) {
-      if (this.wards[i].wardID == wardID) {
-        this.ward = this.wards[i].wardName;
+      if (this.wards[i].ID == wardID) {
+        this.ward = this.wards[i].Title;
       }
     }
   }
 
 
   formatMoney(e) {
-    console.log(e);
   }
 
 

@@ -64,7 +64,7 @@ const routing: Routes = [
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
       {path: 'order-list', component: SupOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
-      {path: 'negotiation-detail', component: SupNegoDetailComponent}
+      {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent}
     ]
   },
   {
@@ -75,7 +75,7 @@ const routing: Routes = [
       {path: 'order-list', component: BuyOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
       {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
-      {path: 'negotiation/:negoStatus:negoId', component: BuyNegoDetailComponent}
+      {path: 'negotiation/:negoStatus/:negoId', component: BuyNegoDetailComponent}
     ]
   },
   {

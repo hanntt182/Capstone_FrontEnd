@@ -22,6 +22,16 @@
             Order
           </a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cubes" aria-hidden="true"></i>
+            Negotiation
+          </a>
+          <div class="dropdown-menu" aria-labelledby="product">
+            <a class="dropdown-item" (click)="gotoNegoDetail('negotiating')">Negotiating</a>
+            <a class="dropdown-item" (click)="gotoNegoDetail('finished')">Finished</a>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="fa fa-users" aria-hidden="true"></i>

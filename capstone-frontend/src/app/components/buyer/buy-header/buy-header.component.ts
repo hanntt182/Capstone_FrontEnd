@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {NegoService} from "../../../services/nego.service";
+import {Constants} from './../../../constants';
 
 @Component({
   selector: 'app-buy-header',
@@ -9,19 +11,37 @@ import {Router} from '@angular/router';
 export class BuyHeaderComponent implements OnInit {
 
   public user;
-  public negoID = 1;
+  public negoID;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private negoService: NegoService,
+              private constants: Constants) {
   }
 
   ngOnInit() {
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
+
+
   }
 
   gotoNegoDetail(status) {
-    this.router.navigate(['/buyer/negotiation/' + status + this.negoID]);
+    let data = {
+      'SearchValue': '',
+      'BuyerID': this.user.userId,
+      'Status': status
+    };
+    this.negoService.searchListNegotiationBuyer(this.constants.SEARCHLISTNEGOTIATIONBUYER, data).subscribe((response: any) => {
+      this.negoID = 1;
+      this.router.navigate(['/buyer/negotiation/' + status + '/' + this.negoID]);
+    }, error => {
+      console.log(error);
+      if (error._body == 'NEGOTIATION LIST NOT FOUND') {
+        this.negoID = 0;
+        this.router.navigate(['/buyer/negotiation/' + status + '/' + this.negoID]);
+      }
+    });
   }
 
 }

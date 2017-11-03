@@ -23,4 +23,16 @@ export class NegoService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  searchListNegotiationBuyer(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  searchListNegotiationSupplier(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  getListMessage(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
 }

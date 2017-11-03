@@ -62,8 +62,7 @@ import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import {CreateOrderGuard} from './guards/create-order.guard';
 import {TenderListComponent} from './components/user/tender-list/tender-list.component';
 
-
-
+import {TextMaskModule} from "angular2-text-mask";
 
 @NgModule({
   declarations: [
@@ -104,7 +103,7 @@ import {TenderListComponent} from './components/user/tender-list/tender-list.com
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
     BrowserAnimationsModule, ToastModule.forRoot(),
-    ImageZoomModule, CustomFormsModule, MyDatePickerModule
+    ImageZoomModule, CustomFormsModule, MyDatePickerModule, TextMaskModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService],

@@ -57,4 +57,8 @@ export class SearchPostComponent implements OnInit {
     this.router.navigate(['/create-order/' + postID]);
   }
 
+  createNego(postID) {
+    this.router.navigate(['/negotiation/' + postID]);
+  }
+
 }
