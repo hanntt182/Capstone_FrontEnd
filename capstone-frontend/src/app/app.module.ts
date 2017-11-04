@@ -63,6 +63,7 @@ import {CreateOrderGuard} from './guards/create-order.guard';
 import {TenderListComponent} from './components/user/tender-list/tender-list.component';
 
 import {TextMaskModule} from "angular2-text-mask";
+import { BuyTenderCreateComponent } from './components/buyer/buy-tender-create/buy-tender-create.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {TextMaskModule} from "angular2-text-mask";
     SupOrderDetailComponent,
     BuyOrderPaymentComponent,
     BuyNegoCreateComponent,
-    TenderListComponent
+    TenderListComponent,
+    BuyTenderCreateComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
