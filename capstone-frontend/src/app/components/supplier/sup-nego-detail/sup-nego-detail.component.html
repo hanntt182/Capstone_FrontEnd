@@ -63,18 +63,14 @@
                  style="width: 48px;height: 48px">--> {{nego.post.supplier.username}}
           </div>
         </div>
-
       </div>
     </div>
     <div class="col-sm-5" style="padding: 0px; position: relative; overflow: auto; ">
       <div class="row col-sm-12"
            style="padding: 10px; margin: 0px; background-color: white;border-bottom:   1px solid #E6E7EB">
         <div class="row col-md-12">
-          <img
-            src="{{negotiation?.post.supplier.companyLogo}}"
-            style="width: 48px;height: 48px">
-          <label class="col-md-6">{{negotiation?.post.supplier.companyName}}</label>
-          <label class="col-sm-4">OrderID</label>
+
+          <label class="col-md-6">{{negotiation?.buyer.username}}</label>
         </div>
 
         <div class="row col-md-12 justify-content-end">
@@ -90,42 +86,16 @@
                 <h6>Basic Information</h6>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Name</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyName}}</label>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Email</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyEmail}}</label>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Phone</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyPhone}}</label>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Website</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyWebsite}}</label>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Address</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyAddress}},
-                  {{negotiation?.post.supplier.companyCity}}</label>
-              </div>
-            </div>
-            <div class="col-sm-6" style="padding: 0px">
-              <div class="row col-sm-12">
-                <h6>Contact Information</h6>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
                 <label class="col-sm-6">User Name</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.username}}</label>
+                <label class="col-sm-6">{{negotiation?.buyer.username}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
                 <label class="col-sm-6">Email</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.email}}</label>
+                <label class="col-sm-6">{{negotiation?.buyer.email}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
                 <label class="col-sm-6">Phone</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.phone}}</label>
+                <label class="col-sm-6">{{negotiation?.buyer.phone}}</label>
               </div>
             </div>
           </div>
@@ -138,7 +108,8 @@
            style="padding: 10px; margin: 0px; overflow: auto;height: 400px">
         <div *ngFor="let message of messages" class="row col-sm-12" style="padding: 0px; margin: 0px;">
 
-          <div *ngIf="message.sender.userId == user.userId" class="row col-sm-12 align-items-center">
+          <div *ngIf="message.sender.userId == user.userId"
+               class="row col-sm-12 justify-content-end align-items-center">
             <div class="col-sm-4"></div>
             <div class="col-sm-7">
               <small>{{message.messageDay}}</small>
@@ -149,13 +120,14 @@
             <div class="col-sm-1">{{message.sender.username}}</div>
           </div>
 
-          <div *ngIf="message.sender.userId != user.userId" class="row col-sm-12 align-items-center">
+          <div *ngIf="message.sender.userId != user.userId"
+               class="row col-sm-12 justify-content-start align-items-center">
             <div class="col-sm-1">{{message.sender.username}}</div>
             <div class="col-sm-7">
               <small>{{message.messageDay}}</small>
               <div class="alert alert-secondary" role="alert">
-              {{message.message}}
-            </div>
+                {{message.message}}
+              </div>
             </div>
             <div class="col-sm-4"></div>
           </div>
@@ -174,7 +146,9 @@
 
             </div>
             <div class="col-md-3 justify-content-end">
-              <button type="submit" class="btn btn-secondary" (click)="sendMessage(sendMessageForm.value)">Send</button>
+              <button type="submit" class="btn btn-secondary"
+                      (click)="sendMessage(sendMessageForm.value); sendMessageForm.reset()">Send
+              </button>
             </div>
           </div>
         </form>
@@ -203,7 +177,7 @@
                 <label><span class="star">*</span>Quantity: </label>
               </div>
               <div class="col-sm-5">
-                <input disabled name="quantity" required type="text" ngModel
+                <input disabled name="quantity" required type="text" ngModel="{{negotiation?.quantity}}"
                        class="form-control" value="{{negotiation?.quantity}}">
               </div>
               <div class="col-sm-3">
@@ -215,11 +189,11 @@
                 <label><span class="star">*</span>Unit Price: </label>
               </div>
               <div class="col-sm-5">
-                <input disabled type="text" name="offerPrice" required ngModel
+                <input disabled type="text" name="offerPrice" required ngModel="{{negotiation?.offerPrice}}"
                        class="form-control" value="{{negotiation?.offerPrice}}">
               </div>
               <div class="col-sm-3">
-                <label> /piece</label>
+                <label> VND /piece</label>
               </div>
             </div>
           </div>
@@ -234,21 +208,33 @@
               <h5>Shipping</h5>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;">
-              <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
-              <div class="col-sm-7">
-                <input disabled type="text" name="offerPrice" required ngModel
-                       class="form-control" value="{{negotiation?.postShip.ship.shipName}}">
+              <label class="col-sm-5">Shipping Method</label>
+              <div *ngIf="negotiation?.postShip!=null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
+                <p>{{negotiation?.postShip.ship.shipName}}</p>
               </div>
+              <div *ngIf="negotiation?.postShip==null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
+
+              </div>
+              <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">
+                <input *ngIf="negotiation?.postShip==null" disabled type="text" name="offerPrice" required ngModel
+                       class="form-control">
+              </div>-->
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
-              <label class="col-sm-5" style="padding: 0px;">Shipping Fee</label>
-              <input name="feeShip" required class="col-sm-7 form-control"
-                     value="{{negotiation?.shipPrice}}" disabled ngModel>
+              <label class="col-sm-5">Shipping Fee</label>
+              <div class="col-sm-7">
+                <input name="feeShip" required class="form-control"
+                       value="{{negotiation?.shipPrice}}" disabled ngModel="{{negotiation?.shipPrice}}">
+              </div>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
-              <label class="col-sm-5" style="padding: 0px;">Shipment Date:</label>
+              <label class="col-sm-5">Shipment Date:</label>
               <div class="col-sm-7" style="padding: 0px; font-size: 14px">
-                Ship <input ngModel type="number" required value="{{negotiation?.shippingTime}}" disabled style="width: 50px"> day(s) after
+                Ship <input name="shippingTime" ngModel="{{negotiation?.shippingTime}}" type="number" required
+                            value="{{negotiation?.shippingTime}}" disabled
+                            style="width: 50px"> day(s) after
                 payment.
 
                 <!--<div class="form-check">
@@ -269,10 +255,13 @@
               </div>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
-              <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
-              <div class="col-sm-8" style="padding: 0px; font-size: 14px">
-                <input required disabled type="text" name="shipAddress" ngModel
-                       class="form-control" value="{{negotiation?.address}}">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Address</label>
+              <div *ngIf="negotiation?.address!=null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
+                <p id="editAddress">{{negotiation?.address.address}}</p>
+              </div>
+              <div *ngIf="negotiation?.address==null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
 
               </div>
             </div>
@@ -305,7 +294,7 @@
             <div class="row col-sm-12">
             <textarea class="form-control" name="remark" rows="5"
                       value="{{negotiation?.remark}}" disabled
-                      ngModel #remark="ngModel" required>
+                      ngModel="{{negotiation?.remark}}" #remark="ngModel" required>
             </textarea>
             </div>
           </div>
@@ -323,18 +312,22 @@
           Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
         </div>
 
-        <div class="row text-right justify-content-end" style="margin-right: 50px">
+        <div class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
 
-            <button style="margin-right: 10px" type="button" class="btn btn-success" [disabled]="!createNegoOrder.valid"
-                    (click)="confirmOrder()">
-              <i class="fa fa-check" aria-hidden="true"></i>
-              Confirm
-            </button>
-            <button type="button" class="btn btn-danger"
-                    (click)="cancelOrder()">
-              <i class="fa fa-times" aria-hidden="true"></i>
-              Cancel
-            </button>
+          <button style="margin-right: 10px" type="button" class="btn btn-success"
+                  [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
+                  || negotiation?.address==null || negotiation?.postShip==null
+                  || negotiation?.offerPrice==null || negotiation?.shipPrice==null
+                  || negotiation?.remark==null"
+                  (click)="confirmOrder()">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Confirm
+          </button>
+          <button type="button" class="btn btn-danger"
+                  (click)="cancelOrder()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+          </button>
 
         </div>
 

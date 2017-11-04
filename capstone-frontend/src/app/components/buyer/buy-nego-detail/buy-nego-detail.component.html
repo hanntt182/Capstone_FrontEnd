@@ -63,8 +63,8 @@
                  style="width: 48px;height: 48px">--> {{nego.post.supplier.username}}
           </div>
         </div>
-
       </div>
+
     </div>
     <div class="col-sm-5" style="padding: 0px; position: relative; overflow: auto; ">
       <div class="row col-sm-12"
@@ -74,7 +74,6 @@
             src="{{negotiation?.post.supplier.companyLogo}}"
             style="width: 48px;height: 48px">
           <label class="col-md-6">{{negotiation?.post.supplier.companyName}}</label>
-          <label class="col-sm-4">OrderID</label>
         </div>
 
         <div class="row col-md-12 justify-content-end">
@@ -235,7 +234,8 @@
                 <input type="number" name="offerPrice"
                        (change)="countAmount(createNegoOrder.value.quantity, createNegoOrder.value.offerPrice, createNegoOrder.value.feeShip)"
                        ngModel="{{negotiation?.offerPrice}}" #offerPrice="ngModel" required
-                       class="form-control" value="{{negotiation?.offerPrice}}" [min]="0" [max]="negotiation?.post.maxPrice">
+                       class="form-control" value="{{negotiation?.offerPrice}}" [min]="0"
+                       [max]="negotiation?.post.maxPrice">
               </div>
               <div class="col-sm-3">
                 <label> VND /piece</label>
@@ -264,19 +264,23 @@
             <div class="row col-sm-12">
               <h5>Shipping</h5>
             </div>
-            <div class="row col-sm-12" style="padding-top: 10px;">
+
+            <div *ngIf="negotiation?.postShip!=null" class="row col-sm-12" style="padding-top: 10px;">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
+              <div class="col-sm-7" style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px">
+                <p id="editShippingMethod">{{negotiation?.postShip.ship.shipName}}</p> <a href="" data-toggle="modal"
+                                                                                          data-target="#editShipMethod">
+                Edit</a>
+              </div>
+            </div>
+
+            <div *ngIf="negotiation?.postShip==null" class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
               <select class="col-sm-7 form-control" name="postShip" ngModel #postShip="ngModel" required>
                 <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID}}">
                   {{postShip.ship.shipName}}
                 </option>
               </select>
-              <div *ngIf="postShip.invalid && (postShip.dirty || postShip.touched)"
-                   class="error">
-                <div *ngIf="offerPrice.errors.required">
-                  Offer Price is required.
-                </div>
-              </div>
             </div>
             <div class="row col-sm-12 align-items-center" style="padding-top: 10px">
               <label class="col-sm-5" style="padding: 0px;">Shipping Fee</label>
@@ -452,7 +456,8 @@
 
         <div class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
 
-          <button style="margin-right: 10px" type="button" class="btn btn-success" [disabled]="!createNegoOrder.valid || (createNegoOrder.value.address=='' && negotiation?.address==null)"
+          <button style="margin-right: 10px" type="button" class="btn btn-success"
+                  [disabled]="!createNegoOrder.valid || (createNegoOrder.value.address=='' && negotiation?.address==null)"
                   (click)="updateNego(createNegoOrder.value)">
             <i class="fa fa-check" aria-hidden="true"></i>
             OK
@@ -480,7 +485,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+        <h5 class="modal-title">Edit Address</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -488,8 +493,7 @@
       <div class="modal-body">
         <form #editAddressForm="ngForm">
           <div class="row col-sm-12" style="padding-top: 10px">
-            <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
-            <div class="col-sm-8" style="padding: 0px; font-size: 14px">
+            <div class="col-sm-12" style="padding: 0px; font-size: 14px">
               <div class="form-check">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="editAddress" value="oldAddress" ngModel>
@@ -551,6 +555,37 @@
           <i class="fa fa-check" aria-hidden="true"></i>
           Save
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--ShipMethod Modal-->
+<div class="modal fade" id="editShipMethod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Shipping Method</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editPostShipForm="ngForm">
+          <div class="row col-sm-12" style="padding-top: 10px;">
+            <select class="col-sm-12 form-control" name="editPostShip" ngModel #editPostShip="ngModel" required>
+              <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.ship.shipName}}">
+                {{postShip.ship.shipName}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="changePostShip(editPostShipForm.value)">Save</button>
       </div>
     </div>
   </div>

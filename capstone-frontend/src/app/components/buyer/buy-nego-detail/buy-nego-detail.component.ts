@@ -211,4 +211,12 @@ export class BuyNegoDetailComponent implements OnInit {
     $('.modal-backdrop').remove();
   }
 
+  changePostShip(editPostShipForm){
+    console.log(editPostShipForm);
+    document.getElementById('editShippingMethod').innerHTML = editPostShipForm.editPostShip;
+    $('#editShipMethod').hide();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  }
+
 }

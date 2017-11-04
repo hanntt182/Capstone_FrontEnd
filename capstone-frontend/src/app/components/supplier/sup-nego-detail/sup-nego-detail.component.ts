@@ -13,18 +13,12 @@ export class SupNegoDetailComponent implements OnInit {
 
   public negoID;
   public negoStatus;
+  public user;
   public negotiation;
   public negotiations;
-  public user;
   public messages;
   public productAmount;
   public totalAmount;
-  public cities;
-  public districts;
-  public wards;
-  public city;
-  public district;
-  public ward;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -47,30 +41,40 @@ export class SupNegoDetailComponent implements OnInit {
       this.negoStatus = params['negoStatus'];
     });
 
+    setInterval(() => {
+      this.updateNego(this.negoID);
+    }, 500);
 
+    setInterval(() => {
+      this.getMessage(this.negoID);
+    }, 500);
+
+    this.searchNego('');
+
+  }
+
+
+  updateNego(negoID) {
     let data = {
-      'NegotiationID': this.negoID
+      'NegotiationID': negoID
     };
     this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
       this.negotiation = response;
       this.productAmount = response.quantity * response.offerPrice;
       this.totalAmount = this.productAmount + response.shipPrice;
     });
+  }
+
+
+  getMessage(negoID) {
+    let data = {
+      'NegotiationID': negoID
+    };
     this.negoService.getListMessage(this.constants.GETLISTMESSAGE, data).subscribe((response: any) => {
       this.messages = response;
     }, error => {
       console.log(error);
     });
-
-    this.searchNego('');
-
-
-    this.orderService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
-      this.cities = response.LtsItem;
-    }, error => {
-      console.log(error);
-    });
-
   }
 
 
@@ -103,6 +107,9 @@ export class SupNegoDetailComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  confirmOrder() {
 
   }
 
