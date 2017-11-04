@@ -74,47 +74,6 @@ export class SupNegoDetailComponent implements OnInit {
   }
 
 
-  chooseCity(cityID) {
-    let data = {
-      'CityID': cityID
-    };
-    for (let i = 0; i < this.cities.length; i++) {
-      if (this.cities[i].ID == cityID) {
-        this.city = this.cities[i].Title;
-      }
-    }
-    this.orderService.getListDistrict(this.constants.GETLISTDISTRICT, data).subscribe((response: any) => {
-      this.districts = response;
-    }, error => {
-      console.log(error);
-    });
-  }
-
-
-  chooseDistrict(districtID) {
-    let data = {
-      'DistrictID': districtID
-    };
-    for (let i = 0; i < this.districts.length; i++) {
-      if (this.districts[i].ID == districtID) {
-        this.district = this.districts[i].Title;
-      }
-    }
-    this.orderService.getListWard(this.constants.GETLISTWARD, data).subscribe((response: any) => {
-      this.wards = response;
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  chooseWard(wardID) {
-    for (let i = 0; i < this.wards.length; i++) {
-      if (this.wards[i].ID == wardID) {
-        this.ward = this.wards[i].Title;
-      }
-    }
-  }
-
   changeNego(negoID) {
     this.router.navigate(['/supplier/negotiation/' + this.negoStatus + '/' + negoID]);
     this.ngOnInit();
@@ -132,10 +91,6 @@ export class SupNegoDetailComponent implements OnInit {
     });
   }
 
-  countAmount(createNegoOrder) {
-    this.productAmount = createNegoOrder.quantity * createNegoOrder.offerPrice;
-    this.totalAmount = Number(this.productAmount) + Number(createNegoOrder.feeShip);
-  }
 
   sendMessage(sendMessageForm) {
     let data = {
@@ -148,6 +103,7 @@ export class SupNegoDetailComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+
   }
 
 

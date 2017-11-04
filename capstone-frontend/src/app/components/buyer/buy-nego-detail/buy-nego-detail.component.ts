@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {NegoService} from "../../../services/nego.service";
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
-import {OrderService} from "../../../services/order.service";
+import {OrderService} from '../../../services/order.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-buy-nego-detail',
@@ -31,6 +32,7 @@ export class BuyNegoDetailComponent implements OnInit {
   public city;
   public district;
   public ward;
+  public address;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -60,12 +62,11 @@ export class BuyNegoDetailComponent implements OnInit {
     };
     this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
       this.negotiation = response;
+      this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
     });
-    this.negoService.getListMessage(this.constants.GETLISTMESSAGE, data).subscribe((response: any) => {
-      this.messages = response;
-    }, error => {
-      console.log(error);
-    });
+    setInterval(() => {
+      this.getMessage(this.negoID);
+    }, 500);
 
     this.searchNego('');
 
@@ -75,18 +76,26 @@ export class BuyNegoDetailComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-
-
   }
 
+  getMessage(negoID) {
+    let data = {
+      'NegotiationID': negoID
+    };
+    this.negoService.getListMessage(this.constants.GETLISTMESSAGE, data).subscribe((response: any) => {
+      this.messages = response;
+    }, error => {
+      console.log(error);
+    });
+  }
 
   chooseCity(cityID) {
     let data = {
       'CityID': cityID
     };
     for (let i = 0; i < this.cities.length; i++) {
-      if (this.cities[i].cityID == cityID) {
-        this.city = this.cities[i].cityName;
+      if (this.cities[i].ID == cityID) {
+        this.city = this.cities[i].Title;
       }
     }
     this.orderService.getListDistrict(this.constants.GETLISTDISTRICT, data).subscribe((response: any) => {
@@ -102,8 +111,8 @@ export class BuyNegoDetailComponent implements OnInit {
       'DistrictID': districtID
     };
     for (let i = 0; i < this.districts.length; i++) {
-      if (this.districts[i].districtID == districtID) {
-        this.district = this.districts[i].districtName;
+      if (this.districts[i].ID == districtID) {
+        this.district = this.districts[i].Title;
       }
     }
     this.orderService.getListWard(this.constants.GETLISTWARD, data).subscribe((response: any) => {
@@ -115,8 +124,8 @@ export class BuyNegoDetailComponent implements OnInit {
 
   chooseWard(wardID) {
     for (let i = 0; i < this.wards.length; i++) {
-      if (this.wards[i].wardID == wardID) {
-        this.ward = this.wards[i].wardName;
+      if (this.wards[i].ID == wardID) {
+        this.ward = this.wards[i].Title;
       }
     }
   }
@@ -137,9 +146,9 @@ export class BuyNegoDetailComponent implements OnInit {
     });
   }
 
-  countAmount(createNegoOrder) {
-    this.productAmount = createNegoOrder.quantity * createNegoOrder.offerPrice;
-    this.totalAmount = Number(this.productAmount) + Number(createNegoOrder.feeShip);
+  countAmount(quantity, offerPrice, feeShip) {
+    this.productAmount = quantity * offerPrice;
+    this.totalAmount = Number(this.productAmount) + Number(feeShip);
   }
 
   sendMessage(sendMessageForm) {
@@ -153,6 +162,53 @@ export class BuyNegoDetailComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  updateNego(createNegoOrder) {
+    if (this.negotiation.address == null) {
+      if (createNegoOrder.address == 'oldAddress') {
+        this.address = createNegoOrder.oldAddressName;
+      } else if (createNegoOrder.address == 'newAddress') {
+        this.address = createNegoOrder.newAddressValue + ', ' + this.ward + ', ' + this.district + ', ' + this.city;
+      } else {
+        this.address = null;
+      }
+    } else if (this.negotiation.address != null) {
+      this.address = document.getElementById('editAddress').innerText;
+    }
+
+
+    let data = {
+      'NegotiationID': Number(this.negoID),
+      'OfferPrice': Number(createNegoOrder.offerPrice),
+      'Quantity': Number(createNegoOrder.quantity),
+      'PostShipID': Number(createNegoOrder.postShip),
+      'ShippingTime': Number(createNegoOrder.shippingTime),
+      'ShipFee': Number(createNegoOrder.feeShip),
+      'Remark': createNegoOrder.remark,
+      'Address': this.address
+    };
+    console.log(data);
+    this.negoService.updateNegotiationBuyer(this.constants.UPDATENEGOTIATIONBUYER, data).subscribe((response: any) => {
+      this.negotiation = response;
+      alert('Update success');
+    });
+  }
+
+
+  saveAddress(editAddressForm) {
+    console.log(editAddressForm);
+    if (editAddressForm.editAddress == 'oldAddress') {
+      let address = editAddressForm.oldAddressEdit;
+      document.getElementById('editAddress').innerHTML = address;
+    } else if (editAddressForm.editAddress == 'newAddress') {
+      let address = editAddressForm.newAddressEdit + ', ' + this.ward + ', ' + this.district + ', ' + this.city;
+      document.getElementById('editAddress').innerHTML = address;
+    }
+
+    $('#addressModel').hide();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   }
 
 }

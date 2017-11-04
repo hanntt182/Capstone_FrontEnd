@@ -138,7 +138,8 @@
            style="padding: 10px; margin: 0px; overflow: auto;height: 400px">
         <div *ngFor="let message of messages" class="row col-sm-12" style="padding: 0px; margin: 0px;">
 
-          <div *ngIf="message.sender.userId == user.userId" class="row col-sm-12 justify-content-end align-items-center">
+          <div *ngIf="message.sender.userId == user.userId"
+               class="row col-sm-12 justify-content-end align-items-center">
             <div class="col-sm-4"></div>
             <div class="col-sm-7">
               <small>{{message.messageDay}}</small>
@@ -149,7 +150,8 @@
             <div class="col-sm-1">{{message.sender.username}}</div>
           </div>
 
-          <div *ngIf="message.sender.userId != user.userId" class="row col-sm-12 justify-content-start align-items-center">
+          <div *ngIf="message.sender.userId != user.userId"
+               class="row col-sm-12 justify-content-start align-items-center">
             <div class="col-sm-1">{{message.sender.username}}</div>
             <div class="col-sm-7">
               <small>{{message.messageDay}}</small>
@@ -174,7 +176,9 @@
 
             </div>
             <div class="col-md-3 justify-content-end">
-              <button type="submit" class="btn btn-secondary" (click)="sendMessage(sendMessageForm.value)">Send</button>
+              <button type="submit" class="btn btn-secondary"
+                      (click)="sendMessage(sendMessageForm.value); sendMessageForm.reset()">Send
+              </button>
             </div>
           </div>
         </form>
@@ -203,11 +207,24 @@
                 <label><span class="star">*</span>Quantity: </label>
               </div>
               <div class="col-sm-5">
-                <input name="quantity" (change)="countAmount(createNegoOrder.value)" ngModel type="text"
+                <input name="quantity"
+                       (change)="countAmount(createNegoOrder.value.quantity, createNegoOrder.value.offerPrice, createNegoOrder.value.feeShip)"
+                       ngModel="{{negotiation?.quantity}}" [min]="negotiation?.post.minOrderQuantity"
+                       type="number" #quantity="ngModel" required
                        class="form-control" value="{{negotiation?.quantity}}">
+
               </div>
               <div class="col-sm-3">
                 <label>{{negotiation?.post.unit}}</label>
+              </div>
+              <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+                   class="error">
+                <div *ngIf="quantity.errors.required">
+                  Quantity is required and must be a number.
+                </div>
+                <div *ngIf="quantity.errors?.min">
+                  Quantity must be ≥ {{negotiation?.post.minOrderQuantity}}
+                </div>
               </div>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
@@ -215,11 +232,25 @@
                 <label><span class="star">*</span>Unit Price: </label>
               </div>
               <div class="col-sm-5">
-                <input type="text" name="offerPrice" (change)="countAmount(createNegoOrder.value)" ngModel
-                       class="form-control" value="{{negotiation?.offerPrice}}">
+                <input type="number" name="offerPrice"
+                       (change)="countAmount(createNegoOrder.value.quantity, createNegoOrder.value.offerPrice, createNegoOrder.value.feeShip)"
+                       ngModel="{{negotiation?.offerPrice}}" #offerPrice="ngModel" required
+                       class="form-control" value="{{negotiation?.offerPrice}}" [min]="0" [max]="negotiation?.post.maxPrice">
               </div>
               <div class="col-sm-3">
-                <label> /piece</label>
+                <label> VND /piece</label>
+              </div>
+              <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
+                   class="error">
+                <div *ngIf="offerPrice.errors.required">
+                  Offer Price is required and must be a number.
+                </div>
+                <div *ngIf="offerPrice.errors?.min">
+                  Offer Price must be ≥ 0
+                </div>
+                <div *ngIf="offerPrice.errors?.max">
+                  Offer Price must be ≤ {{negotiation?.post.maxPrice}}
+                </div>
               </div>
             </div>
           </div>
@@ -235,22 +266,43 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
-              <select class="col-sm-7 form-control">
-                <option selected>Choose ship method...</option>
-                <option *ngFor="let postShip of negotiation?.post.postShips">{{postShip.ship.shipName}}</option>
+              <select class="col-sm-7 form-control" name="postShip" ngModel #postShip="ngModel" required>
+                <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID}}">
+                  {{postShip.ship.shipName}}
+                </option>
               </select>
+              <div *ngIf="postShip.invalid && (postShip.dirty || postShip.touched)"
+                   class="error">
+                <div *ngIf="offerPrice.errors.required">
+                  Offer Price is required.
+                </div>
+              </div>
             </div>
-            <div class="row col-sm-12" style="padding-top: 10px">
+            <div class="row col-sm-12 align-items-center" style="padding-top: 10px">
               <label class="col-sm-5" style="padding: 0px;">Shipping Fee</label>
-              <input name="feeShip" ngModel (change)="countAmount(createNegoOrder.value)" class="col-sm-7 form-control"
+              <input type="number" name="feeShip" ngModel="{{negotiation?.shipPrice}}"
+                     (change)="countAmount(createNegoOrder.value.quantity, createNegoOrder.value.offerPrice, createNegoOrder.value.feeShip)"
+                     class="col-sm-5 form-control" #feeShip="ngModel" required [min]="0"
                      value="{{negotiation?.shipPrice}}">
+              <label class="col-sm-2"> VND </label>
+              <div *ngIf="feeShip.invalid && (feeShip.dirty || feeShip.touched)"
+                   class="error">
+                <div *ngIf="feeShip.errors.required">
+                  Offer Price is required and must be a number.
+                </div>
+                <div *ngIf="feeShip.errors?.min">
+                  Offer Price must be ≥ 0
+                </div>
+              </div>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
               <label class="col-sm-5" style="padding: 0px;">Shipment Date:</label>
               <div class="col-sm-7" style="padding: 0px; font-size: 14px">
-                Ship <input type="number" value="{{negotiation?.shippingTime}}" style="width: 50px"> day(s) after
+                Ship <input type="number" name="shippingTime" value="{{negotiation?.shippingTime}}"
+                            ngModel="{{negotiation?.shippingTime}}" style="width: 50px"
+                            #shippingTime="ngModel" required
+                            [min]="0"> day(s) after
                 payment.
-
                 <!--<div class="form-check">
                   <label class="form-check-label" style="font-size: 13px">
                     <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
@@ -267,18 +319,35 @@
                   </label>
                 </div>-->
               </div>
+              <div *ngIf="shippingTime.invalid && (shippingTime.dirty || shippingTime.touched)"
+                   class="error">
+                <div *ngIf="shippingTime.errors.required">
+                  Offer Price is required and must be a number.
+                </div>
+                <div *ngIf="shippingTime.errors?.min">
+                  Offer Price must be ≥ 0
+                </div>
+              </div>
             </div>
-            <div class="row col-sm-12" style="padding-top: 10px">
+
+            <div *ngIf="negotiation?.address!=null" class="row col-sm-12" style="padding-top: 10px">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Address</label>
+              <div class="col-sm-7" style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px">
+                <p id="editAddress">{{negotiation?.address.address}}</p> <a href="" data-toggle="modal"
+                                                                            data-target="#addressModel"> Edit</a>
+              </div>
+            </div>
+
+            <div *ngIf="negotiation?.address==null" class="row col-sm-12" style="padding-top: 10px">
               <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
               <div class="col-sm-8" style="padding: 0px; font-size: 14px">
                 <div class="form-check">
                   <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel>
                     Existed Address
-                    <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressId"
-                            ngModel>
+                    <select class="form-control" name="oldAddressName" ngModel>
                       <option selected>My address</option>
-                      <option *ngFor="let address of addresses" value="{{address.addressID}}">{{address.address}}
+                      <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}
                       </option>
                     </select>
                   </label>
@@ -356,13 +425,13 @@
             <div class="row col-sm-12">
             <textarea class="form-control" name="remark" rows="5"
                       placeholder="Please add additional detailed product information to make it easier for the supplier to understand your exact requirements..."
-                      ngModel #remark="ngModel" required>
+                      ngModel="{{negotiation?.remark}}" #remark="ngModel" required>
             </textarea>
-            </div>
-            <div *ngIf="remark.invalid && (remark.dirty || remark.touched)"
-                 class="error">
-              <div *ngIf="remark.errors.required">
-                Quantity is required.
+              <div *ngIf="remark.invalid && (remark.dirty || remark.touched)"
+                   class="error">
+                <div *ngIf="remark.errors.required">
+                  Remark is required and must be a number.
+                </div>
               </div>
             </div>
           </div>
@@ -381,9 +450,108 @@
         </div>
 
 
+        <div class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
+
+          <button style="margin-right: 10px" type="button" class="btn btn-success" [disabled]="!createNegoOrder.valid || (createNegoOrder.value.address=='' && negotiation?.address==null)"
+                  (click)="updateNego(createNegoOrder.value)">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            OK
+          </button>
+          <button type="button" class="btn btn-danger"
+                  (click)="cancelOrder()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+          </button>
+
+        </div>
+
+
       </form>
     </div>
 
 
+  </div>
+</div>
+
+
+<!--Address Modal-->
+<div class="modal fade" id="addressModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editAddressForm="ngForm">
+          <div class="row col-sm-12" style="padding-top: 10px">
+            <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
+            <div class="col-sm-8" style="padding: 0px; font-size: 14px">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="editAddress" value="oldAddress" ngModel>
+                  Existed Address
+                  <select class="form-control" name="oldAddressEdit" ngModel>
+                    <option selected>My address</option>
+                    <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}
+                    </option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="editAddress" value="newAddress" ngModel>
+                  New Address
+
+                  <div class="form-group form-inline">
+                    <label class="col-sm-4">City</label>
+                    <select style="width: 149px;" class="form-control col-sm-8"
+                            (change)="chooseCity($event.target.value)">
+                      <option selected>Choose city...</option>
+                      <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label class="col-sm-4">District</label>
+                    <select style="width: 149px;" class="form-control col-sm-8"
+                            (change)="chooseDistrict($event.target.value)">
+                      <option selected>Choose district...</option>
+                      <option *ngFor="let district of districts" value="{{district.ID}}">
+                        {{district.Title}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label class="col-sm-4">Ward</label>
+                    <select style="width: 149px;" class="form-control col-sm-8"
+                            (change)="chooseWard($event.target.value)">
+                      <option selected>Choose ward...</option>
+                      <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label class="col-sm-4">Address </label>
+                    <input type="text" class="form-control col-sm-8" placeholder="Enter address"
+                           name="newAddressEdit"
+                           ngModel>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" (click)="saveAddress(editAddressForm.value)">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Save
+        </button>
+      </div>
+    </div>
   </div>
 </div>

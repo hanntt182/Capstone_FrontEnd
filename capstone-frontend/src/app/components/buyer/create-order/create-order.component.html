@@ -57,7 +57,7 @@
                 </td>
                 <td>
                   <div class="form-group">
-                    <input type="number" class="form-control" [min]="post?.minOrderQuantity"
+                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity"
                            placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
                            (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
                     <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
@@ -95,7 +95,7 @@
                   </div>
                 </td>
                 <td scope="row">
-                  <label>/{{post?.unit}}</label>
+                  <label>VND /{{post?.unit}}</label>
                 </td>
               </tr>
               </tbody>
@@ -104,7 +104,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          Product(s) Amount: <b>{{productAmount}}</b>
+          Product(s) Amount: <b>{{productAmount}} VND</b>
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          Shipping Fee: <b>{{shippingFee}}</b>
+          Shipping Fee: <b>{{shippingFee}} VND</b>
         </div>
       </div>
     </div>
@@ -218,16 +218,16 @@
   <div class="container">
     <div class="row col-sm-12" style="padding-bottom: 20px; font-size: 16px">
       <label class="col-sm-8 text-right">Product(s) Amount</label>
-      <label class="col-sm-4"> {{productAmount}} </label>
+      <label class="col-sm-4"> {{productAmount}} VND</label>
 
       <label class="col-sm-8 text-right">Shipping Amount</label>
-      <label class="col-sm-4"> {{shippingFee}} </label>
+      <label class="col-sm-4"> {{shippingFee}} VND</label>
 
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center" style="border-bottom: 1px dashed #8c8b8b"></div>
       <div class="clearfix"></div>
       <label class="col-sm-8 text-right">Total Order Amount</label>
-      <label class="col-sm-4" style="color: orangered"><h5> {{productAmount + shippingFee}} </h5></label>
+      <label class="col-sm-4" style="color: orangered"><h5> {{productAmount + shippingFee}} VND</h5></label>
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center">
         <button

@@ -203,7 +203,7 @@
                 <label><span class="star">*</span>Quantity: </label>
               </div>
               <div class="col-sm-5">
-                <input disabled name="quantity" ngModel type="text"
+                <input disabled name="quantity" required type="text" ngModel
                        class="form-control" value="{{negotiation?.quantity}}">
               </div>
               <div class="col-sm-3">
@@ -215,7 +215,7 @@
                 <label><span class="star">*</span>Unit Price: </label>
               </div>
               <div class="col-sm-5">
-                <input disabled type="text" name="offerPrice" ngModel
+                <input disabled type="text" name="offerPrice" required ngModel
                        class="form-control" value="{{negotiation?.offerPrice}}">
               </div>
               <div class="col-sm-3">
@@ -236,19 +236,19 @@
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
               <div class="col-sm-7">
-                <input disabled type="text" name="offerPrice" ngModel
+                <input disabled type="text" name="offerPrice" required ngModel
                        class="form-control" value="{{negotiation?.postShip.ship.shipName}}">
               </div>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
               <label class="col-sm-5" style="padding: 0px;">Shipping Fee</label>
-              <input name="feeShip" ngModel class="col-sm-7 form-control"
-                     value="{{negotiation?.shipPrice}}" disabled>
+              <input name="feeShip" required class="col-sm-7 form-control"
+                     value="{{negotiation?.shipPrice}}" disabled ngModel>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
               <label class="col-sm-5" style="padding: 0px;">Shipment Date:</label>
               <div class="col-sm-7" style="padding: 0px; font-size: 14px">
-                Ship <input type="number" value="{{negotiation?.shippingTime}}" disabled style="width: 50px"> day(s) after
+                Ship <input ngModel type="number" required value="{{negotiation?.shippingTime}}" disabled style="width: 50px"> day(s) after
                 payment.
 
                 <!--<div class="form-check">
@@ -271,7 +271,7 @@
             <div class="row col-sm-12" style="padding-top: 10px">
               <label class="col-sm-4" style="padding: 0px;">Shipping Address</label>
               <div class="col-sm-8" style="padding: 0px; font-size: 14px">
-                <input disabled type="text" name="shipAddress" ngModel
+                <input required disabled type="text" name="shipAddress" ngModel
                        class="form-control" value="{{negotiation?.address}}">
 
               </div>
@@ -323,6 +323,20 @@
           Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
         </div>
 
+        <div class="row text-right justify-content-end" style="margin-right: 50px">
+
+            <button style="margin-right: 10px" type="button" class="btn btn-success" [disabled]="!createNegoOrder.valid"
+                    (click)="confirmOrder()">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Confirm
+            </button>
+            <button type="button" class="btn btn-danger"
+                    (click)="cancelOrder()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cancel
+            </button>
+
+        </div>
 
       </form>
     </div>
