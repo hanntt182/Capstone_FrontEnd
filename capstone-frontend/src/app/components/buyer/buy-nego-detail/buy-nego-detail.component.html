@@ -185,9 +185,185 @@
 
     </div>
 
+    <div *ngIf="negotiation?.checked==true" class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
+      <form #createNegoOrderConfirm="ngForm">
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Products Details</h5>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-4">
+                <img
+                  src="{{negotiation?.post.primaryImage}}"
+                  style="width: 80px;height: 80px">
+              </div>
+              <div class="col-sm-8" style="border: 1px solid #E6E7EB">
+                {{negotiation?.post.postTitle}}
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <div class="col-sm-4">
+                <label><span class="star">*</span>Quantity: </label>
+              </div>
+              <div class="col-sm-5">
+                <input disabled name="quantity" required type="text" ngModel="{{negotiation?.quantity}}"
+                       class="form-control" value="{{negotiation?.quantity}}">
+              </div>
+              <div class="col-sm-3">
+                <label>{{negotiation?.post.unit}}</label>
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <div class="col-sm-4">
+                <label><span class="star">*</span>Unit Price: </label>
+              </div>
+              <div class="col-sm-5">
+                <input disabled type="text" name="offerPrice" required ngModel="{{negotiation?.offerPrice}}"
+                       class="form-control" value="{{negotiation?.offerPrice}}">
+              </div>
+              <div class="col-sm-3">
+                <label> VND /piece</label>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-right">
+            Product(s) Amount: <b>{{productAmount}} VND</b>
+          </div>
+        </div>
+
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Shipping</h5>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px;">
+              <label class="col-sm-5">Shipping Method</label>
+              <div *ngIf="negotiation?.postShip!=null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
+                <p>{{negotiation?.postShip.ship.shipName}}</p>
+              </div>
+              <div *ngIf="negotiation?.postShip==null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
+
+              </div>
+              <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">
+                <input *ngIf="negotiation?.postShip==null" disabled type="text" name="offerPrice" required ngModel
+                       class="form-control">
+              </div>-->
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <label class="col-sm-5">Shipping Fee</label>
+              <div class="col-sm-7">
+                <input name="feeShip" required class="form-control"
+                       value="{{negotiation?.shipPrice}}" disabled ngModel="{{negotiation?.shipPrice}}">
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
+              <label class="col-sm-5">Shipment Date:</label>
+              <div class="col-sm-7" style="padding: 0px; font-size: 14px">
+                Ship <input name="shippingTime" ngModel="{{negotiation?.shippingTime}}" type="number" required
+                            value="{{negotiation?.shippingTime}}" disabled
+                            style="width: 50px"> day(s) after
+                payment.
+
+                <!--<div class="form-check">
+                  <label class="form-check-label" style="font-size: 13px">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"
+                           checked>
+                    Ship on specific day
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                                    [(ngModel)]="model" required></my-date-picker>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label" style="font-size: 13px">
+                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                    Ship <input type="number" style="width: 50px"> day(s) after payment.
+                  </label>
+                </div>-->
+              </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px">
+              <label class="col-sm-5" style="padding: 0px;">Shipping Address</label>
+              <div *ngIf="negotiation?.address!=null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
+                <p id="editAddress">{{negotiation?.address.address}}</p>
+              </div>
+              <div *ngIf="negotiation?.address==null" class="col-sm-7"
+                   style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
+
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-    <div class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
+        <div class="card" style="margin: 20px; font-size: 15px">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Payment details</h5>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
+              <label class="col-sm-6" style="padding: 0px;">Available payment method.</label>
+              <label class="col-sm-6" style="padding: 0px;">{{negotiation?.post.supplier.bank}}</label>
+            </div>
+            <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
+              <label class="col-sm-6" style="padding: 0px;">Total order amount</label>
+              <label class="col-sm-6" style="padding: 0px;">{{totalAmount}} VND</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card" style="margin: 20px;">
+          <div class="card-body">
+            <div class="row col-sm-12">
+              <h5>Order Remark<span class="star">*</span></h5>
+            </div>
+            <div class="row col-sm-12">
+            <textarea class="form-control" name="remark" rows="5"
+                      value="{{negotiation?.remark}}" disabled
+                      ngModel="{{negotiation?.remark}}" #remark="ngModel" required>
+            </textarea>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="row text-center justify-content-center">
+          <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">I have read and agree .....</span>
+          </label>
+        </div>-->
+
+        <div class="row text-right justify-content-end" style="margin-right: 50px">
+          Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
+        </div>
+
+        <div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
+          <button style="margin-right: 10px" type="button" class="btn btn-success"
+                  [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
+                  || negotiation?.address==null || negotiation?.postShip==null
+                  || negotiation?.offerPrice==null || negotiation?.shipPrice==null
+                  || negotiation?.remark==null"
+                  (click)="payNegoOrder()">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Payment
+          </button>
+          <button type="button" class="btn btn-danger"
+                  (click)="cancelOrder()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+
+    <div *ngIf="negotiation?.checked==false" class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
       <form #createNegoOrder="ngForm">
         <div class="card" style="margin: 20px;">
           <div class="card-body">

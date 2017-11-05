@@ -32,7 +32,7 @@ export class SupHeaderComponent implements OnInit {
       'Status': status
     };
     this.negoService.searchListNegotiationSupplier(this.constants.SEARCHLISTNEGOTIATIONSUPPLIER, data).subscribe((response: any) => {
-      this.negoID = 1;
+      this.negoID = response[0].negotiationID;
       this.router.navigate(['/supplier/negotiation/' + status + '/' + this.negoID]);
     }, error => {
       console.log(error);

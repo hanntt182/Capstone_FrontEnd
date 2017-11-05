@@ -49,7 +49,10 @@ export class SupNegoDetailComponent implements OnInit {
       this.getMessage(this.negoID);
     }, 500);
 
-    this.searchNego('');
+    setInterval(() => {
+      this.searchNego('');
+    }, 500);
+
 
   }
 
@@ -120,5 +123,15 @@ export class SupNegoDetailComponent implements OnInit {
     });
   }
 
+  cancelOrder(){
+    let data = {
+      'NegotiationID': this.negoID
+    };
+    this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {
+      alert(response);
+    }, error => {
+      console.log(error);
+    });
+  }
 
 }

@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {OrderService} from '../../../services/order.service';
+import {ActivatedRoute, Params} from "@angular/router";
+import {NegoService} from "../../../services/nego.service";
 import {Constants} from './../../../constants';
-import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-buy-order-payment',
-  templateUrl: './buy-order-payment.component.html',
-  styleUrls: ['./buy-order-payment.component.css']
+  selector: 'app-buy-nego-payment',
+  templateUrl: './buy-nego-payment.component.html',
+  styleUrls: ['./buy-nego-payment.component.css']
 })
-export class BuyOrderPaymentComponent implements OnInit {
+export class BuyNegoPaymentComponent implements OnInit {
 
   public banks = ['Orient Commercial Joint Stock Bank',
     'Asia Commercial Bank',
@@ -85,21 +84,20 @@ export class BuyOrderPaymentComponent implements OnInit {
     '2015',
     '2016',
     '2017'];
-  public success1 = 'Successful transaction!';
-  public success2 = 'Thank you for using our service!';
+  public negoID;
   public orderID;
-  public order;
+  public negotiation;
   public user;
   public key = '';
 
   constructor(private activatedRoute: ActivatedRoute,
-              private orderService: OrderService,
+              private negoService: NegoService,
               private constants: Constants) {
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.orderID = params['orderId'];
+      this.negoID = params['negoId'];
     });
 
     if (!this.user) {
@@ -107,23 +105,22 @@ export class BuyOrderPaymentComponent implements OnInit {
     }
 
     let data = {
-      'OrderID': this.orderID
+      'NegotiationID': this.negoID
     };
-    this.orderService.viewOrderDetail(this.constants.VIEWORDERDETAIL, data).subscribe((response: any) => {
-      this.order = JSON.parse(response);
+    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
+      this.negotiation = response;
     });
   }
-
 
   paymentAction() {
     let data = {
-      'OrderID': this.orderID
+      'NegotiationID': this.negoID
     };
-    this.orderService.paymentBuyer(this.constants.PAYMENTBUYER, data).subscribe((response: any) => {
-      this.key = response;
+    this.negoService.paymentForNegotiation(this.constants.PAYMENTFORNEGOTIATION, data).subscribe((response: any) => {
+      this.key = response.ReceiptCode;
+      this.orderID = response.OrderID;
     });
     document.getElementById('openKeyModalButton').click();
   }
-
 
 }

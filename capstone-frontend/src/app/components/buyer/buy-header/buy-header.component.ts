@@ -33,7 +33,7 @@ export class BuyHeaderComponent implements OnInit {
       'Status': status
     };
     this.negoService.searchListNegotiationBuyer(this.constants.SEARCHLISTNEGOTIATIONBUYER, data).subscribe((response: any) => {
-      this.negoID = 1;
+      this.negoID = response[0].negotiationID;
       this.router.navigate(['/buyer/negotiation/' + status + '/' + this.negoID]);
     }, error => {
       console.log(error);

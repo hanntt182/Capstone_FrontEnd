@@ -34,6 +34,9 @@ import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/su
 import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
 import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
 import {TenderListComponent} from "./components/user/tender-list/tender-list.component";
+import {BuyNegoPaymentComponent} from "./components/buyer/buy-nego-payment/buy-nego-payment.component";
+import {BuyTenderListComponent} from "./components/buyer/buy-tender-list/buy-tender-list.component";
+import {BuyTenderCreateComponent} from "./components/buyer/buy-tender-create/buy-tender-create.component";
 
 
 const routing: Routes = [
@@ -75,7 +78,10 @@ const routing: Routes = [
       {path: 'order-list', component: BuyOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
       {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
-      {path: 'negotiation/:negoStatus/:negoId', component: BuyNegoDetailComponent}
+      {path: 'negotiation/:negoStatus/:negoId', component: BuyNegoDetailComponent},
+      {path: 'payment-nego/:negoId', component: BuyNegoPaymentComponent},
+      {path: 'create-tender', component: BuyTenderCreateComponent},
+      {path: 'tender-list/:tenderStatus', component: BuyTenderListComponent}
     ]
   },
   {

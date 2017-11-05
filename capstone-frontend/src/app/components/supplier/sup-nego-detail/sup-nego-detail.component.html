@@ -312,8 +312,7 @@
           Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
         </div>
 
-        <div class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
-
+        <div *ngIf="negotiation?.checked==false && negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
           <button style="margin-right: 10px" type="button" class="btn btn-success"
                   [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
                   || negotiation?.address==null || negotiation?.postShip==null
@@ -328,7 +327,13 @@
             <i class="fa fa-times" aria-hidden="true"></i>
             Cancel
           </button>
-
+        </div>
+        <div *ngIf="negotiation?.checked==true && negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
+          <button type="button" class="btn btn-danger"
+                  (click)="cancelOrder()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+          </button>
         </div>
 
       </form>

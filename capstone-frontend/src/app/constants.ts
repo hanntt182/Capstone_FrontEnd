@@ -53,6 +53,8 @@ public UPDATENEGOTIATIONBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + 
 public GETLISTMESSAGE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListMessage/";
 public SENDMESSAGE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/sendMessage/";
 public CONFIRMNEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/confirmNegotiation/";
+public PAYMENTFORNEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/paymentForNegotiation/";
+public CANCLENEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancleNegotiation/";
 
 
 

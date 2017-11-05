@@ -33,6 +33,7 @@ export class BuyNegoDetailComponent implements OnInit {
   public district;
   public ward;
   public address;
+  public postShipID;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -56,25 +57,33 @@ export class BuyNegoDetailComponent implements OnInit {
       this.negoStatus = params['negoStatus'];
     });
 
+    setInterval(() => {
+      this.updateNegoOrder(this.negoID);
+    }, 500);
 
-    let data = {
-      'NegotiationID': this.negoID
-    };
-    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
-      this.negotiation = response;
-      this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
-    });
     setInterval(() => {
       this.getMessage(this.negoID);
     }, 500);
 
-    this.searchNego('');
+    setInterval(() => {
+      this.searchNego('');
+    }, 500);
 
 
     this.orderService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
       this.cities = response.LtsItem;
     }, error => {
       console.log(error);
+    });
+  }
+
+  updateNegoOrder(negoID) {
+    let data = {
+      'NegotiationID': negoID
+    };
+    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
+      this.negotiation = response;
+      this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
     });
   }
 
@@ -177,12 +186,22 @@ export class BuyNegoDetailComponent implements OnInit {
       this.address = document.getElementById('editAddress').innerText;
     }
 
+    if (this.negotiation.postShip == null) {
+      this.postShipID = createNegoOrder.postShip;
+    } else if (this.negotiation.postShip != null) {
+      for (let i = 0; i < this.negotiation.post.postShips.length; i++) {
+        if (this.negotiation.post.postShips[i].ship.shipName == document.getElementById('editShippingMethod').innerText) {
+          this.postShipID = this.negotiation.post.postShips[i].postShipID;
+        }
+      }
+    }
+
 
     let data = {
       'NegotiationID': Number(this.negoID),
       'OfferPrice': Number(createNegoOrder.offerPrice),
       'Quantity': Number(createNegoOrder.quantity),
-      'PostShipID': Number(createNegoOrder.postShip),
+      'PostShipID': Number(this.postShipID),
       'ShippingTime': Number(createNegoOrder.shippingTime),
       'ShipFee': Number(createNegoOrder.feeShip),
       'Remark': createNegoOrder.remark,
@@ -211,12 +230,28 @@ export class BuyNegoDetailComponent implements OnInit {
     $('.modal-backdrop').remove();
   }
 
-  changePostShip(editPostShipForm){
+  changePostShip(editPostShipForm) {
     console.log(editPostShipForm);
     document.getElementById('editShippingMethod').innerHTML = editPostShipForm.editPostShip;
     $('#editShipMethod').hide();
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
+  }
+
+  payNegoOrder() {
+    this.router.navigate(['/buyer/payment-nego/' + this.negoID]);
+  }
+
+
+  cancelOrder(){
+    let data = {
+      'NegotiationID': this.negoID
+    };
+    this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {
+      alert(response);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

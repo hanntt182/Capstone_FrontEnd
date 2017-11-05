@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-buy-tender-list',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuyTenderListComponent implements OnInit {
 
-  constructor() { }
+  public user;
+  public tenderStatus;
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.tenderStatus = params['tenderStatus'];
+    });
+
   }
 
 }

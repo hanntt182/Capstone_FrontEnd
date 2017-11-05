@@ -40,7 +40,15 @@ export class NegoService {
   }
 
   confirmNegotiation(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  paymentForNegotiation(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  cancleNegotiation(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
 }

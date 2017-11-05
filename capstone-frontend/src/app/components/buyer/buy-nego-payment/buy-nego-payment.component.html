@@ -1,0 +1,171 @@
+<div class="container">
+  <div class="card" style="margin: 30px">
+    <div class="card-content justify-content-sm-center">
+      <div class="form-control">
+        <div class="row" style="margin-top: 30px">
+          <div class="col-md-4 offset-2">
+            <label>
+              <h4>Welcome <a>{{user.username}}</a></h4>
+            </label>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px">
+          <div class="col-md-8 offset-2" style="border: solid 1px #E6E7EB; padding: 20px">
+            <!--<div class="row">
+              <label class="col-sm-3">Order No.</label>
+              <label class="col-sm-9">{{order?.orderID}}</label>
+            </div>-->
+            <div class="row">
+              <label class="col-sm-3">Product Name: </label>
+              <label class="col-sm-9">{{negotiation?.post.product.productName}}</label>
+            </div>
+            <div class="row">
+              <label class="col-sm-3">Quantity: </label>
+              <label class="col-sm-9">{{negotiation?.quantity}}</label>
+            </div>
+            <div class="row">
+              <label class="col-sm-3">Unit Price: </label>
+              <label class="col-sm-9">{{negotiation?.offerPrice}}</label>
+            </div>
+            <div class="row">
+              <label class="col-sm-3">Supplier: </label>
+              <label class="col-sm-9">{{negotiation?.post.supplier.companyName}}</label>
+            </div>
+            <div class="row col-sm-12">
+              <label class="col-sm-1"></label>
+              <label class="col-sm-3">Bank: </label>
+              <label class="col-sm-7">{{negotiation?.post.supplier.bank}}</label>
+            </div>
+            <div class="row col-sm-12">
+              <label class="col-sm-1"></label>
+              <label class="col-sm-3">Bank Account: </label>
+              <label class="col-sm-7">{{negotiation?.post.supplier.bankAccount}}</label>
+            </div>
+            <div class="row ">
+              <label class="col-sm-3">Product Amount: </label>
+              <label class="col-sm-9">{{negotiation?.quantity * negotiation?.offerPrice}}</label>
+            </div>
+            <div class="row ">
+              <label class="col-sm-3">Shipping Fee: </label>
+              <label class="col-sm-9">{{negotiation?.shipPrice}}</label>
+            </div>
+            <div class="row">
+              <label class="col-sm-8">----------------------------------------------------</label>
+            </div>
+            <div class="row">
+              <label class="col-sm-3">Order Amount: </label>
+              <label class="col-sm-9">{{(negotiation?.quantity * negotiation?.offerPrice) + negotiation?.shipPrice}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+          <div class="col-md-2 offset-2" style="margin-top: 16px">
+            <label>
+              Select Bank:
+              <span class="star">*</span>
+            </label>
+          </div>
+          <div class="col-md-5">
+            <div class="panel panel-default">
+              <select required class="form-control" name="BankList" style="margin-top: 10px">
+                <option *ngFor="let bank of banks" value="{{bank}}">
+                  {{bank}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 40px">
+          <div class="col-md-2 offset-2" style="margin-top: 5px">
+            <label>
+              Cardholder's Name:
+              <span class="star">*</span>
+            </label>
+          </div>
+          <div class="col-md-5">
+            <input required type="text" class="form-control" name="CardholderName" ngModel #cardholder="ngModel"
+                   pattern="^[a-zA-Z]*">
+            <small hidden [hidden]="cardholder.valid || (cardholder.pristine)"
+                   class="alert text-danger">
+              Cardholder's Name is required and only text.
+            </small>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+          <div class="col-md-2 offset-2" style="margin-top: 6px">
+            <label>
+              PIN:
+              <span class="star">*</span>
+            </label>
+          </div>
+          <div class="col-md-5">
+            <input required type="number" class="form-control" name="PIN" ngModel #cardpin="ngModel" pattern="^[0-9]*">
+            <small hidden [hidden]="cardpin.valid || (cardpin.pristine)" class="alert text-danger">
+              PIN is required and only number.
+            </small>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+          <div class="col-md-2 offset-2" style="margin-top: 6px">
+            <label>
+              Valid From:
+              <span class="star">*</span>
+            </label>
+          </div>
+          <div class="col-3">
+            <select required class="form-control">
+              <option *ngFor="let month of months" value="{{month}}">
+                {{month}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select required class="form-control">
+              <option *ngFor="let year of years" value="{{year}}">
+                {{year}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 20px">
+          <div>
+            <button class="btn btn-success" (click)="paymentAction()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="showKeyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="exampleModalLabel">Successful transaction!</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container justify-content-center text-center">
+          <h5>ORDER ID: {{orderID}}</h5>
+          <div style="border: solid 1px #E6E7EB; margin: 20px; padding: 20px">
+            <h4 class="text-info">{{key}}</h4>
+          </div>
+          <small class="form-text text-muted">
+            Thank you for using our service!<br>
+            Your money has been transferred successfully.<br>
+            Please check your account. <br>
+            Use this KEY to receive your products.<br>
+            You can check this KEY in Shipping Detail Order.
+          </small>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal" routerLink="/buyer/order-list">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="openKeyModalButton" [hidden]="true" data-toggle="modal" data-target="#showKeyModel">Open Modal</button>

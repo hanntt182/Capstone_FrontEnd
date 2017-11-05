@@ -1,3 +1,114 @@
-<p>
-  buy-tender-create works!
-</p>
+<form #createTenderForm="ngForm">
+  <div class="container" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="col-md-12">
+      <div class="card" style="background: white">
+        <div class="card-content"
+             style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+          <div class="row col-sm-12">
+            <h4>Tender Information</h4>
+          </div>
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Tender Title:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <input type="text" class="form-control col-sm-7"  name="TenderTitle" #TenderTitle="ngModel"
+                     required ngModel>
+            </label>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="TenderTitle.invalid && TenderTitle.dirty">
+              Tender Title is required
+            </div>
+          </div>
+
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Product Name:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <span class="input-group-addon col-sm-1"><i class="fa fa-search"></i></span>
+              <input type="text" class="form-control col-sm-6" name="ProductName"
+                     ngModel required #ProductName="ngModel">
+            </label>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="ProductName.invalid && ProductName.dirty">
+              Product Name is required
+            </div>
+          </div>
+
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Tender Content:<span class="star">*</span> </label>
+            <textarea class="form-control col-sm-5" name="remark" rows="3"
+                      ngModel #remark="ngModel" required #TenderContent="ngModel">
+            </textarea>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="TenderContent.invalid && TenderContent.dirty">
+              Tender Content is required
+            </div>
+          </div>
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Tender Price:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <input type="number" min="0" class="form-control col-sm-7" name="TenderPrice"
+                     ngModel required #TenderPrice="ngModel"><p style="padding-left: 10px">VND</p>
+            </label>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="TenderPrice.invalid && TenderPrice.dirty">
+              Tender Price is required or invalid
+            </div>
+          </div>
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Close Day:<span class="star">*</span> </label>
+            <div class="row col-sm-3">
+              <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                              [(ngModel)]="model" required></my-date-picker>
+              <!--<my-date-picker class="col-sm-7 form-control" [options]="myDatePickerOptions"
+                              (dateChanged)="onDateChanged($event)"
+                              [selDate]="selectedDate"></my-date-picker>-->
+            </div>
+          </div>
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Period Time:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <input type="number" min="0" class="form-control col-sm-7"  name="PeriodTime"
+                     ngModel required #PeriodTime="ngModel">
+            </label>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="PeriodTime.invalid && PeriodTime.dirty">
+              Period Time is required or invalid
+            </div>
+          </div>
+
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Contract File:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <button type="button">Add File</button>
+            </label>
+          </div>
+
+          <div class="row col-sm-12 text-center" style="margin: 10px">
+            <div class="col-sm-4"></div>
+            <button [disabled]="!createTenderForm.valid" type="button" class="btn btn-info" style="margin: 50px">Create</button>
+            <button type="button" class="btn btn-danger" style="margin: 50px">Cancel</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+
+

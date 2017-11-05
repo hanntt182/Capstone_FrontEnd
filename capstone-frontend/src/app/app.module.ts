@@ -62,9 +62,10 @@ import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import {CreateOrderGuard} from './guards/create-order.guard';
 import {TenderListComponent} from './components/user/tender-list/tender-list.component';
 
-import {TextMaskModule} from "angular2-text-mask";
+import {TextMaskModule} from 'angular2-text-mask';
 import { BuyTenderCreateComponent } from './components/buyer/buy-tender-create/buy-tender-create.component';
 import { BuyTenderListComponent } from './components/buyer/buy-tender-list/buy-tender-list.component';
+import { BuyNegoPaymentComponent } from './components/buyer/buy-nego-payment/buy-nego-payment.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { BuyTenderListComponent } from './components/buyer/buy-tender-list/buy-t
     BuyNegoCreateComponent,
     TenderListComponent,
     BuyTenderCreateComponent,
-    BuyTenderListComponent
+    BuyTenderListComponent,
+    BuyNegoPaymentComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
