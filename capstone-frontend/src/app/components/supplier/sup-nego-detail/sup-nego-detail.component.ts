@@ -110,7 +110,14 @@ export class SupNegoDetailComponent implements OnInit {
   }
 
   confirmOrder() {
-
+    let data = {
+      'NegotiationID': this.negoID
+    };
+    this.negoService.confirmNegotiation(this.constants.CONFIRMNEGOTIATION, data).subscribe((response: any) => {
+      alert(response);
+    }, error => {
+      console.log(error);
+    });
   }
 
 
