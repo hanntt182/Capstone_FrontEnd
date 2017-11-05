@@ -37,18 +37,21 @@
         </li>
       </ul>
       <form #searchForm="ngForm" class="form-inline">
-          <div class="input-group">
-            <!--<select class="form-control">
-              <option value="">Products</option>
-              <option>Suppliers</option>
-            </select>-->
-            <input type="text" class="form-control" name="search" placeholder="Search..." ngModel>
-          </div>
-        <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">Search</button>
+        <div class="input-group">
+          <!--<select class="form-control">
+            <option value="">Products</option>
+            <option>Suppliers</option>
+          </select>-->
+          <input type="text" class="form-control" name="search" placeholder="Search..." ngModel>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">
+          Search
+        </button>
       </form>
       <ul *ngIf="user" class="nav navbar-right pull-right col-sm-2">
         <li class="nav-item dropdown">
-          <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             <span class="hidden-xs">My Profile</span>
           </a>
@@ -88,7 +91,8 @@
       </ul>
       <ul *ngIf="!user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
-          <a style="color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style="color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
             <b>
               <i class="fa fa-user-o" aria-hidden="true"></i>
               <span class="hidden-xs">My Profile</span>
@@ -97,6 +101,9 @@
           <div class="dropdown-menu dropdown-menu-right" style="cursor:default">
             <a class="dropdown-item" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>
               Login </a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#CompanyInformationModal"><i
+              class="fa fa-fw fa-user"></i>
+              Company Profile </a>
             <a class="dropdown-item" routerLink="/register"><i class="fa fa-fw fa-cog"></i> Register</a>
           </div>
         </li>
@@ -174,6 +181,163 @@
     </div>
   </div>
 </div>
+
+<!-- Company Information Modal -->
+<div class="modal fade" id="CompanyInformationModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form #loginForm="ngForm">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="CompanyPart"><i class="fa fa-home fa-fw"></i> Company Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="form-group" style="margin-left: 10px; margin-top: 10px">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="../../../../assets/img/tgdd1.jpg" height="100" width="100"/>
+                </div>
+                <div class="col-md-3">
+                  <div>
+                    <label>Name:</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>Tax Code:</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>Phone:</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div>
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="panel panel-primary panel-body">
+                    <div class="pull-left">
+                      <!-- stars -->
+                      <!-- khong hieu sao k xai dc glyphicon-->
+                      <span class="stars">
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                      </span>
+                      <!-- .stars -->
+                    </div>
+                  </div>
+                  <div style="margin-top: 20px">
+                    <label>Address:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>City:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Website:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Fax:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Established Year:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Email:</label>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <div style="margin-top: 20px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>xxxxxxxxxxxxxxxx</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <h5 id="UserPart"><i class="fa fa-user fa-fw"></i> User Information</h5>
+          <div class="card">
+            <div class="row" style="margin-top: 20px">
+              <div class="col-md-3" style="margin-left: 30px">
+                <label>
+                  User Name:
+                </label>
+              </div>
+              <div class="col-md-7 ">
+                <label>
+                  xxxx
+                </label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 10px">
+              <div class="col-md-3" style="margin-left: 30px">
+                <label>
+                  Email:
+                </label>
+              </div>
+              <div class="col-md-7 ">
+                <label>
+                  xxxx
+                </label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+              <div class="col-md-3" style="margin-left: 30px">
+                <label>
+                  Phone:
+                </label>
+              </div>
+              <div class="col-md-7 ">
+                <label>
+                  xxxx
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer align-self-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#loginModal">Open Modal</button>
 
 
