@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuyTenderListComponent } from './buy-tender-list.component';
+import { BuyProfileUpdateComponent } from './buy-profile-update.component';
 
-describe('BuyTenderListComponent', () => {
-  let component: BuyTenderListComponent;
-  let fixture: ComponentFixture<BuyTenderListComponent>;
+describe('BuyProfileUpdateComponent', () => {
+  let component: BuyProfileUpdateComponent;
+  let fixture: ComponentFixture<BuyProfileUpdateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuyTenderListComponent ]
+      declarations: [ BuyProfileUpdateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BuyTenderListComponent);
+    fixture = TestBed.createComponent(BuyProfileUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

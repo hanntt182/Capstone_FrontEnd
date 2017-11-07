@@ -10,7 +10,7 @@
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Tender Title:<span class="star">*</span> </label>
             <label class=" row col-sm-9">
-              <input type="text" class="form-control col-sm-7"  name="TenderTitle" #TenderTitle="ngModel"
+              <input type="text" class="form-control col-sm-7" name="TenderTitle" #TenderTitle="ngModel"
                      required ngModel>
             </label>
           </div>
@@ -22,27 +22,57 @@
           </div>
 
 
-          <div class="row col-sm-12" style="margin: 10px">
+          <div class="row col-sm-12" style="margin: 10px; margin-bottom: 0px">
             <label class="col-sm-3 text-right"> Product Name:<span class="star">*</span> </label>
-            <label class=" row col-sm-9">
-              <span class="input-group-addon col-sm-1"><i class="fa fa-search"></i></span>
-              <input type="text" class="form-control col-sm-6" name="ProductName"
-                     ngModel required #ProductName="ngModel">
+            <div class=" row col-sm-6" style="margin-bottom: 0px">
+              <div class="input-group">
+                <input type="text" class="form-control" name="ProductName" id="ProductName"
+                       ngModel required #ProductName="ngModel" (keyup)="changeInput($event)">
+                <span class="input-group-addon"
+                      (click)="searchProduct(ProductName.value)"><i class="fa fa-search"></i></span>
+
+              </div>
+            </div>
+          </div>
+          <div class="row col-sm-12" style="margin:10px; margin-top: 0px">
+            <label class="col-sm-3 text-right"></label>
+
+            <button id="openProductList" [hidden]="true" data-toggle="collapse" data-target="#collapseExample"></button>
+            <label class=" row col-sm-4">
+              <div class="collapse" id="collapseExample">
+                <div style="border: 1px solid #ced4da; border-top: none; height: 150px;overflow: auto; width: 473px">
+                  <table class="table table-hover" style="border-top: none;">
+                    <tbody>
+                    <tr *ngFor="let product of products" (click)="chooseProduct(product.productName, createTenderForm)">
+                      <td scope="col">{{product.productName}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </label>
           </div>
-          <div class="row col-sm-12 " style="margin: 10px">
+
+          <div class="row col-sm-12 " style="margin: 5px">
             <label class="col-sm-3"></label>
             <div class="error col-sm-4" *ngIf="ProductName.invalid && ProductName.dirty">
               Product Name is required
+            </div>
+            <div class="error col-sm-4" *ngIf="myError=='PRODUCT LIST NOT FOUND'">
+              {{myError}}
             </div>
           </div>
 
 
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Tender Content:<span class="star">*</span> </label>
-            <textarea class="form-control col-sm-5" name="remark" rows="3"
-                      ngModel #remark="ngModel" required #TenderContent="ngModel">
+            <textarea class="form-control col-sm-5" name="TenderContent" rows="3" (keyup)="countRemain($event)"
+                      ngModel required #TenderContent="ngModel" maxlength="5000">
             </textarea>
+          </div>
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"></label>
+            <label class="col-sm-5" style="color: #666">Remaining: {{remainNum}}</label>
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
@@ -55,7 +85,8 @@
             <label class="col-sm-3 text-right"> Tender Price:<span class="star">*</span> </label>
             <label class=" row col-sm-9">
               <input type="number" min="0" class="form-control col-sm-7" name="TenderPrice"
-                     ngModel required #TenderPrice="ngModel"><p style="padding-left: 10px">VND</p>
+                     ngModel required #TenderPrice="ngModel">
+              <p style="padding-left: 10px">VND</p>
             </label>
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
@@ -67,39 +98,55 @@
 
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Close Day:<span class="star">*</span> </label>
-            <div class="row col-sm-3">
-              <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                              [(ngModel)]="model" required></my-date-picker>
-              <!--<my-date-picker class="col-sm-7 form-control" [options]="myDatePickerOptions"
-                              (dateChanged)="onDateChanged($event)"
-                              [selDate]="selectedDate"></my-date-picker>-->
+            <div class="row col-sm-5" style="border-bottom-color: rgba(0,0,0,.125);">
+              <p-calendar [(ngModel)]="closeDay" [showTime]="true" showButtonBar="true"
+                          [showIcon]="true" [minDate]="minDateValue" readonlyInput="true"
+                          [ngModelOptions]="{standalone: true}"></p-calendar>
             </div>
           </div>
 
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Period Time:<span class="star">*</span> </label>
-            <label class=" row col-sm-9">
-              <input type="number" min="0" class="form-control col-sm-7"  name="PeriodTime"
-                     ngModel required #PeriodTime="ngModel">
+            <label class=" row col-sm-4">
+              <input type="number" [min]="1" class="form-control col-sm-7" name="PeriodTime"
+                     ngModel required #PeriodTime="ngModel" [max]="365">
             </label>
+            <label class="col-sm-1 text-right"> day(s) </label>
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="PeriodTime.invalid && PeriodTime.dirty">
-              Period Time is required or invalid
+            <div *ngIf="PeriodTime.invalid && (PeriodTime.dirty || PeriodTime.touched)"
+                 class="error col-sm-4">
+              <div *ngIf="PeriodTime.errors.required">
+                Period Time is required and must be a number.
+              </div>
+              <div *ngIf="PeriodTime.errors?.min">
+                Offer Price must be ≥ 0
+              </div>
+              <div *ngIf="PeriodTime.errors?.max">
+                Offer Price must be ≤ 365
+              </div>
             </div>
           </div>
 
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Contract File:<span class="star">*</span> </label>
-            <label class=" row col-sm-9">
-              <button type="button">Add File</button>
+            <label class=" row col-sm-1">
+              <button onclick="document.querySelector('#contractFile').click()">
+                Browse
+              </button>
+              <input hidden type="file" accept=".xlsx,.xls,.doc,.docx,.pdf" (change)="importContractFile($event)"
+                     class="form-control-file" id="contractFile">
             </label>
+            <label class="col-sm-3">{{contractFile?.name}} </label>
           </div>
 
           <div class="row col-sm-12 text-center" style="margin: 10px">
             <div class="col-sm-4"></div>
-            <button [disabled]="!createTenderForm.valid" type="button" class="btn btn-info" style="margin: 50px">Create</button>
+            <button [disabled]="!createTenderForm.valid" type="button" class="btn btn-info" style="margin: 50px"
+                    (click)="createTender(createTenderForm.value)">
+              Create
+            </button>
             <button type="button" class="btn btn-danger" style="margin: 50px">Cancel</button>
           </div>
 

@@ -10,6 +10,7 @@ public SERVER_PATH= '/SWP49X/api';
 // API
 public LOGIN = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/login/";
 public REGISTRATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/registration/";
+public UPDATECOMPANYPROFILE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/updateCompanyProfile/";
 public GETLISTCATALOG = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListCatalog/";
 
 
@@ -55,6 +56,15 @@ public SENDMESSAGE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER
 public CONFIRMNEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/confirmNegotiation/";
 public PAYMENTFORNEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/paymentForNegotiation/";
 public CANCLENEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancleNegotiation/";
+
+
+
+
+public SEARCHPRODUCT = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchProduct/";
+public CREATETENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createTender/";
+public SEARCHTENDERBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchTenderBuyer/";
+public VIEWTENDERDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/viewTenderDetail/";
+public CANCLETENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancleTender/";
 
 
 

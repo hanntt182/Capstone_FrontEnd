@@ -33,10 +33,12 @@ import {StaffOrderListComponent} from './components/staff/staff-order-list/staff
 import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
 import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
 import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
-import {TenderListComponent} from "./components/user/tender-list/tender-list.component";
-import {BuyNegoPaymentComponent} from "./components/buyer/buy-nego-payment/buy-nego-payment.component";
-import {BuyTenderListComponent} from "./components/buyer/buy-tender-list/buy-tender-list.component";
-import {BuyTenderCreateComponent} from "./components/buyer/buy-tender-create/buy-tender-create.component";
+import {BuyNegoPaymentComponent} from './components/buyer/buy-nego-payment/buy-nego-payment.component';
+import {BuyTenderCreateComponent} from './components/buyer/buy-tender-create/buy-tender-create.component';
+import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/buy-profile-update.component';
+import {CreateTenderGuard} from './guards/create-tender.guard';
+import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
+import {TenderListComponent} from "./components/common/tender-list/tender-list.component";
 
 
 const routing: Routes = [
@@ -67,7 +69,9 @@ const routing: Routes = [
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
       {path: 'order-list', component: SupOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
-      {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent}
+      {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent},
+      {path: 'tender-list/:tenderStatus', component: TenderListComponent},
+      {path: 'tender-detail/:tenderId', component: TenderDetailComponent}
     ]
   },
   {
@@ -75,13 +79,15 @@ const routing: Routes = [
     children: [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
+      {path: 'update-info', component: BuyProfileUpdateComponent},
       {path: 'order-list', component: BuyOrderListComponent},
       {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
       {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
       {path: 'negotiation/:negoStatus/:negoId', component: BuyNegoDetailComponent},
       {path: 'payment-nego/:negoId', component: BuyNegoPaymentComponent},
-      {path: 'create-tender', component: BuyTenderCreateComponent},
-      {path: 'tender-list/:tenderStatus', component: BuyTenderListComponent}
+      {path: 'create-tender', component: BuyTenderCreateComponent, canActivate: [CreateTenderGuard]},
+      {path: 'tender-list/:tenderStatus', component: TenderListComponent},
+      {path: 'tender-detail/:tenderId', component: TenderDetailComponent}
     ]
   },
   {

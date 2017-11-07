@@ -42,7 +42,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.addresses = this.user.address;
 
-    this.orderService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
+    this.commonService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
       this.cities = response.LtsItem;
     }, error => {
       console.log(error);

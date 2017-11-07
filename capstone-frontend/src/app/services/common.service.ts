@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
 import {Post} from "../models/Post";
 import {Order} from "../models/Order";
+
 
 
 @Injectable()
@@ -12,11 +16,24 @@ export class CommonService {
   public order;
 
 
-  constructor() {
+  constructor(private _http: Http) {
   }
 
   showLoginForm() {
     document.getElementById('openModalButton').click();
+  }
+
+
+  getListCity(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
+
+  getListDistrict(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  getListWard(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
   setOrder(data) {

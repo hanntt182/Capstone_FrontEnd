@@ -6,6 +6,7 @@ export class User {
   status;
   role;
   address;
+  checked;
 
   constructor(data: any) {
     if (data) {
@@ -15,6 +16,7 @@ export class User {
       this.status = data.status;
       this.role = data.role;
       this.address = data.address;
+      this.checked = data.checked;
     }
   }
 }

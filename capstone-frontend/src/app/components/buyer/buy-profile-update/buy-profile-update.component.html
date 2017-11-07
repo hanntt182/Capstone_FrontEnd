@@ -1,0 +1,227 @@
+<form #updateComInfo="ngForm">
+  <div class="container" style="margin-top: 30px; margin-bottom: 20px">
+    <div class="card">
+      <div class="card-content justify-content-sm-center">
+        <div class="form-control">
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-4 offset-2">
+              <label>
+                <h4>Company Information</h4>
+              </label>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Name:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="text" class="form-control" name="CompanyName" ngModel #companyname="ngModel">
+              <div *ngIf="companyname.invalid && (companyname.dirty || companyname.touched)"
+                   class="error">
+                <div *ngIf="companyname.errors.required">
+                  Company Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Tax Code:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="number" class="form-control" name="TaxCode" ngModel #taxcode="ngModel">
+              <div *ngIf="taxcode.invalid && (taxcode.dirty || taxcode.touched)"
+                   class="error">
+                <div *ngIf="taxcode.errors.required">
+                  Tax Code is required and must be a number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Address:
+                <span class="star">*</span>
+              </label>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px; margin-left: 35px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                City:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <select class="form-control" (change)="chooseCity($event.target.value)"
+                      name="cityBuyCom" ngModel>
+                <option selected>Choose city...</option>
+                <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px; margin-left: 35px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                District:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <select class="form-control" (change)="chooseDistrict($event.target.value)"
+                      name="districtBuyCom" ngModel>
+                <option selected>Choose district...</option>
+                <option *ngFor="let district of districts" value="{{district.ID}}">
+                  {{district.Title}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px; margin-left: 35px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                City:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <select class="form-control" (change)="chooseWard($event.target.value)"
+                      name="newAddressWard" ngModel>
+                <option selected>Choose ward...</option>
+                <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px; margin-left: 35px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Address:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <input required type="text" class="form-control" name="Address" ngModel #address="ngModel">
+              <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                   class="error">
+                <div *ngIf="address.errors.required">
+                  Tax Code is required and must be a number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Logo:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <img style="max-height: 150px;width: auto"
+                   [src]="linkLogo ? linkLogo : 'https://www.financiero.pe//themes/custom/financiero/img/glyph-servicio-al-cliente.svg'">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px; margin-left: 35px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px"></div>
+            <div class="col-md-4">
+              <button onclick="document.querySelector('#companyLogo').click()">
+                Browse
+              </button>
+              <input id="companyLogo" hidden type="file" accept="image/jpeg, image/png" name="CompanyLogo"
+                     (change)="imagesPreview($event)" ngModel>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px;">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Established Year:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="number" class="form-control" name="EstablishedYear" ngModel
+                     #EstablishedYear="ngModel">
+              <div *ngIf="EstablishedYear.invalid && (EstablishedYear.dirty || EstablishedYear.touched)"
+                   class="error">
+                <div *ngIf="EstablishedYear.errors.required">
+                  Established Year is required and must be a number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Website:
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" class="form-control" name="Website" ngModel #Website="ngModel">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Email:
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" class="form-control" name="Email" ngModel #Email="ngModel">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 6px">
+              <label>
+                Company Phone:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="number" class="form-control" name="Phone" ngModel #phone="ngModel"
+                     pattern="^[0-9]{11}">
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                   class="error">
+                <div *ngIf="phone.errors.required">
+                  Phone is required and must be a number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Company Fax:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="number" class="form-control" name="Fax" ngModel #fax="ngModel"
+                     pattern="^[0-9]*">
+              <div *ngIf="fax.invalid && (fax.dirty || fax.touched)"
+                   class="error">
+                <div *ngIf="fax.errors.required">
+                  Fax Code is required and must be a number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: 30px">
+            <button type="submit" class="btn btn-fill btn-success"
+                    (click)="updateCompanyInfo(updateComInfo.value)">
+                      <span class="btn-label">
+                      </span>
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

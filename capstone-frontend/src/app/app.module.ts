@@ -8,6 +8,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ImageZoomModule} from 'angular2-image-zoom';
 import {MyDatePickerModule} from 'mydatepicker';
 import {CustomFormsModule} from 'ng2-validation';
+import {TextMaskModule} from 'angular2-text-mask';
+import {DateTimePickerModule} from 'ngx-datetime-picker/ngx-datetimepicker/src/app/datetimepicker.module';
+
 
 import {Constants} from './constants';
 
@@ -44,6 +47,8 @@ import {SupNegoDetailComponent} from './components/supplier/sup-nego-detail/sup-
 import {BuyNegoDetailComponent} from './components/buyer/buy-nego-detail/buy-nego-detail.component';
 import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
 import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
+import {BuyTenderCreateComponent} from './components/buyer/buy-tender-create/buy-tender-create.component';
+import {BuyNegoPaymentComponent} from './components/buyer/buy-nego-payment/buy-nego-payment.component';
 
 /*Service*/
 import {LoginService} from './services/login.service';
@@ -52,6 +57,7 @@ import {CommonService} from './services/common.service';
 import {PostService} from './services/post.service';
 import {OrderService} from './services/order.service';
 import {NegoService} from './services/nego.service';
+import {TenderService} from './services/tender.service';
 
 
 /*Guard*/
@@ -60,12 +66,17 @@ import {StaffRoleGuard} from './guards/check-role/staff-role.guard';
 import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import {CreateOrderGuard} from './guards/create-order.guard';
-import {TenderListComponent} from './components/user/tender-list/tender-list.component';
+import {CreateTenderGuard} from './guards/create-tender.guard';
 
-import {TextMaskModule} from 'angular2-text-mask';
-import { BuyTenderCreateComponent } from './components/buyer/buy-tender-create/buy-tender-create.component';
-import { BuyTenderListComponent } from './components/buyer/buy-tender-list/buy-tender-list.component';
-import { BuyNegoPaymentComponent } from './components/buyer/buy-nego-payment/buy-nego-payment.component';
+import {RatingModule} from 'ng2-rating';
+import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/buy-profile-update.component';
+import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
+
+
+import {CalendarModule} from 'primeng/primeng';
+
+import {TenderListComponent} from './components/common/tender-list/tender-list.component';
+
 
 @NgModule({
   declarations: [
@@ -102,17 +113,20 @@ import { BuyNegoPaymentComponent } from './components/buyer/buy-nego-payment/buy
     BuyNegoCreateComponent,
     TenderListComponent,
     BuyTenderCreateComponent,
-    BuyTenderListComponent,
-    BuyNegoPaymentComponent
+    BuyNegoPaymentComponent,
+    BuyProfileUpdateComponent,
+    TenderDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
     BrowserAnimationsModule, ToastModule.forRoot(),
-    ImageZoomModule, CustomFormsModule, MyDatePickerModule, TextMaskModule
+    ImageZoomModule, CustomFormsModule, MyDatePickerModule, TextMaskModule,
+    DateTimePickerModule, RatingModule, CalendarModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
-    StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService],
+    StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,
+    TenderService, CreateTenderGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
