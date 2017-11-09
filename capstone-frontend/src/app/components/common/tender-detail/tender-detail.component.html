@@ -4,7 +4,7 @@
       <div class="card-content">
         <div class="row col-sm-12 align-items-center">
           <h4 class="col-sm-8">Tender Information</h4>
-          <small class="col-sm-4 text-right">Created Day: {{tender?.createdDay}}</small>
+          <i class="col-sm-4 text-right">Created Day: {{tender?.createdDay}}</i>
         </div>
         <div class="row">
 
@@ -17,7 +17,7 @@
                 </div>
                 <div class="row" style="padding: 10px">
                   <label style="padding-right: 10px">Product Name: </label>
-                  <label>{{tender?.productName}}</label>
+                  <label>{{tender?.product.productName}}</label>
                 </div>
                 <div class="row" style="padding: 10px">
                   <label style="padding-right: 10px">Status:</label>
@@ -32,15 +32,19 @@
               <div class="col-sm-6">
                 <div class="row" style="padding: 10px">
                   <label style="padding-right: 10px"> Tender Price: </label>
-                  <label>{{tender?.tenderPrice}}</label>
+                  <label>{{tender?.unitPrice}} VND / {{tender?.quantity}} {{tender?.unit}}</label>
                 </div>
                 <div class="row" style="padding: 10px">
                   <label style="padding-right: 10px">Win Price: </label>
-                  <label>{{tender?.winPrice}}</label>
+                  <label>{{tender?.winPrice}} VND / {{tender?.quantity}} {{tender?.unit}}</label>
                 </div>
                 <div class="row" style="padding: 10px">
                   <label>Winner:</label>
-                  <label>{{tender?.winner}}</label>
+                  <label>{{tender?.winner.username}}</label>
+                </div>
+                <div class="row" style="padding: 10px">
+                  <label>Close Time:</label>
+                  <label>{{tender?.closedDay}}</label>
                 </div>
               </div>
             </div>
@@ -52,41 +56,62 @@
                 {{tender?.tenderContent}}
               </div>
             </div>
-            <div *ngIf="tender?.status.statusName=='CANCEL'" class="row">
+            <div *ngIf="tender?.reason!=null" class="row">
               <div class="col-sm-12" style="padding: 10px">
                 <label class="text-danger">* Reason: {{tender?.reason}}</label>
               </div>
             </div>
-          </div>
-          <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='CLOSED'" class="row">
-            <div class="col-sm-12" style="padding: 10px">
-              <div class="justify-content-center align-items-center" style="height: 100%">
-                <h1 class="text-success" style="padding: 40px; text-align: center; font-size: 50px">
-                  <strong>CLOSED</strong></h1>
+            <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='ACTIVE'" class="row">
+              <div class="col-sm-12" style="padding: 10px">
+                <div class="row justify-content-center align-items-center" style="height: 180px">
+                  <h1 class="text-info" style="padding: 0px; text-align: center; font-size: 50px"
+                      id="countdownSup"></h1>
+                </div>
               </div>
             </div>
-          </div>
-          <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='CANCEL'" class="row">
-            <div class="col-sm-12" style="padding: 10px">
-              <div class="justify-content-center align-items-center" style="height: 100%">
-                <h1 class="text-success" style="padding: 40px; text-align: center; font-size: 50px">
-                  <strong>CANCEL</strong></h1>
+            <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='CLOSED'" class="row">
+              <div class="col-sm-12" style="padding: 10px">
+                <div class="justify-content-center align-items-center" style="height: 180px">
+                  <h1 class="text-success" style="padding: 40px; text-align: center; font-size: 50px">
+                    <strong>CLOSED</strong></h1>
+                </div>
               </div>
             </div>
-          </div>
-          <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='FINISHED'" class="row">
-            <div class="col-sm-12" style="padding: 10px">
-              <div class="justify-content-center align-items-center" style="height: 100%">
-                <h1 class="text-success" style="padding: 40px; text-align: center; font-size: 50px">
-                  <strong>FINISHED</strong></h1>
+            <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='CANCEL'" class="row">
+              <div class="col-sm-12" style="padding: 10px">
+                <div class="text-center justify-content-center align-items-center" style="height: 180px">
+                  <h1 class="text-danger" style="padding-top:25px; font-size: 50px">
+                    <strong>CANCEL</strong>
+                  </h1>
+                  <div>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null" (mousedown)="star($event)"></rating>
+                  </div>
+                  <p class="text-danger">* You can only rate Buyer 1 time for this Tender.</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role=='SUPPLIER' && tender?.status.statusName=='FINISHED'" class="row">
+              <div class="col-sm-12" style="padding: 10px">
+                <div class="text-center justify-content-center align-items-center" style="height: 180px">
+                  <h1 class="text-success" style="padding-top:25px; font-size: 50px">
+                    <strong>FINISHED</strong>
+                  </h1>
+                  <div>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null" (mousedown)="star($event)"></rating>
+                  </div>
+                  <p class="text-danger">* You can only rate Buyer 1 time for this Tender.</p>
+                </div>
               </div>
             </div>
           </div>
 
+
           <div *ngIf="user.role=='BUYER' && tender?.status.statusName=='ACTIVE'" class="col-sm-5"
                style="border-left: solid 4px">
             <div class="row justify-content-center align-items-center" style="height: 250px">
-              <h1 class="text-info" style="padding: 40px; text-align: center; font-size: 50px" id="countdown"></h1>
+              <h1 class="text-info" style="padding: 0px; text-align: center; font-size: 50px" id="countdown"></h1>
             </div>
             <div class="row justify-content-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelTenderModal">Cancle
@@ -113,7 +138,158 @@
 
 
           <div *ngIf="user.role=='SUPPLIER'" class="col-sm-5" style="border-left: solid 4px">
-            <div class="row">
+
+            <div class="form-group" style="margin-left: 10px; margin-top: 10px">
+              <div class="row" style="font-size: 15px">
+                <div class="col-md-3" style="padding:0px">
+                  <img src="{{tender?.buyer.companyLogo}}" height="100" width="100"/>
+                </div>
+                <div class="col-md-4" style="padding:0px">
+                  <div>
+                    <label>Company Name:</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>Company Phone:</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>Company Address:</label>
+                  </div>
+                </div>
+
+                <div class="col-md-5" style="padding:0px">
+                  <div>
+                    <label>{{tender?.buyer.companyName}}</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>{{tender?.buyer.companyPhone}}</label>
+                  </div>
+                  <div style="margin-top: 5px">
+                    <label>{{tender?.buyer.companyAddress}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 0px">
+                <div class="col-sm-4 text-center" style="padding: 0px">
+                  <h1>
+                    {{tender?.buyer.rate | number:'1.1-1'}}</h1>
+                  <div style="font-size: 14px">
+                    <rating [(ngModel)]="buyerRateStar" [readonly]="true"></rating>
+                  </div>
+                  <div>
+                    <span class="fa fa-user"></span> {{total}} total
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row align-items-center">
+                    <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
+                      <rating [(ngModel)]="star5" [readonly]="true" [max]="1"></rating>
+                      5
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-info" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star5/total)*100+'%'">
+                          <span *ngIf="tender?.buyer.star5>0">{{tender?.buyer.star5}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end 5 -->
+                    <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
+                      <rating [(ngModel)]="star4" [readonly]="true" [max]="1"></rating>
+                      4
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-info" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star4/total)*100+'%'">
+                          <span *ngIf="tender?.buyer.star4>0">{{tender?.buyer.star4}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end 4 -->
+                    <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
+                      <rating [(ngModel)]="star3" [readonly]="true" [max]="1"></rating>
+                      3
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-info" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star3/total)*100+'%'">
+                          <span *ngIf="tender?.buyer.star3>0">{{tender?.buyer.star3}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end 3 -->
+                    <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
+                      <rating [(ngModel)]="star2" [readonly]="true" [max]="1"></rating>
+                      2
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-info" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star2/total)*100+'%'">
+                          <span *ngIf="tender?.buyer.star2>0">{{tender?.buyer.star2}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end 2 -->
+                    <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
+                      <rating [(ngModel)]="star1" [readonly]="true" [max]="1"></rating>
+                      1
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-info" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star1/total)*100+'%'">
+                          <span *ngIf="tender?.buyer.star1>0">{{tender?.buyer.star1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end 1 -->
+                  </div>
+                  <!-- end row -->
+                </div>
+              </div>
+              <div class="row" style="font-size:15px">
+                <div class="col-sm-4" style="padding-left:5px; padding-right:0px">
+                  <div style="margin-top: 10px">
+                    <label>Company Tax Code:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Company Website:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Company Fax:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Established Year:</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>Company Email:</label>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div style="margin-top: 10px">
+                    <label>{{tender?.buyer.companyTaxCode}}</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label><a href="{{tender?.buyer.companyWebsite}}">{{tender?.buyer.companyWebsite}}</a></label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>{{tender?.buyer.companyFax}}</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>{{tender?.buyer.establishedYear}}</label>
+                  </div>
+                  <div style="margin-top: 10px">
+                    <label>{{tender?.buyer.companyEmail}}</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!--<div class="row">
               <img src="{{tender?.buyer.companyLogo}}" style="padding: 10px; width: 150px; height: 150px">
               <div style="padding-left: 10px">
                 <div class="row" style="padding: 10px">
@@ -144,7 +320,7 @@
                 <label style="padding-right: 10px">Company Website:</label>
                 <label>{{tender?.buyer.companyWebsite}}</label>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -167,10 +343,31 @@
               <th scope="col">#</th>
               <th scope="col">Supplier</th>
               <th scope="col">Rate</th>
-              <th scope="col">Offer Price</th>
-              <th scope="col">Voted</th>
+              <th scope="col">Offer Price (VND / {{tender?.unit}})</th>
+              <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" scope="col">
+                Voted
+              </th>
+              <th *ngIf="tender?.status.statusName=='ACTIVE'" scope="col">Action</th>
             </tr>
             </thead>
+            <tbody>
+            <tr *ngFor="let tenderHistory of tenderHistories; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
+              <td>{{tenderHistory.tenderHistoryID.supplier.rate}}</td>
+              <td>{{tenderHistory.unitPrice}}</td>
+              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'">
+                {{tenderHistory.star}}
+              </td>
+              <th *ngIf="tender?.status.statusName=='ACTIVE'" style="padding: 5px">
+                <!--<button type="button" class="btn btn-info" style="padding: 3px">
+                  <i class="fa fa-info" aria-hidden="true"></i>View Detail</button>-->
+                <button type="button" class="btn btn-success" (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)" >
+                  <i class="fa fa-check" aria-hidden="true"></i>Choose
+                </button>
+              </th>
+            </tr>
+            </tbody>
 
           </table>
         </div>
@@ -181,35 +378,37 @@
 </div>
 
 
-<div class="modal fade" id="cancelTenderModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="chooseBidderModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cancel Tender</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Choose Bidder</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #cancelTenderForm="ngForm">
+        <form #chooseBidderForm="ngForm">
           <div class="row text-center justify-content-center align-items-center">
             <label class="col-sm-3">Reason: </label>
-            <input type="text" class="form-control col-sm-8" name="reason" #reason="ngModel" required ngModel
-                   placeholder="Enter reason to cancel tender">
+            <input type="text" class="form-control col-sm-8" name="reasonChoose" #reasonChoose="ngModel" required ngModel
+                   placeholder="Enter reason to choose bidder">
           </div>
-          <div *ngIf="reason.invalid && (reason.dirty || reason.touched)"
+          <div *ngIf="reasonChoose.invalid && (reasonChoose.dirty || reasonChoose.touched)"
                class="error row text-center justify-content-center">
-            <div *ngIf="reason.errors.required">
+            <div *ngIf="reasonChoose.errors.required">
               Reason is required.
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" [disabled]="!cancelTenderForm.valid"
-                (click)="cancleTender(cancelTenderForm.value)">Cancle Tender
+        <button type="button" class="btn btn-danger" [disabled]="!chooseBidderForm.valid"
+                (click)="chooseBidder(chooseBidderForm.value)">Choose Bidder
         </button>
       </div>
     </div>
   </div>
 </div>
+<button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal</button>
+

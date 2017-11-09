@@ -20,6 +20,7 @@ export class BuyTenderCreateComponent implements OnInit {
   public remainNum = 5000;
   public minDateValue: Date;
   public tomorrow = (new Date().getDate()) + 1;
+  public units = ['piece(s)', 'box(s)', 'unit(s)', 'pair(s)'];
 
   constructor(private tenderService: TenderService,
               private constants: Constants,
@@ -74,22 +75,23 @@ export class BuyTenderCreateComponent implements OnInit {
   }
 
   createTender(createTenderForm) {
-    console.log(this.closeDay);
-    /*let formData = new FormData();
+    let formData = new FormData();
     formData.append('BuyerID', this.user.userId);
     formData.append('ProductName', createTenderForm.ProductName);
     formData.append('TenderTitle', createTenderForm.TenderTitle);
     formData.append('TenderContent', createTenderForm.TenderContent);
-    formData.append('TenderPrice', createTenderForm.TenderPrice);
+    formData.append('UnitPrice', createTenderForm.UnitPrice);
     formData.append('ContractFile', this.contractFile);
     formData.append('PeriodTime', createTenderForm.PeriodTime);
     formData.append('CloseDay', this.formatDateTime(this.closeDay));
+    formData.append('Unit', createTenderForm.Unit);
+    formData.append('Quantity', createTenderForm.Quantity);
     this.tenderService.createTender(this.constants.CREATETENDER, formData).subscribe((res) => {
       alert(res);
       this.router.navigate(['buyer/tender-list/' + 'active']);
     }, error => {
       console.log(error);
-    });*/
+    });
 
   }
 

@@ -24,7 +24,7 @@
       <div class="col-sm-2">
         <input type="number" class="form-control" [min]="post?.minOrderQuantity"
                placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
-               #quantity="ngModel" required [max]="1000">
+               #quantity="ngModel" required [max]="100000">
         <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
              class="error">
           <div *ngIf="quantity.errors.required">

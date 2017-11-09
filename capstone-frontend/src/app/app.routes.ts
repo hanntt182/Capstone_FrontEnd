@@ -39,6 +39,7 @@ import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/b
 import {CreateTenderGuard} from './guards/create-tender.guard';
 import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
 import {TenderListComponent} from "./components/common/tender-list/tender-list.component";
+import {TenderListHomeComponent} from "./components/user/tender-list-home/tender-list-home.component";
 
 
 const routing: Routes = [
@@ -48,7 +49,7 @@ const routing: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'tender', component: TenderListComponent},
+      {path: 'tender', component: TenderListHomeComponent},
       {path: 'negotiation/:postID', component: BuyNegoCreateComponent},
       {path: 'catalog/:catalogId', component: BrandsListComponent},
       {path: 'product-detail', component: ProductDetailComponent},

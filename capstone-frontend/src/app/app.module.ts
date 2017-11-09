@@ -76,6 +76,7 @@ import {TenderDetailComponent} from './components/common/tender-detail/tender-de
 import {CalendarModule} from 'primeng/primeng';
 
 import {TenderListComponent} from './components/common/tender-list/tender-list.component';
+import { TenderListHomeComponent } from './components/user/tender-list-home/tender-list-home.component';
 
 
 @NgModule({
@@ -115,7 +116,8 @@ import {TenderListComponent} from './components/common/tender-list/tender-list.c
     BuyTenderCreateComponent,
     BuyNegoPaymentComponent,
     BuyProfileUpdateComponent,
-    TenderDetailComponent
+    TenderDetailComponent,
+    TenderListHomeComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

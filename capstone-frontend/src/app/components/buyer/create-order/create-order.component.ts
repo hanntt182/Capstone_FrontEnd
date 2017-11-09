@@ -116,7 +116,7 @@ export class CreateOrderComponent implements OnInit {
   countShippingFee(createOrderForm) {
     console.log(createOrderForm.shipMethod);
     for (let i = 0; i < this.postShips.length; i++) {
-      if (this.postShips[i].postShipID == createOrderForm.shipMethod) {
+      if (this.postShips[i].postShipID.ship.shipID == createOrderForm.shipMethod) {
         this.shippingFee = this.postShips[i].shippingFee;
       }
     }
@@ -139,7 +139,8 @@ export class CreateOrderComponent implements OnInit {
       'OfferPrice': createOrderForm.offerPrice,
       'Remark': createOrderForm.remark,
       'Address': this.address,
-      'PostShipID': createOrderForm.shipMethod
+      'ShipID': createOrderForm.shipMethod,
+      'ShipFee': this.shippingFee
     };
     console.log(data);
     this.orderService.createOrder(this.constants.CREATEORDER, data).subscribe((response: any) => {

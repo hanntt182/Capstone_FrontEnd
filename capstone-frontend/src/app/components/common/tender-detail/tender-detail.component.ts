@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TenderService} from "../../../services/tender.service";
 import {Constants} from './../../../constants';
 import {now} from "moment";
@@ -19,10 +19,21 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public distance;
   public xInterval;
   public user;
+  public buyerRateStar;
+  public star1 = 1;
+  public star2 = 2;
+  public star3 = 3;
+  public star4 = 4;
+  public star5 = 5;
+  public total;
+  public rateBuyer;
+  public tenderHistories;
+  public winBidder;
 
   constructor(private activatedRoute: ActivatedRoute,
               private tenderService: TenderService,
-              private constants: Constants) {
+              private constants: Constants,
+              private router: Router) {
 
   }
 
@@ -37,8 +48,6 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         'TenderID': this.tenderID
       };
       this.tenderService.viewTenderDetail(this.constants.VIEWTENDERDETAIL, data).subscribe((response: any) => {
-        this.tender = response;
-        this.starsCount = response.buyer.rate;
         this.closedDay = response.closedDay;
         if (response.status.statusName == 'ACTIVE') {
           this.xInterval = setInterval(() => {
@@ -51,8 +60,14 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
             let seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
 
             // Output the result in an element with id='demo'
-            document.getElementById('countdown').innerHTML = days + 'd ' + hours + 'h '
-              + minutes + 'm ' + seconds + 's ';
+            if (document.getElementById('countdown') != null) {
+              document.getElementById('countdown').innerHTML = days + 'd ' + hours + 'h '
+                + minutes + 'm ' + seconds + 's ';
+            }
+            if (document.getElementById('countdownSup') != null) {
+              document.getElementById('countdownSup').innerHTML = days + 'd ' + hours + 'h '
+                + minutes + 'm ' + seconds + 's ';
+            }
             if (this.distance < 0) {
               clearInterval(this.xInterval);
               document.getElementById('countdown').innerHTML = 'FINISHED';
@@ -62,7 +77,36 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         if (response.status.statusName != 'ACTIVE') {
           clearInterval(this.xInterval);
         }
+        this.tender = response;
+        this.starsCount = response.buyer.rate;
+        this.buyerRateStar = response.buyer.rate;
+        this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
+      }, error => {
+        console.log(error);
       });
+      this.tenderService.getListSupplierJoinTender(this.constants.GETLISTSUPPLIERJOINTENDER, data).subscribe((response: any) => {
+        this.tenderHistories = response;
+        for (let i = 0; i < this.tenderHistories.length; i++) {
+          if (this.tenderHistories[i].tenderHistoryID.supplier.userId == this.user.userId) {
+            this.rateBuyer = this.tenderHistories[i].star;
+          }
+        }
+      }, error => {
+        console.log(error);
+      });
+    });
+  }
+
+  star(e) {
+    let data = {
+      'TenderID': this.tenderID,
+      'SupplierID': this.user.userId,
+      'Star': e.target.title
+    };
+    this.tenderService.rateBuyerTender(this.constants.RATEBUYERTENDER, data).subscribe((response: any) => {
+      alert(response);
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -77,7 +121,33 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     }, error => {
       console.log(error);
     });
+    if (this.user.role == 'BUYER') {
+      this.router.navigate(['/buyer/tender-list/cancel']);
+    } else if (this.user.role == 'SUPPLIER') {
+      this.router.navigate(['/supplier/tender-list/cancel']);
+    }
 
+  }
+
+  showChooseBidder(supplierID) {
+    this.winBidder = supplierID;
+    document.getElementById('openChooseBidderModel').click();
+  }
+
+  chooseBidder(chooseBidderForm) {
+    let data = {
+      'TenderID': this.tenderID,
+      'SupplierID': this.winBidder,
+      'Reason': chooseBidderForm.reasonChoose
+    };
+    this.tenderService.chooseBidder(this.constants.CHOOSEBIDDER, data).subscribe((response: any) => {
+      this.tender = response.tenderHistoryID.tender;
+      $('#chooseBidderModal').hide();
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    }, error => {
+      console.log(error);
+    });
   }
 
   ngOnDestroy() {

@@ -17,7 +17,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <div class="dropdown">
-            <a class="nav-link" href="#">Categories</a>
+            <a class="nav-link" href="">Categories</a>
             <div class="dropdown-content" style="cursor:default">
               <a *ngFor="let catalog of catalogs"
                  (click)="chooseCatalog(catalog.catalogId)">
@@ -27,13 +27,10 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" role="button" href="#">Tender</a>
+          <a class="nav-link" routerLink="/tender">Tender</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Group Buying</a>
-        </li>
-        <li class="nav-item" hidden>
-          <a class="nav-link" href="#">Manage</a>
         </li>
       </ul>
       <form #searchForm="ngForm" class="form-inline">
@@ -42,11 +39,11 @@
               <option value="">Products</option>
               <option>Suppliers</option>
             </select>-->
-            <input type="text" class="form-control" name="search" placeholder="Search..." ngModel>
+            <input type="text" class="form-control" name="search" placeholder="Search product..." nctgModel>
           </div>
         <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">Search</button>
       </form>
-      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-2">
+      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
           <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -89,10 +86,8 @@
       <ul *ngIf="!user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
           <a style="color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <b>
               <i class="fa fa-user-o" aria-hidden="true"></i>
               <span class="hidden-xs">My Profile</span>
-            </b>
           </a>
           <div class="dropdown-menu dropdown-menu-right" style="cursor:default">
             <a class="dropdown-item" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>

@@ -41,15 +41,27 @@ export class TenderListComponent implements OnInit {
   }
 
   changePage(searchValue, pageNumber) {
-    let data = {
-      'BuyerID': this.user.userId,
-      'SearchValue': searchValue,
-      'Status': this.tenderStatus,
-      'pageNumber': pageNumber
-    };
-    this.tenderService.searchTenderBuyer(this.constants.SEARCHTENDERBUYER, data).subscribe((response: any) => {
-      this.tenders = response.content;
-    });
+    if (this.user.role == 'SUPPLIER') {
+      let data = {
+        'SupplierID': this.user.userId,
+        'SearchValue': searchValue,
+        'Status': this.tenderStatus,
+        'pageNumber': pageNumber
+      };
+      this.tenderService.searchTenderSupplier(this.constants.SEARCHTENDERSUPPLIER, data).subscribe((response: any) => {
+        this.tenders = response.content;
+      });
+    } else if (this.user.role == 'BUYER') {
+      let data = {
+        'BuyerID': this.user.userId,
+        'SearchValue': searchValue,
+        'Status': this.tenderStatus,
+        'pageNumber': pageNumber
+      };
+      this.tenderService.searchTenderBuyer(this.constants.SEARCHTENDERBUYER, data).subscribe((response: any) => {
+        this.tenders = response.content;
+      });
+    }
   }
 
   viewTenderDetail(tenderID) {

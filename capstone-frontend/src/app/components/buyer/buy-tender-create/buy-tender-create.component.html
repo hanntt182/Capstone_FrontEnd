@@ -80,21 +80,40 @@
               Tender Content is required
             </div>
           </div>
-
           <div class="row col-sm-12" style="margin: 10px">
-            <label class="col-sm-3 text-right"> Tender Price:<span class="star">*</span> </label>
+            <label class="col-sm-3 text-right"> Quantity:<span class="star">*</span> </label>
             <label class=" row col-sm-9">
-              <input type="number" min="0" class="form-control col-sm-7" name="TenderPrice"
-                     ngModel required #TenderPrice="ngModel">
-              <p style="padding-left: 10px">VND</p>
+              <input type="number" min="0" class="form-control col-sm-7" name="Quantity"
+                     ngModel required #Quantity="ngModel">
             </label>
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="TenderPrice.invalid && TenderPrice.dirty">
-              Tender Price is required or invalid
+            <div class="error col-sm-4" *ngIf="Quantity.invalid && Quantity.dirty">
+              Quantity is required or invalid
             </div>
           </div>
+          <div class="row col-sm-12" style="margin: 10px">
+            <label class="col-sm-3 text-right"> Unit Price:<span class="star">*</span> </label>
+            <label class=" row col-sm-9">
+              <input type="number" min="0" class="form-control col-sm-3" name="UnitPrice"
+                     ngModel required #UnitPrice="ngModel">
+              <p style="padding-left: 10px; padding-right: 10px">VND / </p>
+              <select class="form-control col-sm-3" name="Unit" ngModel>
+                <option *ngFor="let unit of units"
+                        value="{{unit}}">{{unit}}
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="row col-sm-12 " style="margin: 10px">
+            <label class="col-sm-3"></label>
+            <div class="error col-sm-4" *ngIf="UnitPrice.invalid && UnitPrice.dirty">
+              Unit Price is required or invalid
+            </div>
+          </div>
+
+
 
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Close Day:<span class="star">*</span> </label>

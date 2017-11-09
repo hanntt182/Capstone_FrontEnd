@@ -176,9 +176,8 @@
             <label class="col-sm-3 text-right">Ship Method</label>
             <select class="form-control col-sm-9" name="shipMethod" ngModel
                     (change)="countShippingFee(createOrderForm.value)">
-              <option selected>Choose ship method...</option>
-              <option *ngFor="let postShip of postShips" value="{{postShip.postShipID}}">
-                {{postShip.ship.shipName}}
+              <option *ngFor="let postShip of postShips" value="{{postShip.postShipID.ship.shipID}}">
+                {{postShip.postShipID.ship.shipName}}
               </option>
             </select>
           </div>

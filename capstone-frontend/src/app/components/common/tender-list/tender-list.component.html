@@ -8,37 +8,37 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a *ngIf="tenderStatus=='active'" class="nav-link active"  data-toggle="tab"
+                <a *ngIf="tenderStatus=='active'" class="nav-link active" data-toggle="tab"
                    href="#active" role="tab"
                    aria-controls="active" aria-selected="true" (click)="changeStatus('active')"> Active </a>
-                <a *ngIf="tenderStatus!='active'" class="nav-link"  data-toggle="tab" href="#active"
+                <a *ngIf="tenderStatus!='active'" class="nav-link" data-toggle="tab" href="#active"
                    role="tab"
                    aria-controls="active" aria-selected="true" (click)="changeStatus('active')"> Active </a>
               </li>
               <li class="nav-item">
-                <a *ngIf="tenderStatus=='closed'" class="nav-link active"  data-toggle="tab"
+                <a *ngIf="tenderStatus=='closed'" class="nav-link active" data-toggle="tab"
                    href="#closed" role="tab"
                    aria-controls="closed" aria-selected="true" (click)="changeStatus('closed')"> Closed </a>
-                <a *ngIf="tenderStatus!='closed'" class="nav-link"  data-toggle="tab" href="#closed"
+                <a *ngIf="tenderStatus!='closed'" class="nav-link" data-toggle="tab" href="#closed"
                    role="tab"
                    aria-controls="closed" aria-selected="true" (click)="changeStatus('closed')"> Closed </a>
               </li>
               <li class="nav-item">
-                <a *ngIf="tenderStatus=='finished'" class="nav-link active"  data-toggle="tab"
+                <a *ngIf="tenderStatus=='finished'" class="nav-link active" data-toggle="tab"
                    href="#finished" role="tab"
                    aria-controls="finished" aria-selected="false" (click)="changeStatus('finished')">
                   Finished </a>
-                <a *ngIf="tenderStatus!='finished'" class="nav-link"  data-toggle="tab"
+                <a *ngIf="tenderStatus!='finished'" class="nav-link" data-toggle="tab"
                    href="#finished" role="tab"
                    aria-controls="finished" aria-selected="false" (click)="changeStatus('finished')">
                   Finished </a>
               </li>
               <li class="nav-item">
-                <a *ngIf="tenderStatus=='cancel'" class="nav-link active"  data-toggle="tab"
+                <a *ngIf="tenderStatus=='cancel'" class="nav-link active" data-toggle="tab"
                    href="#cancel" role="tab"
                    aria-controls="cancel" aria-selected="false" (click)="changeStatus('cancel')">
                   Cancel </a>
-                <a *ngIf="tenderStatus!='cancel'" class="nav-link"  data-toggle="tab" href="#cancel"
+                <a *ngIf="tenderStatus!='cancel'" class="nav-link" data-toggle="tab" href="#cancel"
                    role="tab"
                    aria-controls="cancel" aria-selected="false" (click)="changeStatus('cancel')">
                   Cancel </a>
@@ -70,11 +70,11 @@
                     <th scope="col">Action</th>
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngIf="user.role=='BUYER'">
                   <tr *ngFor="let tender of tenders; let i = index">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{tender.tenderTitle}}</td>
-                    <td>{{tender.productName}}</td>
+                    <td>{{tender.product.productName}}</td>
                     <td *ngIf="tender.status.statusName=='ACTIVE'" class="text-info"><strong>{{tender.status.statusName}}</strong>
                     </td>
                     <td *ngIf="tender.status.statusName=='CLOSED'" class="text-secondary"><strong>{{tender.status.statusName}}</strong>
@@ -94,6 +94,28 @@
                     </td>
                   </tr>
                   </tbody>
+                  <tbody *ngIf="user.role=='SUPPLIER'">
+                  <tr *ngFor="let tender of tenders; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{tender.tenderHistoryID.tender.tenderTitle}}</td>
+                    <td>{{tender.tenderHistoryID.tender.product.productName}}</td>
+                    <td *ngIf="tender.tenderHistoryID.tender.status.statusName=='ACTIVE'" class="text-info"><strong>{{tender.tenderHistoryID.tender.status.statusName}}</strong>
+                    </td>
+                    <td *ngIf="tender.tenderHistoryID.tender.status.statusName=='CLOSED'" class="text-secondary">
+                      <strong>{{tender.tenderHistoryID.tender.status.statusName}}</strong>
+                    </td>
+                    <td *ngIf="tender.tenderHistoryID.tender.status.statusName=='FINISHED'" class="text-success">
+                      <strong>{{tender.tenderHistoryID.tender.status.statusName}}</strong>
+                    </td>
+                    <td *ngIf="tender.tenderHistoryID.tender.status.statusName=='CANCEL'" class="text-danger"><strong>{{tender.tenderHistoryID.tender.status.statusName}}</strong>
+                    </td>
+                    <td style="font-size: 25px; margin: 0px; padding: 6px">
+                      <i class="fa fa-info-circle text-info" aria-hidden="true"
+                         (click)="viewTenderDetail(tender.tenderHistoryID.tender.tenderID)"
+                         data-toggle="tooltip" data-placement="top" title="View Detail"></i>
+                    </td>
+                  </tr>
+                  </tbody>
                 </table>
 
 
@@ -104,7 +126,7 @@
                     </li>
                     <li class="page-item" *ngFor="let page of pages">
                       <a class="page-link" [routerLink]="['./']"
-                         (click)="changePage(search.value, page)">{{page}}</a>
+                         (click)="changePage(searchForm.value.search, page)">{{page}}</a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="#">Next</a>
@@ -143,7 +165,7 @@
                    placeholder="Enter reason to cancel tender">
           </div>
           <div *ngIf="reason.invalid && (reason.dirty || reason.touched)"
-               class="error row text-center">
+               class="error row text-center justify-content-center">
             <div *ngIf="reason.errors.required">
               Reason is required.
             </div>
