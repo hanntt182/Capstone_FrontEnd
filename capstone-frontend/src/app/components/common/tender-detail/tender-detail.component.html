@@ -35,16 +35,29 @@
                   <label>{{tender?.unitPrice}} VND / {{tender?.quantity}} {{tender?.unit}}</label>
                 </div>
                 <div class="row" style="padding: 10px">
-                  <label style="padding-right: 10px">Win Price: </label>
-                  <label>{{tender?.winPrice}} VND / {{tender?.quantity}} {{tender?.unit}}</label>
-                </div>
-                <div class="row" style="padding: 10px">
-                  <label>Winner:</label>
-                  <label>{{tender?.winner.username}}</label>
-                </div>
-                <div class="row" style="padding: 10px">
-                  <label>Close Time:</label>
+                  <label style="padding-right: 3px">Close Time:</label>
                   <label>{{tender?.closedDay}}</label>
+                </div>
+                <div class="row" style="padding: 10px">
+                  <label style="padding-right: 10px">Win Price: </label>
+                  <label *ngIf="tender?.winPrice!=null">{{tender?.winPrice}} VND / {{tender?.quantity}} {{tender?.unit}}</label>
+                  <label *ngIf="tender?.winPrice==null">Not available</label>
+                </div>
+                <div class="row" style="padding: 10px">
+                  <label style="padding-right: 10px">Winner:</label>
+                  <label  *ngIf="tender?.winner!=null">{{tender?.winner.companyName}}</label>
+                  <label  *ngIf="tender?.winner==null">Not available</label>
+                </div>
+                <div *ngIf="tender?.winner!=null" class="row align-items-end" style="padding: 10px">
+                  <label style="padding-right: 10px">Rate:</label>
+                  <div style="font-size: 12px">
+                    <rating [(ngModel)]="rateWinner" *ngIf="rateWinner>0" [readonly]="true"></rating>
+                    <rating [(ngModel)]="rateWinner" *ngIf="rateWinner==0 || rateWinner==null"
+                            (mousedown)="star($event)"></rating>
+                  </div>
+                </div>
+                <div *ngIf="tender?.winner!=null" class="error" style="padding: 0px">
+                  <label style="padding-right: 10px">* You can only choose 1 time for this Winner.</label>
                 </div>
               </div>
             </div>
@@ -85,7 +98,8 @@
                   </h1>
                   <div>
                     <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
-                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null" (mousedown)="star($event)"></rating>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null"
+                            (mousedown)="star($event)"></rating>
                   </div>
                   <p class="text-danger">* You can only rate Buyer 1 time for this Tender.</p>
                 </div>
@@ -99,7 +113,8 @@
                   </h1>
                   <div>
                     <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
-                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null" (mousedown)="star($event)"></rating>
+                    <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null"
+                            (mousedown)="star($event)"></rating>
                   </div>
                   <p class="text-danger">* You can only rate Buyer 1 time for this Tender.</p>
                 </div>
@@ -336,7 +351,7 @@
           <h4 class="col-sm-8">Tender History</h4>
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -354,15 +369,22 @@
             <tr *ngFor="let tenderHistory of tenderHistories; let i = index">
               <th scope="row">{{i+1}}</th>
               <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
-              <td>{{tenderHistory.tenderHistoryID.supplier.rate}}</td>
+              <td style="padding: 5px">
+                <div style="font-size: 12px">
+                  <rating [(ngModel)]="tenderHistory.tenderHistoryID.supplier.rate" [readonly]="true"></rating>
+                </div>
+              </td>
               <td>{{tenderHistory.unitPrice}}</td>
-              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'">
-                {{tenderHistory.star}}
+              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" style="padding: 5px">
+                <div style="font-size: 12px">
+                  <rating [(ngModel)]="tenderHistory.star" [readonly]="true"></rating>
+                </div>
               </td>
               <th *ngIf="tender?.status.statusName=='ACTIVE'" style="padding: 5px">
                 <!--<button type="button" class="btn btn-info" style="padding: 3px">
                   <i class="fa fa-info" aria-hidden="true"></i>View Detail</button>-->
-                <button type="button" class="btn btn-success" (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)" >
+                <button type="button" class="btn btn-success"
+                        (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)">
                   <i class="fa fa-check" aria-hidden="true"></i>Choose
                 </button>
               </th>
@@ -391,7 +413,8 @@
         <form #chooseBidderForm="ngForm">
           <div class="row text-center justify-content-center align-items-center">
             <label class="col-sm-3">Reason: </label>
-            <input type="text" class="form-control col-sm-8" name="reasonChoose" #reasonChoose="ngModel" required ngModel
+            <input type="text" class="form-control col-sm-8" name="reasonChoose" #reasonChoose="ngModel" required
+                   ngModel
                    placeholder="Enter reason to choose bidder">
           </div>
           <div *ngIf="reasonChoose.invalid && (reasonChoose.dirty || reasonChoose.touched)"
@@ -410,5 +433,6 @@
     </div>
   </div>
 </div>
-<button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal</button>
+<button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal
+</button>
 

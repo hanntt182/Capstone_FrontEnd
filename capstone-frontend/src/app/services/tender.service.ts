@@ -62,4 +62,8 @@ export class TenderService {
   rateBuyerTender(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
+
+  rateSupplierTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
 }

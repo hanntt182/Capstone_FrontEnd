@@ -16,8 +16,10 @@
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="TenderTitle.invalid && TenderTitle.dirty">
-              Tender Title is required
+            <div class="error col-sm-4" *ngIf="TenderTitle.invalid && (TenderTitle.dirty || TenderTitle.touched)">
+              <div *ngIf="TenderTitle.errors.required">
+                Tender Title is required.
+              </div>
             </div>
           </div>
 
@@ -30,7 +32,6 @@
                        ngModel required #ProductName="ngModel" (keyup)="changeInput($event)">
                 <span class="input-group-addon"
                       (click)="searchProduct(ProductName.value)"><i class="fa fa-search"></i></span>
-
               </div>
             </div>
           </div>
@@ -55,8 +56,10 @@
 
           <div class="row col-sm-12 " style="margin: 5px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="ProductName.invalid && ProductName.dirty">
-              Product Name is required
+            <div class="error col-sm-4" *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)">
+              <div *ngIf="ProductName.errors.required">
+                Product Name is required.
+              </div>
             </div>
             <div class="error col-sm-4" *ngIf="myError=='PRODUCT LIST NOT FOUND'">
               {{myError}}
@@ -76,30 +79,34 @@
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="TenderContent.invalid && TenderContent.dirty">
-              Tender Content is required
+            <div class="error col-sm-4" *ngIf="TenderContent.invalid && (TenderContent.dirty || TenderContent.touched)">
+              <div *ngIf="TenderContent.errors.required">
+                Tender Content is required.
+              </div>
             </div>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Quantity:<span class="star">*</span> </label>
             <label class=" row col-sm-9">
-              <input type="number" min="0" class="form-control col-sm-7" name="Quantity"
+              <input type="number" [min]="0" class="form-control col-sm-7" name="Quantity"
                      ngModel required #Quantity="ngModel">
             </label>
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="Quantity.invalid && Quantity.dirty">
-              Quantity is required or invalid
+            <div class="error col-sm-4" *ngIf="Quantity.invalid && (Quantity.dirty || Quantity.touched)">
+              <div *ngIf="Quantity.errors.required">
+                Quantity is required.
+              </div>
             </div>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right"> Unit Price:<span class="star">*</span> </label>
             <label class=" row col-sm-9">
-              <input type="number" min="0" class="form-control col-sm-3" name="UnitPrice"
+              <input type="number" [min]="0" class="form-control col-sm-3" name="UnitPrice"
                      ngModel required #UnitPrice="ngModel">
               <p style="padding-left: 10px; padding-right: 10px">VND / </p>
-              <select class="form-control col-sm-3" name="Unit" ngModel>
+              <select class="form-control col-sm-3" name="Unit" ngModel required #Unit="ngModel" required>
                 <option *ngFor="let unit of units"
                         value="{{unit}}">{{unit}}
                 </option>
@@ -108,19 +115,24 @@
           </div>
           <div class="row col-sm-12 " style="margin: 10px">
             <label class="col-sm-3"></label>
-            <div class="error col-sm-4" *ngIf="UnitPrice.invalid && UnitPrice.dirty">
-              Unit Price is required or invalid
+            <div class="error col-sm-4" *ngIf="UnitPrice.invalid && (UnitPrice.dirty || UnitPrice.touched)">
+              <div *ngIf="UnitPrice.errors.required">
+                Unit Price is required and must be a number.
+              </div>
+              <div *ngIf="UnitPrice.errors?.min">
+                Unit Price must be ≥ 0
+              </div>
             </div>
           </div>
 
 
 
           <div class="row col-sm-12" style="margin: 10px">
-            <label class="col-sm-3 text-right"> Close Day:<span class="star">*</span> </label>
+            <label class="col-sm-3 text-right"> Closing Day:<span class="star">*</span> </label>
             <div class="row col-sm-5" style="border-bottom-color: rgba(0,0,0,.125);">
               <p-calendar [(ngModel)]="closeDay" [showTime]="true" showButtonBar="true"
                           [showIcon]="true" [minDate]="minDateValue" readonlyInput="true"
-                          [ngModelOptions]="{standalone: true}"></p-calendar>
+                          [ngModelOptions]="{standalone: true}" required></p-calendar>
             </div>
           </div>
 
@@ -162,7 +174,7 @@
 
           <div class="row col-sm-12 text-center" style="margin: 10px">
             <div class="col-sm-4"></div>
-            <button [disabled]="!createTenderForm.valid" type="button" class="btn btn-info" style="margin: 50px"
+            <button [disabled]="createTenderForm.invalid || contractFile==null || closeDay==null" type="button" class="btn btn-info" style="margin: 50px"
                     (click)="createTender(createTenderForm.value)">
               Create
             </button>

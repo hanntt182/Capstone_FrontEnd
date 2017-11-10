@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TenderService} from "../../../services/tender.service";
 import {Constants} from './../../../constants';
 import * as $ from 'jquery';
@@ -9,14 +9,14 @@ import {Router} from "@angular/router";
   templateUrl: './buy-tender-create.component.html',
   styleUrls: ['./buy-tender-create.component.css'],
 })
-export class BuyTenderCreateComponent implements OnInit {
+export class BuyTenderCreateComponent implements OnInit, OnDestroy {
 
 
   public user;
   public products;
   public myError;
-  public contractFile;
-  public closeDay;
+  public contractFile = null;
+  public closeDay = null;
   public remainNum = 5000;
   public minDateValue: Date;
   public tomorrow = (new Date().getDate()) + 1;
@@ -36,6 +36,12 @@ export class BuyTenderCreateComponent implements OnInit {
     this.minDateValue.setHours(0);
     this.minDateValue.setMinutes(0);
     this.minDateValue.setSeconds(0);
+
+  }
+
+  ngOnDestroy(){
+    this.contractFile = null;
+    this.closeDay == null;
   }
 
   countRemain(e) {

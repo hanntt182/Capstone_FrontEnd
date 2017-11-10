@@ -124,11 +124,10 @@
               <p>{{user.username}} {{user.phone}}</p>
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel>
+                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel checked>
                   Existed Address
                   <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressName"
                           ngModel>
-                    <option selected>My address</option>
                     <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}</option>
                   </select>
                 </label>
@@ -141,7 +140,6 @@
                     <label class="col-sm-5">City</label>
                     <select class="form-control col-sm-7" (change)="chooseCity($event.target.value)"
                             name="newAddressCity" ngModel>
-                      <option selected>Choose city...</option>
                       <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
                     </select>
                   </div>
@@ -149,7 +147,6 @@
                     <label class="col-sm-5">District</label>
                     <select class="form-control col-sm-7" (change)="chooseDistrict($event.target.value)"
                             name="newAddressDistrict" ngModel>
-                      <option selected>Choose district...</option>
                       <option *ngFor="let district of districts" value="{{district.ID}}">
                         {{district.Title}}
                       </option>
@@ -159,7 +156,6 @@
                     <label class="col-sm-5">Ward</label>
                     <select class="form-control col-sm-7" (change)="chooseWard($event.target.value)"
                             name="newAddressWard" ngModel>
-                      <option selected>Choose ward...</option>
                       <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
                     </select>
                   </div>

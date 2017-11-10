@@ -73,6 +73,7 @@ public VIEWTENDERHISTORYDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT +
 public GETLISTSUPPLIERJOINTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListSupplierJoinTender/";
 public CHOOSEBIDDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/chooseBidder/";
 public RATEBUYERTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/rateBuyerTender/";
+public RATESUPPLIERTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/rateSupplierTender/";
 
 
 

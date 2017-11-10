@@ -27,6 +27,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public star5 = 5;
   public total;
   public rateBuyer;
+  public rateWinner;
   public tenderHistories;
   public winBidder;
 
@@ -80,6 +81,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         this.tender = response;
         this.starsCount = response.buyer.rate;
         this.buyerRateStar = response.buyer.rate;
+        this.rateWinner = response.star;
         this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
       }, error => {
         console.log(error);
@@ -98,16 +100,29 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   }
 
   star(e) {
-    let data = {
-      'TenderID': this.tenderID,
-      'SupplierID': this.user.userId,
-      'Star': e.target.title
-    };
-    this.tenderService.rateBuyerTender(this.constants.RATEBUYERTENDER, data).subscribe((response: any) => {
-      alert(response);
-    }, error => {
-      console.log(error);
-    });
+    if(this.user.role=='SUPPLIER'){
+      let data = {
+        'TenderID': this.tenderID,
+        'SupplierID': this.user.userId,
+        'Star': e.target.title
+      };
+      this.tenderService.rateBuyerTender(this.constants.RATEBUYERTENDER, data).subscribe((response: any) => {
+        alert(response);
+      }, error => {
+        console.log(error);
+      });
+    } else if(this.user.role=='BUYER'){
+      let data = {
+        'TenderID': this.tenderID,
+        'Star': e.target.title
+      };
+      this.tenderService.rateSupplierTender(this.constants.RATESUPPLIERTENDER, data).subscribe((response: any) => {
+        alert(response);
+      }, error => {
+        console.log(error);
+      });
+    }
+
   }
 
   cancleTender(cancelForm) {
