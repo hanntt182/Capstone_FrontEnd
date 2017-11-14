@@ -94,7 +94,10 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
     formData.append('Quantity', createTenderForm.Quantity);
     this.tenderService.createTender(this.constants.CREATETENDER, formData).subscribe((res) => {
       alert(res);
-      this.router.navigate(['buyer/tender-list/' + 'active']);
+      if(res == 'CREATE SUCCESSFULLY'){
+        this.router.navigate(['buyer/tender-list/' + 'active']);
+      }
+
     }, error => {
       console.log(error);
     });

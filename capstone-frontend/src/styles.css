@@ -5,7 +5,8 @@
   left: 50%;
 }
 
-body,html{
+body,html .wrap-content
+{
   height: 100%;
 }
 
@@ -37,3 +38,4 @@ body,html{
 .star {
   color: red;
 }
+

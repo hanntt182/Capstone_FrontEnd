@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
@@ -9,7 +9,7 @@ import {OrderService} from '../../../services/order.service';
   templateUrl: './sup-nego-detail.component.html',
   styleUrls: ['./sup-nego-detail.component.css']
 })
-export class SupNegoDetailComponent implements OnInit {
+export class SupNegoDetailComponent implements OnInit, OnDestroy {
 
   public negoID;
   public negoStatus;
@@ -19,6 +19,7 @@ export class SupNegoDetailComponent implements OnInit {
   public messages;
   public productAmount;
   public totalAmount;
+  public xInterval;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -35,39 +36,29 @@ export class SupNegoDetailComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoID = params['negoId'];
+      let data = {
+        'NegotiationID': this.negoID
+      };
+      this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
+        this.negotiation = response;
+        this.productAmount = response.quantity * response.offerPrice;
+        this.totalAmount = this.productAmount + response.shipPrice;
+      });
+      this.xInterval = setInterval(() => {
+        this.getMessage(this.negoID);
+      }, 1000);
     });
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoStatus = params['negoStatus'];
-    });
-
-    setInterval(() => {
-      this.updateNego(this.negoID);
-    }, 500);
-
-    setInterval(() => {
-      this.getMessage(this.negoID);
-    }, 500);
-
-    setInterval(() => {
       this.searchNego('');
-    }, 500);
-
-
-  }
-
-
-  updateNego(negoID) {
-    let data = {
-      'NegotiationID': negoID
-    };
-    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
-      this.negotiation = response;
-      this.productAmount = response.quantity * response.offerPrice;
-      this.totalAmount = this.productAmount + response.shipPrice;
     });
+
   }
 
+  ngOnDestroy() {
+    clearInterval(this.xInterval);
+  }
 
   getMessage(negoID) {
     let data = {
@@ -123,7 +114,7 @@ export class SupNegoDetailComponent implements OnInit {
     });
   }
 
-  cancelOrder(){
+  cancelOrder() {
     let data = {
       'NegotiationID': this.negoID
     };

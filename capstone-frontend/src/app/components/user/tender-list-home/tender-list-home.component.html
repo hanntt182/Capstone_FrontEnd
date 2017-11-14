@@ -1,31 +1,35 @@
-<div class="container" style="padding: 30px">
-  <div class="row justify-content-center align-items-center" style="padding: 40px">
-    <form #searchTenderForm="ngForm" class="form-inline">
-      <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
-      <button type="button" class="btn btn-primary" style="margin-left: 20px" (click)="search(searchTenderForm.value.searchTender, 1)">Search</button>
-    </form>
+
+  <div class="container" style="padding: 30px">
+    <div class="row justify-content-center align-items-center" style="padding: 40px">
+      <form #searchTenderForm="ngForm" class="form-inline">
+        <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
+        <button type="button" class="btn btn-primary" style="margin-left: 20px"
+                (click)="search(searchTenderForm.value.searchTender, 1)">Search
+        </button>
+      </form>
+    </div>
+    <table class="table hvr-glow" *ngFor="let myTender of tenders"
+           style="border: 1px solid #e6e7eb; background-color: white"
+           (click)="viewTenderDetail(myTender.tenderID)">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col" style="width: 400px">Tender Title</th>
+        <th scope="col" style="width: 250px">Product Name</th>
+        <th scope="col" style="width: 200px">Price</th>
+        <th scope="col" style="width: 250px">Closing Day</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">{{myTender.tenderTitle}}</th>
+        <td>{{myTender.product.productName}}</td>
+        <td>{{myTender.unitPrice}} / {{myTender.unit}}</td>
+        <td>{{myTender.closedDay}}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="table hvr-glow" *ngFor="let myTender of tenders"
-         style="border: 1px solid #e6e7eb; background-color: white"
-         (click)="viewTenderDetail(myTender.tenderID)">
-    <thead class="thead-light">
-    <tr>
-      <th scope="col" style="width: 400px">Tender Title</th>
-      <th scope="col" style="width: 250px">Product Name</th>
-      <th scope="col" style="width: 200px">Price</th>
-      <th scope="col" style="width: 250px">Closing Day</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th scope="row">{{myTender.tenderTitle}}</th>
-      <td>{{myTender.product.productName}}</td>
-      <td>{{myTender.unitPrice}} / {{myTender.unit}}</td>
-      <td>{{myTender.closedDay}}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+
 
 
 <div class="modal fade" tabindex="-1" role="dialog" id="tenderDetailModal" aria-hidden="true">
@@ -58,12 +62,17 @@
             <div class="row text-center align-items-center justify-content-center" style="height: 120px">
               <h1 style="font-size: 40px" class="text-info" id="countdown">00d 00h 00m 00s</h1>
             </div>
-            <div *ngIf="checkBid=='false' && user.role=='SUPPLIER'" class="row text-center justify-content-center align-items-center" style="padding: 10px">
+            <div *ngIf="checkBid=='false' && user.role=='SUPPLIER'"
+                 class="row text-center justify-content-center align-items-center" style="padding: 10px">
               <form #bidTenderForm="ngForm">
                 <div class="form-group form-inline">
                   <label style="margin-right: 10px">Your Unit Price</label>
-                  <input type="number" required [min]="0" #price="ngModel" name="price" ngModel class="form-control" placeholder="Enter your unit price" style="font-size: 14px">
-                  <button [disabled]="bidTenderForm.invalid" type="button" class="btn btn-primary" style="font-size: 14px;margin-left: 10px" (click)="bidTender(tender?.tenderID, price.value)">BID</button>
+                  <input type="number" required [min]="0" #price="ngModel" name="price" ngModel class="form-control"
+                         placeholder="Enter your unit price" style="font-size: 14px">
+                  <button [disabled]="bidTenderForm.invalid" type="button" class="btn btn-primary"
+                          style="font-size: 14px;margin-left: 10px" (click)="bidTender(tender?.tenderID, price.value)">
+                    BID
+                  </button>
                 </div>
                 <div *ngIf="price.invalid && (price.dirty || price.touched)"
                      class="error">
@@ -76,7 +85,8 @@
                 </div>
               </form>
             </div>
-            <div *ngIf="checkBid=='true' && user.role=='SUPPLIER'" class="row justify-content-center align-items-center text-center" style="padding: 10px">
+            <div *ngIf="checkBid=='true' && user.role=='SUPPLIER'"
+                 class="row justify-content-center align-items-center text-center" style="padding: 10px">
               <p class="text-info">You've bidded this tender! Your information:</p>
               <table class="table table-bordered">
                 <thead class="thead-light">
@@ -93,8 +103,10 @@
                 </tbody>
               </table>
             </div>
-            <div *ngIf="user.role!='SUPPLIER'" class="row justify-content-center align-items-center text-center" style="padding: 10px">
-              <p class="text-danger">* This function is only for supplier.<br>Register as a supplier to bid this tender.</p>
+            <div *ngIf="checkBid==null || user.role!='SUPPLIER'" class="row justify-content-center align-items-center text-center"
+                 style="padding: 10px">
+              <p class="text-danger">* This function is only for supplier.<br>Register as a supplier to bid this tender.
+              </p>
             </div>
           </div>
           <div class="col-sm-5" style="border-left: solid 1px grey">
@@ -115,13 +127,13 @@
             </div>
             <div class="row" style="padding: 0px">
               <div class="col-sm-5 text-center" style="padding:8px">
-                  <h2 style="margin:15px">{{tender?.buyer.rate | number:'1.1-1'}}</h2>
-                  <div style="font-size: 12px;">
-                    <rating [(ngModel)]="buyerRateStar" [readonly]="true"></rating>
-                  </div>
-                  <div>
-                    <span class="fa fa-user"></span> {{total}} total
-                  </div>
+                <h2 style="margin:15px">{{tender?.buyer.rate | number:'1.1-1'}}</h2>
+                <div style="font-size: 12px;">
+                  <rating [(ngModel)]="buyerRateStar" [readonly]="true"></rating>
+                </div>
+                <div>
+                  <span class="fa fa-user"></span> {{total}} total
+                </div>
               </div>
               <div class="col-sm-7" style="padding: 0px">
                 <div class="row  align-items-center text-center" style="padding: 0px">
@@ -130,7 +142,7 @@
                     <label>5</label>
                   </div>
                   <div class="col-sm-7" style="padding: 0px">
-                    <div class="progress" >
+                    <div class="progress">
                       <div class="progress-bar bg-info" role="progressbar"
                            aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star5/total)*100+'%'">
                         <span *ngIf="tender?.buyer.star5>0">{{tender?.buyer.star5}}</span>
@@ -144,7 +156,7 @@
                     <label>4</label>
                   </div>
                   <div class="col-sm-7" style="padding: 0px">
-                    <div class="progress" >
+                    <div class="progress">
                       <div class="progress-bar bg-info" role="progressbar"
                            aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star4/total)*100+'%'">
                         <span *ngIf="tender?.buyer.star4>0">{{tender?.buyer.star4}}</span>
@@ -158,7 +170,7 @@
                     <label>3</label>
                   </div>
                   <div class="col-sm-7" style="padding: 0px">
-                    <div class="progress" >
+                    <div class="progress">
                       <div class="progress-bar bg-info" role="progressbar"
                            aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star3/total)*100+'%'">
                         <span *ngIf="tender?.buyer.star3>0">{{tender?.buyer.star3}}</span>
@@ -172,7 +184,7 @@
                     <label>2</label>
                   </div>
                   <div class="col-sm-7" style="padding: 0px">
-                    <div class="progress" >
+                    <div class="progress">
                       <div class="progress-bar bg-info" role="progressbar"
                            aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star2/total)*100+'%'">
                         <span *ngIf="tender?.buyer.star2>0">{{tender?.buyer.star2}}</span>
@@ -186,7 +198,7 @@
                     <label>1</label>
                   </div>
                   <div class="col-sm-7" style="padding: 0px">
-                    <div class="progress" >
+                    <div class="progress">
                       <div class="progress-bar bg-info" role="progressbar"
                            aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star1/total)*100+'%'">
                         <span *ngIf="tender?.buyer.star1>0">{{tender?.buyer.star1}}</span>
@@ -201,7 +213,8 @@
               <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Tax Code:</div>
               <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.buyer.companyTaxCode}}</div>
               <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Website:</div>
-              <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px"><a href="{{tender?.buyer.companyWebsite}}">{{tender?.buyer.companyWebsite}}</a></div>
+              <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px"><a
+                href="{{tender?.buyer.companyWebsite}}">{{tender?.buyer.companyWebsite}}</a></div>
               <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Fax:</div>
               <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.buyer.companyFax}}</div>
               <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Established Year:</div>

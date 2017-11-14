@@ -13,7 +13,6 @@ import {ProductDetailComponent} from './components/common/product-detail/product
 import {SearchPostComponent} from './components/user/search-post/search-post.component';
 import {BuyHeaderComponent} from './components/buyer/buy-header/buy-header.component';
 import {BuyMainComponent} from './components/buyer/buy-main/buy-main.component';
-import {BuyOrderListComponent} from './components/buyer/buy-order-list/buy-order-list.component';
 import {StaffHeaderComponent} from './components/staff/staff-header/staff-header.component';
 import {StaffMainComponent} from './components/staff/staff-main/staff-main.component';
 import {StaffPostListComponent} from './components/staff/staff-post-list/staff-post-list.component';
@@ -28,9 +27,7 @@ import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {RegisterComponent} from './components/user/register/register.component';
 import {SupPostUpdateComponent} from './components/supplier/sup-post-update/sup-post-update.component';
 import {CreateOrderGuard} from './guards/create-order.guard';
-import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
-import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
 import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy-order-payment.component';
 import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
 import {BuyNegoPaymentComponent} from './components/buyer/buy-nego-payment/buy-nego-payment.component';
@@ -40,6 +37,8 @@ import {CreateTenderGuard} from './guards/create-tender.guard';
 import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
 import {TenderListComponent} from "./components/common/tender-list/tender-list.component";
 import {TenderListHomeComponent} from "./components/user/tender-list-home/tender-list-home.component";
+import {OrderListComponent} from "./components/common/order-list/order-list.component";
+import {OrderDetailComponent} from "./components/common/order-detail/order-detail.component";
 
 
 const routing: Routes = [
@@ -68,8 +67,8 @@ const routing: Routes = [
       {path: 'create-post2', component: SupPostCreate2Component},
       {path: 'create-post3', component: SupPostCreate3Component},
       {path: 'update-post/:postId', component: SupPostUpdateComponent},
-      {path: 'order-list', component: SupOrderListComponent},
-      {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
+      {path: 'order-list/:orderStatus', component: OrderListComponent},
+      {path: 'order-detail/:orderId', component: OrderDetailComponent},
       {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent},
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
       {path: 'tender-detail/:tenderId', component: TenderDetailComponent}
@@ -81,8 +80,8 @@ const routing: Routes = [
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: BuyMainComponent},
       {path: 'update-info', component: BuyProfileUpdateComponent},
-      {path: 'order-list', component: BuyOrderListComponent},
-      {path: 'order-detail/:orderId', component: SupOrderDetailComponent},
+      {path: 'order-list/:orderStatus', component: OrderListComponent},
+      {path: 'order-detail/:orderId', component: OrderDetailComponent},
       {path: 'payment/:orderId', component: BuyOrderPaymentComponent},
       {path: 'negotiation/:negoStatus/:negoId', component: BuyNegoDetailComponent},
       {path: 'payment-nego/:negoId', component: BuyNegoPaymentComponent},
@@ -99,7 +98,7 @@ const routing: Routes = [
       {path: 'post-list', component: StaffPostListComponent},
       {path: 'post-detail/:postId', component: StaffPostDetailComponent},
       {path: 'order-list', component: StaffOrderListComponent},
-      {path: 'order-detail/:orderId', component: SupOrderDetailComponent}
+      {path: 'order-detail/:orderId', component: OrderDetailComponent}
     ]
   },
   {

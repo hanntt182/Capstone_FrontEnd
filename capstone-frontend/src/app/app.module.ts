@@ -32,11 +32,8 @@ import {SearchPostComponent} from './components/user/search-post/search-post.com
 import {RegisterComponent} from './components/user/register/register.component';
 import {SupPostUpdateComponent} from './components/supplier/sup-post-update/sup-post-update.component';
 import {StaffOrderListComponent} from './components/staff/staff-order-list/staff-order-list.component';
-import {SupOrderDetailComponent} from './components/supplier/sup-order-detail/sup-order-detail.component';
-import {SupOrderListComponent} from './components/supplier/sup-order-list/sup-order-list.component';
 import {BuyHeaderComponent} from './components/buyer/buy-header/buy-header.component';
 import {BuyMainComponent} from './components/buyer/buy-main/buy-main.component';
-import {BuyOrderListComponent} from './components/buyer/buy-order-list/buy-order-list.component';
 import {StaffMainComponent} from './components/staff/staff-main/staff-main.component';
 import {StaffHeaderComponent} from './components/staff/staff-header/staff-header.component';
 import {AdHeaderComponent} from './components/admin/ad-header/ad-header.component';
@@ -77,6 +74,8 @@ import {CalendarModule} from 'primeng/primeng';
 
 import {TenderListComponent} from './components/common/tender-list/tender-list.component';
 import { TenderListHomeComponent } from './components/user/tender-list-home/tender-list-home.component';
+import { OrderListComponent } from './components/common/order-list/order-list.component';
+import { OrderDetailComponent } from './components/common/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -94,10 +93,8 @@ import { TenderListHomeComponent } from './components/user/tender-list-home/tend
     SupPostListComponent,
     ProductDetailComponent,
     SearchPostComponent,
-    SupOrderListComponent,
     BuyHeaderComponent,
     BuyMainComponent,
-    BuyOrderListComponent,
     StaffMainComponent,
     StaffHeaderComponent,
     AdHeaderComponent,
@@ -109,7 +106,6 @@ import { TenderListHomeComponent } from './components/user/tender-list-home/tend
     RegisterComponent,
     SupPostUpdateComponent,
     StaffOrderListComponent,
-    SupOrderDetailComponent,
     BuyOrderPaymentComponent,
     BuyNegoCreateComponent,
     TenderListComponent,
@@ -117,7 +113,9 @@ import { TenderListHomeComponent } from './components/user/tender-list-home/tend
     BuyNegoPaymentComponent,
     BuyProfileUpdateComponent,
     TenderDetailComponent,
-    TenderListHomeComponent
+    TenderListHomeComponent,
+    OrderListComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

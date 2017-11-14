@@ -15,15 +15,15 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <div class="dropdown">
-            <a class="nav-link" href="">Categories</a>
-            <div class="dropdown-content" style="cursor:default">
-              <a *ngFor="let catalog of catalogs"
-                 (click)="chooseCatalog(catalog.catalogId)">
-                {{catalog.catalogName}}
-              </a>
-            </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu dropdown-menu-left" style="cursor:default;padding: 0px">
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" *ngFor="let catalog of catalogs"
+               (click)="chooseCatalog(catalog.catalogId)">
+              {{catalog.catalogName}}
+            </a>
           </div>
         </li>
         <li class="nav-item">
@@ -34,65 +34,69 @@
         </li>
       </ul>
       <form #searchForm="ngForm" class="form-inline">
-          <div class="input-group">
-            <!--<select class="form-control">
-              <option value="">Products</option>
-              <option>Suppliers</option>
-            </select>-->
-            <input type="text" class="form-control" name="search" placeholder="Search product..." nctgModel>
-          </div>
-        <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">Search</button>
+        <div class="input-group">
+          <!--<select class="form-control">
+            <option value="">Products</option>
+            <option>Suppliers</option>
+          </select>-->
+          <input type="text" class="form-control" name="search" placeholder="Search product..." nctgModel>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0 mx-sm-2" type="submit" (click)="search(searchForm.value)">
+          Search
+        </button>
       </form>
       <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
-          <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             <span class="hidden-xs">My Profile</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
-            <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
-            <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
+          <div class="dropdown-menu dropdown-menu-right" style="cursor:default;padding: 0px">
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-cog"></i> Change Password</a>
             <div *ngIf="user.role == 'SUPPLIER'">
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/supplier">
+              <div class="dropdown-divider" style="margin:0px"></div>
+              <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/supplier">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Manage</a>
             </div>
             <div *ngIf="user.role == 'BUYER'">
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/buyer">
+              <div class="dropdown-divider" style="margin:0px"></div>
+              <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/buyer">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Manage</a>
             </div>
             <div *ngIf="user.role == 'STAFF'">
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/staff">
+              <div class="dropdown-divider" style="margin:0px"></div>
+              <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/staff">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Manage</a>
             </div>
             <div *ngIf="user.role == 'ADMIN'">
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/admin">
+              <div class="dropdown-divider" style="margin:0px"></div>
+              <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/admin">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Manage</a>
             </div>
 
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+            <div class="dropdown-divider" style="margin:0px"></div>
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
           </div>
         </li>
       </ul>
       <ul *ngIf="!user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
-          <a style="color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-user-o" aria-hidden="true"></i>
-              <span class="hidden-xs">My Profile</span>
+          <a style="color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <span class="hidden-xs">My Profile</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" style="cursor:default">
-            <a class="dropdown-item" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>
+          <div class="dropdown-menu dropdown-menu-right" style="cursor:default;padding: 0px">
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>
               Login </a>
-            <a class="dropdown-item" routerLink="/register"><i class="fa fa-fw fa-cog"></i> Register</a>
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/register"><i class="fa fa-fw fa-cog"></i> Register</a>
           </div>
         </li>
       </ul>
@@ -100,24 +104,26 @@
   </nav>
 </div>
 
+<div class="container-fluid" style="min-height:800px; padding: 0px">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
 
-
-<div class="footer col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
+<div class="footer col-sm-12"
+     style="padding-top: 20px; border-top: 1px solid #ccc; height: 150px; margin-bottom: 0px;padding-bottom: 10px">
   <div class="row">
     <div class="col-md-3">
       <h3>About Us</h3>
       <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>
     </div>
     <div class="col-md-3">
-      <h3>My Account</h3>
+      <!--<h3>My Account</h3>
       <ul>
         <li><a href="#">Login</a></li>
         <li><a href="#">Register</a></li>
         <li><a href="#">Wishlist</a></li>
 
-      </ul>
+      </ul>-->
     </div>
     <div class="col-md-6">
       <p><i class="fa fa-home" aria-hidden="true"></i>100 Quang Trung Street , Go Vap District, Ho Chi Minh City.</p>

@@ -1,0 +1,149 @@
+<div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="background: white">
+          <div class="card-content justify-content-sm-center"
+               style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='waiting'" class="nav-link active" data-toggle="tab" href="#waiting" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('waiting')"> Waiting </a>
+                <a *ngIf="orderStatus!='waiting'" class="nav-link" data-toggle="tab" href="#waiting" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('waiting')"> Waiting </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='paying'" class="nav-link active" data-toggle="tab" href="#paying" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('paying')"> Paying </a>
+                <a *ngIf="orderStatus!='paying'" class="nav-link" data-toggle="tab" href="#paying" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('paying')"> Paying </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='shipping'" class="nav-link active" data-toggle="tab" href="#shipping" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('shipping')"> Shipping </a>
+                <a *ngIf="orderStatus!='shipping'" class="nav-link" data-toggle="tab" href="#shipping" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('shipping')"> Shipping </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='success'" class="nav-link active" data-toggle="tab" href="#success" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('success')"> Success </a>
+                <a *ngIf="orderStatus!='success'" class="nav-link" data-toggle="tab" href="#success" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('success')"> Success </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='cancel'" class="nav-link active" data-toggle="tab" href="#cancel" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('cancel')"> Cancel </a>
+                <a *ngIf="orderStatus!='cancel'" class="nav-link" data-toggle="tab" href="#cancel" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('cancel')"> Cancel </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="orderStatus=='finished'" class="nav-link active" data-toggle="tab" href="#finished" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('finished')"> Finished </a>
+                <a *ngIf="orderStatus!='finished'" class="nav-link" data-toggle="tab" href="#finished" role="tab"
+                   aria-controls="new" aria-selected="true" (click)="changeStatus('finished')"> Finished </a>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                <h5></h5>
+                <form #searchForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="search" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage(searchForm.value.search, 1)">Search
+                  </button>
+                </form>
+
+                <div class="clearfix"></div>
+
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead style="background-color: #2f96b4">
+                    <tr>
+                      <th scope="col" style="width: 400px">Product</th>
+                      <th scope="col" style="width: 250px"><div class="col">Amount</div></th>
+                      <th scope="col" style="width: 200px">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                  </table>
+                </div>
+
+                <div class="table-responsive" *ngFor="let order of orders" (click)="viewOrderDetail(order.orderID)">
+                  <table class="table hvr-glow" style="border: solid 1px #e9ecef">
+                    <thead style="background-color: #e9ecef">
+                    <tr>
+                      <th scope="col" style="width: 400px"><small>Order No. {{order.orderID}}</small></th>
+                      <th scope="col" style="width: 250px"><small>{{order.createdDay}}</small></th>
+                      <th scope="col" style="width: 200px"><small></small></th>
+                      <th scope="col"><small></small></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td scope="row" style="width: 400px">
+                        {{order.post.postTitle}}<br>
+                        <small>{{order.post.product.productName}}</small><br>
+                        <img src="{{order.post.primaryImage}}" style="max-width: 100px;max-height: 100px">
+                      </td>
+                      <td style="width: 250px">
+                        <div class="row">
+                          <div class="col-sm-7"><small> Product Amount </small></div>
+                          <div class="col-sm-5"><small>{{order.productPrice}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Shipping Fee </small></div>
+                          <div class="col-sm-5"><small>{{order.shipFee}}</small></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-7"><small> Order Amount </small></div>
+                          <div class="col-sm-5"><small style="color: orangered"> {{order.totalPrice}}</small></div>
+                        </div>
+                      </td>
+                      <td style="width: 200px">{{order.status.statusName}}</td>
+                      <td>
+                        <i class="fa fa-info-circle" aria-hidden="true"
+                           data-toggle="tooltip" data-placement="right"
+                           title="View detail" style="color: #2f96b4; font-size: 25px"
+                           (click)="viewOrderDetail(order.orderID)"></i>
+                        <i class="fa fa-check-circle" aria-hidden="true"
+                           data-toggle="tooltip" data-placement="right"
+                           title="Confirm this order" style="color: #2f96b4; font-size: 25px"
+                           (click)="confirmOrder(order.orderID)"></i>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-start">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pages">
+                      <a class="page-link" [routerLink]="['./']"
+                         (click)="changePage(searchForm.value.search, page)">{{page}}</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

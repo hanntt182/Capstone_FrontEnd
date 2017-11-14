@@ -13,7 +13,7 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
   public user;
   public tender;
   public tenders;
-  public checkBid;
+  public checkBid = null;
   public now;
   public closedDay;
   public distance;
@@ -56,17 +56,19 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
   }
 
   viewTenderDetail(tenderID) {
-    let data1 = {
-      'SupplierID': this.user.userId,
-      'TenderID': tenderID
-    };
-    this.tenderService.checkBid(this.constants.CHECKBID, data1).subscribe((response: any) => {
-      this.checkBid = response;
-      console.log(response);
-    });
-    this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data1).subscribe((response: any) => {
-      this.myTenderInfo = response;
-    });
+    if (this.user != null) {
+      let data1 = {
+        'SupplierID': this.user.userId,
+        'TenderID': tenderID
+      };
+      this.tenderService.checkBid(this.constants.CHECKBID, data1).subscribe((response: any) => {
+        this.checkBid = response;
+      });
+      this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data1).subscribe((response: any) => {
+        this.myTenderInfo = response;
+      });
+    }
+
     let data = {
       'TenderID': tenderID
     };

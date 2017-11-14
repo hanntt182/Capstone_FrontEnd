@@ -87,11 +87,11 @@
             </thead>
             <tbody>
             <tr>
-              <td scope="row">{{order?.postShip.ship.shipName}}</td>
-              <td>{{order?.postShip.shippingMinTime}} day(s) - {{order?.postShip.shippingMaxTime}} day(s) after
+              <td scope="row">{{order?.ship.shipName}}</td>
+              <td>{{shippingMinTime}} day(s) - {{shippingMaxTime}} day(s) after
                 payment
               </td>
-              <td>{{order?.postShip.shippingFee}}</td>
+              <td>{{order?.shipFee}}</td>
             </tr>
             </tbody>
           </table>

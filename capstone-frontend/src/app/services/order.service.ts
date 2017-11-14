@@ -44,7 +44,7 @@ export class OrderService {
   }
 
   viewOrderDetail(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
   paymentBuyer(apiUrl, data): Observable<any> {

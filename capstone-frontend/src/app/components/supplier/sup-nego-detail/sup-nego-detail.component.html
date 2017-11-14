@@ -1,5 +1,5 @@
 <div *ngIf="negoID==0" class="container-fluid">
-  <div class="row" style="height: 550px">
+  <div class="row" style="height: 600px">
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form>
@@ -209,14 +209,11 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5">Shipping Method</label>
-              <div *ngIf="negotiation?.postShip!=null" class="col-sm-7"
-                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
-                <p>{{negotiation?.postShip.ship.shipName}}</p>
+              <div class="col-sm-7">
+                <input name="shipMethod" required class="form-control"
+                       value="{{negotiation?.ship.shipName}}" disabled ngModel="{{negotiation?.ship.shipName}}">
               </div>
-              <div *ngIf="negotiation?.postShip==null" class="col-sm-7"
-                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
 
-              </div>
               <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">
                 <input *ngIf="negotiation?.postShip==null" disabled type="text" name="offerPrice" required ngModel
                        class="form-control">
@@ -234,7 +231,7 @@
               <div class="col-sm-7" style="padding: 0px; font-size: 14px">
                 Ship <input name="shippingTime" ngModel="{{negotiation?.shippingTime}}" type="number" required
                             value="{{negotiation?.shippingTime}}" disabled
-                            style="width: 50px"> day(s) after
+                            style="width: 50px;border: 1px solid #ced4da"> day(s) after
                 payment.
 
                 <!--<div class="form-check">
@@ -315,7 +312,7 @@
         <div *ngIf="negotiation?.checked==false && negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
           <button style="margin-right: 10px" type="button" class="btn btn-success"
                   [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
-                  || negotiation?.address==null || negotiation?.postShip==null
+                  || negotiation?.address==null || negotiation?.ship==null
                   || negotiation?.offerPrice==null || negotiation?.shipPrice==null
                   || negotiation?.remark==null"
                   (click)="confirmOrder()">

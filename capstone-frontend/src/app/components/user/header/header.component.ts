@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Constants} from './../../../constants';
 import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
 import {CatalogService} from '../../../services/catalog.service';
-import {CommonService} from "../../../services/common.service";
-import {PostService} from "../../../services/post.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-header',
@@ -21,8 +20,9 @@ export class HeaderComponent implements OnInit {
               private loginService: LoginService,
               private catalogService: CatalogService,
               private router: Router,
-              private commonService: CommonService,
-              private postService: PostService) {
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
       'Password': loginValue.password
     };
     this.loginService.login(this.constants.LOGIN, data).subscribe((response: any) => {
-      console.log(response);
       if (response) {
         this.loginService.setLogin(true);
         this.loginService.setUser(response);
@@ -49,10 +48,10 @@ export class HeaderComponent implements OnInit {
         $('#loginModal').hide();
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        alert('Login successfully');
+        this.toastr.success(response, 'Success!', {showCloseButton: true});
       }
     }, error => {
-      console.log(error);
+      this.toastr.error(error._body, 'Please try again!');
     });
   }
 
@@ -60,7 +59,7 @@ export class HeaderComponent implements OnInit {
     this.user = null;
     this.loginService.setLogin(false);
     localStorage.removeItem('currentUser');
-    alert('Logged out!!!');
+    this.toastr.success('Logged out!!!', 'Success!', {showCloseButton: true});
   }
 
   chooseCatalog(catalogId) {

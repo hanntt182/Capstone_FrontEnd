@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
 import {OrderService} from '../../../services/order.service';
 import * as $ from 'jquery';
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-buy-nego-detail',
   templateUrl: './buy-nego-detail.component.html',
   styleUrls: ['./buy-nego-detail.component.css']
 })
-export class BuyNegoDetailComponent implements OnInit {
+export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -26,6 +27,7 @@ export class BuyNegoDetailComponent implements OnInit {
   public messages;
   public productAmount;
   public totalAmount;
+  public addresses;
   public cities;
   public districts;
   public wards;
@@ -33,13 +35,15 @@ export class BuyNegoDetailComponent implements OnInit {
   public district;
   public ward;
   public address;
-  public postShipID;
+  public shipID;
+  public xInterval;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
               private constants: Constants,
               private orderService: OrderService,
-              private router: Router) {
+              private router: Router,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -51,41 +55,38 @@ export class BuyNegoDetailComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoID = params['negoId'];
+      let data = {
+        'NegotiationID': this.negoID
+      };
+      this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
+        this.negotiation = response;
+        console.log(response);
+        this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
+      });
+      this.xInterval = setInterval(() => {
+        this.getMessage(this.negoID);
+      }, 1000);
     });
+
+    this.addresses = this.user.address;
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoStatus = params['negoStatus'];
+      this.searchNego('');
     });
 
-    setInterval(() => {
-      this.updateNegoOrder(this.negoID);
-    }, 500);
 
-    setInterval(() => {
-      this.getMessage(this.negoID);
-    }, 500);
-
-    setInterval(() => {
-      this.searchNego('');
-    }, 500);
-
-
-    this.orderService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
+    this.commonService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
       this.cities = response.LtsItem;
     }, error => {
       console.log(error);
     });
   }
 
-  updateNegoOrder(negoID) {
-    let data = {
-      'NegotiationID': negoID
-    };
-    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
-      this.negotiation = response;
-      this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
-    });
+  ngOnDestroy() {
+    clearInterval(this.xInterval);
   }
+
 
   getMessage(negoID) {
     let data = {
@@ -187,21 +188,20 @@ export class BuyNegoDetailComponent implements OnInit {
     }
 
     if (this.negotiation.postShip == null) {
-      this.postShipID = createNegoOrder.postShip;
-    } else if (this.negotiation.postShip != null) {
+      this.shipID = createNegoOrder.postShip;
+    } else if (this.negotiation.postShip == null) {
       for (let i = 0; i < this.negotiation.post.postShips.length; i++) {
-        if (this.negotiation.post.postShips[i].ship.shipName == document.getElementById('editShippingMethod').innerText) {
-          this.postShipID = this.negotiation.post.postShips[i].postShipID;
+        if (this.negotiation.post.postShips[i].postShipID.ship.shipName == document.getElementById('editShippingMethod').innerHTML) {
+          this.shipID = this.negotiation.post.postShips[i].postShipID.ship.shipID;
         }
       }
     }
-
 
     let data = {
       'NegotiationID': Number(this.negoID),
       'OfferPrice': Number(createNegoOrder.offerPrice),
       'Quantity': Number(createNegoOrder.quantity),
-      'PostShipID': Number(this.postShipID),
+      'ShipID': Number(createNegoOrder.postShip),
       'ShippingTime': Number(createNegoOrder.shippingTime),
       'ShipFee': Number(createNegoOrder.feeShip),
       'Remark': createNegoOrder.remark,
@@ -211,6 +211,8 @@ export class BuyNegoDetailComponent implements OnInit {
     this.negoService.updateNegotiationBuyer(this.constants.UPDATENEGOTIATIONBUYER, data).subscribe((response: any) => {
       this.negotiation = response;
       alert('Update success');
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -243,7 +245,7 @@ export class BuyNegoDetailComponent implements OnInit {
   }
 
 
-  cancelOrder(){
+  cancelOrder() {
     let data = {
       'NegotiationID': this.negoID
     };

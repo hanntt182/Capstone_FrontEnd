@@ -1,5 +1,5 @@
 <div *ngIf="negoID==0" class="container-fluid">
-  <div class="row" style="height: 1000px">
+  <div class="row" style="height: 600px">
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form>
@@ -162,8 +162,6 @@
           </div>
 
         </div>
-
-
       </div>
       <div class="col-sm-11 rounded align-items-center"
            style="bottom: 0; padding:15px; margin: 20px; background-color: white; box-shadow: 0 2px 6px 1px rgba(0,0,0,.1)">
@@ -239,13 +237,9 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5">Shipping Method</label>
-              <div *ngIf="negotiation?.postShip!=null" class="col-sm-7"
-                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
-                <p>{{negotiation?.postShip.ship.shipName}}</p>
-              </div>
-              <div *ngIf="negotiation?.postShip==null" class="col-sm-7"
-                   style="padding:5px; border: 1px solid #E6E7EB; background-color: #e9ecef">
-
+              <div class="col-sm-7">
+                <input name="shipMethod" required class="form-control"
+                       value="{{negotiation?.ship.shipName}}" disabled ngModel="{{negotiation?.ship.shipName}}">
               </div>
               <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">
                 <input *ngIf="negotiation?.postShip==null" disabled type="text" name="offerPrice" required ngModel
@@ -345,7 +339,7 @@
         <div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
           <button style="margin-right: 10px" type="button" class="btn btn-success"
                   [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
-                  || negotiation?.address==null || negotiation?.postShip==null
+                  || negotiation?.address==null || negotiation?.ship==null
                   || negotiation?.offerPrice==null || negotiation?.shipPrice==null
                   || negotiation?.remark==null"
                   (click)="payNegoOrder()">
@@ -456,8 +450,8 @@
             <div *ngIf="negotiation?.postShip==null" class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
               <select class="col-sm-7 form-control" name="postShip" ngModel #postShip="ngModel" required>
-                <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID}}">
-                  {{postShip.ship.shipName}}
+                <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID.ship.shipID}}">
+                  {{postShip.postShipID.ship.shipName}}
                 </option>
               </select>
             </div>
@@ -529,7 +523,6 @@
                     <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel>
                     Existed Address
                     <select class="form-control" name="oldAddressName" ngModel>
-                      <option selected>My address</option>
                       <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}
                       </option>
                     </select>
@@ -545,7 +538,6 @@
                       <select style="width: 149px;" class="form-control col-sm-8"
                               (change)="chooseCity($event.target.value)"
                               name="newAddressCity" ngModel>
-                        <option selected>Choose city...</option>
                         <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
                       </select>
                     </div>
@@ -755,8 +747,8 @@
         <form #editPostShipForm="ngForm">
           <div class="row col-sm-12" style="padding-top: 10px;">
             <select class="col-sm-12 form-control" name="editPostShip" ngModel #editPostShip="ngModel" required>
-              <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.ship.shipName}}">
-                {{postShip.ship.shipName}}
+              <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID.ship.shipID}}">
+                {{postShip.postShipID.ship.shipName}}
               </option>
             </select>
           </div>
