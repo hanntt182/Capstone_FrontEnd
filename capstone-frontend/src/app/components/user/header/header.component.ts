@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
         $('#loginModal').hide();
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        this.toastr.success(response, 'Success!', {showCloseButton: true});
+        this.toastr.success('Login successfully!', 'Success!', {showCloseButton: true});
       }
     }, error => {
       this.toastr.error(error._body, 'Please try again!');

@@ -4,7 +4,281 @@
       <div class="card" style="background: white">
         <div class="card-content"
              style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+
+
+          <div class="col-sm-5" style="border-bottom: 1px solid; padding-top: 30px">
+            <h4>Work Item Details</h4>
+          </div>
+
+          <!--Title-->
           <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 20px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Title: <span class="star">*</span></label>
+              <div class="col-sm-8">
+                <input class="form-control col-sm-12" type="text" required name="TenderTitle" ngModel
+                       #TenderTitle="ngModel">
+                <div class="error" *ngIf="TenderTitle.invalid && (TenderTitle.dirty || TenderTitle.touched)">
+                  <div *ngIf="TenderTitle.errors.required">
+                    Title is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Work Description-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 20px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Work Description: <span
+                class="star">*</span>
+              </label>
+              <div class="col-sm-8">
+                <textarea class="form-control col-sm-12" name="WorkDescription" rows="3" (keyup)="countRemain($event)"
+                          ngModel required #WorkDescription="ngModel" maxlength="5000">
+                </textarea>
+                <div class="col-sm-12 text-right">
+                  <label style="color: #666">Remaining: {{remainNum}}</label>
+                </div>
+                <div class="error"
+                     *ngIf="WorkDescription.invalid && (WorkDescription.dirty || WorkDescription.touched)">
+                  <div *ngIf="WorkDescription.errors.required">
+                    Work Description is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Tender value-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 20px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Tender Value: <span
+                class="star">*</span></label>
+              <div class="col-sm-8">
+                <input class="form-control col-sm-12" type="number" required name="TenderValue" ngModel
+                       #TenderValue="ngModel">
+                <div class="error" *ngIf="TenderValue.invalid && (TenderValue.dirty || TenderValue.touched)">
+                  <div *ngIf="TenderValue.errors.required">
+                    Tender Value is required and must be a number.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Product Name-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 20px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right"> Product Name: <span class="star">*</span>
+              </label>
+              <div class="col-sm-6" style="margin-bottom: 0px">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="ProductName" id="ProductName"
+                         ngModel required #ProductName="ngModel" (keyup)="changeInput($event)">
+                  <span class="input-group-addon"
+                        (click)="searchProduct(ProductName.value)"><i class="fa fa-search"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row col-sm-12" style="margin-top: 0px">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10">
+              <label style="padding-right: 10px" class="col-sm-3 text-right"></label>
+              <button id="openProductList" [hidden]="true" data-toggle="collapse"
+                      data-target="#collapseExample"></button>
+              <div class="col-sm-8">
+                <div class="collapse" id="collapseExample">
+                  <div style="border: 1px solid #ced4da; border-top: none; height: 150px;overflow: auto; width: 375px">
+                    <table class="table table-hover" style="border-top: none;">
+                      <tbody>
+                      <tr *ngFor="let product of products"
+                          (click)="chooseProduct(product.productName, createTenderForm)">
+                        <td scope="col">{{product.productName}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10">
+              <label style="padding-right: 10px" class="col-sm-3 text-right"></label>
+              <div class=" col-sm-6" *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)">
+                <div class="error" *ngIf="ProductName.errors.required">
+                  Product Name is required.
+                </div>
+              </div>
+              <div class="error col-sm-6" *ngIf="myError=='PRODUCT LIST NOT FOUND'">
+                <div class="error">
+                  {{myError}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!--Period of work-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 5px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Period of work (days): <span
+                class="star">*</span></label>
+              <div class="col-sm-8">
+                <input class="form-control col-sm-12" type="number" required name="Period" ngModel #Period="ngModel">
+                <div class="error" *ngIf="Period.invalid && (Period.dirty || Period.touched)">
+                  <div *ngIf="Period.errors.required">
+                    Period of work is required and must be a number.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-5" style="border-bottom: 1px solid ">
+            <h4>Basic Details</h4>
+          </div>
+
+          <!--Payment mode -->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-8">
+              <div style="padding-top: 10px">
+                <label>Payment Mode: <span class="star">*</span></label>
+                <div class="row col-sm-12">
+                  <div class="col-sm-5"></div>
+                  <div class="col-sm-12">
+                    <div class="panel-group" id="accordion">
+
+                      <div class="panel panel-default" *ngFor="let paymentMode of paymentModes">
+
+                        <div class="panel-heading">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="radio" name="PaymentMode"
+                                     value="{{paymentMode.paymentModeID}}"
+                                     data-toggle="collapse" data-parent="#accordion"
+                                     [attr.data-target]="'#' + paymentMode.paymentModeID" ngModel
+                                     (change)="changePaymentMode()">
+                              {{paymentMode.paymentModeName}}
+                            </label>
+                          </div>
+                        </div>
+                        <div id="{{paymentMode.paymentModeID}}" class="panel-collapse collapse"
+                             style="padding-left: 30px">
+                          <div *ngFor="let paymentType of paymentMode.paymentTypes">
+                            <input type="checkbox" (change)="chosePaymentType($event)"
+                                   value="{{paymentType.paymentTypeID}}"> {{paymentType.paymentTypeName}}<br>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Cover information-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 10px">
+              <label>Cover information: <span class="star">*</span></label>
+              <div class="col-sm-8">
+                <button onclick="document.querySelector('#contractFile').click()">
+                  Add File
+                </button>
+                <input hidden type="file" multiple accept=".xlsx,.xls,.doc,.docx,.pdf"
+                       (change)="importContractFile($event)"
+                       class="form-control-file" id="contractFile">
+                <div *ngIf="fileType == false" class="error">Supported formats: .doc .docx .xls .xlsx .pdf</div>
+                <div class="text-dark" *ngFor="let contractFile of contractFiles; let i = index">
+                  {{contractFile.name}} <i class="fa fa-times" aria-hidden="true" (click)="removeContract(i)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-5" style="border-bottom: 1px solid; padding-top: 30px">
+            <h4>Fee Details</h4>
+          </div>
+
+          <!--EMD Fee-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 10px">
+              <label>EMD Fee Excemption Allowed: <span class="star">*</span></label>
+              <div class="col-sm-12">
+                <div class="row col-sm-12">
+                  <label class="form-check-label" style="margin:10px">
+                    <input class="form-check-input" type="radio" name="EMDFee" ngModel value="Yes">
+                    Yes
+                  </label>
+                </div>
+                <div class="row col-sm-12 align-items-center">
+                  <label class="form-check-label" style="margin:10px">
+                    <input class="form-check-input" type="radio" name="EMDFee" ngModel value="No">
+                    No
+                  </label>
+                  <input style="width:350px" class="form-control" placeholder="Input Fee here" type="number" name="Fee"
+                         min="0" ngModel #Fee="ngModel"><label> VND</label>
+                  <div class="error" *ngIf="createTenderForm.value.EMDFee == 'No' && (Fee.dirty || Fee.touched)">
+                    <div *ngIf="Fee.value==''">
+                      Period of work is required and must be a number.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-5" style="border-bottom: 1px solid; padding-top: 30px">
+            <h4>Critical Date</h4>
+          </div>
+
+          <!--Bid closing date-->
+          <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="row col-sm-10" style="padding-top: 20px">
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Closing Date: <span
+                class="star">*</span></label>
+              <div class="row col-sm-5" style="border-bottom-color: rgba(0,0,0,.125);">
+                <p-calendar [(ngModel)]="closeDay" [showTime]="true" showButtonBar="true"
+                            [showIcon]="true" [minDate]="minDateValue" readonlyInput="true"
+                            [ngModelOptions]="{standalone: true}" required></p-calendar>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row col-sm-12 text-center justify-content-center" style="margin: 10px">
+            <button [disabled]="createTenderForm.invalid || closeDay==null ||
+                    contractFiles.length==0 || createTenderForm.value.EMDFee=='' ||
+                    createTenderForm.value.PaymentMode=='' || paymentTypeValue.length==0" type="button"
+                    class="btn btn-info" style="margin: 50px"
+                    (click)="createTender(createTenderForm.value)">
+              Create
+            </button>
+          </div>
+
+
+          <!--<div class="row col-sm-12">
             <h4>Tender Information</h4>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
@@ -179,7 +453,7 @@
               Create
             </button>
             <button type="button" class="btn btn-danger" style="margin: 50px">Cancel</button>
-          </div>
+          </div>-->
 
 
         </div>

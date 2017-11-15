@@ -1,3 +1,4 @@
+<!--
 <div class="container" style="margin-top: 20px; margin-bottom: 20px">
   <div class="col-md-12">
     <div class="card" style="padding:30px">
@@ -208,7 +209,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- end 5 -->
+                    &lt;!&ndash; end 5 &ndash;&gt;
                     <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
                       <rating [(ngModel)]="star4" [readonly]="true" [max]="1"></rating>
                       4
@@ -221,7 +222,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- end 4 -->
+                    &lt;!&ndash; end 4 &ndash;&gt;
                     <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
                       <rating [(ngModel)]="star3" [readonly]="true" [max]="1"></rating>
                       3
@@ -234,7 +235,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- end 3 -->
+                    &lt;!&ndash; end 3 &ndash;&gt;
                     <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
                       <rating [(ngModel)]="star2" [readonly]="true" [max]="1"></rating>
                       2
@@ -247,7 +248,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- end 2 -->
+                    &lt;!&ndash; end 2 &ndash;&gt;
                     <div class="col-xs-3 col-md-3 text-right" style="font-size: 14px">
                       <rating [(ngModel)]="star1" [readonly]="true" [max]="1"></rating>
                       1
@@ -260,9 +261,9 @@
                         </div>
                       </div>
                     </div>
-                    <!-- end 1 -->
+                    &lt;!&ndash; end 1 &ndash;&gt;
                   </div>
-                  <!-- end row -->
+                  &lt;!&ndash; end row &ndash;&gt;
                 </div>
               </div>
               <div class="row" style="font-size:15px">
@@ -304,7 +305,7 @@
 
             </div>
 
-            <!--<div class="row">
+            &lt;!&ndash;<div class="row">
               <img src="{{tender?.buyer.companyLogo}}" style="padding: 10px; width: 150px; height: 150px">
               <div style="padding-left: 10px">
                 <div class="row" style="padding: 10px">
@@ -335,7 +336,7 @@
                 <label style="padding-right: 10px">Company Website:</label>
                 <label>{{tender?.buyer.companyWebsite}}</label>
               </div>
-            </div>-->
+            </div>&ndash;&gt;
           </div>
         </div>
       </div>
@@ -381,8 +382,8 @@
                 </div>
               </td>
               <th *ngIf="tender?.status.statusName=='ACTIVE'" style="padding: 5px">
-                <!--<button type="button" class="btn btn-info" style="padding: 3px">
-                  <i class="fa fa-info" aria-hidden="true"></i>View Detail</button>-->
+                &lt;!&ndash;<button type="button" class="btn btn-info" style="padding: 3px">
+                  <i class="fa fa-info" aria-hidden="true"></i>View Detail</button>&ndash;&gt;
                 <button type="button" class="btn btn-success"
                         (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)">
                   <i class="fa fa-check" aria-hidden="true"></i>Choose
@@ -436,3 +437,137 @@
 <button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal
 </button>
 
+-->
+
+
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="col-md-12">
+    <div class="card" style="padding:20px; margin-right: 50px; margin-left: 50px">
+      <div style="margin: 50px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+        <div class="col-sm-12" style="margin-top: 10px">
+          <label style="text-decoration-line: underline">
+            <h4>Basic Detail</h4>
+          </label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Bid Solicitor:</label>
+          <label class="col-sm-7">{{tender?.buyer.companyName}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Tender ID:</label>
+          <label class="col-sm-7">{{tender?.tenderID}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Payment Mode:</label>
+          <label class="col-sm-7">{{tender?.paymentMode.paymentModeName}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">No. of Covers:</label>
+          <label class="col-sm-7">{{tender?.numberCover}}</label>
+        </div>
+      </div>
+      <div class="row justify-content-between" style="margin-left: 50px;margin-right: 50px;margin-bottom:20px;">
+        <div style="padding:20px; border: solid 1px #A0A2AD; width: 400px">
+          <div class="col-sm-12" style="margin-top: 10px">
+            <label style="text-decoration-line: underline">
+              <h4>Payment Instruments</h4>
+            </label>
+          </div>
+          <div class="col-sm-12" style="margin-top: 10px">
+            <table class="table table-bordered">
+              <thead class="table-info">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Instrument Type</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let paymentType of tender?.paymentTypes; let i = index">
+                <td scope="row">{{i + 1}}</td>
+                <td>{{paymentType.paymentTypeName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="padding:20px; border: solid 1px #A0A2AD; width: 400px">
+          <div class="col-sm-12" style="margin-top: 10px">
+            <label style="text-decoration-line: underline">
+              <h4>Covers Information</h4>
+            </label>
+          </div>
+          <div class="col-sm-12" style="margin-top: 10px">
+            <table class="table table-bordered">
+              <thead class="table-info">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let tenderFile of tender?.tenderFiles; let i = index">
+                <td scope="row">{{i + 1}}</td>
+                <td><a href="{{tenderFile.fileUrl}}">{{tenderFile.fileUrl|slice:34}}</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="margin-left: 50px;margin-right: 50px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+        <div class="col-sm-12" style="margin-top: 10px">
+          <label style="text-decoration-line: underline">
+            <h4>Work Item Detaill</h4>
+          </label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Title:</label>
+          <label class="col-sm-7">{{tender?.tenderTitle}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Work Description:</label>
+          <label class="col-sm-7">{{tender?.description}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Tender Value:</label>
+          <label class="col-sm-7">{{tender?.tenderValue}} VND</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Product Name:</label>
+          <label class="col-sm-7">{{tender?.product.productName}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Period of Work (Days):</label>
+          <label class="col-sm-7">{{tender?.periodTime}} day(s)</label>
+        </div>
+      </div>
+      <div style="margin: 50px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+        <div class="col-sm-12" style="margin-top: 10px">
+          <label style="text-decoration-line: underline">
+            <h4>Fee Detail</h4>
+          </label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">EMD Amount in VND:</label>
+          <label class="col-sm-7">{{tender?.emdFee}}</label>
+        </div>
+      </div>
+      <div style="margin: 50px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+        <div class="col-sm-12" style="margin-top: 10px">
+          <label style="text-decoration-line: underline">
+            <h4>Critical Dates</h4>
+          </label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Published Date:</label>
+          <label class="col-sm-7">{{tender?.createdDay}}</label>
+        </div>
+        <div class="row col-sm-12" style="margin-top: 10px">
+          <label class="col-sm-5">Bid Closing Date:</label>
+          <label class="col-sm-7">{{tender?.closedDay}}</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
