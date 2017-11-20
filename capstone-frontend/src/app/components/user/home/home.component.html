@@ -85,6 +85,29 @@
         <h3 style="margin: 20px; color: #bd362f"><b>Contract Execution</b></h3>
 
       </div>
+      <div class="row justify-content-center" style="font-size: 90%">
+        <div class="col-sm-9">
+          <table class="table" *ngFor="let myTender of tenders"
+                 style="border: 1px solid #e6e7eb; background-color: white">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col" style="width: 400px">Tender Title</th>
+              <th scope="col" style="width: 250px">Product Name</th>
+              <th scope="col" style="width: 200px">Tender Value</th>
+              <th scope="col" style="width: 250px">Bid Closing Day</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">{{myTender.tenderTitle}}</th>
+              <td>{{myTender.product.productName}}</td>
+              <td>{{myTender.tenderValue}}</td>
+              <td>{{myTender.closedDay}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -269,204 +292,4 @@
     </div>
   </div>
 </div>
-
-<!--&lt;!&ndash;List Product&ndash;&gt;
-<div class="header text-center">
-  <h3 class="title"><b>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; sửa sau &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</b></h3>
-</div>
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row justify-content-around text-center" style="padding: 20px">
-                <div class="col-lg-3 col-md-6 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                      <h4 class="card-title">Card title</h4>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse
-                        necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                      <a href="#" class="btn btn-primary">Find Out More!</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                      <h4 class="card-title">Card title</h4>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni
-                        sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                      <a href="#" class="btn btn-primary">Find Out More!</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                      <h4 class="card-title">Card title</h4>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse
-                        necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                      <a href="#" class="btn btn-primary">Find Out More!</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4">
-                  <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                      <h4 class="card-title">Card title</h4>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni
-                        sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                      <a href="#" class="btn btn-primary">Find Out More!</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-
-              <div class="row justify-content-around" style="padding: 20px">
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="carousel-item">
-
-              <div class="row justify-content-around" style="padding: 20px">
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card text-center col-sm-3">
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <img src="./../../../../assets/img/banner_1"
-                           alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
-                    </div>
-                    <div class="col-sm-7">
-                      <h5>Post Titleeeee</h5>
-                      <div class="row">Product Name: aaaa</div>
-                      <div class="row">Supplier: ABC</div>
-                      <div class="row"><b>Price: 100 - 500 / piece</b></div>
-                      <div class="row">Required Quanity: 500</div>
-                      <button type="button" class="btn btn-primary" routerLink="/create-order">Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <a style="justify-content: flex-start" class="carousel-control-prev" href="#carouselExampleIndicators"
-               role="button" data-slide="prev">
-              <i class="fa fa-chevron-left fa-2x" aria-hidden="true" style="color: black"></i>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a style="justify-content: flex-end" class="carousel-control-next" href="#carouselExampleIndicators"
-               role="button" data-slide="next">
-              <i class="fa fa-chevron-right fa-2x" aria-hidden="true" style="color: black"></i>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>-->
 

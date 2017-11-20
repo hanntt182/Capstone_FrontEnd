@@ -29,17 +29,6 @@ export class TenderService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
-  checkBid(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
-
-  bidTender(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
-
-  viewTenderHistoryDetail(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.json());
-  }
 
   getListSupplierJoinTender(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
@@ -75,4 +64,19 @@ export class TenderService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  checkBid(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  bidTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  viewTenderHistoryDetail(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  get5NewTender(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
 }

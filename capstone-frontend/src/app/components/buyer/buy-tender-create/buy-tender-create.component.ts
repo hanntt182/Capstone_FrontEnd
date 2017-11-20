@@ -53,7 +53,7 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.contractFiles = null;
+    this.contractFiles = [];
     this.closeDay = null;
   }
 

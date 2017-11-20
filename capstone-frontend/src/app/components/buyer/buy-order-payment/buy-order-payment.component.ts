@@ -110,7 +110,7 @@ export class BuyOrderPaymentComponent implements OnInit {
       'OrderID': this.orderID
     };
     this.orderService.viewOrderDetail(this.constants.VIEWORDERDETAIL, data).subscribe((response: any) => {
-      this.order = JSON.parse(response);
+      this.order = response;
     });
   }
 

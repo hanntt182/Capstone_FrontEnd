@@ -5,24 +5,27 @@
   <div class="card row col-sm-12" style="margin:10px">
     <ul class="nav nav-tabs justify-content-center">
       <li class="nav-item" *ngFor="let brand of brands">
-        <a class="nav-link active" (click)="showListPost(brand.brandId, 1)"
+        <a *ngIf="brand.brandId == brandId" class="nav-link active" (click)="changeBrand(brand.brandId)"
+           style="cursor: default">{{brand.brandName}}</a>
+        <a *ngIf="brand.brandId != brandId" class="nav-link" (click)="changeBrand(brand.brandId)"
            style="cursor: default">{{brand.brandName}}</a>
       </li>
     </ul>
     <h4 *ngIf="totalPage == 0" class="text-center">No product available</h4>
     <div class="row justify-content-center" style="padding: 20px">
-      <div class="card text-center col-sm-5" *ngFor="let post of posts" style="margin: 10px; padding: 10px">
-        <div class="row">
-          <div class="col-sm-5">
+      <div class="card text-center col-sm-5 hvr-glow" *ngFor="let post of posts" style="margin: 10px; padding: 10px"
+           (click)="viewPostDetail(post.postId)">
+        <div class="row col-sm-12 align-items-center" style="margin:0px; height:200px">
+          <div class="col-sm-4" style="padding: 0px">
             <img src="{{post.primaryImage}}"
-                 alt="Card image cap" style="padding: 10px; max-height: 150px; max-width: 150px;">
+                 alt="Card image cap" style="padding: 10px;max-width: 150px; height: auto">
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-8">
             <h5>{{post.postTitle}}</h5>
-            <div class="row">Product Name: {{post.product.productName}}</div>
-            <div class="row">Supplier: {{post.supplier.companyName}}</div>
-            <div class="row"><b>Price: {{post.minPrice}} - {{post.maxPrice}} / {{post.unit}}</b></div>
-            <div class="row">Required Quanity: {{post.minOrderQuantity}}</div>
+            <div class="row col-sm-12">Product Name: {{post.product.productName}}</div>
+            <div class="row col-sm-12">Supplier: {{post.supplier.companyName}}</div>
+            <div class="row col-sm-12"><b>Price: {{post.minPrice}} - {{post.maxPrice}} / {{post.unit}}</b></div>
+            <div class="row col-sm-12">Required Quanity: {{post.minOrderQuantity}}</div>
             <button type="button" class="btn btn-info" (click)="createNego(post.postId)">Contact Supplier</button>
             <button type="button" class="btn btn-outline-info" (click)="createOrder(post.postId)"> Start Order</button>
           </div>
@@ -37,7 +40,7 @@
         </li>
         <li class="page-item" *ngFor="let page of pages">
           <a class="page-link" [routerLink]="['./']"
-             (click)="changePage('PENDING',searchPendingForm.value, page)">{{page}}</a>
+             (click)="showListPost(page)">{{page}}</a>
         </li>
         <li class="page-item">
           <a class="page-link" href="#">Next</a>

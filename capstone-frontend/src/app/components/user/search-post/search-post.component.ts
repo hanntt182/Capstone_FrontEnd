@@ -61,4 +61,8 @@ export class SearchPostComponent implements OnInit {
     this.router.navigate(['/negotiation/' + postID]);
   }
 
+  viewPostDetail(postID) {
+    this.router.navigate(['/product-detail/' + postID]);
+  }
+
 }

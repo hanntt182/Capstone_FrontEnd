@@ -50,8 +50,8 @@ const routing: Routes = [
       {path: 'register', component: RegisterComponent},
       {path: 'tender', component: TenderListHomeComponent},
       {path: 'negotiation/:postID', component: BuyNegoCreateComponent},
-      {path: 'catalog/:catalogId', component: BrandsListComponent},
-      {path: 'product-detail', component: ProductDetailComponent},
+      {path: 'product/:catalogId/:brandId', component: BrandsListComponent},
+      {path: 'product-detail/:postId', component: ProductDetailComponent},
       {path: 'search/:searchValue', component: SearchPostComponent},
       {path: 'create-order/:postID', component: CreateOrderComponent, canActivate: [CreateOrderGuard]}
     ]

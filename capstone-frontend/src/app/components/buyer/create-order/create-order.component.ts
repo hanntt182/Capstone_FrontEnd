@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {CommonService} from '../../../services/common.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Constants} from '../../../constants';
 import {OrderService} from '../../../services/order.service';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-create-order',
@@ -26,13 +27,18 @@ export class CreateOrderComponent implements OnInit {
   public ward;
   public address;
   public postShips;
+  public setDisabledNew = false;
+  public setDisabledOld = false;
 
   constructor(private commonService: CommonService,
               private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private constants: Constants,
               private orderService: OrderService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -63,6 +69,26 @@ export class CreateOrderComponent implements OnInit {
     });
   }
 
+  backToPrevious() {
+    history.back();
+  }
+
+  checkAddress(e, createOrderForm) {
+    console.log(e.target.value);
+    if (e.target.value == 'newAddress') {
+      this.setDisabledOld = true;
+      this.setDisabledNew = false;
+      createOrderForm.controls['oldAddressName'].setValue('');
+    } else if (e.target.value == 'oldAddress') {
+      this.setDisabledOld = false;
+      this.setDisabledNew = true;
+      createOrderForm.controls['newAddressCity'].setValue('');
+      createOrderForm.controls['newAddressDistrict'].setValue('');
+      createOrderForm.controls['newAddressWard'].setValue('');
+      createOrderForm.controls['newAddressValue'].setValue('');
+    }
+  }
+
   chooseCity(cityID) {
     let data = {
       'CityID': cityID
@@ -72,7 +98,7 @@ export class CreateOrderComponent implements OnInit {
         this.city = this.cities[i].Title;
       }
     }
-    this.orderService.getListDistrict(this.constants.GETLISTDISTRICT, data).subscribe((response: any) => {
+    this.commonService.getListDistrict(this.constants.GETLISTDISTRICT, data).subscribe((response: any) => {
       this.districts = response;
     }, error => {
       console.log(error);
@@ -89,7 +115,7 @@ export class CreateOrderComponent implements OnInit {
         this.district = this.districts[i].Title;
       }
     }
-    this.orderService.getListWard(this.constants.GETLISTWARD, data).subscribe((response: any) => {
+    this.commonService.getListWard(this.constants.GETLISTWARD, data).subscribe((response: any) => {
       this.wards = response;
     }, error => {
       console.log(error);
@@ -102,10 +128,6 @@ export class CreateOrderComponent implements OnInit {
         this.ward = this.wards[i].Title;
       }
     }
-  }
-
-
-  formatMoney(e) {
   }
 
 
@@ -145,8 +167,8 @@ export class CreateOrderComponent implements OnInit {
     console.log(data);
     this.orderService.createOrder(this.constants.CREATEORDER, data).subscribe((response: any) => {
       if (response == 'CREATE SUCCESSFULLY') {
-        alert('Create order successfully. Please wait for approve...');
-        this.router.navigate(['/buyer/order-list']);
+        this.toastr.success('Create order successfully. Please wait for approve...', 'Success!', {showCloseButton: true});
+        this.router.navigate(['/buyer/order-list/waiting']);
       }
     }, error => {
       console.log(error);

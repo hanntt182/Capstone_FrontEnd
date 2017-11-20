@@ -162,8 +162,8 @@
           <form #confirmOrderForm="ngForm">
             <div class="form-group form-inline">
               <label style="padding-right: 10px">Ship </label>
-              <input type="number" class="form-control" name="shippingTime" [min]="order?.postShip.shippingMinTime"
-                     [max]="order?.postShip.shippingMaxTime" ngModel #shippingTime="ngModel"
+              <input type="number" class="form-control" name="shippingTime" [min]="shippingMinTime"
+                     [max]="shippingMaxTime" ngModel #shippingTime="ngModel"
                      required>
               <label style="padding-left: 10px">days after receiving the payment.</label>
             </div>
@@ -173,10 +173,10 @@
                 Shipping Time is required and must be a number.
               </div>
               <div *ngIf="shippingTime.errors?.min">
-                Shipping Time must be ≥ {{order?.postShip.shippingMinTime}}
+                Shipping Time must be ≥ {{shippingMinTime}}.
               </div>
               <div *ngIf="shippingTime.errors?.max">
-                Shipping Time must be ≤ {{order?.postShip.shippingMaxTime}}
+                Shipping Time must be ≤ {{shippingMaxTime}}.
               </div>
             </div>
             <small style="margin: 10px" class="form-text text-muted">Please fill in delivery time to confirm this

@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {Constants} from './../../../constants';
 import {TenderService} from '../../../services/tender.service';
 import {Router} from "@angular/router";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-tender-list-home',
@@ -13,7 +14,7 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
   public user;
   public tender;
   public tenders;
-  public checkBid = null;
+  public checkBid;
   public now;
   public closedDay;
   public distance;
@@ -27,11 +28,16 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
   public star5 = 5;
   public total;
   public myTenderInfo;
+  public fileType: boolean;
+  public attachFile = null;
 
 
   constructor(private constants: Constants,
               private tenderService: TenderService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -43,7 +49,23 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.xInterval);
+    this.attachFile = null;
   }
+
+  importAttachFile(e) {
+    this.fileType = true;
+    if (e.target.files[0].type != 'application/pdf' &&
+      e.target.files[0].type != 'application/msword' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+      e.target.files[0].type != 'application/vnd.ms-excel' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      this.fileType = false;
+      return;
+    } else {
+      this.attachFile = e.target.files[0];
+    }
+  }
+
 
   search(searchValue, pageNumber) {
     let data = {
@@ -63,10 +85,15 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
       };
       this.tenderService.checkBid(this.constants.CHECKBID, data1).subscribe((response: any) => {
         this.checkBid = response;
+        if(this.checkBid){
+          this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data1).subscribe((res: any) => {
+            this.myTenderInfo = res;
+            console.log(this.myTenderInfo);
+          });
+        }
       });
-      this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data1).subscribe((response: any) => {
-        this.myTenderInfo = response;
-      });
+
+
     }
 
     let data = {
@@ -102,14 +129,19 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  bidTender(tenderID, unitPrice) {
-    let data = {
-      'TenderID': tenderID,
-      'SupplierID': this.user.userId,
-      'UnitPrice': unitPrice
-    };
-    this.tenderService.bidTender(this.constants.BIDTENDER, data).subscribe((response: any) => {
-      alert(response);
+  bidTender(tenderID, price, period) {
+    let formData = new FormData();
+    formData.append('TenderID', tenderID);
+    formData.append('SupplierID', this.user.userId);
+    formData.append('BidPrice', price);
+    formData.append('SuppFile', this.attachFile);
+    formData.append('WorkPeriod', period);
+    this.tenderService.bidTender(this.constants.BIDTENDER, formData).subscribe((response: any) => {
+      console.log(response);
+      $('#tenderDetailModal').hide();
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
       this.router.navigate(['/tender']);
     }, error => {
       console.log(error);

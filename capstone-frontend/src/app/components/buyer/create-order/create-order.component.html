@@ -46,27 +46,30 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td scope="row">
-                  <img src="{{post?.primaryImage}}" width="80px" height="80px">
+              <tr class="align-items-center">
+                <td scope="row" style="width:100px">
+                  <img src="{{post?.primaryImage}}" style="max-width: 80px;height: auto">
                 </td>
                 <td>
-                  <div class="row">{{post?.postTitle}}</div>
+                  <div class="row col-sm-12">{{post?.postTitle}}</div>
 
-                  <div class="row">{{post?.productName}}</div>
+                  <div class="row col-sm-12">{{post?.productName}}</div>
                 </td>
-                <td>
+                <td style="padding-right: 0px; padding-left: 0px; width: 255px">
                   <div class="form-group">
-                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity"
+                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity" [max]="1000000000"
                            placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
                            (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
                     <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
-                         class="error">
+                         class="error" style="padding:0px; font-size:13px">
                       <div *ngIf="quantity.errors.required">
                         Quantity is required and must be a number.
                       </div>
                       <div *ngIf="quantity.errors?.min">
                         Quantity must be ≥ {{post?.minOrderQuantity}}
+                      </div>
+                      <div *ngIf="quantity.errors?.max">
+                        Quantity must be ≤ 1.000.000.000
                       </div>
                     </div>
                   </div>
@@ -74,14 +77,14 @@
                 <td scope="row">
                   <label>{{post?.unit}}</label>
                 </td>
-                <td>
+                <td  style="padding-right: 0px; padding-left: 0px; width: 265px">
                   <div class="form-group">
                     <input type="number" class="form-control"
                            placeholder="{{post?.minPrice}} ≤ price ≤ {{post?.maxPrice}}" id="offerPrice"
                            [min]="post?.minPrice" [max]="post?.maxPrice" name="offerPrice" ngModel
                            (change)="countAmount(createOrderForm.value)" #offerPrice="ngModel" required>
                     <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
-                         class="error">
+                         class="error" style="padding:0px; font-size:13px">
                       <div *ngIf="offerPrice.errors.required">
                         Offer Price is required and must be a number.
                       </div>
@@ -124,9 +127,9 @@
               <p>{{user.username}} {{user.phone}}</p>
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel checked>
+                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel (click)="checkAddress($event, createOrderForm)">
                   Existed Address
-                  <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressName"
+                  <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressName" [disabled]="setDisabledOld"
                           ngModel>
                     <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}</option>
                   </select>
@@ -134,18 +137,18 @@
               </div>
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="address" value="newAddress" ngModel>
+                  <input class="form-check-input" type="radio" name="address" value="newAddress" ngModel (click)="checkAddress($event, createOrderForm)">
                   New Address
                   <div class="form-group form-inline">
                     <label class="col-sm-5">City</label>
-                    <select class="form-control col-sm-7" (change)="chooseCity($event.target.value)"
+                    <select class="form-control col-sm-7" (change)="chooseCity($event.target.value)" [disabled]="setDisabledNew"
                             name="newAddressCity" ngModel>
                       <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
                     </select>
                   </div>
                   <div class="form-group form-inline">
                     <label class="col-sm-5">District</label>
-                    <select class="form-control col-sm-7" (change)="chooseDistrict($event.target.value)"
+                    <select class="form-control col-sm-7" (change)="chooseDistrict($event.target.value)" [disabled]="setDisabledNew"
                             name="newAddressDistrict" ngModel>
                       <option *ngFor="let district of districts" value="{{district.ID}}">
                         {{district.Title}}
@@ -154,14 +157,14 @@
                   </div>
                   <div class="form-group form-inline">
                     <label class="col-sm-5">Ward</label>
-                    <select class="form-control col-sm-7" (change)="chooseWard($event.target.value)"
+                    <select class="form-control col-sm-7" (change)="chooseWard($event.target.value)" [disabled]="setDisabledNew"
                             name="newAddressWard" ngModel>
                       <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
                     </select>
                   </div>
                   <div class="form-group form-inline">
                     <label class="col-sm-5">Address </label>
-                    <input type="text" class="form-control col-sm-7" placeholder="Enter address" name="newAddressValue"
+                    <input type="text" class="form-control col-sm-7" placeholder="Enter address" name="newAddressValue" [disabled]="setDisabledNew"
                            ngModel>
                   </div>
                 </label>
@@ -170,12 +173,13 @@
           </div>
           <div class="row col-sm-12" style="margin: 10px">
             <label class="col-sm-3 text-right">Ship Method</label>
-            <select class="form-control col-sm-9" name="shipMethod" ngModel
+            <select class="form-control col-sm-4" name="shipMethod" ngModel
                     (change)="countShippingFee(createOrderForm.value)">
               <option *ngFor="let postShip of postShips" value="{{postShip.postShipID.ship.shipID}}">
                 {{postShip.postShipID.ship.shipName}}
               </option>
             </select>
+            <label class="col-sm-3">Shipping Fee: {{shippingFee}} VND</label>
           </div>
         </div>
         <div class="card-footer text-right">
@@ -202,7 +206,7 @@
           <div *ngIf="remark.invalid && (remark.dirty || remark.touched)"
                class="error">
             <div *ngIf="remark.errors.required">
-              Quantity is required.
+              Remark is required.
             </div>
           </div>
         </div>
@@ -225,6 +229,7 @@
       <label class="col-sm-4" style="color: orangered"><h5> {{productAmount + shippingFee}} VND</h5></label>
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center">
+        <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
         <button
           [disabled]="!createOrderForm.valid || createOrderForm.value.address==''"
           type="button"

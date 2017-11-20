@@ -15,4 +15,8 @@ export class CatalogService {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 
+  getListBrandByCatalog(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
 }

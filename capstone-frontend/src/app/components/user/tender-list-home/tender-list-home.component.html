@@ -1,35 +1,33 @@
-
-  <div class="container" style="padding: 30px">
-    <div class="row justify-content-center align-items-center" style="padding: 40px">
-      <form #searchTenderForm="ngForm" class="form-inline">
-        <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
-        <button type="button" class="btn btn-primary" style="margin-left: 20px"
-                (click)="search(searchTenderForm.value.searchTender, 1)">Search
-        </button>
-      </form>
-    </div>
-    <table class="table hvr-glow" *ngFor="let myTender of tenders"
-           style="border: 1px solid #e6e7eb; background-color: white"
-           (click)="viewTenderDetail(myTender.tenderID)">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col" style="width: 400px">Tender Title</th>
-        <th scope="col" style="width: 250px">Product Name</th>
-        <th scope="col" style="width: 200px">Tender Value</th>
-        <th scope="col" style="width: 250px">Bid Closing Day</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <th scope="row">{{myTender.tenderTitle}}</th>
-        <td>{{myTender.product.productName}}</td>
-        <td>{{myTender.tenderValue}}</td>
-        <td>{{myTender.closedDay}}</td>
-      </tr>
-      </tbody>
-    </table>
+<div class="container" style="padding: 30px">
+  <div class="row justify-content-center align-items-center" style="padding: 40px">
+    <form #searchTenderForm="ngForm" class="form-inline">
+      <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
+      <button type="button" class="btn btn-primary" style="margin-left: 20px"
+              (click)="search(searchTenderForm.value.searchTender, 1)">Search
+      </button>
+    </form>
   </div>
-
+  <table class="table hvr-glow" *ngFor="let myTender of tenders"
+         style="border: 1px solid #e6e7eb; background-color: white"
+         (click)="viewTenderDetail(myTender.tenderID)">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col" style="width: 400px">Tender Title</th>
+      <th scope="col" style="width: 250px">Product Name</th>
+      <th scope="col" style="width: 200px">Tender Value</th>
+      <th scope="col" style="width: 250px">Bid Closing Day</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">{{myTender.tenderTitle}}</th>
+      <td>{{myTender.product.productName}}</td>
+      <td>{{myTender.tenderValue}}</td>
+      <td>{{myTender.closedDay}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 
 <div class="modal fade" tabindex="-1" role="dialog" id="tenderDetailModal" aria-hidden="true">
@@ -100,7 +98,8 @@
                       <tbody>
                       <tr *ngFor="let tenderFile of tender?.tenderFiles; let i = index">
                         <td scope="row" style="padding: 5px;">{{i + 1}}</td>
-                        <td style="padding: 5px;"><a href="{{tenderFile.fileUrl}}">{{tenderFile.fileUrl|slice:34}}</a></td>
+                        <td style="padding: 5px;"><a href="{{tenderFile.fileUrl}}">{{tenderFile.fileUrl|slice:34}}</a>
+                        </td>
                       </tr>
                       </tbody>
                     </table>
@@ -109,32 +108,32 @@
               </div>
             </div>
             <div style="margin-bottom:5px;border: solid 1px #A0A2AD">
-            <div class="col-sm-12" style="margin-top: 5px; margin-bottom:-10px">
-              <label style="text-decoration-line: underline">
-                <h5>Work Item Detaill</h5>
-              </label>
+              <div class="col-sm-12" style="margin-top: 5px; margin-bottom:-10px">
+                <label style="text-decoration-line: underline">
+                  <h5>Work Item Detaill</h5>
+                </label>
+              </div>
+              <div class="row col-sm-12">
+                <label class="col-sm-4">Title:</label>
+                <label class="col-sm-8">{{tender?.tenderTitle}}</label>
+              </div>
+              <div class="row col-sm-12">
+                <label class="col-sm-4">Description:</label>
+                <label class="col-sm-8">{{tender?.description}}</label>
+              </div>
+              <div class="row col-sm-12">
+                <label class="col-sm-4">Tender Value:</label>
+                <label class="col-sm-8">{{tender?.tenderValue}} VND</label>
+              </div>
+              <div class="row col-sm-12">
+                <label class="col-sm-4">Product Name:</label>
+                <label class="col-sm-8">{{tender?.product.productName}}</label>
+              </div>
+              <div class="row col-sm-12">
+                <label class="col-sm-4">Period of Work:</label>
+                <label class="col-sm-8">{{tender?.periodTime}} day(s)</label>
+              </div>
             </div>
-            <div class="row col-sm-12">
-              <label class="col-sm-4">Title:</label>
-              <label class="col-sm-8">{{tender?.tenderTitle}}</label>
-            </div>
-            <div class="row col-sm-12">
-              <label class="col-sm-4">Description:</label>
-              <label class="col-sm-8">{{tender?.description}}</label>
-            </div>
-            <div class="row col-sm-12">
-              <label class="col-sm-4">Tender Value:</label>
-              <label class="col-sm-8">{{tender?.tenderValue}} VND</label>
-            </div>
-            <div class="row col-sm-12">
-              <label class="col-sm-4">Product Name:</label>
-              <label class="col-sm-8">{{tender?.product.productName}}</label>
-            </div>
-            <div class="row col-sm-12">
-              <label class="col-sm-4">Period of Work:</label>
-              <label class="col-sm-8">{{tender?.periodTime}} day(s)</label>
-            </div>
-          </div>
             <div style="margin-bottom:5px;border: solid 1px #A0A2AD">
               <div class="col-sm-12" style="margin-top: 5px; margin-bottom:-10px">
                 <label style="text-decoration-line: underline">
@@ -142,8 +141,8 @@
                 </label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">EMD Amount in VND:</label>
-                <label class="col-sm-8">{{tender?.emdFee}}</label>
+                <label class="col-sm-6">EMD Amount in VND:</label>
+                <label class="col-sm-6">{{tender?.emdFee}}</label>
               </div>
             </div>
             <div style="margin-bottom:5px;border: solid 1px #A0A2AD">
@@ -153,12 +152,12 @@
                 </label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-5">Published Date:</label>
-                <label class="col-sm-7">{{tender?.createdDay}}</label>
+                <label class="col-sm-4">Published Date:</label>
+                <label class="col-sm-8">{{tender?.createdDay}}</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-5">Bid Closing Date:</label>
-                <label class="col-sm-7">{{tender?.closedDay}}</label>
+                <label class="col-sm-4" style="padding-right:0px">Bid Closing Date:</label>
+                <label class="col-sm-8">{{tender?.closedDay}}</label>
               </div>
             </div>
             <!--<div class="row text-center align-items-center justify-content-center" style="height: 120px">
@@ -288,30 +287,78 @@
       </div>
       <div class="col-sm-12">
         <div class="row text-center justify-content-center"><h4>Bid Tender</h4></div>
-        <div *ngIf="checkBid==null || user.role!='SUPPLIER'" class="row justify-content-center align-items-center text-center">
+        <div *ngIf="checkBid==null || user.role!='SUPPLIER'"
+             class="row justify-content-center align-items-center text-center">
           <p class="text-danger">* This function is only for supplier.<br>Register as a supplier to bid this tender.
           </p>
         </div>
         <div *ngIf="checkBid=='false' && user.role=='SUPPLIER'"
              class="row text-center justify-content-center align-items-center">
-          <form #bidTenderForm="ngForm">
-            <div class="form-group form-inline">
-              <label style="margin-right: 10px">Your Unit Price</label>
-              <input type="number" required [min]="0" #price="ngModel" name="price" ngModel class="form-control"
-                     placeholder="Enter your unit price" style="font-size: 14px">
-              <button [disabled]="bidTenderForm.invalid" type="button" class="btn btn-primary"
-                      style="font-size: 14px;margin-left: 10px" (click)="bidTender(tender?.tenderID, price.value)">
-                BID
-              </button>
+          <form #bidTenderForm="ngForm" class="row col-sm-12">
+            <div class="row col-sm-12">
+              <label class="col-sm-4 text-right">Bid Prices: <span class="star">*</span></label>
+              <div class="col-sm-8">
+                <input type="number" required [min]="0" [max]="1000000000000" #price="ngModel" name="price" ngModel
+                       class="form-control"
+                       placeholder="Enter your bid prices" style="font-size: 14px">
+              </div>
             </div>
             <div *ngIf="price.invalid && (price.dirty || price.touched)"
-                 class="error">
-              <div *ngIf="price.errors.required">
+                 class="row col-sm-12 error">
+              <label class="col-sm-4"></label>
+              <div *ngIf="price.errors.required" class="col-sm-8 text-left justify-content-start">
                 Your unit price is required and must be a number.
               </div>
-              <div *ngIf="price.errors?.min">
+              <div *ngIf="price.errors?.min" class="col-sm-8 text-left justify-content-start">
+                Your unit price must be ≥ 0 VND.
+              </div>
+              <div *ngIf="price.errors?.min" class="col-sm-8 text-left justify-content-start">
+                Your unit price must be ≤ 1000 000 000 000 VND.
+              </div>
+            </div>
+            <div class="row col-sm-12" style="margin-top: 5px">
+              <label class="col-sm-4 text-right">Period of work (days): <span class="star">*</span></label>
+              <div class="col-sm-8">
+                <input type="number" required [min]="0" [max]="1095" #period="ngModel" name="period" ngModel
+                       class="form-control"
+                       placeholder="Enter your period of work (days)" style="font-size: 14px">
+              </div>
+            </div>
+            <div *ngIf="period.invalid && (period.dirty || period.touched)"
+                 class="row col-sm-12 error text-center">
+              <label class="col-sm-4"></label>
+              <div *ngIf="period.errors.required" class="col-sm-8 text-left justify-content-start">
+                Your unit price is required and must be a number.
+              </div>
+              <div *ngIf="period.errors?.min" class="col-sm-8 text-left justify-content-start">
                 Your unit price must be ≥ 0.
               </div>
+              <div *ngIf="period.errors?.min" class="col-sm-8 text-left justify-content-start">
+                Your unit price must be ≤ 3 years (1095 days).
+              </div>
+            </div>
+            <div class="row col-sm-12" style="margin-top: 5px">
+              <label class="col-sm-4 text-right">Attach File: <span class="star">*</span></label>
+              <div class="col-sm-8 text-left justify-content-start">
+                <button onclick="document.querySelector('#attachFile').click()">
+                  Add File
+                </button>
+                <label *ngIf="attachFile!=null" class="text-dark">
+                  {{attachFile.name}}
+                </label>
+                <input hidden type="file" accept=".xlsx,.xls,.doc,.docx,.pdf"
+                       (change)="importAttachFile($event)"
+                       class="form-control-file" id="attachFile">
+                <div *ngIf="fileType == false" class="error">Supported formats: .doc .docx .xls .xlsx .pdf</div>
+
+              </div>
+            </div>
+            <div class="row col-sm-12 justify-content-center text-center" style="margin: 10px">
+              <button [disabled]="bidTenderForm.invalid || attachFile==null" type="button" class="btn btn-primary"
+                      style="font-size: 14px;margin-left: 10px"
+                      (click)="bidTender(tender?.tenderID, price.value, period.value)">
+                BID
+              </button>
             </div>
           </form>
         </div>
@@ -322,13 +369,17 @@
           <table class="table table-bordered">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Your Unit Price</th>
+              <th scope="col">Bid Price</th>
+              <th scope="col">Period of work</th>
+              <th scope="col">Attach file</th>
               <th scope="col">Bid Day</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td scope="row">{{myTenderInfo?.unitPrice}} VND</td>
+              <td scope="row">{{myTenderInfo?.bidPrice}} VND</td>
+              <td scope="row">{{myTenderInfo?.workPeriod}} day(s)</td>
+              <td scope="row"><a href="{{myTenderInfo?.fileUrl}}">{{myTenderInfo?.fileUrl|slice:34}}</a></td>
               <td><i>{{myTenderInfo?.tenderDate}}</i></td>
             </tr>
             </tbody>

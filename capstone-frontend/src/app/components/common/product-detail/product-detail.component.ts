@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
-import { Constants} from './../../../constants';
+import {Constants} from './../../../constants';
 
 @Component({
   selector: 'app-product-detail',
@@ -10,12 +10,19 @@ import { Constants} from './../../../constants';
 })
 export class ProductDetailComponent implements OnInit {
 
+  public user;
   public mainImage = '../../../../assets/img/image-default.jpg';
   public postId;
   public post;
   public descriptions;
   public extraImages;
-  public postZones;
+  public postShips;
+  public checkVote;
+  public ratePost: number = 0;
+  public rateProduct: number = 0;
+  public rateProductofUser: number = 0;
+  public rateTotal = 0;
+  public star: number = 1;
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -24,6 +31,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
     this.activatedRoute.params.subscribe((params: Params) => {
       this.postId = params['postId'];
       let data = {
@@ -34,8 +44,36 @@ export class ProductDetailComponent implements OnInit {
         this.mainImage = this.post.primaryImage;
         this.descriptions = response.postDescriptions;
         this.extraImages = response.postImages;
-        this.postZones = response.postZones;
+        this.postShips = response.postShips;
+        this.rateProduct = response.rate;
+        this.rateTotal = response.star1 + response.star2 + response.star3 + response.star4 + response.star5;
       });
+    });
+    let data = {
+      'UserID': this.user.userId,
+      'PostID': this.postId
+    };
+    this.postService.checkVotePost(this.constants.CHECKVOTEPOST, data).subscribe((response: any) => {
+      this.checkVote = response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  reviewPost(reviewPostForm) {
+    console.log(this.ratePost);
+    console.log(reviewPostForm);
+    let data ={
+      'UserID': this.user.userId,
+      'PostID': this.postId,
+      'Star': this.ratePost,
+      'ReviewTitle': reviewPostForm.reviewTitle,
+      'Review': reviewPostForm.review
+    };
+    this.postService.votePost(this.constants.VOTEPOST, data).subscribe((response: any) => {
+      console.log(response);
+      document.getElementById('reviewButton').click();
+      this.checkVote = 'true';
     });
   }
 
@@ -45,5 +83,9 @@ export class ProductDetailComponent implements OnInit {
 
   createOrder(postId) {
     this.router.navigate(['/create-order/' + postId]);
+  }
+
+  createNego(postID) {
+    this.router.navigate(['/negotiation/' + postID]);
   }
 }

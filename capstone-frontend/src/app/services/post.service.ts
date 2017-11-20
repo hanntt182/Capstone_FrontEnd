@@ -63,4 +63,12 @@ export class PostService {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }
 
+  checkVotePost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  votePost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
 }

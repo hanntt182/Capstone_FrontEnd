@@ -12,6 +12,7 @@ import {CommonService} from "../../../services/common.service";
 })
 export class BrandsListComponent implements OnInit {
   public catalogId;
+  public brandId;
   public catalogs;
   public brands;
   public posts;
@@ -23,21 +24,30 @@ export class BrandsListComponent implements OnInit {
               private catalogService: CatalogService,
               private constants: Constants,
               private postService: PostService,
-              private commonService: CommonService,
               private router: Router) {
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.catalogId = params['catalogId'];
-      this.catalogService.getCatalogs(this.constants.GETLISTCATALOG).subscribe((response: any) => {
+      this.brandId = params['brandId'];
+      /*this.catalogService.getCatalogs(this.constants.GETLISTCATALOG).subscribe((response: any) => {
         this.catalogs = response;
         for (let i = 0; i < this.catalogs.length; i++) {
           if (this.catalogs[i].catalogId == this.catalogId) {
             this.brands = this.catalogs[i].brands;
-            this.showListPost(this.brands[0].brandId, this.innitialPage);
+            this.showListPost(this.innitialPage);
           }
         }
+      }, error => {
+        console.log(error);
+      });*/
+      let data = {
+        'CatalogID': this.catalogId
+      };
+      this.catalogService.getListBrandByCatalog(this.constants.GETLISTBRANDBYCATALOG, data).subscribe((response: any) => {
+        this.brands = response;
+        this.showListPost(this.innitialPage);
       }, error => {
         console.log(error);
       });
@@ -52,17 +62,17 @@ export class BrandsListComponent implements OnInit {
     this.router.navigate(['/negotiation/' + postID]);
   }
 
-  changePage(page) {
-    this.showListPost(this.commonService.getBrandID(), page);
+  changeBrand(brandId) {
+    this.router.navigate(['/product/' + this.catalogId + '/' + brandId]);
   }
 
 
-  showListPost(brandID, pageNumber) {
+  showListPost(pageNumber) {
     for (let i = this.pages.length; i > 0; i--) {
       this.pages.pop();
     }
     let data = {
-      'BrandID': brandID,
+      'BrandID': this.brandId,
       'CatalogID': this.catalogId,
       'pageNumber': pageNumber
     };
@@ -75,9 +85,11 @@ export class BrandsListComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-    this.commonService.setBrandID(brandID);
   }
 
+  viewPostDetail(postID) {
+    this.router.navigate(['/product-detail/' + postID]);
+  }
 
 
 }

@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   public user;
   public catalogs;
   public posts;
+  public brandId;
 
   constructor(private constants: Constants,
               private loginService: LoginService,
@@ -63,7 +64,29 @@ export class HeaderComponent implements OnInit {
   }
 
   chooseCatalog(catalogId) {
-    this.router.navigate(['/catalog/' + catalogId]);
+    /*this.catalogService.getCatalogs(this.constants.GETLISTCATALOG).subscribe((response: any) => {
+      this.catalogs = response;
+      for (let i = 0; i < this.catalogs.length; i++) {
+        if (this.catalogs[i].catalogId == catalogId) {
+          this.brandId = this.catalogs[i].brands[0].brandId;
+          console.log(this.brandId);
+          this.router.navigate(['/product/' + catalogId + '/' + this.brandId]);
+        }
+      }
+    }, error => {
+      console.log(error);
+    });*/
+
+    let data = {
+      'CatalogID': catalogId
+    };
+    this.catalogService.getListBrandByCatalog(this.constants.GETLISTBRANDBYCATALOG, data).subscribe((response: any) => {
+      this.brandId = response[0].brandId;
+      this.router.navigate(['/product/' + catalogId + '/' + this.brandId]);
+    }, error => {
+      console.log(error);
+    });
+
   }
 
   search(searchForm) {
