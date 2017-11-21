@@ -57,7 +57,8 @@
                 </td>
                 <td style="padding-right: 0px; padding-left: 0px; width: 255px">
                   <div class="form-group">
-                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity" [max]="1000000000"
+                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity"
+                           [max]="1000000000"
                            placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
                            (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
                     <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
@@ -77,7 +78,7 @@
                 <td scope="row">
                   <label>{{post?.unit}}</label>
                 </td>
-                <td  style="padding-right: 0px; padding-left: 0px; width: 265px">
+                <td style="padding-right: 0px; padding-left: 0px; width: 265px">
                   <div class="form-group">
                     <input type="number" class="form-control"
                            placeholder="{{post?.minPrice}} ≤ price ≤ {{post?.maxPrice}}" id="offerPrice"
@@ -127,47 +128,54 @@
               <p>{{user.username}} {{user.phone}}</p>
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel (click)="checkAddress($event, createOrderForm)">
+                  <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel
+                         (click)="checkAddress($event, createOrderForm)">
                   Existed Address
-                  <select class="form-control" (change)="countShippingFee(createOrderForm.value)" name="oldAddressName" [disabled]="setDisabledOld"
-                          ngModel>
-                    <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}</option>
-                  </select>
                 </label>
               </div>
+              <select class="form-control col-sm-6" (change)="countShippingFee(createOrderForm.value)" name="oldAddressName"
+                      [disabled]="setDisabledOld"
+                      ngModel>
+                <option *ngFor="let address of addresses" value="{{address.address}}">{{address.address}}</option>
+              </select>
               <div class="form-check">
                 <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="address" value="newAddress" ngModel (click)="checkAddress($event, createOrderForm)">
+                  <input class="form-check-input" type="radio" name="address" value="newAddress" ngModel
+                         (click)="checkAddress($event, createOrderForm)">
                   New Address
-                  <div class="form-group form-inline">
-                    <label class="col-sm-5">City</label>
-                    <select class="form-control col-sm-7" (change)="chooseCity($event.target.value)" [disabled]="setDisabledNew"
-                            name="newAddressCity" ngModel>
-                      <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group form-inline">
-                    <label class="col-sm-5">District</label>
-                    <select class="form-control col-sm-7" (change)="chooseDistrict($event.target.value)" [disabled]="setDisabledNew"
-                            name="newAddressDistrict" ngModel>
-                      <option *ngFor="let district of districts" value="{{district.ID}}">
-                        {{district.Title}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group form-inline">
-                    <label class="col-sm-5">Ward</label>
-                    <select class="form-control col-sm-7" (change)="chooseWard($event.target.value)" [disabled]="setDisabledNew"
-                            name="newAddressWard" ngModel>
-                      <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group form-inline">
-                    <label class="col-sm-5">Address </label>
-                    <input type="text" class="form-control col-sm-7" placeholder="Enter address" name="newAddressValue" [disabled]="setDisabledNew"
-                           ngModel>
-                  </div>
                 </label>
+              </div>
+              <div class="form-group form-inline">
+                <label class="col-sm-2">City</label>
+                <select class="form-control col-sm-4" (change)="chooseCity($event.target.value)"
+                        [disabled]="setDisabledNew"
+                        name="newAddressCity" ngModel>
+                  <option *ngFor="let city of cities" value="{{city.ID}}">{{city.Title}}</option>
+                </select>
+              </div>
+              <div class="form-group form-inline">
+                <label class="col-sm-2">District</label>
+                <select class="form-control col-sm-4" (change)="chooseDistrict($event.target.value)"
+                        [disabled]="setDisabledNew"
+                        name="newAddressDistrict" ngModel>
+                  <option *ngFor="let district of districts" value="{{district.ID}}">
+                    {{district.Title}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group form-inline">
+                <label class="col-sm-2">Ward</label>
+                <select class="form-control col-sm-4" (change)="chooseWard($event.target.value)"
+                        [disabled]="setDisabledNew"
+                        name="newAddressWard" ngModel>
+                  <option *ngFor="let ward of wards" value="{{ward.ID}}">{{ward.Title}}</option>
+                </select>
+              </div>
+              <div class="form-group form-inline">
+                <label class="col-sm-2">Address </label>
+                <input type="text" class="form-control col-sm-4" placeholder="Enter address" name="newAddressValue"
+                       [disabled]="setDisabledNew"
+                       ngModel>
               </div>
             </label>
           </div>
