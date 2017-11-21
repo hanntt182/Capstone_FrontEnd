@@ -38,11 +38,15 @@
             Tender
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-users" aria-hidden="true"></i>
             Group Buying
           </a>
+          <div class="dropdown-menu" aria-labelledby="product">
+            <a class="dropdown-item" routerLink="/supplier/deal-list">All Group-Buying</a>
+            <a class="dropdown-item" routerLink="/supplier/create-deal">Create New Group-Buying</a>
+          </div>
         </li>
 
 

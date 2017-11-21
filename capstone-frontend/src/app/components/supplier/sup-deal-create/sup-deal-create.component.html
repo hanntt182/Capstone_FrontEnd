@@ -1,0 +1,89 @@
+<div class="container">
+  <form #createDealForm="ngForm">
+    <div class="card" style="margin: 20px; padding: 20px">
+      <div class="row col-sm-12">
+        <h4>Basic Information</h4>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Deal Title
+          <i class="fa fa-question-circle-o" aria-hidden="true"
+             data-toggle="tooltip" data-placement="right"
+             title="Title of your deal. It can be a short description of your deal."></i>
+        </label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" name="DealTitle" maxlength="254" ngModel required
+                 #dealTitle="ngModel">
+          <div *ngIf="dealTitle.invalid && (dealTitle.dirty || dealTitle.touched)"
+               class="error">
+            <div *ngIf="dealTitle.errors.required">
+              Title is required.
+            </div>
+            <!--<div *ngIf="offerPrice.errors?.min">
+              Offer Price must be ≥ {{post?.minPrice}}
+            </div>
+            <div *ngIf="offerPrice.errors?.max">
+              Offer Price must be ≤ {{post?.maxPrice}}
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Category
+        </label>
+        <div class="col-sm-3">
+          <select class="form-control" name="Category" ngModel required>
+            <option *ngFor="let catagory of catagories"
+                    value="{{catagory.catalogId}}">{{catagory.catalogName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Brand Name
+        </label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" name="BrandName" maxlength="254" ngModel required
+                 #brandName="ngModel">
+          <div *ngIf="brandName.invalid && (brandName.dirty || brandName.touched)"
+               class="error">
+            <div *ngIf="brandName.errors.required">
+              Brand Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Product Name
+        </label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" name="ProductName" maxlength="254" ngModel required
+                 #productName="ngModel">
+          <div *ngIf="productName.invalid && (productName.dirty || productName.touched)"
+               class="error">
+            <div *ngIf="productName.errors.required">
+              Product Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Image
+        </label>
+        <div class="col-sm-2">
+          <button onclick="document.querySelector('#photo').click()">
+            Browse
+          </button>
+          <input hidden type="file" accept="image/jpeg, image/png" (change)="onChangeImage($event)"
+                 class="form-control-file" id="photo">
+          <!--<div *ngIf="imageType == false" class="error">Supported formats: .jpg .png .jpeg</div>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

@@ -23,6 +23,9 @@ export class ProductDetailComponent implements OnInit {
   public rateProductofUser: number = 0;
   public rateTotal = 0;
   public star: number = 1;
+  public reviews;
+  public myReview;
+  public starReviews = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -58,14 +61,31 @@ export class ProductDetailComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+
+    let data1 = {
+      'PostID': this.postId,
+      'pageNumber': 1
+    };
+    this.postService.getListReview(this.constants.GETLISTREVIEW, data1).subscribe((response: any) => {
+      this.reviews = response.content;
+      for (let i = 0; i < this.reviews.length; i++) {
+        this.starReviews.push(this.reviews[i].star);
+        if(this.reviews[i].reviewID.user.userId == this.user.userId){
+          this.myReview = this.reviews[i];
+          this.rateProductofUser = this.myReview.star;
+        }
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   reviewPost(reviewPostForm) {
     console.log(this.ratePost);
     console.log(reviewPostForm);
-    let data ={
+    let data = {
       'UserID': this.user.userId,
-      'PostID': this.postId,
+      'PostID': Number(this.postId),
       'Star': this.ratePost,
       'ReviewTitle': reviewPostForm.reviewTitle,
       'Review': reviewPostForm.review

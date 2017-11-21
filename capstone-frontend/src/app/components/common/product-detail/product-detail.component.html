@@ -273,10 +273,9 @@
             <div style="font-size: 10px">
               <rating [(ngModel)]="rateProductofUser" [readonly]="true"></rating>
             </div>
-            <div><label style="font-size: 18px; font-weight: 500; margin:0px">Tieu de nhan xet</label></div>
+            <div><label style="font-size: 18px; font-weight: 500; margin:0px">{{myReview?.reviewTitle}}</label></div>
             <div>
-              <p style="font-size: 14px; color: #4f4f4f">lần đầu tiên mình mua điện thoại kiểu mua trên mạng. nhưng hàng
-                của tiki khá chất lượng. giao hàng nhanh, còn giao cả chủ nhật. nhân viên giao hàng nhiệt tình.</p>
+              <p style="font-size: 14px; color: #4f4f4f">{{myReview?.review}}</p>
             </div>
           </div>
         </div>
@@ -297,7 +296,7 @@
               </div>
               <div class="row col-sm-12 align-items-center">
                 <label>3. Viết nhận xét của bạn vào bên dưới: </label><br>
-                <textarea rows="3" class="form-control" placeholder="Nhận xét của bạn về sản phẩm này" name="review" ngModel required></textarea>
+                <textarea maxlength="255" rows="3" class="form-control" placeholder="Nhận xét của bạn về sản phẩm này" name="review" ngModel required></textarea>
               </div>
               <div class="row col-sm-12 align-items-center justify-content-end"
                    style="padding: 5px; padding-right: 15px">
@@ -325,25 +324,24 @@
           </div>
         </div>
       </div>
-      <div class="row col-sm-12" style="margin: 0px; padding: 15px; border-top: 1px solid #f7f7f7">
+      <div class="row col-sm-12" style="margin: 0px; padding: 15px; border-top: 1px solid #f7f7f7" *ngFor="let review of reviews; let i = index">
         <div class="row col-sm-3 justify-content-center text-center align-items-center">
-          <div
-            style="background-image: url(http://veque.net/wp-content/uploads/2017/09/anh-avatar-hai-huoc-292x300.jpeg);background-size: 60px 60px;border-radius:50%; width: 65px;height: 65px"></div>
-          <div class="col-sm-12">Company Name</div>
+          <div [style.background-image]="'url(' + review.reviewID.user.companyLogo + ')'"
+            style="background-size: 60px 60px;border-radius:50%; width: 65px;height: 65px">
+
+          </div>
+          <div class="col-sm-12">{{review.reviewID.user.companyName}}</div>
+          <div class="col-sm-12"><i>{{review.reviewedDay}}</i></div>
         </div>
         <div class="row col-sm-9">
           <div class="row col-sm-12 align-items-center">
             <div style="font-size: 10px">
-              <rating [(ngModel)]="rateProduct" [readonly]="true"></rating>
+              <rating [(ngModel)]="starReviews[i]" [readonly]="true"></rating>
             </div>
-            <div><label style="font-size: 18px; font-weight: 500; margin:0px">Tieu de nhan xet</label></div>
+            <div style="padding-left:10px"><label style="font-size: 18px; font-weight: 500; margin:0px">{{review.reviewTitle}}</label></div>
           </div>
           <div class="row col-sm-12" style="margin: 0px;padding: 10px">
-            <p style="font-size: 14px; color: #4f4f4f">lần đầu tiên mình mua điện thoại kiểu mua trên mạng. nhưng hàng
-              của tiki khá chất lượng. giao hàng nhanh, còn giao cả chủ nhật. nhân viên giao hàng nhiệt tình.
-              về máy mình mua được 1 tuần rồi dùng rất ổn. máy màu đen ở ngoài đẹp hơn trong hình. mọi chức năng đều ổn
-              chỉ có chụp mình thì không được như quảng cáo.
-              mà chưa thấy tiki kích hoạt bảo hành. Mong tiki nhanh kích hoạt cho mình nhé 7 ngày rồi</p>
+            <p style="font-size: 14px; color: #4f4f4f">{{review.review}}</p>
           </div>
         </div>
       </div>

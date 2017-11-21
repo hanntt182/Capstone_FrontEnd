@@ -34,6 +34,7 @@ public GETLISTSHIP = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER
 //ratePost
 public CHECKVOTEPOST = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkVotePost/";
 public VOTEPOST = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/votePost/";
+public GETLISTREVIEW = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListReview/";
 
 
 

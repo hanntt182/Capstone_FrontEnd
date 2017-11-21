@@ -39,6 +39,7 @@ import {TenderListComponent} from "./components/common/tender-list/tender-list.c
 import {TenderListHomeComponent} from "./components/user/tender-list-home/tender-list-home.component";
 import {OrderListComponent} from "./components/common/order-list/order-list.component";
 import {OrderDetailComponent} from "./components/common/order-detail/order-detail.component";
+import {SupDealCreateComponent} from "./components/supplier/sup-deal-create/sup-deal-create.component";
 
 
 const routing: Routes = [
@@ -71,7 +72,8 @@ const routing: Routes = [
       {path: 'order-detail/:orderId', component: OrderDetailComponent},
       {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent},
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
-      {path: 'tender-detail/:tenderId', component: TenderDetailComponent}
+      {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
+      {path: 'create-deal', component: SupDealCreateComponent}
     ]
   },
   {

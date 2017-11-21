@@ -71,4 +71,8 @@ export class PostService {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
+  getListReview(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
 }
