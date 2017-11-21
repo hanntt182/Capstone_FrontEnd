@@ -33,11 +33,18 @@ export class SupDealCreateComponent implements OnInit {
 
   onChangeImage(e) {
     this.imageType = true;
-    /*if (e.target.files[0].type != 'image/jpeg' &&
+    if (e.target.files[0].type != 'image/jpeg' &&
       e.target.files[0].type != 'image/png') {
       this.imageType = false;
       return;
-    }*/
+    } else {
+      this.imageData = e.target.files[0];
+      let reader = new FileReader();
+      reader.onload = (_event: any) => {
+        this.imageLink = _event.target.result;
+      };
+      reader.readAsDataURL(this.imageData);
+    }
     console.log(e);
   }
 

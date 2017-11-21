@@ -74,13 +74,16 @@
         <label class="col-sm-3 col-form-label text-right">
           Image
         </label>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <button onclick="document.querySelector('#photo').click()">
             Browse
           </button>
           <input hidden type="file" accept="image/jpeg, image/png" (change)="onChangeImage($event)"
                  class="form-control-file" id="photo">
-          <!--<div *ngIf="imageType == false" class="error">Supported formats: .jpg .png .jpeg</div>-->
+          <div>
+
+          </div>
+          <div *ngIf="imageType == false" class="error">Supported formats: .jpg .png .jpeg</div>
         </div>
       </div>
     </div>
