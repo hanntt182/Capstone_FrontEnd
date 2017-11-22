@@ -10,7 +10,8 @@ import {MyDatePickerModule} from 'mydatepicker';
 import {CustomFormsModule} from 'ng2-validation';
 import {TextMaskModule} from 'angular2-text-mask';
 import {DateTimePickerModule} from 'ngx-datetime-picker/ngx-datetimepicker/src/app/datetimepicker.module';
-
+import {RatingModule} from 'ng2-rating';
+import {CalendarModule} from 'primeng/primeng';
 
 import {Constants} from './constants';
 
@@ -46,6 +47,13 @@ import {BuyOrderPaymentComponent} from './components/buyer/buy-order-payment/buy
 import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-nego-create.component';
 import {BuyTenderCreateComponent} from './components/buyer/buy-tender-create/buy-tender-create.component';
 import {BuyNegoPaymentComponent} from './components/buyer/buy-nego-payment/buy-nego-payment.component';
+import {TenderListComponent} from './components/common/tender-list/tender-list.component';
+import { TenderListHomeComponent } from './components/user/tender-list-home/tender-list-home.component';
+import { OrderListComponent } from './components/common/order-list/order-list.component';
+import { OrderDetailComponent } from './components/common/order-detail/order-detail.component';
+import { SupDealCreateComponent } from './components/supplier/sup-deal-create/sup-deal-create.component';
+import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/buy-profile-update.component';
+import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
 
 /*Service*/
 import {LoginService} from './services/login.service';
@@ -55,6 +63,7 @@ import {PostService} from './services/post.service';
 import {OrderService} from './services/order.service';
 import {NegoService} from './services/nego.service';
 import {TenderService} from './services/tender.service';
+import {DealService} from './services/deal.service';
 
 
 /*Guard*/
@@ -64,19 +73,15 @@ import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import {CreateOrderGuard} from './guards/create-order.guard';
 import {CreateTenderGuard} from './guards/create-tender.guard';
+import { DealListComponent } from './components/common/deal-list/deal-list.component';
+import { DealListHomeComponent } from './components/user/deal-list-home/deal-list-home.component';
+import { DealDetailComponent } from './components/common/deal-detail/deal-detail.component';
 
-import {RatingModule} from 'ng2-rating';
-import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/buy-profile-update.component';
-import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
 
 
-import {CalendarModule} from 'primeng/primeng';
 
-import {TenderListComponent} from './components/common/tender-list/tender-list.component';
-import { TenderListHomeComponent } from './components/user/tender-list-home/tender-list-home.component';
-import { OrderListComponent } from './components/common/order-list/order-list.component';
-import { OrderDetailComponent } from './components/common/order-detail/order-detail.component';
-import { SupDealCreateComponent } from './components/supplier/sup-deal-create/sup-deal-create.component';
+
+
 
 
 @NgModule({
@@ -117,7 +122,10 @@ import { SupDealCreateComponent } from './components/supplier/sup-deal-create/su
     TenderListHomeComponent,
     OrderListComponent,
     OrderDetailComponent,
-    SupDealCreateComponent
+    SupDealCreateComponent,
+    DealListComponent,
+    DealListHomeComponent,
+    DealDetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
@@ -128,7 +136,7 @@ import { SupDealCreateComponent } from './components/supplier/sup-deal-create/su
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,
-    TenderService, CreateTenderGuard],
+    TenderService, CreateTenderGuard, DealService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

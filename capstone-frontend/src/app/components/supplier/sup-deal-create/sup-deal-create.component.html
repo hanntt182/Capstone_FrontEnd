@@ -81,12 +81,215 @@
           <input hidden type="file" accept="image/jpeg, image/png" (change)="onChangeImage($event)"
                  class="form-control-file" id="photo">
           <div>
-
+            <img src="{{imageLink}}"
+                 style="max-height: 150px; width: auto; margin-top: 10px">
           </div>
           <div *ngIf="imageType == false" class="error">Supported formats: .jpg .png .jpeg</div>
         </div>
       </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Color
+        </label>
+        <div class="col-sm-3">
+          <select class="form-control" name="Color" ngModel required>
+            <option *ngFor="let color of colors"
+                    value="{{color.colorID}}">{{color.colorName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Warranty
+        </label>
+        <div class="col-sm-7 form-inline">
+          <input style="margin-right: 5px" type="number" min="0" class="form-control" name="Warranty" ngModel required
+                 #warranty="ngModel">
+          <select class="form-control" name="TimeOfWaranty" ngModel>
+            <option *ngFor="let time of times"
+                    value="{{time}}">{{time}}
+            </option>
+          </select>
+          <div *ngIf="warranty.invalid && (warranty.dirty || warranty.touched)"
+               class="error">
+            <div *ngIf="warranty.errors.required">
+              Warranty is required and must be a number.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="card" style="margin: 20px; padding: 20px">
+      <div class="row col-sm-12">
+        <h4>Deal Information</h4>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Price
+        </label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" name="Price" ngModel required
+                 #price="ngModel" (keyup)="countDiscountPrice(createDealForm.value)">
+          <div *ngIf="price.invalid && (price.dirty || price.touched)"
+               class="error">
+            <div *ngIf="price.errors.required">
+              Price is required and must be a number.
+            </div>
+          </div>
+        </div>
+        <label class="col-sm-1 col-form-label">
+          VND
+        </label>
+      </div>
+      <div class="row col-sm-12 align-items-center" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Discount
+        </label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" name="Discount" ngModel required
+                 #discount="ngModel" (keyup)="countDiscountPrice(createDealForm.value)">
+          <div *ngIf="discount.invalid && (discount.dirty || discount.touched)"
+               class="error">
+            <div *ngIf="discount.errors.required">
+              Discount is required and must be a number.
+            </div>
+          </div>
+        </div>
+        <label class="col-sm-1 col-form-label">
+          %
+        </label>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Discount Price
+        </label>
+        <label class="col-sm-4 col-form-label" id="discountPrice">
+          0 %
+        </label>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+      <label class="col-sm-3 col-form-label text-right">
+        Min. Required Participants
+      </label>
+      <div class="col-sm-4">
+        <input type="number" class="form-control" name="minRequiPar" ngModel required
+               #minRequiPar="ngModel">
+        <div *ngIf="minRequiPar.invalid && (minRequiPar.dirty || minRequiPar.touched)"
+             class="error">
+          <div *ngIf="minRequiPar.errors.required">
+            Min. Required Participants is required and must be a number.
+          </div>
+        </div>
+      </div>
+      <label class="col-sm-1 col-form-label">
+        %
+      </label>
+    </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Max Order Quantity
+        </label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" name="maxOrderQuan" ngModel required
+                 #maxOrderQuan="ngModel">
+          <div *ngIf="maxOrderQuan.invalid && (maxOrderQuan.dirty || maxOrderQuan.touched)"
+               class="error">
+            <div *ngIf="maxOrderQuan.errors.required">
+              Max Order Quantity is required and must be a number.
+            </div>
+          </div>
+        </div>
+        <label class="col-sm-3 col-form-label">%</label>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Closing Time
+        </label>
+        <div class="col-sm-5" style="border-bottom-color: rgba(0,0,0,.125);">
+          <p-calendar [(ngModel)]="closeDay" [showTime]="true" showButtonBar="true"
+                      [showIcon]="true" [minDate]="minDateValue" readonlyInput="true"
+                      [ngModelOptions]="{standalone: true}" required></p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin: 20px; padding: 20px">
+      <div class="row col-sm-12">
+        <h4>Shipment Details</h4>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          <b>Fee Ship</b>
+        </label>
+      </div>
+      <div class="row col-sm-12 justify-content-center" style="padding:10px" *ngFor="let shipMethod of shipMethods; let i = index">
+        <label class="col-sm-3 col-form-label text-right">{{shipMethod.shipName}}</label>
+        <div class="col-sm-9 form-inline">
+          <input type="number" min="0" style="width:150px" [(ngModel)]="minDay[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+          <label class="col-form-label" style="margin-right: 10px;margin-left: 10px"> day(s) - </label>
+          <input type="number" min="0" style="width:150px" [(ngModel)]="maxDay[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+          <label class="col-form-label" style="margin-right: 10px;margin-left: 10px"> day(s) </label>
+          <input type="number" min="0" style="width:150px" [(ngModel)]="feeShip[i]" class="form-control" [ngModelOptions]="{standalone: true}">
+          <label class="col-form-label" style="margin-right: 10px;margin-left: 10px"> VND </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin: 20px; padding: 20px">
+      <div class="row col-sm-12">
+        <h4>Shipment Details</h4>
+      </div>
+      <div class="row col-sm-12 justify-content-center" style="padding:10px">
+        <div class="col-sm-4 text-center">
+          <label>Description Name</label>
+        </div>
+        <div class="col-sm-6 text-center">
+          <label>Description Value</label>
+        </div>
+      </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <form [formGroup]="formDescription" class="col-sm-12">
+          <div formArrayName="descriptions">
+            <div *ngFor="let description of formDescription.controls['descriptions'].controls; let i=index">
+              <div [formGroupName]="i">
+                <div class="row justify-content-center">
+                  <div class="form-group col-sm-4">
+                    <select class="form-control" formControlName="DescriptionID"
+                            required>
+                      <option *ngFor="let description of descriptions; let  i = index" type="number"
+                              value="{{description.descriptionID}}">
+                        {{description.descriptionName}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <input class="form-control" type="text"
+                           formControlName="DescriptionValue">
+                  </div>
+                  <div class="form-group col-sm-1" *ngIf="formDescription.controls['descriptions'].length > 1"
+                       (click)="removeDescription(i)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding-left:100px">
+            <a (click)="addDescription()" style="cursor: default">
+              More description +
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row col-sm-12 justify-content-center" style="padding:20px; padding-bottom:50px">
+      <input type="button" value="Create Deal" class="btn btn-success"
+             (click)="createDeal(createDealForm.value, formDescription.value)">
+    </div>
+
   </form>
 </div>
 

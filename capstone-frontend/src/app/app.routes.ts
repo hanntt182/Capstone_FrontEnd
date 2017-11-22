@@ -40,6 +40,9 @@ import {TenderListHomeComponent} from "./components/user/tender-list-home/tender
 import {OrderListComponent} from "./components/common/order-list/order-list.component";
 import {OrderDetailComponent} from "./components/common/order-detail/order-detail.component";
 import {SupDealCreateComponent} from "./components/supplier/sup-deal-create/sup-deal-create.component";
+import {DealListComponent} from "./components/common/deal-list/deal-list.component";
+import {DealListHomeComponent} from "./components/user/deal-list-home/deal-list-home.component";
+import {DealDetailComponent} from "./components/common/deal-detail/deal-detail.component";
 
 
 const routing: Routes = [
@@ -50,6 +53,8 @@ const routing: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'tender', component: TenderListHomeComponent},
+      {path: 'groupbuying', component: DealListHomeComponent},
+      {path: 'groupbuying-detail/:dealId', component: DealDetailComponent},
       {path: 'negotiation/:postID', component: BuyNegoCreateComponent},
       {path: 'product/:catalogId/:brandId', component: BrandsListComponent},
       {path: 'product-detail/:postId', component: ProductDetailComponent},
@@ -73,7 +78,8 @@ const routing: Routes = [
       {path: 'negotiation/:negoStatus/:negoId', component: SupNegoDetailComponent},
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
       {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
-      {path: 'create-deal', component: SupDealCreateComponent}
+      {path: 'create-deal', component: SupDealCreateComponent},
+      {path: 'deal-list/:dealStatus', component: DealListComponent}
     ]
   },
   {
@@ -89,7 +95,8 @@ const routing: Routes = [
       {path: 'payment-nego/:negoId', component: BuyNegoPaymentComponent},
       {path: 'create-tender', component: BuyTenderCreateComponent, canActivate: [CreateTenderGuard]},
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
-      {path: 'tender-detail/:tenderId', component: TenderDetailComponent}
+      {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
+      {path: 'deal-list/:dealStatus', component: DealListComponent}
     ]
   },
   {

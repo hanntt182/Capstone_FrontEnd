@@ -1,0 +1,134 @@
+<div class="main-content" style="margin-top: 20px; margin-bottom: 20px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="background: white">
+          <div class="card-content justify-content-sm-center"
+               style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a *ngIf="dealStatus=='ongoing'" class="nav-link active" data-toggle="tab"
+                   href="#ongoing" role="tab"
+                   aria-controls="ongoing" aria-selected="true" (click)="changeStatus('ongoing')"> Ongoing </a>
+                <a *ngIf="dealStatus!='ongoing'" class="nav-link" data-toggle="tab" href="#ongoing"
+                   role="tab"
+                   aria-controls="ongoing" aria-selected="true" (click)="changeStatus('ongoing')"> Ongoing </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="dealStatus=='expried'" class="nav-link active" data-toggle="tab"
+                   href="#expried" role="tab"
+                   aria-controls="expried" aria-selected="true" (click)="changeStatus('expried')"> Expried </a>
+                <a *ngIf="dealStatus!='expried'" class="nav-link" data-toggle="tab" href="#expried"
+                   role="tab"
+                   aria-controls="expried" aria-selected="true" (click)="changeStatus('expried')"> Expried </a>
+              </li>
+              <li class="nav-item">
+                <a *ngIf="dealStatus=='success'" class="nav-link active" data-toggle="tab"
+                   href="#success" role="tab"
+                   aria-controls="success" aria-selected="false" (click)="changeStatus('success')">
+                  Success </a>
+                <a *ngIf="dealStatus!='success'" class="nav-link" data-toggle="tab"
+                   href="#success" role="tab"
+                   aria-controls="success" aria-selected="false" (click)="changeStatus('success')">
+                  Success </a>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                <h5></h5>
+                <form #searchForm="ngForm" class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="search" ngModel>
+                  </div>
+                  <button type="submit" class="btn btn-default"
+                          (click)="changePage(searchForm.value.search, 1)">Search
+                  </button>
+                </form>
+
+                <div class="clearfix"></div>
+
+
+                <table class="table table-hover">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Deal Title</th>
+                    <th *ngIf="user.role == 'SUPPLIER'" scope="col">Current Participants</th>
+                    <th *ngIf="user.role == 'SUPPLIER'" scope="col">Required Participants</th>
+                    <th *ngIf="user.role == 'BUYER'" scope="col">Joined Date</th>
+                    <th scope="col">Expried Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngIf="user.role=='SUPPLIER'">
+                  <tr *ngFor="let deal of deals; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>
+                      {{deal.dealTitle}}<br>
+                      <small>{{deal.product.productName}}</small>
+                    </td>
+                    <td>{{deal.currentParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
+                    <td>{{deal.minParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
+                    <td><i>{{deal.closedDay}}</i></td>
+                    <td style="font-size: 25px; margin: 0px; padding: 6px">
+                      <i class="fa fa-info-circle text-info" aria-hidden="true"
+                         (click)="viewDealDetail(deal.dealID)"
+                         data-toggle="tooltip" data-placement="top" title="View Detail"></i>
+                      <!--<i *ngIf="dealStatus=='active' || tenderStatus=='closed'" class="fa fa-times-circle text-danger"
+                         aria-hidden="true" (click)="openCancelTender(tender.tenderID)"
+                         data-toggle="tooltip" data-placement="top" title="Cancle this tender"></i>-->
+
+                    </td>
+                  </tr>
+                  </tbody>
+                  <tbody *ngIf="user.role=='BUYER'">
+                  <tr *ngFor="let deal of deals; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>
+                      {{deal.dealHistoryID.deal.dealTitle}}<br>
+                      <small>{{deal.dealHistoryID.deal.product.productName}}</small>
+                    </td>
+                    <td>{{deal.joinDate}}</td>
+                    <td><i>{{deal.dealHistoryID.deal.closedDay}}</i>
+                    </td>
+                    <td style="font-size: 25px; margin: 0px; padding: 6px">
+                      <i class="fa fa-info-circle text-info" aria-hidden="true"
+                         (click)="viewDealDetail(deal.dealHistoryID.deal.dealID)"
+                         data-toggle="tooltip" data-placement="top" title="View Detail"></i>
+                      <button *ngIf="deal.dealHistoryID.deal.finishedDay - Date.now() > 0" class="btn btn-warning">
+                        Order
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+
+
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-start">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pages">
+                      <a class="page-link" [routerLink]="['./']"
+                         (click)="changePage(searchForm.value.search, page)">{{page}}</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -88,5 +88,15 @@ public VIEWTENDERHISTORYDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT +
 
 
 
+// Group-Buying Deal
+public CREATEDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createDeal/";
+public SEARCHDEALSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchDealSupplier/";
+public SEARCHDEALBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchDealBuyer/";
+public SEARCHDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchDeal/";
+public VIEWDEALDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/viewDealDetail/";
+public CHECKDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkDeal/";
+public JOINDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/joinDeal/";
+
+
 constructor(){}
 }
