@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {CommonService} from '../../../services/common.service';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Constants} from './../../../constants';
 import {PostService} from '../../../services/post.service';
 import {Router} from '@angular/router';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-sup-post-create-2',
@@ -30,7 +31,10 @@ export class SupPostCreate2Component implements OnInit {
               private _fb: FormBuilder,
               private postService: PostService,
               private constants: Constants,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -135,11 +139,14 @@ export class SupPostCreate2Component implements OnInit {
     }
 
     this.postService.createPost(this.constants.CREATEPOST, formData).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout(function () {
+        this.router.navigate(['supplier/create-post3']);
+      }, 1000);
     }, error => {
-      console.log(error);
+      this.toastr.success(error._body, 'Please try again!', {showCloseButton: true});
+      console.log(error._body);
     });
-    this.router.navigate(['supplier/create-post3']);
 
 
   }

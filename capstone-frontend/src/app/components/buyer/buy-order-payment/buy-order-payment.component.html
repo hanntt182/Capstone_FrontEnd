@@ -55,80 +55,112 @@
             </div>
           </div>
         </div>
-        <div class="row" style="margin-top: 30px">
-          <div class="col-md-2 offset-2" style="margin-top: 16px">
-            <label>
-              Select Bank:
-              <span class="star">*</span>
-            </label>
-          </div>
-          <div class="col-md-5">
-            <div class="panel panel-default">
-              <select required class="form-control" name="BankList" style="margin-top: 10px">
-                <option *ngFor="let bank of banks" value="{{bank}}">
-                  {{bank}}
-                </option>
-              </select>
+        <form #paymentForm="ngForm">
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 16px">
+              <label>
+                Select Bank:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <div class="panel panel-default">
+                <select required class="form-control" #banklist="ngModel" ngModel name="BankList"
+                        style="margin-top: 10px">
+                  <option *ngFor="let bank of banks" value="{{bank}}">
+                    {{bank}}
+                  </option>
+                </select>
+                <div class="error" *ngIf="banklist.touched && banklist.invalid">
+                  <div *ngIf="banklist.errors.required">
+                    Please select bank
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row" style="margin-top: 40px">
-          <div class="col-md-2 offset-2" style="margin-top: 5px">
-            <label>
-              Cardholder's Name:
-              <span class="star">*</span>
-            </label>
+          <div class="row" style="margin-top: 40px">
+            <div class="col-md-2 offset-2" style="margin-top: 5px">
+              <label>
+                Cardholder's Name:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="text" class="form-control" name="CardholderName" #cardholder="ngModel"
+                     pattern="^[a-zA-Z ]*" ngModel>
+              <div class="error" *ngIf="cardholder.invalid && (cardholder.dirty || cardholder.touched)">
+                <div *ngIf="cardholder.errors.required">
+                  Cardholder's Name is required and only text.
+                </div>
+                <div *ngIf="cardholder.errors.pattern">
+                  Cardholder's Name only text.
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-5">
-            <input required type="text" class="form-control" name="CardholderName" ngModel #cardholder="ngModel"
-                   pattern="^[a-zA-Z]*">
-            <small hidden [hidden]="cardholder.valid || (cardholder.pristine)"
-                   class="alert text-danger">
-              Cardholder's Name is required and only text.
-            </small>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 6px">
+              <label>
+                Card Number:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <input required type="text" class="form-control" maxlength="20" minlength="19" name="Cardnumber" ngModel #cardnumber="ngModel"
+                     pattern="^[0-9]*">
+              <div class="error" *ngIf="cardnumber.invalid && (cardnumber.dirty || cardnumber.touched)">
+                <div *ngIf="cardnumber.errors.required">
+                  Card Number required.
+                </div>
+                <div *ngIf="cardnumber.errors.pattern">
+                  Card Number must be number.
+                </div>
+                <div *ngIf="cardnumber.errors.minlength">
+                  Card Number must 19 ~ 20 number.
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row" style="margin-top: 30px">
-          <div class="col-md-2 offset-2" style="margin-top: 6px">
-            <label>
-              PIN:
-              <span class="star">*</span>
-            </label>
+          <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 offset-2" style="margin-top: 6px">
+              <label>
+                Valid From:
+                <span class="star">*</span>
+              </label>
+            </div>
+            <div class="col-3">
+              <select required class="form-control" #monthvalid="ngModel" name="Monthvalid" ngModel>
+                <option *ngFor="let month of months" value="{{month}}">
+                  {{month}}
+                </option>
+              </select>
+              <div class="error" *ngIf="monthvalid.touched && monthvalid.invalid">
+                <div *ngIf="monthvalid.errors.required">
+                  Please select month
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <select required class="form-control" #yearvalid="ngModel" name="Yearvalid" ngModel>
+                <option *ngFor="let year of years" value="{{year}}">
+                  {{year}}
+                </option>
+              </select>
+              <div class="error" *ngIf="yearvalid.touched && yearvalid.invalid">
+                <div *ngIf="yearvalid.errors.required">
+                  Please select year
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-5">
-            <input required type="number" class="form-control" name="PIN" ngModel #cardpin="ngModel" pattern="^[0-9]*">
-            <small hidden [hidden]="cardpin.valid || (cardpin.pristine)" class="alert text-danger">
-              PIN is required and only number.
-            </small>
+          <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 20px">
+            <div>
+              <button style="margin-right: 50px" class="btn btn-success" [disabled]="!paymentForm.valid" (click)="paymentAction()">Submit</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+            </div>
           </div>
-        </div>
-        <div class="row" style="margin-top: 30px">
-          <div class="col-md-2 offset-2" style="margin-top: 6px">
-            <label>
-              Valid From:
-              <span class="star">*</span>
-            </label>
-          </div>
-          <div class="col-3">
-            <select required class="form-control">
-              <option *ngFor="let month of months" value="{{month}}">
-                {{month}}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <select required class="form-control">
-              <option *ngFor="let year of years" value="{{year}}">
-                {{year}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 20px">
-          <div>
-            <button class="btn btn-success" (click)="paymentAction()">Submit</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -153,13 +185,16 @@
             Thank you for using our service!<br>
             Your money has been transferred successfully.<br>
             Please check your account. <br>
+          </small>
+          <b class="form-text text-danger">
             Use this KEY to receive your products.<br>
             You can check this KEY in Shipping Detail Order.
-          </small>
+          </b>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-success" data-dismiss="modal" routerLink="/buyer/order-list/shipping">OK</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" routerLink="/buyer/order-list/shipping">OK
+        </button>
       </div>
     </div>
   </div>

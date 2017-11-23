@@ -203,7 +203,10 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="col-sm-2" style="font-size: 12px;padding: 0px;">
+            <div *ngIf="rateTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              0%
+            </div>
+            <div *ngIf="rateTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
               {{(post?.star5/rateTotal)*100 | number:'1.0-2'}}%
             </div>
             <div class="col-sm-2 text-right" style="font-size: 12px;padding: 0px;">
@@ -216,7 +219,10 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="col-sm-2" style="font-size: 12px;padding: 0px;">
+            <div *ngIf="rateTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              0%
+            </div>
+            <div *ngIf="rateTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
               {{(post?.star4/rateTotal)*100 | number:'1.0-2'}}%
             </div>
             <div class="col-sm-2 text-right" style="font-size: 12px;padding: 0px;">
@@ -229,7 +235,10 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="col-sm-2" style="font-size: 12px;padding: 0px;">
+            <div *ngIf="rateTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              0%
+            </div>
+            <div *ngIf="rateTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
               {{(post?.star3/rateTotal)*100 | number:'1.0-2'}}%
             </div>
             <div class="col-sm-2 text-right" style="font-size: 12px;padding: 0px;">
@@ -242,7 +251,10 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="col-sm-2" style="font-size: 12px;padding: 0px;">
+            <div *ngIf="rateTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              0%
+            </div>
+            <div *ngIf="rateTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
               {{(post?.star2/rateTotal)*100 | number:'1.0-2'}}%
             </div>
             <div class="col-sm-2 text-right" style="font-size: 12px;padding: 0px;">
@@ -255,8 +267,11 @@
                      aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="col-sm-2" style="font-size: 12px;padding: 0px;">
-              {{(post?.star2/rateTotal)*100 | number:'1.0-2'}}%
+            <div *ngIf="rateTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              0%
+            </div>
+            <div *ngIf="rateTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+              {{(post?.star1/rateTotal)*100 | number:'1.0-2'}}%
             </div>
           </div>
         </div>
@@ -300,7 +315,7 @@
               </div>
               <div class="row col-sm-12 align-items-center justify-content-end"
                    style="padding: 5px; padding-right: 15px">
-                <button [disabled]="reviewPostForm.invalid && ratePost==0" type="button" class="btn btn-warning"
+                <button [disabled]="reviewPostForm.invalid || ratePost==0" type="button" class="btn btn-warning"
                 (click)="reviewPost(reviewPostForm.value)">
                   Send your reviews
                 </button>
@@ -348,3 +363,28 @@
     </div>
   </div>
 </div>
+
+
+
+
+<!--Check role to review Modal -->
+<div class="modal fade" id="checkRoleReviewModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label *ngIf="!user" style="padding-top:20px; padding-bottom:20px;margin:0px">Login as BUYER to review this post!</label>
+        <label *ngIf="user !=null" style="padding-top:20px; padding-bottom:20px;margin:0px">Only BUYER role can review post!</label>
+      </div>
+      <div class="modal-footer">
+        <div *ngIf="!user" class="row col-sm-12 align-items-center justify-content-around" style="margin: 0px;padding:0px">
+          <button type="button" class="btn btn-primary" (click)="callLoginModal()" >Login</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+        <div *ngIf="user != null" class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px;padding:0px">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="checkRoleReviewButton" [hidden]="true" data-toggle="modal" data-target="#checkRoleReviewModal">Open Modal</button>

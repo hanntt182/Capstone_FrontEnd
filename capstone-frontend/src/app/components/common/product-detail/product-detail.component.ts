@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Constants} from './../../../constants';
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -17,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
   public descriptions;
   public extraImages;
   public postShips;
-  public checkVote;
+  public checkVote = 'false';
   public ratePost: number = 0;
   public rateProduct: number = 0;
   public rateProductofUser: number = 0;
@@ -30,7 +31,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private constants: Constants,
-              private router: Router) {
+              private router: Router,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -52,15 +54,17 @@ export class ProductDetailComponent implements OnInit {
         this.rateTotal = response.star1 + response.star2 + response.star3 + response.star4 + response.star5;
       });
     });
-    let data = {
-      'UserID': this.user.userId,
-      'PostID': this.postId
-    };
-    this.postService.checkVotePost(this.constants.CHECKVOTEPOST, data).subscribe((response: any) => {
-      this.checkVote = response;
-    }, error => {
-      console.log(error);
-    });
+    if (this.user) {
+      let data = {
+        'UserID': this.user.userId,
+        'PostID': this.postId
+      };
+      this.postService.checkVotePost(this.constants.CHECKVOTEPOST, data).subscribe((response: any) => {
+        this.checkVote = response;
+      }, error => {
+        console.log(error);
+      });
+    }
 
     this.getListReview();
 
@@ -73,11 +77,14 @@ export class ProductDetailComponent implements OnInit {
     };
     this.postService.getListReview(this.constants.GETLISTREVIEW, data1).subscribe((response: any) => {
       this.reviews = response.content;
+
       for (let i = 0; i < this.reviews.length; i++) {
         this.starReviews.push(this.reviews[i].star);
-        if (this.reviews[i].reviewID.user.userId == this.user.userId) {
-          this.myReview = this.reviews[i];
-          this.rateProductofUser = this.myReview.star;
+        if (this.user) {
+          if (this.reviews[i].reviewID.user.userId == this.user.userId) {
+            this.myReview = this.reviews[i];
+            this.rateProductofUser = this.myReview.star;
+          }
         }
       }
     }, error => {
@@ -86,21 +93,38 @@ export class ProductDetailComponent implements OnInit {
   }
 
   reviewPost(reviewPostForm) {
-    console.log(this.ratePost);
-    console.log(reviewPostForm);
-    let data = {
-      'UserID': this.user.userId,
-      'PostID': Number(this.postId),
-      'Star': this.ratePost,
-      'ReviewTitle': reviewPostForm.reviewTitle,
-      'Review': reviewPostForm.review
-    };
-    this.postService.votePost(this.constants.VOTEPOST, data).subscribe((response: any) => {
-      console.log(response);
-      document.getElementById('reviewButton').click();
-      this.checkVote = 'true';
-      this.getListReview();
-    });
+    if (!this.user) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
+    if (!this.user) {
+      document.getElementById('checkRoleReviewButton').click();
+    } else if (this.user.role != 'BUYER') {
+      document.getElementById('checkRoleReviewButton').click();
+    } else {
+      console.log(this.ratePost);
+      console.log(reviewPostForm);
+      let data = {
+        'UserID': this.user.userId,
+        'PostID': Number(this.postId),
+        'Star': this.ratePost,
+        'ReviewTitle': reviewPostForm.reviewTitle,
+        'Review': reviewPostForm.review
+      };
+      this.postService.votePost(this.constants.VOTEPOST, data).subscribe((response: any) => {
+        console.log(response);
+        document.getElementById('reviewButton').click();
+        this.checkVote = 'true';
+        this.getListReview();
+      });
+    }
+  }
+
+  callLoginModal() {
+    $('#checkRoleReviewModal').hide();
+    $('.modal-backdrop').remove();
+    this.commonService.showLoginForm();
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.user);
   }
 
   setImage($event) {
