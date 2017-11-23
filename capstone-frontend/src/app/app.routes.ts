@@ -43,6 +43,7 @@ import {SupDealCreateComponent} from "./components/supplier/sup-deal-create/sup-
 import {DealListComponent} from "./components/common/deal-list/deal-list.component";
 import {DealListHomeComponent} from "./components/user/deal-list-home/deal-list-home.component";
 import {DealDetailComponent} from "./components/common/deal-detail/deal-detail.component";
+import {BuyDealOrderComponent} from "./components/buyer/buy-deal-order/buy-deal-order.component";
 
 
 const routing: Routes = [
@@ -96,7 +97,8 @@ const routing: Routes = [
       {path: 'create-tender', component: BuyTenderCreateComponent, canActivate: [CreateTenderGuard]},
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
       {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
-      {path: 'deal-list/:dealStatus', component: DealListComponent}
+      {path: 'deal-list/:dealStatus', component: DealListComponent},
+      {path: 'deal-order/:dealId', component: BuyDealOrderComponent}
     ]
   },
   {

@@ -19,7 +19,7 @@
             <i class="fa fa-cubes" aria-hidden="true"></i>
             Negotiation
           </a>
-          <div class="dropdown-menu" aria-labelledby="product">
+          <div class="dropdown-menu" aria-labelledby="product" style="cursor:default;padding: 0px">
             <a class="dropdown-item" (click)="gotoNegoDetail('negotiating')">Negotiating</a>
             <a class="dropdown-item" (click)="gotoNegoDetail('finished')">Finished</a>
           </div>
@@ -30,7 +30,7 @@
             <i class="fa fa-handshake-o" aria-hidden="true"></i>
             Tender
           </a>
-          <div class="dropdown-menu" aria-labelledby="product">
+          <div class="dropdown-menu" aria-labelledby="product" style="cursor:default;padding: 0px">
             <a class="dropdown-item" routerLink="/buyer/tender-list/active">All Tenders</a>
             <a class="dropdown-item" routerLink="/buyer/create-tender">Create new tender</a>
           </div>
@@ -51,7 +51,7 @@
               <span class="hidden-xs">My Profile</span>
             </b>
           </a>
-          <div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="profile">
+          <div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="profile" style="cursor:default;padding: 0px">
             <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
             <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
             <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
@@ -66,13 +66,16 @@
 
 
 
-<router-outlet></router-outlet>
+<div class="container-fluid" style="min-height:800px; padding: 0px">
+  <router-outlet></router-outlet>
+</div>
 
 
 
 
-<div class="footer col-sm-12" style="padding-top: 20px; border-top: 1px solid #ccc">
-  <div class="row" >
+<div class="footer col-sm-12"
+     style="padding-top: 20px; border-top: 1px solid #ccc; height: 150px; margin-bottom: 0px;padding-bottom: 10px">
+  <div class="row">
     <div class="col-md-3">
       <h3>About Us</h3>
       <p><b><i>The purpose of a business is to create a customer who creates customers.</i></b></p>

@@ -77,9 +77,9 @@ export class OrderListComponent implements OnInit {
   }
 
   viewOrderDetail(orderID) {
-    if(this.user.role == 'BUYER'){
+    if (this.user.role == 'BUYER') {
       this.router.navigate(['/buyer/order-detail/' + orderID]);
-    } else if (this.user.role == 'SUPPLIER'){
+    } else if (this.user.role == 'SUPPLIER') {
       this.router.navigate(['/supplier/order-detail/' + orderID]);
     }
   }

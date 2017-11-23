@@ -84,7 +84,7 @@
                   </tr>
                   </tbody>
                   <tbody *ngIf="user.role=='BUYER'">
-                  <tr *ngFor="let deal of deals; let i = index">
+                  <tr *ngFor="let deal of deals; let i = index" (click)="viewDealDetail(deal.dealHistoryID.deal.dealID)">
                     <th scope="row">{{i + 1}}</th>
                     <td>
                       {{deal.dealHistoryID.deal.dealTitle}}<br>
@@ -93,13 +93,11 @@
                     <td>{{deal.joinDate}}</td>
                     <td><i>{{deal.dealHistoryID.deal.closedDay}}</i>
                     </td>
-                    <td style="font-size: 25px; margin: 0px; padding: 6px">
-                      <i class="fa fa-info-circle text-info" aria-hidden="true"
-                         (click)="viewDealDetail(deal.dealHistoryID.deal.dealID)"
-                         data-toggle="tooltip" data-placement="top" title="View Detail"></i>
-                      <button *ngIf="deal.dealHistoryID.deal.finishedDay - Date.now() > 0" class="btn btn-warning">
+                    <td>
+                      <button *ngIf="lates[i] == false" class="btn btn-success" (click)="orderDeal(deal.dealHistoryID.deal.dealID)">
                         Order
                       </button>
+                      <label *ngIf="lates[i] == true" class="text-danger">This deal has expired to order</label>
                     </td>
                   </tr>
                   </tbody>

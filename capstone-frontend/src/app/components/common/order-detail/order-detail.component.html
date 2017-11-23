@@ -17,16 +17,20 @@
             <div class="col-sm-6" style="border-right: solid 1px grey">
               <div class="row col-sm-10"><h5>Supplier</h5></div>
               <div class="row">
-                <div class="col-sm-3">
+                <div *ngIf="post!=null" class="col-sm-3">
                   <img src="{{order?.post.supplier.companyLogo}}"
                        style="width: 70px; height: 70px">
                 </div>
+                <div *ngIf="deal!=null" class="col-sm-3">
+                  <img src="{{order?.deal.supplier.companyLogo}}"
+                       style="width: 70px; height: 70px">
+                </div>
                 <div class="col-sm-9">
-                  <b>{{order?.post.supplier.companyName}}</b><br>
-                  Contact Name: {{order?.post.supplier.username}}<br>
-                  Company Address: {{order?.post.supplier.companyAddress}}<br>
-                  Company Tel: {{order?.post.supplier.companyPhone}} <br>
-                  Company Email: {{order?.post.supplier.companyPhone.companyEmail}}
+                  <b>{{order?.deal.supplier.companyName}}</b><br>
+                  Contact Name: {{order?.deal.supplier.username}}<br>
+                  Company Address: {{order?.deal.supplier.companyAddress}}<br>
+                  Company Tel: {{order?.deal.supplier.companyPhone}} <br>
+                  Company Email: {{order?.deal.supplier.companyPhone.companyEmail}}
                 </div>
               </div>
             </div>
@@ -62,9 +66,9 @@
             </thead>
             <tbody>
             <tr>
-              <td scope="row">{{order?.post.product.productName}}</td>
+              <td scope="row">{{order?.deal.product.productName}}</td>
               <td>{{order?.quantity}}</td>
-              <td>{{order?.post.unit}}</td>
+              <td>{{order?.deal.unit}}</td>
               <td>{{order?.offerPrice}}</td>
               <td>{{order?.productPrice}}</td>
             </tr>

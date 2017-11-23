@@ -8,7 +8,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ImageZoomModule} from 'angular2-image-zoom';
 import {MyDatePickerModule} from 'mydatepicker';
 import {CustomFormsModule} from 'ng2-validation';
-import {TextMaskModule} from 'angular2-text-mask';
 import {DateTimePickerModule} from 'ngx-datetime-picker/ngx-datetimepicker/src/app/datetimepicker.module';
 import {RatingModule} from 'ng2-rating';
 import {CalendarModule} from 'primeng/primeng';
@@ -76,12 +75,10 @@ import {CreateTenderGuard} from './guards/create-tender.guard';
 import { DealListComponent } from './components/common/deal-list/deal-list.component';
 import { DealListHomeComponent } from './components/user/deal-list-home/deal-list-home.component';
 import { DealDetailComponent } from './components/common/deal-detail/deal-detail.component';
+import { BuyDealOrderComponent } from './components/buyer/buy-deal-order/buy-deal-order.component';
 
 
-
-
-
-
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 @NgModule({
@@ -125,14 +122,15 @@ import { DealDetailComponent } from './components/common/deal-detail/deal-detail
     SupDealCreateComponent,
     DealListComponent,
     DealListHomeComponent,
-    DealDetailComponent
+    DealDetailComponent,
+    BuyDealOrderComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
     appRoutes, HttpModule,
     BrowserAnimationsModule, ToastModule.forRoot(),
-    ImageZoomModule, CustomFormsModule, MyDatePickerModule, TextMaskModule,
-    DateTimePickerModule, RatingModule, CalendarModule
+    ImageZoomModule, CustomFormsModule, MyDatePickerModule,
+    DateTimePickerModule, RatingModule, CalendarModule, TextMaskModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,

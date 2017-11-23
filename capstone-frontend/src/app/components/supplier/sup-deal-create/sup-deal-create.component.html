@@ -143,6 +143,18 @@
           VND
         </label>
       </div>
+      <div class="row col-sm-12" style="padding:10px">
+        <label class="col-sm-3 col-form-label text-right">
+          Unit
+        </label>
+        <div class="col-sm-4">
+          <select class="form-control" name="unit" ngModel>
+            <option *ngFor="let unit of units"
+                    value="{{unit}}">{{unit}}
+            </option>
+          </select>
+        </div>
+      </div>
       <div class="row col-sm-12 align-items-center" style="padding:10px">
         <label class="col-sm-3 col-form-label text-right">
           Discount

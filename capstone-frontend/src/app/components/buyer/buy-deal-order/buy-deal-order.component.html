@@ -1,4 +1,4 @@
-<form #createOrderForm="ngForm">
+<form #createDealOrderForm="ngForm">
   <div class="container" style="margin-top: 20px; margin-bottom: 20px">
     <div class="col-md-12">
       <div class="card" style="background: white">
@@ -9,7 +9,7 @@
           </div>
           <div class="row col-sm-12">
             <div class="col-sm-7 text-left">
-              <b>Supplier {{post?.supplier.companyName}}</b>
+              <b>Supplier {{deal?.supplier.companyName}}</b>
             </div>
             <div class="col-sm-5 text-right">
               <div class="float-right">
@@ -22,13 +22,13 @@
           <div class="col-sm-12">
             <div class="collapse" id="collapseExample">
               <div style="margin: 10px">
-                <img src="{{post?.supplier.companyLogo}}" style="max-height: 100px; height: auto; margin-left: 40px">
+                <img src="{{deal?.supplier.companyLogo}}" style="max-height: 100px; height: auto; margin-left: 40px">
                 <div class="clearfix"></div>
                 <label class="col-sm-2 text-right"> Company Name </label>
-                <label class="col-sm-7"> {{post?.supplier.companyName}} </label>
+                <label class="col-sm-7"> {{deal?.supplier.companyName}} </label>
                 <div class="clearfix"></div>
                 <label class="col-sm-2 text-right"> Contact Name </label>
-                <label class="col-sm-7"> {{post?.supplier.username}} </label>
+                <label class="col-sm-7"> {{deal?.supplier.username}} </label>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -37,69 +37,53 @@
             <table class="table" style="border: none">
               <thead>
               <tr>
-                <th scope="col"> Product Name</th>
                 <th scope="col"></th>
+                <th scope="col">Deal Title</th>
                 <th scope="col"> Quantity <span class="star">*</span></th>
                 <th scope="col"> Unit</th>
-                <th scope="col"> Your offer (per unit price)<span class="star">*</span></th>
-                <th scope="col"></th>
+                <th scope="col"> Price (VND/unit)</th>
               </tr>
               </thead>
               <tbody>
               <tr class="align-items-center">
                 <td scope="row" style="width:100px">
-                  <img src="{{post?.primaryImage}}" style="max-width: 80px;height: auto">
+                  <img src="{{deal?.dealImage}}" style="max-width: 80px;height: auto">
                 </td>
                 <td>
-                  <div class="row col-sm-12">{{post?.postTitle}}</div>
+                  <div class="row col-sm-12">{{deal?.dealTitle}}</div>
 
-                  <div class="row col-sm-12">{{post?.product.productName}}</div>
+                  <div class="row col-sm-12">{{deal?.product.productName}}</div>
                 </td>
                 <td style="padding-right: 0px; padding-left: 0px; width: 255px">
                   <div class="form-group">
-                    <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity"
-                           [max]="1000000000"
-                           placeholder="Min: {{post?.minOrderQuantity}}" name="quantity" ngModel
-                           (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
+                    <input style="width: 110px" type="number" class="form-control" [min]="1"
+                           [max]="deal?.maxOrderQuantity"
+                           placeholder="Max: {{deal?.maxOrderQuantity}}" name="quantity" ngModel
+                           (change)="countAmount(createDealOrderForm.value)"
+                           (keyup)="countAmount(createDealOrderForm.value)" #quantity="ngModel" required>
                     <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
                          class="error" style="padding:0px; font-size:13px">
                       <div *ngIf="quantity.errors.required">
                         Quantity is required and must be a number.
                       </div>
                       <div *ngIf="quantity.errors?.min">
-                        Quantity must be ≥ {{post?.minOrderQuantity}}
+                        Quantity must be ≥ 1
                       </div>
                       <div *ngIf="quantity.errors?.max">
-                        Quantity must be ≤ 1.000.000.000
+                        Quantity must be ≤ {{deal?.maxOrderQuantity}}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td scope="row">
-                  <label>{{post?.unit}}</label>
+                  <label>{{deal?.unit}}</label>
                 </td>
                 <td style="padding-right: 0px; padding-left: 0px; width: 265px">
-                  <div class="form-group">
-                    <input type="number" class="form-control"
-                           placeholder="{{post?.minPrice}} ≤ price ≤ {{post?.maxPrice}}" id="offerPrice"
-                           [min]="post?.minPrice" [max]="post?.maxPrice" name="offerPrice" ngModel
-                           (change)="countAmount(createOrderForm.value)" #offerPrice="ngModel" required>
-                    <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
-                         class="error" style="padding:0px; font-size:13px">
-                      <div *ngIf="offerPrice.errors.required">
-                        Offer Price is required and must be a number.
-                      </div>
-                      <div *ngIf="offerPrice.errors?.min">
-                        Offer Price must be ≥ {{post?.minPrice}}
-                      </div>
-                      <div *ngIf="offerPrice.errors?.max">
-                        Offer Price must be ≤ {{post?.maxPrice}}
-                      </div>
-                    </div>
+                  <div>
+                    <b class="text-primary" style="text-decoration: line-through;margin: 0px; margin-left: 5px">{{deal?.firstPrice}}VND</b>
+                    => <b
+                    class="text-success"> {{deal?.discountPrice}} VND</b>
                   </div>
-                </td>
-                <td scope="row">
-                  <label>VND /{{post?.unit}}</label>
                 </td>
               </tr>
               </tbody>
@@ -129,7 +113,7 @@
               <div class="form-check">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="address" value="oldAddress" ngModel
-                         (click)="checkAddress($event, createOrderForm)">
+                         (click)="checkAddress($event, createDealOrderForm)">
                   Existed Address
                 </label>
               </div>
@@ -141,7 +125,7 @@
               <div class="form-check">
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="address" value="newAddress" ngModel
-                         (click)="checkAddress($event, createOrderForm)">
+                         (click)="checkAddress($event, createDealOrderForm)">
                   New Address
                 </label>
               </div>
@@ -180,11 +164,11 @@
             </label>
           </div>
           <div class="row col-sm-12" style="margin: 10px">
-            <label class="col-sm-3 text-right">Ship Method</label>
+            <label class="col-sm-3 text-right">Ship Method <span class="star">*</span> </label>
             <select class="form-control col-sm-4" name="shipMethod" ngModel
-                    (change)="countShippingFee(createOrderForm.value)">
-              <option *ngFor="let postShip of postShips" value="{{postShip.postShipID.ship.shipID}}">
-                {{postShip.postShipID.ship.shipName}}
+                    (change)="countShippingFee(createDealOrderForm.value)">
+              <option *ngFor="let dealShip of deal?.dealShips" value="{{dealShip.dealShipID.ship.shipID}}">
+                {{dealShip.dealShipID.ship.shipName}}
               </option>
             </select>
             <label class="col-sm-3">Shipping Fee: {{shippingFee}} VND</label>
@@ -222,6 +206,68 @@
     </div>
   </div>
 
+  <div class="container" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="col-md-12">
+      <div class="card" style="background: white">
+        <div class="card-content"
+             style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
+          <div class="row col-sm-12">
+            <h4>Payment Details<span class="star">*</span></h4>
+          </div>
+          <div class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right">Select bank <span class="star">*</span> </label>
+            <select required class="form-control col-sm-4" name="BankList" ngModel>
+              <option *ngFor="let bank of banks" value="{{bank}}">
+                {{bank}}
+              </option>
+            </select>
+          </div>
+          <div class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right">Cardholder's Name <span class="star">*</span> </label>
+            <input required type="text" class="form-control col-sm-4" name="CardholderName" ngModel
+                   #cardholder="ngModel">
+          </div>
+          <div  *ngIf="cardholder.invalid && (cardholder.dirty || cardholder.touched)" class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right"></label>
+            <div class="error" style="padding:0px; font-size:13px">
+              <div *ngIf="cardholder.errors.required">
+                Cardholder's Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right">Card Number <span class="star">*</span> </label>
+            <input required type="number" class="form-control col-sm-4" name="CardNumber" ngModel #cardNumber="ngModel">
+          </div>
+          <div *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)"
+               class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right"></label>
+            <div
+              class="error" style="padding:0px; font-size:13px">
+              <div *ngIf="cardNumber.errors.required">
+                Card Number is required.
+              </div>
+            </div>
+          </div>
+          <div class="row col-sm-12 align-items-center" style="margin: 1rem">
+            <label class="col-sm-3 text-right">Valid from <span class="star">*</span> </label>
+            <select required class="form-control col-sm-2" style="margin-right: 10px" name="month" ngModel>
+              <option *ngFor="let month of months" value="{{month}}">
+                {{month}}
+              </option>
+            </select>
+            <select required class="form-control col-sm-1" ngModel name="year">
+              <option *ngFor="let year of years" value="{{year}}">
+                {{year}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container">
     <div class="row col-sm-12" style="padding-bottom: 20px; font-size: 16px">
       <label class="col-sm-8 text-right">Product(s) Amount</label>
@@ -239,9 +285,9 @@
       <div class="col-sm-4 text-center">
         <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
         <button
-          [disabled]="!createOrderForm.valid || createOrderForm.value.address==''"
+          [disabled]="!createDealOrderForm.valid || createDealOrderForm.value.address==''"
           type="button"
-          class="btn btn-info" (click)="createOrder(createOrderForm.value)"> Order
+          class="btn btn-info" (click)="createDealOrder(createDealOrderForm.value)"> Order
         </button>
       </div>
     </div>

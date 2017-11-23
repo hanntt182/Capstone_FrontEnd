@@ -75,30 +75,35 @@
                   <table class="table hvr-glow" style="border: solid 1px #e9ecef">
                     <thead style="background-color: #e9ecef">
                     <tr>
-                      <th scope="col" style="width: 400px"><small>Order No. {{order.orderID}}</small></th>
-                      <th scope="col" style="width: 250px"><small>{{order.createdDay}}</small></th>
-                      <th scope="col" style="width: 200px"><small></small></th>
+                      <th scope="col" style="width: 400px">Order No. {{order.orderID}}</th>
+                      <th scope="col" style="width: 250px"></th>
+                      <th scope="col" style="width: 200px" class="text-right"><i><small>Created Day: {{order.createdDay}}   </small></i></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                      <td scope="row" style="width: 400px">
+                      <td *ngIf="order.post!=null" scope="row" style="width: 400px">
                         {{order.post.postTitle}}<br>
                         <small>{{order.post.product.productName}}</small><br>
                         <img src="{{order.post.primaryImage}}" style="max-width: 100px;max-height: 100px">
                       </td>
+                      <td *ngIf="order.deal!=null" scope="row" style="width: 400px">
+                        {{order.deal.dealTitle}}<br>
+                        <small>{{order.deal.product.productName}}</small><br>
+                        <img src="{{order.deal.dealImage}}" style="max-width: 100px;max-height: 100px">
+                      </td>
                       <td style="width: 250px">
                         <div class="row">
-                          <div class="col-sm-7"><small> Product Amount </small></div>
-                          <div class="col-sm-5"><small>{{order.productPrice}}</small></div>
+                          <div class="col-sm-7"><label> Product Amount </label></div>
+                          <div class="col-sm-5"><label>{{order.productPrice}}</label></div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-7"><small> Shipping Fee </small></div>
-                          <div class="col-sm-5"><small>{{order.shipFee}}</small></div>
+                          <div class="col-sm-7"><label> Shipping Fee </label></div>
+                          <div class="col-sm-5"><label>{{order.shipFee}}</label></div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-7"><small> Order Amount </small></div>
-                          <div class="col-sm-5"><small style="color: orangered"> {{order.totalPrice}}</small></div>
+                          <div class="col-sm-7"><label> Order Amount </label></div>
+                          <div class="col-sm-5"><label style="color: orangered"> {{order.totalPrice}}</label></div>
                         </div>
                       </td>
                       <td style="width: 200px">{{order.status.statusName}}</td>

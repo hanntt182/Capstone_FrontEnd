@@ -19,6 +19,7 @@ export class SupDealCreateComponent implements OnInit {
   public imageType;
   public colors;
   public times = ['day(s)', 'week(s)', 'month(s)', 'year(s)', 'hour(s)'];
+  public units = ['piece(s)', 'box(s)', 'unit(s)', 'pair(s)'];
   public closeDay = null;
   public minDateValue: Date;
   public tomorrow = (new Date().getDate()) + 1;
@@ -153,6 +154,7 @@ export class SupDealCreateComponent implements OnInit {
       formData.append('Description', formDescription.descriptions[i].DescriptionID
         + '-' + formDescription.descriptions[i].DescriptionValue);
     }
+    formData.append('Unit', createDealForm.unit);
     this.dealService.createDeal(this.constants.CREATEDEAL, formData).subscribe((response: any) => {
       alert(response);
     }, error => {

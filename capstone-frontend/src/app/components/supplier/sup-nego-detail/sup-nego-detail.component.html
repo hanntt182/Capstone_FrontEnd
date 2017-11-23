@@ -1,5 +1,5 @@
-<div *ngIf="negoID==0" class="container-fluid">
-  <div class="row" style="height: 600px">
+<div *ngIf="negoID==0" class="container-fluid" >
+  <div class="row" style="min-height:800px; padding: 0px">
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form>
@@ -36,7 +36,7 @@
 
 
 <div *ngIf="negoID!=0" class="container-fluid">
-  <div class="row" style="height: 600px">
+  <div class="row" style="min-height:800px; padding: 0px">
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form #searchNegoForm="ngForm">
@@ -210,8 +210,10 @@
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5">Shipping Method</label>
               <div class="col-sm-7">
-                <input name="shipMethod" required class="form-control"
+                <input *ngIf="negotiation?.ship!=null" name="shipMethod" required class="form-control"
                        value="{{negotiation?.ship.shipName}}" disabled ngModel="{{negotiation?.ship.shipName}}">
+                <input *ngIf="negotiation?.ship==null" name="shipMethod" required class="form-control"
+                       value="" disabled ngModel="">
               </div>
 
               <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">

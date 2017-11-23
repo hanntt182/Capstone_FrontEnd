@@ -62,6 +62,11 @@ export class ProductDetailComponent implements OnInit {
       console.log(error);
     });
 
+    this.getListReview();
+
+  }
+
+  getListReview() {
     let data1 = {
       'PostID': this.postId,
       'pageNumber': 1
@@ -70,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
       this.reviews = response.content;
       for (let i = 0; i < this.reviews.length; i++) {
         this.starReviews.push(this.reviews[i].star);
-        if(this.reviews[i].reviewID.user.userId == this.user.userId){
+        if (this.reviews[i].reviewID.user.userId == this.user.userId) {
           this.myReview = this.reviews[i];
           this.rateProductofUser = this.myReview.star;
         }
@@ -94,6 +99,7 @@ export class ProductDetailComponent implements OnInit {
       console.log(response);
       document.getElementById('reviewButton').click();
       this.checkVote = 'true';
+      this.getListReview();
     });
   }
 

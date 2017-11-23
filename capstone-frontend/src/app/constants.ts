@@ -96,6 +96,7 @@ public SEARCHDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_
 public VIEWDEALDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/viewDealDetail/";
 public CHECKDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkDeal/";
 public JOINDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/joinDeal/";
+public PAYDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/payDeal/";
 
 
 constructor(){}
