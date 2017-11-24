@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import { Constants} from './../../../constants';
 import {LoginService} from "../../../services/login.service";
 import {Router} from "@angular/router";
 import {CommonService} from "../../../services/common.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-register',
@@ -72,7 +73,11 @@ export class RegisterComponent implements OnInit {
   constructor(private constants: Constants,
               private loginService: LoginService,
               private router: Router,
-              private commonService: CommonService) { }
+              private commonService: CommonService,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
+  }
 
   ngOnInit() {
     this.commonService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
@@ -241,11 +246,13 @@ export class RegisterComponent implements OnInit {
       formData.append('CompanyFax', value.CompanyFax);
     }
     this.loginService.registration(this.constants.REGISTRATION, formData).subscribe((data) => {
-      console.log(data);
-      alert(data);
-      this.router.navigate(['/home']);
+      this.toastr.success(data, 'Success!', {showCloseButton: true});
+      setTimeout(function () {
+        this.router.navigate(['/home']);
+      }, 1000);
     }, error => {
-      console.log(error);
+      this.toastr.error(error._body, 'Please try again!', {showCloseButton: true});
+      console.log(error._body);
     });
   }
 

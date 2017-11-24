@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
         this.toastr.success('Login successfully!', 'Success!', {showCloseButton: true});
       }
     }, error => {
-      this.toastr.error(error._body, 'Please try again!');
+      this.toastr.error(error._body, 'Please try again!', {showCloseButton: true});
     });
   }
 

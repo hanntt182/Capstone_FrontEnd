@@ -99,6 +99,11 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  backToPrevious() {
+    history.back();
+  }
+
+
   star(e) {
     if(this.user.role=='SUPPLIER'){
       let data = {

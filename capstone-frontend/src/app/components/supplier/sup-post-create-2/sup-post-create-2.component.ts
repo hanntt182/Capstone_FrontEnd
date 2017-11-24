@@ -144,7 +144,7 @@ export class SupPostCreate2Component implements OnInit {
         this.router.navigate(['supplier/create-post3']);
       }, 1000);
     }, error => {
-      this.toastr.success(error._body, 'Please try again!', {showCloseButton: true});
+      this.toastr.error(error._body, 'Please try again!', {showCloseButton: true});
       console.log(error._body);
     });
 
