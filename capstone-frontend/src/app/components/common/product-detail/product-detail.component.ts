@@ -27,6 +27,13 @@ export class ProductDetailComponent implements OnInit {
   public reviews;
   public myReview;
   public starReviews = [];
+  public recommendPost1s = [];
+  public recommendPost2s = [];
+  //public recommendPost3s = [];
+  public starReview1s = [];
+  public starReview2s = [];
+
+  //public starReview3s = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private postService: PostService,
@@ -53,6 +60,30 @@ export class ProductDetailComponent implements OnInit {
         this.rateProduct = response.rate;
         this.rateTotal = response.star1 + response.star2 + response.star3 + response.star4 + response.star5;
       });
+      this.postService.getRecommendedListPostByPost(this.constants.GETRECOMMENDEDLISTPOSTBYPOST, data).subscribe((response: any) => {
+        console.log(response);
+        console.log(response[0]);
+        for (let i = 0; i < 5; i++) {
+          this.recommendPost1s.pop();
+          this.recommendPost2s.pop();
+          // this.recommendPost3s.pop();
+        }
+        for (let i = 0; i < 5; i++) {
+          this.recommendPost1s.push(response[i]);
+          this.starReview1s.push(response[i].rate);
+        }
+        for (let i = 5; i < 10; i++) {
+          this.recommendPost2s.push(response[i]);
+          this.starReview2s.push(response[i].rate);
+        }
+        // for (let i = 10; i < 15; i++) {
+        //   this.recommendPost3s.push(response[i]);
+        //   this.starReview3s.push(response[i].rate);
+        // }
+        console.log(this.recommendPost1s);
+      }, error => {
+        console.log(error);
+      });
     });
     if (this.user) {
       let data = {
@@ -68,6 +99,11 @@ export class ProductDetailComponent implements OnInit {
 
     this.getListReview();
 
+  }
+
+  viewRecommendPostDetail(recommendPostID) {
+    this.router.navigate(['/product-detail/' + recommendPostID]);
+    window.scrollTo(0, 0);
   }
 
   getListReview() {

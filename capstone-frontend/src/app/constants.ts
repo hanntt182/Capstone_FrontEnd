@@ -99,5 +99,12 @@ public JOINDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PA
 public PAYDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/payDeal/";
 
 
+// Thuật toán
+public GETRECOMMENDEDLISTPOSTBYUSER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getRecommendedListPostByUser/";
+public GETRECOMMENDEDLISTPOSTBYPOST = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getRecommendedListPostByPost/";
+
+public GETTOP15POSTBYRATEDESC = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getTop15PostByRateDesc/";
+
+
 constructor(){}
 }

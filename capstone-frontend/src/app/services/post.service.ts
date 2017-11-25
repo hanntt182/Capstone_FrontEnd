@@ -75,4 +75,16 @@ export class PostService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  getRecommendedListPostByUser(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  getRecommendedListPostByPost(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  getTop15PostByRateDesc(apiUrl): Observable<any> {
+    return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
+
 }
