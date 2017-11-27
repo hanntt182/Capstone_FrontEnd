@@ -31,6 +31,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public tenderHistories;
   public winBidder;
 
+
   constructor(private activatedRoute: ActivatedRoute,
               private tenderService: TenderService,
               private constants: Constants,
@@ -116,7 +117,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       }, error => {
         console.log(error);
       });
-    } else if(this.user.role=='BUYER'){
+    } else if(this.user.role =='BUYER'){
       let data = {
         'TenderID': this.tenderID,
         'Star': e.target.title

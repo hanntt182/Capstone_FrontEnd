@@ -17,7 +17,7 @@
               <label style="padding-right: 10px" class="col-sm-3 text-right">Title: <span class="star">*</span></label>
               <div class="col-sm-8">
                 <input class="form-control col-sm-12" type="text" required name="TenderTitle" ngModel
-                       #TenderTitle="ngModel">
+                       #TenderTitle="ngModel" maxlength="500">
                 <div class="error" *ngIf="TenderTitle.invalid && (TenderTitle.dirty || TenderTitle.touched)">
                   <div *ngIf="TenderTitle.errors.required">
                     Title is required.
@@ -59,10 +59,16 @@
                 class="star">*</span></label>
               <div class="col-sm-8">
                 <input class="form-control col-sm-12" type="number" required name="TenderValue" ngModel
-                       #TenderValue="ngModel">
+                       #TenderValue="ngModel" [min]="0" [max]="1000000000000">
                 <div class="error" *ngIf="TenderValue.invalid && (TenderValue.dirty || TenderValue.touched)">
                   <div *ngIf="TenderValue.errors.required">
                     Tender Value is required and must be a number.
+                  </div>
+                  <div *ngIf="TenderValue.errors?.min">
+                    Tender Value must be ≥ 0
+                  </div>
+                  <div *ngIf="TenderValue.errors?.max">
+                    Tender Value must be ≤ 1.000.000.000.000
                   </div>
                 </div>
               </div>
@@ -77,7 +83,7 @@
               </label>
               <div class="col-sm-6" style="margin-bottom: 0px">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="ProductName" id="ProductName"
+                  <input type="text" class="form-control" name="ProductName" id="ProductName" maxlength="500"
                          ngModel required #ProductName="ngModel" (keyup)="changeInput($event)">
                   <span class="input-group-addon"
                         (click)="searchProduct(ProductName.value)"><i class="fa fa-search"></i></span>
@@ -136,10 +142,18 @@
               <label style="padding-right: 10px" class="col-sm-3 text-right">Period of work (days): <span
                 class="star">*</span></label>
               <div class="col-sm-8">
-                <input class="form-control col-sm-12" type="number" required name="Period" ngModel #Period="ngModel">
+                <input class="form-control col-sm-12" type="number" required name="Period" ngModel #Period="ngModel"
+                       [min]="1"
+                       [max]="1095">
                 <div class="error" *ngIf="Period.invalid && (Period.dirty || Period.touched)">
                   <div *ngIf="Period.errors.required">
                     Period of work is required and must be a number.
+                  </div>
+                  <div *ngIf="Period.errors?.min">
+                    Period of work must be ≥ 1 day
+                  </div>
+                  <div *ngIf="Period.errors?.max">
+                    Period of work must be ≤ 1095 days
                   </div>
                 </div>
               </div>
@@ -235,11 +249,19 @@
                     <input class="form-check-input" type="radio" name="EMDFee" ngModel value="No">
                     No
                   </label>
-                  <input style="width:350px" class="form-control" placeholder="Input Fee here" type="number" name="Fee"
-                         min="0" ngModel #Fee="ngModel"><label> VND</label>
-                  <div class="error" *ngIf="createTenderForm.value.EMDFee == 'No' && (Fee.dirty || Fee.touched)">
+                  <input style="width:350px" class="form-control" placeholder="Input Fee here" type="number" name="Fee"[min]="1000"
+                         [max]="1000000000000" ngModel #Fee="ngModel"><label> VND</label>
+                </div>
+                <div class="row col-sm-12 align-items-center">
+                  <div class="error" *ngIf="createTenderForm.value.EMDFee == 'No' && (Fee.dirty || Fee.touched)" style="margin-left:60px">
                     <div *ngIf="Fee.value==''">
-                      Period of work is required and must be a number.
+                      EMD Fee is required and must be a number.
+                    </div>
+                    <div *ngIf="Fee.errors?.min">
+                      EMD Fee must be ≥ 1000
+                    </div>
+                    <div *ngIf="Fee.errors?.max">
+                      EMD Fee must be ≤ 1.000.000.000.000
                     </div>
                   </div>
                 </div>
@@ -260,7 +282,7 @@
                 class="star">*</span></label>
               <div class="row col-sm-5" style="border-bottom-color: rgba(0,0,0,.125);">
                 <p-calendar [(ngModel)]="closeDay" [showTime]="true" showButtonBar="true"
-                            [showIcon]="true" [minDate]="minDateValue" readonlyInput="true"
+                            [showIcon]="true" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="true"
                             [ngModelOptions]="{standalone: true}" required></p-calendar>
               </div>
             </div>

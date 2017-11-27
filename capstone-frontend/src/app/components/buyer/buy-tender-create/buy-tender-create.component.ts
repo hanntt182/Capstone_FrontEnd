@@ -20,7 +20,9 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
   public closeDay = null;
   public remainNum = 5000;
   public minDateValue: Date;
-  public tomorrow = (new Date().getDate()) + 1;
+  public maxDateValue: Date;
+  public minClosingDay = (new Date().getTime()) + 1 * 24 * 60 * 60 * 1000;
+  public maxClosingDay = (new Date().getTime()) + 30 * 24 * 60 * 60 * 1000;
   public units = ['piece(s)', 'box(s)', 'unit(s)', 'pair(s)'];
   public paymentModes;
   public paymentTypes;
@@ -39,11 +41,15 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
-    this.minDateValue = new Date();
-    this.minDateValue.setDate(this.tomorrow);
+    this.minDateValue = new Date(this.minClosingDay);
     this.minDateValue.setHours(0);
     this.minDateValue.setMinutes(0);
     this.minDateValue.setSeconds(0);
+
+    this.maxDateValue = new Date(this.maxClosingDay);
+    this.maxDateValue.setHours(23);
+    this.maxDateValue.setMinutes(59);
+    this.maxDateValue.setSeconds(59);
 
 
     this.tenderService.getListPaymentMode(this.constants.GETLISTPAYMENTMODE).subscribe((response: any) => {
@@ -157,11 +163,11 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
     formData.append('PeriodTime', createTenderForm.Period);
     formData.append('CloseDay', this.formatDateTime(this.closeDay));
     this.tenderService.createTender(this.constants.CREATETENDER, formData).subscribe((res) => {
-      console.log(res);
+
       this.toastr.success(res, 'Success!', {showCloseButton: true});
-      if (res == 'CREATE SUCCESSFULLY') {
+      setTimeout(function () {
         this.router.navigate(['buyer/tender-list/' + 'active']);
-      }
+      }, 1000);
 
     }, error => {
       console.log(error);

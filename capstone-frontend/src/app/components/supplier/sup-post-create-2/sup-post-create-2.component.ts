@@ -140,8 +140,9 @@ export class SupPostCreate2Component implements OnInit {
 
     this.postService.createPost(this.constants.CREATEPOST, formData).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
-      setTimeout(function () {
+      setTimeout(() => {
         this.router.navigate(['supplier/create-post3']);
+        window.scrollTo(0, 0);
       }, 1000);
     }, error => {
       this.toastr.error(error._body, 'Please try again!', {showCloseButton: true});

@@ -11,6 +11,7 @@ import {CustomFormsModule} from 'ng2-validation';
 import {DateTimePickerModule} from 'ngx-datetime-picker/ngx-datetimepicker/src/app/datetimepicker.module';
 import {RatingModule} from 'ng2-rating';
 import {CalendarModule} from 'primeng/primeng';
+import {ChartModule} from 'primeng/primeng';
 
 import {Constants} from './constants';
 
@@ -47,10 +48,10 @@ import {BuyNegoCreateComponent} from './components/buyer/buy-nego-create/buy-neg
 import {BuyTenderCreateComponent} from './components/buyer/buy-tender-create/buy-tender-create.component';
 import {BuyNegoPaymentComponent} from './components/buyer/buy-nego-payment/buy-nego-payment.component';
 import {TenderListComponent} from './components/common/tender-list/tender-list.component';
-import { TenderListHomeComponent } from './components/user/tender-list-home/tender-list-home.component';
-import { OrderListComponent } from './components/common/order-list/order-list.component';
-import { OrderDetailComponent } from './components/common/order-detail/order-detail.component';
-import { SupDealCreateComponent } from './components/supplier/sup-deal-create/sup-deal-create.component';
+import {TenderListHomeComponent} from './components/user/tender-list-home/tender-list-home.component';
+import {OrderListComponent} from './components/common/order-list/order-list.component';
+import {OrderDetailComponent} from './components/common/order-detail/order-detail.component';
+import {SupDealCreateComponent} from './components/supplier/sup-deal-create/sup-deal-create.component';
 import {BuyProfileUpdateComponent} from './components/buyer/buy-profile-update/buy-profile-update.component';
 import {TenderDetailComponent} from './components/common/tender-detail/tender-detail.component';
 
@@ -72,10 +73,10 @@ import {SupRoleGuard} from './guards/check-role/sup-role.guard';
 import {BuyRoleGuard} from './guards/check-role/buy-role.guard';
 import {CreateOrderGuard} from './guards/create-order.guard';
 import {CreateTenderGuard} from './guards/create-tender.guard';
-import { DealListComponent } from './components/common/deal-list/deal-list.component';
-import { DealListHomeComponent } from './components/user/deal-list-home/deal-list-home.component';
-import { DealDetailComponent } from './components/common/deal-detail/deal-detail.component';
-import { BuyDealOrderComponent } from './components/buyer/buy-deal-order/buy-deal-order.component';
+import {DealListComponent} from './components/common/deal-list/deal-list.component';
+import {DealListHomeComponent} from './components/user/deal-list-home/deal-list-home.component';
+import {DealDetailComponent} from './components/common/deal-detail/deal-detail.component';
+import {BuyDealOrderComponent} from './components/buyer/buy-deal-order/buy-deal-order.component';
 
 
 import {TextMaskModule} from 'angular2-text-mask';
@@ -130,7 +131,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     appRoutes, HttpModule,
     BrowserAnimationsModule, ToastModule.forRoot(),
     ImageZoomModule, CustomFormsModule, MyDatePickerModule,
-    DateTimePickerModule, RatingModule, CalendarModule, TextMaskModule
+    DateTimePickerModule, RatingModule, CalendarModule, TextMaskModule,
+    ChartModule
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,

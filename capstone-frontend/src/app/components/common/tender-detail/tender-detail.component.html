@@ -440,57 +440,46 @@
 -->
 
 
-<div class="container" style="margin-top: 20px; margin-bottom: 20px">
-  <div class="col-md-12">
-    <div class="card" style="padding:20px; margin-right: 50px; margin-left: 50px">
-      <div style="margin: 50px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-        <div class="col-sm-12" style="margin-top: 10px">
-          <label style="text-decoration-line: underline">
-            <h4>Basic Detail</h4>
-          </label>
+<div class="container-fluid" style="margin-bottom: 20px">
+  <div class="row">
+    <div class="col-sm-6" style="padding:0px">
+      <div class="card" style="margin: 30px;">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Tender Information</h4>
         </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Bid Solicitor:</label>
-          <label class="col-sm-7">{{tender?.buyer.companyName}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Tender ID:</label>
-          <label class="col-sm-7">{{tender?.tenderID}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Payment Mode:</label>
-          <label class="col-sm-7">{{tender?.paymentMode.paymentModeName}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">No. of Covers:</label>
-          <label class="col-sm-7">{{tender?.numberCover}}</label>
-        </div>
-      </div>
-      <div class="row justify-content-between" style="margin-left: 50px;margin-right: 50px;margin-bottom:20px;">
-        <div style="padding:20px; border: solid 1px #A0A2AD; width: 400px">
+        <div style="margin: 40px;margin-top:10px;padding:20px; border: solid 1px #A0A2AD">
           <div class="col-sm-12" style="margin-top: 10px">
             <label style="text-decoration-line: underline">
-              <h4>Payment Instruments</h4>
+              <h4>Basic Detail</h4>
             </label>
           </div>
-          <div class="col-sm-12" style="margin-top: 10px">
-            <table class="table table-bordered">
-              <thead class="table-info">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Instrument Type</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let paymentType of tender?.paymentTypes; let i = index">
-                <td scope="row">{{i + 1}}</td>
-                <td>{{paymentType.paymentTypeName}}</td>
-              </tr>
-              </tbody>
-            </table>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Bid Solicitor:</label>
+            <label class="col-sm-7">{{tender?.buyer.companyName}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Tender ID:</label>
+            <label class="col-sm-7">{{tender?.tenderID}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Payment Mode:</label>
+            <label class="col-sm-7">{{tender?.paymentMode.paymentModeName}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Payment Type:</label>
+            <label class="col-sm-7">
+              <div class="row col-sm-12" style="margin: 0px;padding: 0px" *ngFor="let paymentType of tender?.paymentTypes">
+                <label>- {{paymentType.paymentTypeName}}</label>
+              </div>
+            </label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">No. of Covers:</label>
+            <label class="col-sm-7">{{tender?.numberCover}}</label>
           </div>
         </div>
-        <div style="padding:20px; border: solid 1px #A0A2AD; width: 400px">
+        <div
+          style="margin-left: 40px;margin-right: 40px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD;">
           <div class="col-sm-12" style="margin-top: 10px">
             <label style="text-decoration-line: underline">
               <h4>Covers Information</h4>
@@ -513,67 +502,251 @@
             </table>
           </div>
         </div>
+        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12" style="margin-top: 10px">
+            <label style="text-decoration-line: underline">
+              <h4>Work Item Detaill</h4>
+            </label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Title:</label>
+            <label class="col-sm-7">{{tender?.tenderTitle}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Work Description:</label>
+            <label class="col-sm-7">{{tender?.description}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Tender Value:</label>
+            <label class="col-sm-7">{{tender?.tenderValue}} VND</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Product Name:</label>
+            <label class="col-sm-7">{{tender?.product.productName}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Period of Work (Days):</label>
+            <label class="col-sm-7">{{tender?.periodTime}} day(s)</label>
+          </div>
+        </div>
+        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12" style="margin-top: 10px">
+            <label style="text-decoration-line: underline">
+              <h4>Fee Detail</h4>
+            </label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">EMD Amount in VND:</label>
+            <label class="col-sm-7">{{tender?.emdFee}}</label>
+          </div>
+        </div>
+        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12" >
+            <label style="text-decoration-line: underline">
+              <h4>Critical Dates</h4>
+            </label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Published Date:</label>
+            <label class="col-sm-7">{{tender?.createdDay}}</label>
+          </div>
+          <div class="row col-sm-12">
+            <label class="col-sm-5">Bid Closing Date:</label>
+            <label class="col-sm-7">{{tender?.closedDay}}</label>
+          </div>
+        </div>
+
       </div>
-      <div style="margin-left: 50px;margin-right: 50px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-        <div class="col-sm-12" style="margin-top: 10px">
-          <label style="text-decoration-line: underline">
-            <h4>Work Item Detaill</h4>
-          </label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Title:</label>
-          <label class="col-sm-7">{{tender?.tenderTitle}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Work Description:</label>
-          <label class="col-sm-7">{{tender?.description}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Tender Value:</label>
-          <label class="col-sm-7">{{tender?.tenderValue}} VND</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Product Name:</label>
-          <label class="col-sm-7">{{tender?.product.productName}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Period of Work (Days):</label>
-          <label class="col-sm-7">{{tender?.periodTime}} day(s)</label>
-        </div>
-      </div>
-      <div style="margin-left: 50px;margin-right: 50px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-        <div class="col-sm-12" style="margin-top: 10px">
-          <label style="text-decoration-line: underline">
-            <h4>Fee Detail</h4>
-          </label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">EMD Amount in VND:</label>
-          <label class="col-sm-7">{{tender?.emdFee}}</label>
-        </div>
-      </div>
-      <div style="margin-left: 50px;margin-right: 50px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-        <div class="col-sm-12" style="margin-top: 10px">
-          <label style="text-decoration-line: underline">
-            <h4>Critical Dates</h4>
-          </label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Published Date:</label>
-          <label class="col-sm-7">{{tender?.createdDay}}</label>
-        </div>
-        <div class="row col-sm-12" style="margin-top: 10px">
-          <label class="col-sm-5">Bid Closing Date:</label>
-          <label class="col-sm-7">{{tender?.closedDay}}</label>
-        </div>
-      </div>
+
+
+
 
     </div>
+    <div class="col-sm-6" style="padding:0px">
+      <div *ngIf="user.role=='BUYER'" class="card" style="margin: 30px;margin-left: 0px">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Tender History</h4>
+        </div>
+        <div class="row col-sm-12 table-responsive text-center" style="margin: 0px;padding: 10px">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Supplier</th>
+              <th scope="col">Rate</th>
+              <th scope="col">Bid Price (VND)</th>
+              <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" scope="col">
+                Voted
+              </th>
+              <th *ngIf="tender?.status.statusName=='ACTIVE'" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tenderHistory of tenderHistories; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
+              <td style="padding: 5px">
+                <div style="font-size: 12px">
+                  <rating [(ngModel)]="tenderHistory.tenderHistoryID.supplier.rate" [readonly]="true"></rating>
+                </div>
+              </td>
+              <td>{{tenderHistory.unitPrice}}</td>
+              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" style="padding: 5px">
+                <div style="font-size: 12px">
+                  <rating [(ngModel)]="tenderHistory.star" [readonly]="true"></rating>
+                </div>
+              </td>
+              <th *ngIf="tender?.status.statusName=='ACTIVE'" style="padding: 5px">
+                <div class="row col-sm-12 align-items-center" style="margin: 0px">
+                  <button type="button" class="btn btn-info" style="width: 30px;height: 30px;border-radius: 50%;margin-right: 5px;padding: 2px"
+                          data-toggle="tooltip" data-placement="top" title="View Profile">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="btn btn-success" style="width: 30px;height: 30px;border-radius: 50%;padding: 2px"
+                          (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)"
+                          data-toggle="tooltip" data-placement="top" title="Choose Winner">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </th>
+            </tr>
+            </tbody>
 
-    <div class="justify-content-center align-items-center text-center" style="margin: 30px">
-      <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="user.role=='BUYER'" class="card" style="margin: 30px;margin-left: 0px">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Winner Information</h4>
+        </div>
+        <div class="row col-sm-12 text-center" style="margin: 0px;padding: 10px">
+
+        </div>
+      </div>
+      <div *ngIf="user.role=='SUPPLIER'" class="card" style="margin: 30px;margin-left: 0px">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Bid Solicitor Information</h4>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-3" style="padding:5px">
+            <img
+              src="{{tender?.buyer.companyLogo}}"
+              style="width: 100%; max-width: 150px">
+          </div>
+          <div class="col-sm-9" style="padding:0px">
+            <div class="row col-sm-12" style="margin:0px;padding:0px">
+              <label class="col-sm-4" style="padding-right:5px; margin-top: 10px">Company Name:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.buyer.companyName}}</label>
+              <label class="col-sm-4" style="padding-right: 5px; margin-top: 10px">Company Phone:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.buyer.companyPhone}}</label>
+              <label class="col-sm-4" style="padding-right: 5px; margin-top: 10px">Company Address:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.buyer.companyAddress}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-5 text-center" style="padding:8px">
+            <h2>{{tender?.buyer.rate | number:'1.1-1'}}</h2>
+            <div>
+              <rating [(ngModel)]="buyerRateStar" [readonly]="true"></rating>
+            </div>
+            <div>
+              <span class="fa fa-user"></span> {{total}} total
+            </div>
+          </div>
+          <div class="col-sm-7" style="padding: 0px">
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star5" [readonly]="true" [max]="1"></rating>
+                <label>5</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star5/total)*100+'%'">
+                    <span *ngIf="tender?.buyer.star5>0">{{tender?.buyer.star5}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star4" [readonly]="true" [max]="1"></rating>
+                <label>4</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star4/total)*100+'%'">
+                    <span *ngIf="tender?.buyer.star4>0">{{tender?.buyer.star4}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star3" [readonly]="true" [max]="1"></rating>
+                <label>3</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star3/total)*100+'%'">
+                    <span *ngIf="tender?.buyer.star3>0">{{tender?.buyer.star3}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star2" [readonly]="true" [max]="1"></rating>
+                <label>2</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star2/total)*100+'%'">
+                    <span *ngIf="tender?.buyer.star2>0">{{tender?.buyer.star2}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star1" [readonly]="true" [max]="1"></rating>
+                <label>1</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.buyer.star1/total)*100+'%'">
+                    <span *ngIf="tender?.buyer.star1>0">{{tender?.buyer.star1}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Tax Code:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.buyer.companyTaxCode}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Website:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px"><a
+            href="{{tender?.buyer.companyWebsite}}">{{tender?.buyer.companyWebsite}}</a></div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Fax:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.buyer.companyFax}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Established Year:</div>
+          <div class="col-sm-6" style="padding: 0px">{{tender?.buyer.establishedYear}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Email:</div>
+          <div class="col-sm-6" style="padding: 0px">{{tender?.buyer.companyEmail}}</div>
+        </div>
+      </div>
+      <div class="justify-content-center align-items-center text-center" style="margin: 30px">
+        <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
+      </div>
     </div>
-
-
   </div>
+
 </div>

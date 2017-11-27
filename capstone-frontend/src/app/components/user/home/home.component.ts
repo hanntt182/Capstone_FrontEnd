@@ -13,6 +13,7 @@ import {PostService} from "../../../services/post.service";
 export class HomeComponent implements OnInit {
 
   public catalogs;
+  public brandId;
   public tenders;
   public user;
   public checkBid;
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit {
 
     // Get Recommend Post List By Algorithm
     if (this.user == null) {
-      this.postService.getTop15PostByRateDesc(this.constants.GETTOP15POSTBYRATEDESC).subscribe((response:any) => {
+      this.postService.getTop15PostByRateDesc(this.constants.GETTOP15POSTBYRATEDESC).subscribe((response: any) => {
         for (let i = 0; i < 5; i++) {
           this.recommendPost1s.push(response[i]);
           this.starReview1s.push(response[i].rate);
@@ -96,8 +97,23 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  viewRecommendPostDetail(recommendPostID) {
+    this.router.navigate(['/product-detail/' + recommendPostID]);
+    window.scrollTo(0, 0);
+  }
+
   chooseCatalog(catalogId) {
+    let data = {
+      'CatalogID': catalogId
+    };
+    this.catalogService.getListBrandByCatalog(this.constants.GETLISTBRANDBYCATALOG, data).subscribe((response: any) => {
+      this.brandId = response[0].brandId;
+      this.router.navigate(['/product/' + catalogId + '/' + this.brandId]);
+    }, error => {
+      console.log(error);
+    });
     this.router.navigate(['/catalog/' + catalogId]);
+    window.scrollTo(0, 0);
   }
 
 
