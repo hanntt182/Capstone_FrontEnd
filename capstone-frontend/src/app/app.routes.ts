@@ -80,7 +80,8 @@ const routing: Routes = [
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
       {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
       {path: 'create-deal', component: SupDealCreateComponent},
-      {path: 'deal-list/:dealStatus', component: DealListComponent}
+      {path: 'deal-list/:dealStatus', component: DealListComponent},
+      {path: 'groupbuying-detail/:dealId', component: DealDetailComponent}
     ]
   },
   {
@@ -98,7 +99,8 @@ const routing: Routes = [
       {path: 'tender-list/:tenderStatus', component: TenderListComponent},
       {path: 'tender-detail/:tenderId', component: TenderDetailComponent},
       {path: 'deal-list/:dealStatus', component: DealListComponent},
-      {path: 'deal-order/:dealId', component: BuyDealOrderComponent}
+      {path: 'deal-order/:dealId', component: BuyDealOrderComponent},
+      {path: 'groupbuying-detail/:dealId', component: DealDetailComponent}
     ]
   },
   {

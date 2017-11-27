@@ -17,12 +17,14 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public starsCount: number = 3.456789;
   public user;
   public buyerRateStar;
+  public winnerRateStar;
   public star1 = 1;
   public star2 = 2;
   public star3 = 3;
   public star4 = 4;
   public star5 = 5;
   public total;
+  public winnerTotal;
   public rateBuyer;
   public rateWinner;
   public tenderHistories;
@@ -52,8 +54,13 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         this.tender = response;
         this.starsCount = response.buyer.rate;
         this.buyerRateStar = response.buyer.rate;
+        if (this.tender.winner != null) {
+          this.winnerRateStar = response.winner.rate;
+        }
         this.rateWinner = response.star;
         this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
+        this.winnerTotal = response.winner.star1 + response.winner.star2 + response.winner.star3 + response.winner.star4
+          + response.winner.star5;
       }, error => {
         console.log(error);
       });
@@ -66,6 +73,9 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         }
       }, error => {
         console.log(error);
+        if (error.status == 404) {
+          this.tenderHistories = null;
+        }
       });
     });
   }
@@ -83,8 +93,10 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         'Star': e.target.title
       };
       this.tenderService.rateBuyerTender(this.constants.RATEBUYERTENDER, data).subscribe((response: any) => {
-        alert(response);
+        this.toastr.success(response, 'Success!', {showCloseButton: true});
+        this.ngOnInit();
       }, error => {
+        this.toastr.error(error._body, 'Error!', {showCloseButton: true});
         console.log(error);
       });
     } else if (this.user.role == 'BUYER') {
@@ -93,15 +105,22 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         'Star': e.target.title
       };
       this.tenderService.rateSupplierTender(this.constants.RATESUPPLIERTENDER, data).subscribe((response: any) => {
-        alert(response);
+        this.toastr.success(response, 'Success!', {showCloseButton: true});
+        this.ngOnInit();
       }, error => {
+        this.toastr.error(error._body, 'Error!', {showCloseButton: true});
         console.log(error);
       });
     }
 
   }
 
-  cancleTender(cancelForm) {
+  openCancelTender(tenderID) {
+    this.tenderID = tenderID;
+    document.getElementById('opencancelTenderModal').click();
+  }
+
+  cancelTender(cancelForm) {
     let data = {
       'TenderID': this.tenderID,
       'Reason': cancelForm.reason
@@ -112,12 +131,19 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     }, error => {
       console.log(error);
     });
-    if (this.user.role == 'BUYER') {
-      this.router.navigate(['/buyer/tender-list/cancel']);
-    } else if (this.user.role == 'SUPPLIER') {
-      this.router.navigate(['/supplier/tender-list/cancel']);
-    }
 
+  }
+
+  withdrawTender(tenderID) {
+    let data = {
+      'TenderID': tenderID,
+      'SupplierID': this.user.userId
+    };
+    this.tenderService.withdrawTender(this.constants.WITHDRAWTENDER, data).subscribe((response: any) => {
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+    }, error => {
+      this.toastr.error(error._body, 'Error!', {showCloseButton: true});
+    });
   }
 
   showChooseBidder(supplierID) {
@@ -132,13 +158,14 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       'Reason': chooseBidderForm.reasonChoose
     };
     this.tenderService.chooseBidder(this.constants.CHOOSEBIDDER, data).subscribe((response: any) => {
-      this.tender = response.tenderHistoryID.tender;
+      this.tender = response;
       $('#chooseBidderModal').hide();
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
       this.toastr.success('Choose winner successfully!', 'Success!', {showCloseButton: true});
     }, error => {
       console.log(error);
+      this.toastr.error(error._body, 'Error!', {showCloseButton: true});
     });
   }
 

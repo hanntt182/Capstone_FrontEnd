@@ -55,8 +55,7 @@ export class OrderDetailComponent implements OnInit {
 
   confirmOrder(confirmOrderForm) {
     let data = {
-      'OrderID': this.orderID,
-      'ShippingTime': confirmOrderForm.shippingTime
+      'OrderID': this.orderID
     };
     this.orderService.confirmOrder(this.constants.CONFIRMORDER, data).subscribe((response: any) => {
       alert(response);

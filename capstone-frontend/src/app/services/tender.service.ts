@@ -21,27 +21,14 @@ export class TenderService {
   }
 
 
-  cancleTender(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
 
   searchTender(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
 
-  getListSupplierJoinTender(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.json());
-  }
 
 
-  rateBuyerTender(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
-
-  rateSupplierTender(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.text());
-  }
 
 
   /*new*/
@@ -79,5 +66,25 @@ export class TenderService {
 
   chooseBidder(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  rateBuyerTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  rateSupplierTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  cancleTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  getListSupplierJoinTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  withdrawTender(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 }

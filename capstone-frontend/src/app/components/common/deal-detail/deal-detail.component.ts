@@ -80,6 +80,10 @@ export class DealDetailComponent implements OnInit, OnDestroy {
     clearInterval(this.xInterval);
   }
 
+  backToPrevious() {
+    history.back();
+  }
+
   joinDeal() {
     let data = {
       'DealID': this.dealID,

@@ -447,8 +447,8 @@
         <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
           <h4 class="col-sm-8">Tender Information</h4>
         </div>
-        <div style="margin: 40px;margin-top:10px;padding:20px; border: solid 1px #A0A2AD">
-          <div class="col-sm-12" style="margin-top: 10px">
+        <div style="margin: 30px;margin-top:10px; margin-bottom:20px;padding:10px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Basic Detail</h4>
             </label>
@@ -480,8 +480,8 @@
           </div>
         </div>
         <div
-          style="margin-left: 40px;margin-right: 40px;margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD;">
-          <div class="col-sm-12" style="margin-top: 10px">
+          style="margin-left: 30px;margin-right: 30px;margin-bottom:20px;padding:10px; border: solid 1px #A0A2AD;">
+          <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Covers Information</h4>
             </label>
@@ -503,8 +503,8 @@
             </table>
           </div>
         </div>
-        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-          <div class="col-sm-12" style="margin-top: 10px">
+        <div style="margin-left: 30px;margin-right: 30px; margin-bottom:20px;padding:10px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Work Item Detaill</h4>
             </label>
@@ -530,8 +530,8 @@
             <label class="col-sm-7">{{tender?.periodTime}} day(s)</label>
           </div>
         </div>
-        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-          <div class="col-sm-12" style="margin-top: 10px">
+        <div style="margin-left: 30px;margin-right: 30px; margin-bottom:20px;padding:10px; border: solid 1px #A0A2AD">
+          <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Fee Detail</h4>
             </label>
@@ -541,7 +541,7 @@
             <label class="col-sm-7">{{tender?.emdFee}}</label>
           </div>
         </div>
-        <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
+        <div style="margin-left: 30px;margin-right: 30px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
           <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Critical Dates</h4>
@@ -566,7 +566,10 @@
         <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
           <h4 class="col-sm-8">Tender History</h4>
         </div>
-        <div class="row col-sm-12 table-responsive text-center" style="margin: 0px;padding: 10px">
+        <div *ngIf="tenderHistories==null" class="row col-sm-12 justify-content-center" style="margin: 0px;padding: 50px">
+          There are no participants in the bidding
+        </div>
+        <div *ngIf="tenderHistories!=null" class="row col-sm-12 table-responsive text-center" style="margin: 0px;padding: 10px">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -617,11 +620,134 @@
           </table>
         </div>
       </div>
-      <div *ngIf="user.role=='BUYER'" class="card" style="margin: 30px;margin-left: 0px">
+      <div *ngIf="user.role=='BUYER' && tender?.winner!=null" class="card" style="margin: 30px;margin-left: 0px">
         <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
           <h4 class="col-sm-8">Winner Information</h4>
         </div>
-        <div class="row col-sm-12 text-center" style="margin: 0px;padding: 10px">
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-3" style="padding:5px">
+            <img
+              src="{{tender?.winner.companyLogo}}"
+              style="width: 100%; max-width: 150px">
+          </div>
+          <div class="col-sm-9" style="padding:0px">
+            <div class="row col-sm-12" style="margin:0px;padding:0px">
+              <label class="col-sm-4" style="padding-right:5px; margin-top: 10px">Company Name:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.winner.companyName}}</label>
+              <label class="col-sm-4" style="padding-right: 5px; margin-top: 10px">Company Phone:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.winner.companyPhone}}</label>
+              <label class="col-sm-4" style="padding-right: 5px; margin-top: 10px">Company Address:</label>
+              <label class="col-sm-8" style="padding: 0px; margin-top: 10px">{{tender?.winner.companyAddress}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-5 text-center" style="padding:8px">
+            <h2>{{tender?.winner.rate | number:'1.1-1'}}</h2>
+            <div>
+              <rating [(ngModel)]="winnerRateStar" [readonly]="true"></rating>
+            </div>
+            <div>
+              <span class="fa fa-user"></span> {{winnerTotal}} total
+            </div>
+          </div>
+          <div class="col-sm-7" style="padding: 0px">
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star5" [readonly]="true" [max]="1"></rating>
+                <label>5</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star5/total)*100+'%'">
+                    <span *ngIf="tender?.winner.star5>0">{{tender?.winner.star5}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star4" [readonly]="true" [max]="1"></rating>
+                <label>4</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star4/total)*100+'%'">
+                    <span *ngIf="tender?.winner.star4>0">{{tender?.winner.star4}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star3" [readonly]="true" [max]="1"></rating>
+                <label>3</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star3/total)*100+'%'">
+                    <span *ngIf="tender?.winner.star3>0">{{tender?.winner.star3}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star2" [readonly]="true" [max]="1"></rating>
+                <label>2</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star2/total)*100+'%'">
+                    <span *ngIf="tender?.winner.star2>0">{{tender?.winner.star2}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row  align-items-center text-center" style="padding: 0px">
+              <div class="col-sm-3" style="font-size: 12px; padding: 0px">
+                <rating [(ngModel)]="star1" [readonly]="true" [max]="1"></rating>
+                <label>1</label>
+              </div>
+              <div class="col-sm-7" style="padding: 0px">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar"
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star1/total)*100+'%'">
+                    <span *ngIf="tender?.winner.star1>0">{{tender?.winner.star1}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Tax Code:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.winner.companyTaxCode}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Website:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px"><a
+            href="{{tender?.winner.companyWebsite}}">{{tender?.winner.companyWebsite}}</a></div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Fax:</div>
+          <div class="col-sm-6" style="padding: 0px; margin-bottom: 10px">{{tender?.winner.companyFax}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Established Year:</div>
+          <div class="col-sm-6" style="padding: 0px">{{tender?.winner.establishedYear}}</div>
+          <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Email:</div>
+          <div class="col-sm-6" style="padding: 0px">{{tender?.winner.companyEmail}}</div>
+        </div>
+        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+             class="row justify-content-center col-sm-12" style="margin: 0px;padding: 10px">
+          <div *ngIf="rateWinner==0 || rateWinner==null" class="col-sm-12 text-center"><h5>You can rate for this Winner</h5></div>
+          <div *ngIf="rateWinner>0" class="col-sm-12 text-center"><h5>You've rated for this Winner</h5></div>
+          <small class="text-danger">* You can only rate 1 time for this Tender.</small>
+          <div class="col-sm-12 text-center">
+            <rating [(ngModel)]="rateWinner" *ngIf="rateWinner>0" [readonly]="true"></rating>
+            <rating [(ngModel)]="rateWinner" *ngIf="rateWinner==0 || rateWinner==null"
+                    (mousedown)="star($event)"></rating>
+          </div>
 
         </div>
       </div>
@@ -747,16 +873,20 @@
 
         <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
              class="row justify-content-center col-sm-12" style="margin: 0px;padding: 10px">
-          <h5>* You can rate for this Bid Solicitor</h5>
-          <div>
+          <div *ngIf="rateBuyer==0 || rateBuyer==null" class="col-sm-12 text-center"><h5>You can rate for this Bid Solicitor</h5></div>
+          <div *ngIf="rateBuyer>0" class="col-sm-12 text-center"><h5>You've rated for this Bid Solicitor</h5></div>
+          <small class="text-danger">* You can only rate 1 time for this Tender.</small>
+          <div class="col-sm-12 text-center">
             <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
             <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null"
                     (mousedown)="star($event)"></rating>
           </div>
-          <p class="text-danger">* You can only rate 1 time for this Tender.</p>
+
         </div>
       </div>
-      <div class="justify-content-center align-items-center text-center" style="margin: 30px">
+      <div class="justify-content-around align-items-center text-center" style="margin: 30px">
+        <button *ngIf="tender?.status.statusName=='CLOSED' && user.role=='BUYER'" type="button" class="btn btn-danger" (click)="openCancelTender(tender?.tenderID)">Cancel</button>
+        <button *ngIf="tender?.status.statusName=='ACTIVE' && user.role=='SUPPLIER'" type="button" class="btn btn-danger" (click)="withdrawTender(tender?.tenderID)">Withdraw</button>
         <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
       </div>
     </div>
@@ -773,7 +903,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Choose Bidder</h5>
+        <h5 class="modal-title">Choose Bidder</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -803,4 +933,41 @@
   </div>
 </div>
 <button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal
+</button>
+
+
+<!--Cancel Tender Modal -->
+<div class="modal fade" id="cancelTenderModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Cancel Tender</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #cancelTenderForm="ngForm">
+          <div class="row text-center justify-content-center align-items-center">
+            <label class="col-sm-3">Reason: </label>
+            <input type="text" class="form-control col-sm-8" name="reason" #reason="ngModel" required ngModel
+                   placeholder="Enter reason to cancel tender">
+          </div>
+          <div *ngIf="reason.invalid && (reason.dirty || reason.touched)"
+               class="error row text-center justify-content-center">
+            <div *ngIf="reason.errors.required">
+              Reason is required.
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" [disabled]="!cancelTenderForm.valid"
+                (click)="cancelTender(cancelTenderForm.value)">Cancle Tender
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="opencancelTenderModal" [hidden]="true" data-toggle="modal" data-target="#cancelTenderModal">Open Modal
 </button>

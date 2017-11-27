@@ -106,6 +106,11 @@ export class DealListComponent implements OnInit, OnDestroy {
   }
 
   viewDealDetail(dealID) {
+    if (this.user.role == 'BUYER') {
+      this.router.navigate(['buyer/groupbuying-detail/' + dealID]);
+    } else if (this.user.role == 'SUPPLIER') {
+      this.router.navigate(['supplier/groupbuying-detail/' + dealID]);
+    }
 
   }
 

@@ -36,7 +36,7 @@ export class DealService {
   }
 
   joinDeal(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
   payDeal(apiUrl, data): Observable<any> {

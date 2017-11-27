@@ -59,11 +59,11 @@
                     <th *ngIf="user.role == 'SUPPLIER'" scope="col">Required Participants</th>
                     <th *ngIf="user.role == 'BUYER'" scope="col">Joined Date</th>
                     <th scope="col">Expried Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" *ngIf="dealStatus=='success' && user.role=='BUYER'">Action</th>
                   </tr>
                   </thead>
                   <tbody *ngIf="user.role=='SUPPLIER'">
-                  <tr *ngFor="let deal of deals; let i = index">
+                  <tr *ngFor="let deal of deals; let i = index" (click)="viewDealDetail(deal.dealID)">
                     <th scope="row">{{i + 1}}</th>
                     <td>
                       {{deal.dealTitle}}<br>
@@ -72,15 +72,6 @@
                     <td>{{deal.currentParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
                     <td>{{deal.minParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
                     <td><i>{{deal.closedDay}}</i></td>
-                    <td style="font-size: 25px; margin: 0px; padding: 6px">
-                      <i class="fa fa-info-circle text-info" aria-hidden="true"
-                         (click)="viewDealDetail(deal.dealID)"
-                         data-toggle="tooltip" data-placement="top" title="View Detail"></i>
-                      <!--<i *ngIf="dealStatus=='active' || tenderStatus=='closed'" class="fa fa-times-circle text-danger"
-                         aria-hidden="true" (click)="openCancelTender(tender.tenderID)"
-                         data-toggle="tooltip" data-placement="top" title="Cancle this tender"></i>-->
-
-                    </td>
                   </tr>
                   </tbody>
                   <tbody *ngIf="user.role=='BUYER'">
@@ -93,7 +84,7 @@
                     <td>{{deal.joinDate}}</td>
                     <td><i>{{deal.dealHistoryID.deal.closedDay}}</i>
                     </td>
-                    <td>
+                    <td *ngIf="dealStatus=='success'">
                       <button *ngIf="lates[i] == false" class="btn btn-success" (click)="orderDeal(deal.dealHistoryID.deal.dealID)">
                         Order
                       </button>

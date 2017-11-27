@@ -80,7 +80,7 @@
                       <i class="fa fa-info-circle text-info" aria-hidden="true"
                          (click)="viewTenderDetail(tender.tenderID)"
                          data-toggle="tooltip" data-placement="top" title="View Detail"></i>
-                      <i *ngIf="tenderStatus=='active' || tenderStatus=='closed'" class="fa fa-times-circle text-danger"
+                      <i *ngIf="tenderStatus=='closed'" class="fa fa-times-circle text-danger"
                          aria-hidden="true" (click)="openCancelTender(tender.tenderID)"
                          data-toggle="tooltip" data-placement="top" title="Cancle this tender"></i>
 
@@ -140,7 +140,7 @@
 </div>
 
 
-<!-- Modal -->
+<!--Cancel Tender Modal -->
 <div class="modal fade" id="cancelTenderModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

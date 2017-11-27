@@ -84,20 +84,21 @@ export class ProductDetailComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-    });
-    if (this.user) {
-      let data = {
-        'UserID': this.user.userId,
-        'PostID': this.postId
-      };
-      this.postService.checkVotePost(this.constants.CHECKVOTEPOST, data).subscribe((response: any) => {
-        this.checkVote = response;
-      }, error => {
-        console.log(error);
-      });
-    }
+      if (this.user) {
+        let data = {
+          'UserID': this.user.userId,
+          'PostID': this.postId
+        };
+        this.postService.checkVotePost(this.constants.CHECKVOTEPOST, data).subscribe((response: any) => {
+          this.checkVote = response;
+        }, error => {
+          console.log(error);
+        });
+      }
 
-    this.getListReview();
+      this.getListReview();
+    });
+
 
   }
 
@@ -107,6 +108,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getListReview() {
+    for (let i = 0; i < this.starReviews.length; i++) {
+      this.starReviews.pop();
+    }
     let data1 = {
       'PostID': this.postId,
       'pageNumber': 1
@@ -150,7 +154,7 @@ export class ProductDetailComponent implements OnInit {
         console.log(response);
         document.getElementById('reviewButton').click();
         this.checkVote = 'true';
-        this.getListReview();
+        this.ngOnInit();
       });
     }
   }
