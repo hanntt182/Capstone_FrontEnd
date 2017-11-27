@@ -247,7 +247,7 @@ export class RegisterComponent implements OnInit {
     }
     this.loginService.registration(this.constants.REGISTRATION, formData).subscribe((data) => {
       this.toastr.success(data, 'Success!', {showCloseButton: true});
-      setTimeout(function () {
+      setTimeout( () => {
         this.router.navigate(['/home']);
       }, 1000);
     }, error => {
