@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TenderService} from "../../../services/tender.service";
 import {Constants} from './../../../constants';
 import {now} from "moment";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-tender-detail',
@@ -14,10 +15,6 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public tenderID;
   public tender;
   public starsCount: number = 3.456789;
-  public now;
-  public closedDay;
-  public distance;
-  public xInterval;
   public user;
   public buyerRateStar;
   public star1 = 1;
@@ -35,8 +32,10 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private tenderService: TenderService,
               private constants: Constants,
-              private router: Router) {
-
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -50,35 +49,6 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         'TenderID': this.tenderID
       };
       this.tenderService.viewTenderDetail(this.constants.VIEWTENDERDETAIL, data).subscribe((response: any) => {
-        this.closedDay = response.closedDay;
-        if (response.status.statusName == 'ACTIVE') {
-          this.xInterval = setInterval(() => {
-            this.now = Date.now();
-            this.distance = Date.parse(this.closedDay) - this.now;
-
-            let days = Math.floor(this.distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
-
-            // Output the result in an element with id='demo'
-            if (document.getElementById('countdown') != null) {
-              document.getElementById('countdown').innerHTML = days + 'd ' + hours + 'h '
-                + minutes + 'm ' + seconds + 's ';
-            }
-            if (document.getElementById('countdownSup') != null) {
-              document.getElementById('countdownSup').innerHTML = days + 'd ' + hours + 'h '
-                + minutes + 'm ' + seconds + 's ';
-            }
-            if (this.distance < 0) {
-              clearInterval(this.xInterval);
-              document.getElementById('countdown').innerHTML = 'FINISHED';
-            }
-          }, 1000);
-        }
-        if (response.status.statusName != 'ACTIVE') {
-          clearInterval(this.xInterval);
-        }
         this.tender = response;
         this.starsCount = response.buyer.rate;
         this.buyerRateStar = response.buyer.rate;
@@ -106,7 +76,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
 
 
   star(e) {
-    if(this.user.role=='SUPPLIER'){
+    if (this.user.role == 'SUPPLIER') {
       let data = {
         'TenderID': this.tenderID,
         'SupplierID': this.user.userId,
@@ -117,7 +87,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       }, error => {
         console.log(error);
       });
-    } else if(this.user.role =='BUYER'){
+    } else if (this.user.role == 'BUYER') {
       let data = {
         'TenderID': this.tenderID,
         'Star': e.target.title
@@ -166,13 +136,13 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       $('#chooseBidderModal').hide();
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
+      this.toastr.success('Choose winner successfully!', 'Success!', {showCloseButton: true});
     }, error => {
       console.log(error);
     });
   }
 
   ngOnDestroy() {
-    clearInterval(this.xInterval);
   }
 
 }

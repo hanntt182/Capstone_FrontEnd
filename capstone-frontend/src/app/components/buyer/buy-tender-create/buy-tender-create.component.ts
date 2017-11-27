@@ -165,7 +165,7 @@ export class BuyTenderCreateComponent implements OnInit, OnDestroy {
     this.tenderService.createTender(this.constants.CREATETENDER, formData).subscribe((res) => {
 
       this.toastr.success(res, 'Success!', {showCloseButton: true});
-      setTimeout(function () {
+      setTimeout(() => {
         this.router.navigate(['buyer/tender-list/' + 'active']);
       }, 1000);
 

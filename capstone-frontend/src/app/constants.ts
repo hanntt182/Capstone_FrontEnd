@@ -72,7 +72,6 @@ public SEARCHTENDERSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + th
 public CANCLETENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancleTender/";
 public SEARCHTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchTender/";
 public GETLISTSUPPLIERJOINTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListSupplierJoinTender/";
-public CHOOSEBIDDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/chooseBidder/";
 public RATEBUYERTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/rateBuyerTender/";
 public RATESUPPLIERTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/rateSupplierTender/";
 
@@ -85,6 +84,7 @@ public VIEWTENDERDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.S
 public CHECKBID = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkBid/";
 public BIDTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/bidTender/";
 public VIEWTENDERHISTORYDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/viewTenderHistoryDetail/";
+public CHOOSEBIDDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/chooseBidder/";
 
 
 

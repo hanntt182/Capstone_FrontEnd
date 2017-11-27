@@ -34,9 +34,6 @@ export class TenderService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
-  chooseBidder(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.json());
-  }
 
   rateBuyerTender(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
@@ -78,5 +75,9 @@ export class TenderService {
 
   get5NewTender(apiUrl): Observable<any> {
     return this._http.get(apiUrl).map((response: Response) => response.json());
+  }
+
+  chooseBidder(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 }

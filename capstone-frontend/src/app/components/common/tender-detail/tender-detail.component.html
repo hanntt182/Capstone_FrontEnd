@@ -468,7 +468,8 @@
           <div class="row col-sm-12">
             <label class="col-sm-5">Payment Type:</label>
             <label class="col-sm-7">
-              <div class="row col-sm-12" style="margin: 0px;padding: 0px" *ngFor="let paymentType of tender?.paymentTypes">
+              <div class="row col-sm-12" style="margin: 0px;padding: 0px"
+                   *ngFor="let paymentType of tender?.paymentTypes">
                 <label>- {{paymentType.paymentTypeName}}</label>
               </div>
             </label>
@@ -541,7 +542,7 @@
           </div>
         </div>
         <div style="margin-left: 40px;margin-right: 40px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
-          <div class="col-sm-12" >
+          <div class="col-sm-12">
             <label style="text-decoration-line: underline">
               <h4>Critical Dates</h4>
             </label>
@@ -557,8 +558,6 @@
         </div>
 
       </div>
-
-
 
 
     </div>
@@ -578,7 +577,7 @@
               <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" scope="col">
                 Voted
               </th>
-              <th *ngIf="tender?.status.statusName=='ACTIVE'" scope="col">Action</th>
+              <th *ngIf="tender?.status.statusName=='ACTIVE' || tender?.status.statusName=='CLOSED'" scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -590,20 +589,23 @@
                   <rating [(ngModel)]="tenderHistory.tenderHistoryID.supplier.rate" [readonly]="true"></rating>
                 </div>
               </td>
-              <td>{{tenderHistory.unitPrice}}</td>
-              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" style="padding: 5px">
+              <td>{{tenderHistory.bidPrice | currency:'VND':'code':'1.0-0':'vi'}}</td>
+              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+                  style="padding: 5px">
                 <div style="font-size: 12px">
                   <rating [(ngModel)]="tenderHistory.star" [readonly]="true"></rating>
                 </div>
               </td>
-              <th *ngIf="tender?.status.statusName=='ACTIVE'" style="padding: 5px">
+              <th *ngIf="tender?.status.statusName=='ACTIVE' || tender?.status.statusName=='CLOSED'" style="padding: 5px">
                 <div class="row col-sm-12 align-items-center" style="margin: 0px">
-                  <button type="button" class="btn btn-info" style="width: 30px;height: 30px;border-radius: 50%;margin-right: 5px;padding: 2px"
+                  <button type="button" class="btn btn-info"
+                          style="width: 30px;height: 30px;border-radius: 50%;margin-right: 5px;padding: 2px"
                           data-toggle="tooltip" data-placement="top" title="View Profile">
                     <i class="fa fa-info" aria-hidden="true"></i>
                   </button>
-                  <button type="button" class="btn btn-success" style="width: 30px;height: 30px;border-radius: 50%;padding: 2px"
-                          (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId)"
+                  <button *ngIf="tender?.status.statusName=='CLOSED'" type="button" class="btn btn-success"
+                          style="width: 30px;height: 30px;border-radius: 50%;padding: 2px"
+                          (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId); chooseBidderForm.reset()"
                           data-toggle="tooltip" data-placement="top" title="Choose Winner">
                     <i class="fa fa-check" aria-hidden="true"></i>
                   </button>
@@ -742,6 +744,17 @@
           <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Email:</div>
           <div class="col-sm-6" style="padding: 0px">{{tender?.buyer.companyEmail}}</div>
         </div>
+
+        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+             class="row justify-content-center col-sm-12" style="margin: 0px;padding: 10px">
+          <h5>* You can rate for this Bid Solicitor</h5>
+          <div>
+            <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer>0" [readonly]="true"></rating>
+            <rating [(ngModel)]="rateBuyer" *ngIf="rateBuyer==0 || rateBuyer==null"
+                    (mousedown)="star($event)"></rating>
+          </div>
+          <p class="text-danger">* You can only rate 1 time for this Tender.</p>
+        </div>
       </div>
       <div class="justify-content-center align-items-center text-center" style="margin: 30px">
         <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
@@ -750,3 +763,44 @@
   </div>
 
 </div>
+
+
+
+
+
+  <!--Choose Bidder-->
+<div class="modal fade" id="chooseBidderModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Choose Bidder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #chooseBidderForm="ngForm">
+          <div class="row text-center justify-content-center align-items-center">
+            <label class="col-sm-3">Reason: </label>
+            <input type="text" class="form-control col-sm-8" name="reasonChoose" #reasonChoose="ngModel" required
+                   ngModel
+                   placeholder="Enter reason to choose bidder">
+          </div>
+          <div *ngIf="reasonChoose.invalid && (reasonChoose.dirty || reasonChoose.touched)"
+               class="error row text-center justify-content-center">
+            <div *ngIf="reasonChoose.errors.required">
+              Reason is required.
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" [disabled]="!chooseBidderForm.valid"
+                (click)="chooseBidder(chooseBidderForm.value)">Choose Bidder
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="openChooseBidderModel" [hidden]="true" data-toggle="modal" data-target="#chooseBidderModal">Open Modal
+</button>
