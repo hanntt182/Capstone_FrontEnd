@@ -109,5 +109,8 @@ public GETRECOMMENDEDLISTPOSTBYPOST = this.HTTP + this.SERVER_IP + this.SERVER_P
 public GETTOP15POSTBYRATEDESC = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getTop15PostByRateDesc/";
 
 
+public STATISTICSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/statisticSupplier/";
+
+
 constructor(){}
 }

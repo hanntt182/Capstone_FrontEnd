@@ -183,7 +183,8 @@
 
     </div>
 
-    <div *ngIf="negotiation?.checked==true" class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
+    <div *ngIf="negotiation?.checked==true" class="col-sm-4"
+         style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
       <form #createNegoOrderConfirm="ngForm">
         <div class="card" style="margin: 20px;">
           <div class="card-body">
@@ -282,11 +283,7 @@
               <label class="col-sm-5" style="padding: 0px;">Shipping Address</label>
               <div *ngIf="negotiation?.address!=null" class="col-sm-7"
                    style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
-                <p id="editAddress">{{negotiation?.address.address}}</p>
-              </div>
-              <div *ngIf="negotiation?.address==null" class="col-sm-7"
-                   style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px; background-color: #e9ecef">
-
+                <p>{{negotiation?.address.address}}</p>
               </div>
             </div>
           </div>
@@ -336,7 +333,8 @@
           Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
         </div>
 
-        <div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
+        <div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end"
+             style="margin-right: 50px; margin-bottom: 20px">
           <button style="margin-right: 10px" type="button" class="btn btn-success"
                   [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
                   || negotiation?.address==null || negotiation?.ship==null
@@ -357,7 +355,8 @@
     </div>
 
 
-    <div *ngIf="negotiation?.checked==false" class="col-sm-4" style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
+    <div *ngIf="negotiation?.checked==false" class="col-sm-4"
+         style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
       <form #createNegoOrder="ngForm">
         <div class="card" style="margin: 20px;">
           <div class="card-body">
@@ -438,19 +437,20 @@
               <h5>Shipping</h5>
             </div>
 
-            <div *ngIf="negotiation?.postShip!=null" class="row col-sm-12" style="padding-top: 10px;">
+            <div *ngIf="negotiation?.ship!=null" class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
               <div class="col-sm-7" style="padding:5px; border: 1px solid #E6E7EB; font-size: 14px">
-                <p id="editShippingMethod">{{negotiation?.postShip.ship.shipName}}</p> <a href="" data-toggle="modal"
-                                                                                          data-target="#editShipMethod">
+                <p id="editShippingMethod">{{negotiation?.ship.shipName}}</p> <a href="" data-toggle="modal"
+                                                                                 data-target="#editShipMethod">
                 Edit</a>
               </div>
             </div>
 
-            <div *ngIf="negotiation?.postShip==null" class="row col-sm-12" style="padding-top: 10px;">
+            <div *ngIf="negotiation?.ship==null" class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5" style="padding: 0px;">Shipping Method</label>
-              <select class="col-sm-7 form-control" name="postShip" ngModel #postShip="ngModel" required>
-                <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID.ship.shipID}}">
+              <select class="col-sm-7 form-control" name="postShip" ngModel>
+                <option *ngFor="let postShip of negotiation?.post.postShips"
+                        value="{{postShip.postShipID.ship.shipID}}">
                   {{postShip.postShipID.ship.shipName}}
                 </option>
               </select>
@@ -465,10 +465,10 @@
               <div *ngIf="feeShip.invalid && (feeShip.dirty || feeShip.touched)"
                    class="error">
                 <div *ngIf="feeShip.errors.required">
-                  Offer Price is required and must be a number.
+                  Fee Ship is required and must be a number.
                 </div>
                 <div *ngIf="feeShip.errors?.min">
-                  Offer Price must be ≥ 0
+                  Fee Ship must be ≥ 0
                 </div>
               </div>
             </div>
@@ -628,7 +628,8 @@
         <div class="row text-right justify-content-end" style="margin-right: 50px; margin-bottom: 20px">
 
           <button style="margin-right: 10px" type="button" class="btn btn-success"
-                  [disabled]="!createNegoOrder.valid || (createNegoOrder.value.address=='' && negotiation?.address==null)"
+                  [disabled]="createNegoOrder.invalid || (createNegoOrder.value.address=='' && negotiation?.address==null) ||
+                  (createNegoOrder.value.postShip=='' && negotiation?.ship==null)"
                   (click)="updateNego(createNegoOrder.value)">
             <i class="fa fa-check" aria-hidden="true"></i>
             OK

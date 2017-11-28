@@ -16,10 +16,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Categories
           </a>
-          <div class="dropdown-menu dropdown-menu-left" style="cursor:default;padding: 0px">
+          <div class="dropdown-menu dropdown-menu-left" style="cursor:pointer;padding: 0px">
             <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" *ngFor="let catalog of catalogs"
                (click)="chooseCatalog(catalog.catalogId)">
               {{catalog.catalogName}}
@@ -47,11 +47,11 @@
       </form>
       <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
-          <a style="color: white" class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a style="color: white;cursor: pointer" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             <span class="hidden-xs">My Profile</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" style="cursor:default;padding: 0px">
+          <div class="dropdown-menu dropdown-menu-right" style="cursor:pointer;padding: 0px">
             <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
             <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
             <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-cog"></i> Change Password</a>
@@ -81,12 +81,18 @@
             </div>
 
             <div class="dropdown-divider" style="margin:0px"></div>
-            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" href="" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
           </div>
         </li>
       </ul>
       <ul *ngIf="!user" class="nav navbar-right pull-right col-sm-3">
-        <li class="nav-item dropdown">
+        <li class="nav-item">
+          <a style="color:white;cursor: pointer;" data-toggle="modal" data-target="#loginModal">
+            <i class="fa fa-fw fa-user"></i>Login
+          </a>
+          <a style="color: white; text-decoration: none;" routerLink="/register"><i class="fa fa-fw fa-cog"></i>Register</a>
+        </li>
+        <!--<li class="nav-item dropdown">
           <a style="color: white" class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             <span class="hidden-xs">My Profile</span>
@@ -96,7 +102,7 @@
               Login </a>
             <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" routerLink="/register"><i class="fa fa-fw fa-cog"></i> Register</a>
           </div>
-        </li>
+        </li>-->
       </ul>
     </div>
   </nav>

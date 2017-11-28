@@ -147,7 +147,8 @@
             </thead>
             <tbody>
             <tr>
-              <td scope="row">{{order?.post.supplier.bank}}</td>
+              <td *ngIf="order?.post!=null" scope="row">{{order?.post.supplier.bank}}</td>
+              <td *ngIf="order?.deal!=null" scope="row">{{order?.deal.supplier.bank}}</td>
               <td>{{order?.totalPrice}}</td>
               <td *ngIf="order?.paid==true"><b class="text-success">PAID</b></td>
               <td *ngIf="order?.paid==false"><b class="text-danger">UNPAID</b></td>
@@ -175,8 +176,8 @@
     <!--For Supplier-->
     <div *ngIf="order?.status.statusName=='WAITING' && user.role=='SUPPLIER'"
          style=" margin-top: 20px; margin-bottom: 20px" class="row text-center justify-content-center">
-      <button type="button" class="btn btn-success" [disabled]="!confirmOrderForm.valid"
-              (click)="confirmOrder(confirmOrderForm.value)" style="margin-right:10px">
+      <button type="button" class="btn btn-success"
+              (click)="confirmOrder()" style="margin-right:10px">
         <i class="fa fa-check" aria-hidden="true"></i>
         Confirm Order
       </button>

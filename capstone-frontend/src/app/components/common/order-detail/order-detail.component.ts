@@ -42,18 +42,28 @@ export class OrderDetailComponent implements OnInit {
     };
     this.orderService.viewOrderDetail(this.constants.VIEWORDERDETAIL, data).subscribe((response: any) => {
       this.order = response;
-      for (let i = 0; i < response.post.postShips.length; i++) {
-        if (response.post.postShips[i].postShipID.ship.shipID == response.ship.shipID) {
-          this.shippingMinTime = response.post.postShips[i].shippingMinTime;
-          this.shippingMaxTime = response.post.postShips[i].shippingMaxTime;
+      if (this.order.post != null) {
+        for (let i = 0; i < response.post.postShips.length; i++) {
+          if (response.post.postShips[i].postShipID.ship.shipID == response.ship.shipID) {
+            this.shippingMinTime = response.post.postShips[i].shippingMinTime;
+            this.shippingMaxTime = response.post.postShips[i].shippingMaxTime;
+          }
+        }
+      } else if (this.order.deal != null) {
+        for (let i = 0; i < response.deal.dealShips.length; i++) {
+          if (response.deal.dealShips[i].dealShipID.ship.shipID == response.ship.shipID) {
+            this.shippingMinTime = response.deal.dealShips[i].shippingMinTime;
+            this.shippingMaxTime = response.deal.dealShips[i].shippingMaxTime;
+          }
         }
       }
+
     }, error => {
       console.log(error);
     });
   }
 
-  confirmOrder(confirmOrderForm) {
+  confirmOrder() {
     let data = {
       'OrderID': this.orderID
     };

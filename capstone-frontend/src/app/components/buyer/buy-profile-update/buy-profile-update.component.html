@@ -87,7 +87,7 @@
           <div class="row" style="margin-top: 30px; margin-left: 35px">
             <div class="col-md-2 offset-2" style="margin-top: 5px">
               <label>
-                City:
+                Ward:
                 <span class="star">*</span>
               </label>
             </div>
@@ -147,11 +147,14 @@
             </div>
             <div class="col-md-5">
               <input required type="number" class="form-control" name="EstablishedYear" ngModel
-                     #EstablishedYear="ngModel">
+                     #EstablishedYear="ngModel" [max]="2017">
               <div *ngIf="EstablishedYear.invalid && (EstablishedYear.dirty || EstablishedYear.touched)"
                    class="error">
                 <div *ngIf="EstablishedYear.errors.required">
                   Established Year is required and must be a number.
+                </div>
+                <div *ngIf="EstablishedYear.errors?.max">
+                  Established Year must be ≤ 2017
                 </div>
               </div>
             </div>

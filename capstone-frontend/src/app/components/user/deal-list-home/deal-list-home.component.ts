@@ -37,7 +37,6 @@ export class DealListHomeComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.deals.length; i++) {
         this.closedDay.push(this.deals[i].closedDay);
       }
-      console.log(this.closedDay);
 
       this.xInterval = setInterval(() => {
         for (let i = 0; i < this.deals.length; i++) {

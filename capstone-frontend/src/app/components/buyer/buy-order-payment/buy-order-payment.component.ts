@@ -114,6 +114,10 @@ export class BuyOrderPaymentComponent implements OnInit {
     });
   }
 
+  backToPrevious() {
+    history.back();
+  }
+
 
   paymentAction() {
     let data = {

@@ -56,11 +56,11 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
         this.buyerRateStar = response.buyer.rate;
         if (this.tender.winner != null) {
           this.winnerRateStar = response.winner.rate;
+          this.winnerTotal = response.winner.star1 + response.winner.star2 + response.winner.star3 + response.winner.star4
+            + response.winner.star5;
         }
         this.rateWinner = response.star;
         this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
-        this.winnerTotal = response.winner.star1 + response.winner.star2 + response.winner.star3 + response.winner.star4
-          + response.winner.star5;
       }, error => {
         console.log(error);
       });
@@ -141,6 +141,9 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     };
     this.tenderService.withdrawTender(this.constants.WITHDRAWTENDER, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout(() => {
+        this.router.navigate(['/supplier/tender-list/active']);
+      }, 1000);
     }, error => {
       this.toastr.error(error._body, 'Error!', {showCloseButton: true});
     });

@@ -157,7 +157,7 @@
           <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 20px">
             <div>
               <button style="margin-right: 50px" class="btn btn-success" [disabled]="!paymentForm.valid" (click)="paymentAction()">Submit</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+              <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
             </div>
           </div>
         </form>
@@ -167,9 +167,9 @@
 </div>
 
 
-<!-- Login Modal -->
+<!-- Payment Modal -->
 <div class="modal fade" id="showKeyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -36,16 +36,16 @@
               <div class="row col-sm-12 justify-content-center text-center" style="margin:0px; padding:20px">
                 <h1 class="text-info" id="discountTime">00d 00h 00m 00s</h1>
               </div>
-              <div *ngIf="user.role != 'BUYER'" class="row col-sm-12 justify-content-center"
+              <div *ngIf="user==null || user.role != 'BUYER'" class="row col-sm-12 justify-content-center"
                    style="margin:0px; margin-bottom: 10px">
                 <label class="text-danger">This function is supported for BUYER only.</label><br>
                 <label class="text-danger">Register as BUYER to join Group-Buying Deal.</label>
               </div>
-              <div *ngIf="user.role == 'BUYER' && checkDeal==false" class="row col-sm-12 justify-content-center"
+              <div *ngIf="user!=null && user.role == 'BUYER' && checkDeal==false" class="row col-sm-12 justify-content-center"
                    style="margin:0px; margin-bottom: 10px">
                 <button type="button" class="btn btn-warning" (click)="joinDeal()">Join Now</button>
               </div>
-              <div *ngIf="user.role == 'BUYER' && checkDeal==true" class="row col-sm-12 justify-content-center"
+              <div *ngIf="user!=null && user.role == 'BUYER' && checkDeal==true" class="row col-sm-12 justify-content-center"
                    style="margin:0px; margin-bottom: 10px">
                 <label class="text-danger">* You've joined this Group-Buying Deal</label><br>
               </div>

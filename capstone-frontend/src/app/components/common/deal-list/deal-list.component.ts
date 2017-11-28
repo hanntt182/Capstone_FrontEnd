@@ -80,7 +80,6 @@ export class DealListComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.deals.length; i++) {
           this.finishedDate.push(this.deals[i].finishedDay);
         }
-        console.log(this.deals);
       }, error => {
         console.log(error);
       });

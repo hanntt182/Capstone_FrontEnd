@@ -1,35 +1,59 @@
 <div class="container" style="margin-top: 30px">
   <div class="row justify-content-around col-sm-12" style="margin: 0px; padding: 20px">
-    <p-chart type="pie" [data]="data" height="300"></p-chart>
-    <p-chart type="bar" [data]="data1" height="300" width="500"></p-chart>
+    <p-chart *ngIf="labelOfPie.length>0" type="pie" [data]="data" height="300"></p-chart>
+    <p-chart *ngIf="labelOfBar.length>0" type="bar" [data]="data1" height="300" width="600"></p-chart>
   </div>
 
 
-  <div class="row col-sm-12 justify-content-around" style="margin: 0px; padding: 20px">
+  <div class="row col-sm-12" style="margin: 0px; padding: 20px">
 
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card border-secondary mb-3" style="max-width: 400px; margin-right: 50px; margin-left: 50px">
+      <div class="card-header bg-secondary text-white"><b>All Order: </b></div>
+      <div class="card-body text-secondary">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <td scope="row">Waiting:  order(s)</td>
+          </tr>
+          <tr>
+            <td scope="row">Paying:  order(s)</td>
+          </tr>
+          <tr>
+            <td scope="row">Shipping:  order(s)</td>
+          </tr>
+          <tr>
+            <td scope="row">Succeed:  order(s)</td>
+          </tr>
+          <tr>
+            <td scope="row">Finished:  order(s)</td>
+          </tr>
+          <tr>
+            <td scope="row">Canceled:  order(s)</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card border-secondary mb-3" style="max-width: 400px; margin-right: 50px;">
+      <div class="card-header bg-secondary text-white"><b>Revenue</b></div>
+      <div class="card-body text-secondary">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <td scope="row">Today:  VND</td>
+          </tr>
+          <tr>
+            <td scope="row">This week:  VND</td>
+          </tr>
+          <tr>
+            <td scope="row">This month:  VND</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
   </div>
 
 

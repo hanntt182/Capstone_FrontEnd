@@ -7,29 +7,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="product" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cubes" aria-hidden="true"></i>
             Product
           </a>
-          <div class="dropdown-menu" aria-labelledby="product" style="cursor:default;padding: 0px">
-            <a class="dropdown-item" routerLink="/supplier/post-list">All Products</a>
-            <a class="dropdown-item" routerLink="/supplier/create-post1">Display a new product</a>
+          <div class="dropdown-menu" aria-labelledby="product" style="cursor:pointer;padding: 0px">
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" routerLink="/supplier/post-list">All Posts</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" routerLink="/supplier/create-post1">Create New Post</a>
           </div>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="/supplier/order-list/waiting">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/supplier/order-list/waiting">
             <i class="fa fa-file-text-o" aria-hidden="true"></i>
             Order
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" style="cursor: pointer"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cubes" aria-hidden="true"></i>
             Negotiation
           </a>
           <div class="dropdown-menu" aria-labelledby="product" style="cursor:default;padding: 0px">
-            <a class="dropdown-item" (click)="gotoNegoDetail('negotiating')">Negotiating</a>
-            <a class="dropdown-item" (click)="gotoNegoDetail('finished')">Finished</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" (click)="gotoNegoDetail('negotiating')">Negotiating</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" (click)="gotoNegoDetail('finished')">Finished</a>
           </div>
         </li>
         <li class="nav-item">
@@ -39,32 +39,31 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-users" aria-hidden="true"></i>
             Group Buying
           </a>
-          <div class="dropdown-menu" aria-labelledby="product" style="cursor:default;padding: 0px">
-            <a class="dropdown-item" routerLink="/supplier/deal-list/ongoing">All Group-Buying</a>
-            <a class="dropdown-item" routerLink="/supplier/create-deal">Create New Group-Buying</a>
+          <div class="dropdown-menu" aria-labelledby="product" style="cursor:pointer;padding: 0px">
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" routerLink="/supplier/deal-list/ongoing">All Group-Buyings</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" routerLink="/supplier/create-deal">Create New Group-Buying</a>
           </div>
         </li>
 
 
       </ul>
-      <ul class="nav navbar-right pull-right col-sm-3">
+      <ul *ngIf="user" class="nav navbar-right pull-right col-sm-3">
         <li class="nav-item dropdown">
-          <a style="color: white" class="nav-link dropdown-toggle" href="#" id="profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <b>
+          <a style="color: white; cursor: pointer" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user-circle" aria-hidden="true"></i>
               <span class="hidden-xs">My Profile</span>
-            </b>
           </a>
-          <div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="profile" style="cursor:default;padding: 0px">
-            <a class="dropdown-item" href=""><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
-            <a class="dropdown-item" href=""><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
-            <a class="dropdown-item" href=""><i class="fa fa-fw fa-cog"></i> Change Password</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/home"><i class="fa fa-info-circle" aria-hidden="true"></i> Home</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profile" style="cursor:pointer;padding: 0px">
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-user"></i> Hello, {{user.username}}</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-address-card-o" aria-hidden="true"></i> Edit Profile</a>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;"><i class="fa fa-fw fa-cog"></i> Change Password</a>
+            <div class="dropdown-divider" style="margin: 0px"></div>
+            <a class="dropdown-item" style="padding-top: 10px;padding-bottom: 10px;" routerLink="/home"><i class="fa fa-info-circle" aria-hidden="true"></i> Home</a>
+            <a style="padding-top: 10px;padding-bottom: 10px;" class="dropdown-item" (click)="logout()"><i class="fa fa-fw fa-power-off"></i> Logout</a>
           </div>
         </li>
       </ul>

@@ -64,8 +64,9 @@
                     <thead style="background-color: #2f96b4">
                     <tr>
                       <th scope="col" style="width: 400px">Product</th>
-                      <th scope="col" style="width: 250px"><div class="col">Amount</div></th>
+                      <th scope="col" style="width: 300px"><div class="col">Amount</div></th>
                       <th scope="col" style="width: 200px">Status</th>
+                      <th scope="col" style="width: 150px">Order Type</th>
                     </tr>
                     </thead>
                   </table>
@@ -76,8 +77,9 @@
                     <thead style="background-color: #e9ecef">
                     <tr>
                       <th scope="col" style="width: 400px">Order No. {{order.orderID}}</th>
-                      <th scope="col" style="width: 250px"></th>
-                      <th scope="col" style="width: 200px" class="text-right"><i><small>Created Day: {{order.createdDay}}   </small></i></th>
+                      <th scope="col" style="width: 300px"></th>
+                      <th scope="col" style="width: 200px" class="text-right"><i><small>Created Day: {{order.createdDay}}</small></i></th>
+                      <th scope="col" style="width: 150px"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -92,21 +94,22 @@
                         <small>{{order.deal.product.productName}}</small><br>
                         <img src="{{order.deal.dealImage}}" style="max-width: 100px;max-height: 100px">
                       </td>
-                      <td style="width: 250px">
+                      <td style="width: 300px">
                         <div class="row">
-                          <div class="col-sm-7"><label> Product Amount </label></div>
-                          <div class="col-sm-5"><label>{{order.productPrice}}</label></div>
+                          <div class="col-sm-6"><label> Product Amount </label></div>
+                          <div class="col-sm-6" style="padding: 0px"><label>{{order.productPrice}} VND</label></div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-7"><label> Shipping Fee </label></div>
-                          <div class="col-sm-5"><label>{{order.shipFee}}</label></div>
+                          <div class="col-sm-6"><label> Shipping Fee </label></div>
+                          <div class="col-sm-6" style="padding: 0px"><label>{{order.shipFee}} VND</label></div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-7"><label> Order Amount </label></div>
-                          <div class="col-sm-5"><label style="color: orangered"> {{order.totalPrice}}</label></div>
+                          <div class="col-sm-6"><label> Order Amount </label></div>
+                          <div class="col-sm-6" style="padding: 0px"><label style="color: orangered"> {{order.totalPrice}} VND</label></div>
                         </div>
                       </td>
                       <td style="width: 200px">{{order.status.statusName}}</td>
+                      <td style="width: 150px">{{order.orderType.typeName}}</td>
                     </tr>
                     </tbody>
                   </table>

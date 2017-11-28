@@ -55,26 +55,21 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.negoID = params['negoId'];
+      this.negoStatus = params['negoStatus'];
+      this.searchNego('');
       let data = {
         'NegotiationID': this.negoID
       };
       this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
         this.negotiation = response;
-        console.log(response);
         this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
       });
       this.xInterval = setInterval(() => {
         this.getMessage(this.negoID);
-      }, 1000);
+      }, 2000);
     });
 
     this.addresses = this.user.address;
-
-    this.activatedRoute.params.subscribe((params: Params) => {
-      this.negoStatus = params['negoStatus'];
-      this.searchNego('');
-    });
-
 
     this.commonService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
       this.cities = response.LtsItem;
@@ -187,9 +182,9 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       this.address = document.getElementById('editAddress').innerText;
     }
 
-    if (this.negotiation.postShip == null) {
+    if (this.negotiation.ship == null) {
       this.shipID = createNegoOrder.postShip;
-    } else if (this.negotiation.postShip == null) {
+    } else if (this.negotiation.ship != null) {
       for (let i = 0; i < this.negotiation.post.postShips.length; i++) {
         if (this.negotiation.post.postShips[i].postShipID.ship.shipName == document.getElementById('editShippingMethod').innerHTML) {
           this.shipID = this.negotiation.post.postShips[i].postShipID.ship.shipID;
@@ -207,7 +202,6 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       'Remark': createNegoOrder.remark,
       'Address': this.address
     };
-    console.log(data);
     this.negoService.updateNegotiationBuyer(this.constants.UPDATENEGOTIATIONBUYER, data).subscribe((response: any) => {
       this.negotiation = response;
       alert('Update success');
@@ -218,7 +212,6 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
 
   saveAddress(editAddressForm) {
-    console.log(editAddressForm);
     if (editAddressForm.editAddress == 'oldAddress') {
       let address = editAddressForm.oldAddressEdit;
       document.getElementById('editAddress').innerHTML = address;
@@ -233,7 +226,6 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   }
 
   changePostShip(editPostShipForm) {
-    console.log(editPostShipForm);
     document.getElementById('editShippingMethod').innerHTML = editPostShipForm.editPostShip;
     $('#editShipMethod').hide();
     $('body').removeClass('modal-open');
