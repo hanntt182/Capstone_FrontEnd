@@ -1,15 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
 import {OrderService} from '../../../services/order.service';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-sup-nego-detail',
   templateUrl: './sup-nego-detail.component.html',
   styleUrls: ['./sup-nego-detail.component.css']
 })
-export class SupNegoDetailComponent implements OnInit, OnDestroy {
+export class SupNegoDetailComponent implements OnInit, OnDestroy  {
 
   public negoID;
   public negoStatus;
@@ -25,7 +26,10 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
               private negoService: NegoService,
               private constants: Constants,
               private orderService: OrderService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -108,7 +112,8 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
       'NegotiationID': this.negoID
     };
     this.negoService.confirmNegotiation(this.constants.CONFIRMNEGOTIATION, data).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      this.ngOnInit();
     }, error => {
       console.log(error);
     });

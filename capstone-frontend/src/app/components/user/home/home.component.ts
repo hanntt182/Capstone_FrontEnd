@@ -116,5 +116,35 @@ export class HomeComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  viewTenderDetail(tenderID) {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.checkBid = null;
+    console.log(this.user);
+    if (this.user != null) {
+      let data1 = {
+        'SupplierID': this.user.userId,
+        'TenderID': tenderID
+      };
+      this.tenderService.checkBid(this.constants.CHECKBID, data1).subscribe((response: any) => {
+        this.checkBid = response;
+        if (this.checkBid) {
+          this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data1).subscribe((res: any) => {
+            this.myTenderInfo = res;
+          });
+        }
+      });
+    }
+
+    let data = {
+      'TenderID': tenderID
+    };
+    this.tenderService.viewTenderDetail(this.constants.VIEWTENDERDETAIL, data).subscribe((response: any) => {
+      this.tender = response;
+      this.buyerRateStar = response.buyer.rate;
+      this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
+      document.getElementById('tenderDetailButton').click();
+    });
+  }
+
 
 }

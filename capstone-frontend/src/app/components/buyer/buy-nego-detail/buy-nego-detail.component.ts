@@ -37,6 +37,8 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   public address;
   public shipID;
   public xInterval;
+  public setDisabledNew = false;
+  public setDisabledOld = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -82,6 +84,20 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
     clearInterval(this.xInterval);
   }
 
+  checkAddress(e, createOrderForm) {
+    if (e.target.value == 'newAddress') {
+      this.setDisabledOld = true;
+      this.setDisabledNew = false;
+      createOrderForm.controls['oldAddressName'].setValue('');
+    } else if (e.target.value == 'oldAddress') {
+      this.setDisabledOld = false;
+      this.setDisabledNew = true;
+      createOrderForm.controls['newAddressCity'].setValue('');
+      createOrderForm.controls['newAddressDistrict'].setValue('');
+      createOrderForm.controls['newAddressWard'].setValue('');
+      createOrderForm.controls['newAddressValue'].setValue('');
+    }
+  }
 
   getMessage(negoID) {
     let data = {

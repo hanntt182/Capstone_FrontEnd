@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {NegoService} from "../../../services/nego.service";
 import {Constants} from './../../../constants';
 import {PostService} from "../../../services/post.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-buy-nego-create',
@@ -21,7 +22,10 @@ export class BuyNegoCreateComponent implements OnInit {
               private negoService: NegoService,
               private constants: Constants,
               private router: Router,
-              private postService: PostService) {
+              private postService: PostService,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -43,16 +47,20 @@ export class BuyNegoCreateComponent implements OnInit {
   }
 
   createNego(createNegoForm) {
-    let data = {
-      'BuyerID': this.user.userId,
-      'PostID': this.postID,
-      'Message': createNegoForm.message,
-      'Quantity': createNegoForm.quantity
-    };
-    this.negoService.createNegotiation(this.constants.CREATENEGOTIATION, data).subscribe((response: any) => {
-      this.negoID = response;
-      this.router.navigate(['/buyer/negotiation/' + 'negotiating/' + this.negoID]);
-    });
+    if (this.user == null || this.user.role != 'BUYER') {
+      this.toastr.error('You must login with Buyer role to do this function!', 'Fail!', {showCloseButton: true});
+    } else if (this.user.role == 'BUYER') {
+      let data = {
+        'BuyerID': this.user.userId,
+        'PostID': this.postID,
+        'Message': createNegoForm.message,
+        'Quantity': createNegoForm.quantity
+      };
+      this.negoService.createNegotiation(this.constants.CREATENEGOTIATION, data).subscribe((response: any) => {
+        this.negoID = response;
+        this.router.navigate(['/buyer/negotiation/' + 'negotiating/' + this.negoID]);
+      });
+    }
   }
 
   countRemain(e) {

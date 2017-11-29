@@ -108,7 +108,7 @@
   </nav>
 </div>
 
-<div class="container-fluid" style="min-height:800px; padding: 0px">
+<div class="container-fluid" style="min-height:600px; padding: 0px">
   <router-outlet></router-outlet>
 </div>
 
@@ -172,7 +172,7 @@
           </div>
         </div>
         <div class="modal-footer align-self-center">
-          <button type="submit" class="btn btn-primary" (click)="login(loginForm.value)">Login</button>
+          <button type="submit" class="btn btn-primary" (click)="login(loginForm.value); loginForm.reset()">Login</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </form>
