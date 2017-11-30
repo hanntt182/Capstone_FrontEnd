@@ -65,9 +65,7 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
       this.stompClient.connect({}, () => {
         that.stompClient.subscribe('/chat/' + this.negoID, (message) => {
           if (message.body) {
-            this.messages.push(message.body);
-            console.log(message.body);
-            console.log(message);
+            this.messages.push(JSON.parse(message.body));
           }
         });
       });
@@ -117,16 +115,12 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
 
   sendMessage(sendMessageForm) {
     let data = {
-      'NegotiationID': this.negoID,
-      'SenderID': this.user.userId,
-      'Message': sendMessageForm.message
+      NegotiationID: this.negoID,
+      SenderID: String(this.user.userId),
+      Message: sendMessageForm.message
     };
-    this.stompClient.send('/app/send/message', {}, data);
-    // this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
-    //   this.messages = response;
-    // }, error => {
-    //   console.log(error);
-    // });
+    this.stompClient.send('/app/send/message', {}, JSON.stringify(data));
+    document.getElementById('listMessage').scrollTop;
   }
 
   confirmOrder() {

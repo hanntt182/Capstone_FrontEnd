@@ -73,9 +73,7 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       this.stompClient.connect({}, () => {
         that.stompClient.subscribe('/chat/' + this.negoID, (message) => {
           if (message.body) {
-            this.messages.push(message.body);
-            console.log(message.body);
-            console.log(message);
+            this.messages.push(JSON.parse(message.body));
           }
         });
       });
@@ -183,11 +181,11 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
   sendMessage(sendMessageForm) {
     let data = {
-      'NegotiationID': this.negoID,
-      'SenderID': this.user.userId,
-      'Message': sendMessageForm.message
+      NegotiationID: this.negoID,
+      SenderID: String(this.user.userId),
+      Message: sendMessageForm.message
     };
-    this.stompClient.send('/app/send/message', {}, data);
+    this.stompClient.send('/app/send/message', {}, JSON.stringify(data));
     // this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
     //   console.log('Send this message:' + response);
     // }, error => {

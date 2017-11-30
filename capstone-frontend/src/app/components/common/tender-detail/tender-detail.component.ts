@@ -115,6 +115,11 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
 
   }
 
+  viewCompanyInformation(userID){
+
+    document.getElementById('openCompanyInformationModal').click();
+  }
+
   openCancelTender(tenderID) {
     this.tenderID = tenderID;
     document.getElementById('opencancelTenderModal').click();

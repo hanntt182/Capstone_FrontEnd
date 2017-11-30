@@ -104,8 +104,8 @@
 
       </div>
 
-      <div class="row col-sm-12 align-items-start"
-           style="padding: 10px; margin: 0px; overflow: auto;height: 400px">
+      <div id="listMessage" class="row col-sm-12 align-items-start"
+           style="padding: 10px; margin: 0px; overflow: scroll;height: 400px" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <div *ngFor="let message of messages" class="row col-sm-12" style="padding: 0px; margin: 0px;">
 
           <div *ngIf="message.sender.userId == user.userId"
