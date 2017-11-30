@@ -20,7 +20,7 @@ export class NegoService {
   }
 
   sendMessage(apiUrl, data): Observable<any> {
-    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
   searchListNegotiationBuyer(apiUrl, data): Observable<any> {

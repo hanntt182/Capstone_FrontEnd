@@ -8,27 +8,27 @@
   <div class="row col-sm-12" style="margin: 0px; padding: 20px">
 
     <div class="card border-secondary mb-3" style="max-width: 400px; margin-right: 50px; margin-left: 50px">
-      <div class="card-header bg-secondary text-white"><b>All Order: </b></div>
+      <div class="card-header bg-secondary text-white"><b>All Order: {{dataOrder[0]?.number_order}} order(s)</b></div>
       <div class="card-body text-secondary">
         <table class="table table-hover">
           <tbody>
           <tr>
-            <td scope="row">Waiting:  order(s)</td>
+            <td scope="row">Waiting: {{dataOrder[1]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Paying:  order(s)</td>
+            <td scope="row">Paying: {{dataOrder[2]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Shipping:  order(s)</td>
+            <td scope="row">Shipping: {{dataOrder[3]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Succeed:  order(s)</td>
+            <td scope="row">Succeed: {{dataOrder[4]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Finished:  order(s)</td>
+            <td scope="row">Finished: {{dataOrder[5]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Canceled:  order(s)</td>
+            <td scope="row">Canceled: {{dataOrder[6]?.number_order}} order(s)</td>
           </tr>
           </tbody>
         </table>

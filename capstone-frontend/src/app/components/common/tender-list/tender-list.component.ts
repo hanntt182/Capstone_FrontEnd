@@ -14,6 +14,7 @@ export class TenderListComponent implements OnInit {
   public tenderStatus;
   public tenders;
   public tenderID;
+  public tenderStatusTabs = ['active', 'closed', 'finished', 'cancel'];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,

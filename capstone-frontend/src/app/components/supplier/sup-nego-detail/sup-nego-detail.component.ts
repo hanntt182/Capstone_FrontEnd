@@ -3,14 +3,17 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
 import {OrderService} from '../../../services/order.service';
-import {ToastsManager} from "ng2-toastr";
+import {ToastsManager} from 'ng2-toastr';
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
+
 
 @Component({
   selector: 'app-sup-nego-detail',
   templateUrl: './sup-nego-detail.component.html',
   styleUrls: ['./sup-nego-detail.component.css']
 })
-export class SupNegoDetailComponent implements OnInit, OnDestroy  {
+export class SupNegoDetailComponent implements OnInit, OnDestroy {
 
   public negoID;
   public negoStatus;
@@ -22,6 +25,10 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy  {
   public totalAmount;
   public xInterval;
 
+  private serverUrl = 'http://localhost:8080/SWP49X/socket';
+  private title = 'WebSockets chat';
+  private stompClient;
+
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
               private constants: Constants,
@@ -30,7 +37,9 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy  {
               private toastr: ToastsManager,
               private vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
+
   }
+
 
   ngOnInit() {
 
@@ -48,9 +57,21 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy  {
         this.productAmount = response.quantity * response.offerPrice;
         this.totalAmount = this.productAmount + response.shipPrice;
       });
-      this.xInterval = setInterval(() => {
-        this.getMessage(this.negoID);
-      }, 1000);
+      this.getMessage(this.negoID);
+
+      let ws = new SockJS(this.serverUrl);
+      this.stompClient = Stomp.over(ws);
+      let that = this;
+      this.stompClient.connect({}, () => {
+        that.stompClient.subscribe('/chat/' + this.negoID, (message) => {
+          if (message.body) {
+            this.messages.push(message.body);
+            console.log(message.body);
+            console.log(message);
+          }
+        });
+      });
+
     });
 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -61,7 +82,7 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-    clearInterval(this.xInterval);
+    /*clearInterval(this.xInterval);*/
   }
 
   getMessage(negoID) {
@@ -100,11 +121,12 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy  {
       'SenderID': this.user.userId,
       'Message': sendMessageForm.message
     };
-    this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
-      this.messages = response;
-    }, error => {
-      console.log(error);
-    });
+    this.stompClient.send('/app/send/message', {}, data);
+    // this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
+    //   this.messages = response;
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   confirmOrder() {

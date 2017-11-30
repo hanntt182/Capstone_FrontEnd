@@ -17,6 +17,7 @@ export class DealListComponent implements OnInit, OnDestroy {
   public xInterval;
   public finishedDate = [];
   public lates = [];
+  public dealStatusTabs = ['ongoing', 'expried', 'success'];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,

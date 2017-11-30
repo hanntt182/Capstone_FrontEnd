@@ -7,31 +7,11 @@
                style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a *ngIf="dealStatus=='ongoing'" class="nav-link active" data-toggle="tab"
-                   href="#ongoing" role="tab"
-                   aria-controls="ongoing" aria-selected="true" (click)="changeStatus('ongoing')"> Ongoing </a>
-                <a *ngIf="dealStatus!='ongoing'" class="nav-link" data-toggle="tab" href="#ongoing"
-                   role="tab"
-                   aria-controls="ongoing" aria-selected="true" (click)="changeStatus('ongoing')"> Ongoing </a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="dealStatus=='expried'" class="nav-link active" data-toggle="tab"
-                   href="#expried" role="tab"
-                   aria-controls="expried" aria-selected="true" (click)="changeStatus('expried')"> Expried </a>
-                <a *ngIf="dealStatus!='expried'" class="nav-link" data-toggle="tab" href="#expried"
-                   role="tab"
-                   aria-controls="expried" aria-selected="true" (click)="changeStatus('expried')"> Expried </a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="dealStatus=='success'" class="nav-link active" data-toggle="tab"
-                   href="#success" role="tab"
-                   aria-controls="success" aria-selected="false" (click)="changeStatus('success')">
-                  Success </a>
-                <a *ngIf="dealStatus!='success'" class="nav-link" data-toggle="tab"
-                   href="#success" role="tab"
-                   aria-controls="success" aria-selected="false" (click)="changeStatus('success')">
-                  Success </a>
+              <li class="nav-item" *ngFor="let dealStatusTab of dealStatusTabs">
+                <a *ngIf="dealStatus==dealStatusTab" class="nav-link active" (click)="changeStatus(dealStatusTab)"
+                   style="cursor: default"> {{dealStatusTab | titlecase}} </a>
+                <a *ngIf="dealStatus!=dealStatusTab" class="nav-link" (click)="changeStatus(dealStatusTab)"
+                   style="cursor: default"> {{dealStatusTab | titlecase}} </a>
               </li>
             </ul>
 

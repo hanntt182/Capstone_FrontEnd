@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Constants} from './../../../constants';
 import {CatalogService} from "../../../services/catalog.service";
 import {PostService} from "../../../services/post.service";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {DealService} from "../../../services/deal.service";
+import {ToastsManager} from "ng2-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sup-deal-create',
@@ -35,7 +37,11 @@ export class SupDealCreateComponent implements OnInit {
               private _fb: FormBuilder,
               private catalogService: CatalogService,
               private postService: PostService,
-              private dealService: DealService) {
+              private dealService: DealService,
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -156,9 +162,13 @@ export class SupDealCreateComponent implements OnInit {
     }
     formData.append('Unit', createDealForm.unit);
     this.dealService.createDeal(this.constants.CREATEDEAL, formData).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout(() => {
+        this.router.navigate(['/supplier/deal-list/ongoing']);
+      }, 1000);
     }, error => {
       console.log(error);
+      this.toastr.error(error._body, 'Error!', {showCloseButton: true});
     });
   }
 

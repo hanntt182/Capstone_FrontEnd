@@ -5,7 +5,9 @@ import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
 import {OrderService} from '../../../services/order.service';
 import * as $ from 'jquery';
-import {CommonService} from "../../../services/common.service";
+import {CommonService} from '../../../services/common.service';
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-buy-nego-detail',
@@ -14,11 +16,7 @@ import {CommonService} from "../../../services/common.service";
 })
 export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'dd.mm.yyyy',
-  };
-  public model: any = {date: {year: 2018, month: 10, day: 9}};
+
   public negoID;
   public negoStatus;
   public negotiation;
@@ -36,9 +34,11 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   public ward;
   public address;
   public shipID;
-  public xInterval;
   public setDisabledNew = false;
   public setDisabledOld = false;
+
+  private serverUrl = 'http://localhost:8080/SWP49X/socket';
+  private stompClient;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -48,9 +48,8 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
               private commonService: CommonService) {
   }
 
+
   ngOnInit() {
-
-
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -66,9 +65,20 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
         this.negotiation = response;
         this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
       });
-      this.xInterval = setInterval(() => {
-        this.getMessage(this.negoID);
-      }, 2000);
+      this.getMessage(this.negoID);
+
+      let ws = new SockJS(this.serverUrl);
+      this.stompClient = Stomp.over(ws);
+      let that = this;
+      this.stompClient.connect({}, () => {
+        that.stompClient.subscribe('/chat/' + this.negoID, (message) => {
+          if (message.body) {
+            this.messages.push(message.body);
+            console.log(message.body);
+            console.log(message);
+          }
+        });
+      });
     });
 
     this.addresses = this.user.address;
@@ -81,7 +91,6 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(this.xInterval);
   }
 
   checkAddress(e, createOrderForm) {
@@ -178,11 +187,12 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       'SenderID': this.user.userId,
       'Message': sendMessageForm.message
     };
-    this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
-      this.messages = response;
-    }, error => {
-      console.log(error);
-    });
+    this.stompClient.send('/app/send/message', {}, data);
+    // this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
+    //   console.log('Send this message:' + response);
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   updateNego(createNegoOrder) {

@@ -660,7 +660,7 @@
               <div class="col-sm-7" style="padding: 0px">
                 <div class="progress">
                   <div class="progress-bar bg-info" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star5/total)*100+'%'">
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star5/winnerTotal)*100+'%'">
                     <span *ngIf="tender?.winner.star5>0">{{tender?.winner.star5}}</span>
                   </div>
                 </div>
@@ -674,7 +674,7 @@
               <div class="col-sm-7" style="padding: 0px">
                 <div class="progress">
                   <div class="progress-bar bg-info" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star4/total)*100+'%'">
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star4/winnerTotal)*100+'%'">
                     <span *ngIf="tender?.winner.star4>0">{{tender?.winner.star4}}</span>
                   </div>
                 </div>
@@ -688,7 +688,7 @@
               <div class="col-sm-7" style="padding: 0px">
                 <div class="progress">
                   <div class="progress-bar bg-info" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star3/total)*100+'%'">
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star3/winnerTotal)*100+'%'">
                     <span *ngIf="tender?.winner.star3>0">{{tender?.winner.star3}}</span>
                   </div>
                 </div>
@@ -702,7 +702,7 @@
               <div class="col-sm-7" style="padding: 0px">
                 <div class="progress">
                   <div class="progress-bar bg-info" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star2/total)*100+'%'">
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star2/winnerTotal)*100+'%'">
                     <span *ngIf="tender?.winner.star2>0">{{tender?.winner.star2}}</span>
                   </div>
                 </div>
@@ -716,7 +716,7 @@
               <div class="col-sm-7" style="padding: 0px">
                 <div class="progress">
                   <div class="progress-bar bg-info" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star1/total)*100+'%'">
+                       aria-valuemin="0" aria-valuemax="100" [style.width]="(tender?.winner.star1/winnerTotal)*100+'%'">
                     <span *ngIf="tender?.winner.star1>0">{{tender?.winner.star1}}</span>
                   </div>
                 </div>

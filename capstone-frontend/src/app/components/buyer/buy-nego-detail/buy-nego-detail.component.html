@@ -82,49 +82,49 @@
             <i class="fa fa-caret-down" aria-hidden="true"></i></small>
         </div>
 
-        <div class="collapse col-sm-12" id="companyInfo">
-          <div class="row col-sm-12" style="font-size: 13px; padding: 0px">
-            <div class="col-sm-6" style="padding: 0px">
+        <div class="collapse col-sm-12" id="companyInfo" style="margin: 0px;padding: 0px;">
+          <div class="row col-sm-12" style="font-size: 13px; padding: 0px;margin:0px">
+            <div class="col-sm-7" style="padding: 0px">
               <div class="row col-sm-12">
                 <h6>Basic Information</h6>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Name</label>
+                <label class="col-sm-6" style="padding: 0px 0px 0px 10px">Company Name</label>
                 <label class="col-sm-6">{{negotiation?.post.supplier.companyName}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Email</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.companyEmail}}</label>
-              </div>
-              <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Phone</label>
+                <label class="col-sm-6" style="padding: 0px 0px 0px 10px">Company Phone</label>
                 <label class="col-sm-6">{{negotiation?.post.supplier.companyPhone}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Website</label>
+                <label class="col-sm-6" style="padding: 0px 0px 0px 10px">Company Website</label>
                 <label class="col-sm-6">{{negotiation?.post.supplier.companyWebsite}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Company Address</label>
+                <label class="col-sm-6" style="padding: 0px 0px 0px 10px">Company Email</label>
+                <label class="col-sm-6">{{negotiation?.post.supplier.companyEmail}}</label>
+              </div>
+              <div class="row col-sm-12" style="padding: 0px">
+                <label class="col-sm-6" style="padding: 0px 0px 0px 10px">Company Address</label>
                 <label class="col-sm-6">{{negotiation?.post.supplier.companyAddress}},
                   {{negotiation?.post.supplier.companyCity}}</label>
               </div>
             </div>
-            <div class="col-sm-6" style="padding: 0px">
+            <div class="col-sm-5" style="padding: 0px">
               <div class="row col-sm-12">
                 <h6>Contact Information</h6>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">User Name</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.username}}</label>
+                <label class="col-sm-5" style="padding-right: 0px">User Name</label>
+                <label class="col-sm-7">{{negotiation?.post.supplier.username}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Email</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.email}}</label>
+                <label class="col-sm-5" style="padding-right: 0px">Email</label>
+                <label class="col-sm-7">{{negotiation?.post.supplier.email}}</label>
               </div>
               <div class="row col-sm-12" style="padding: 0px">
-                <label class="col-sm-6">Phone</label>
-                <label class="col-sm-6">{{negotiation?.post.supplier.phone}}</label>
+                <label class="col-sm-5" style="padding-right: 0px">Phone</label>
+                <label class="col-sm-7">{{negotiation?.post.supplier.phone}}</label>
               </div>
             </div>
           </div>
@@ -637,9 +637,9 @@
                   [disabled]="createNegoOrder.invalid || (createNegoOrder.value.address=='' && negotiation?.address==null) ||
                   (createNegoOrder.value.postShip=='' && negotiation?.ship==null) ||
                   (createNegoOrder.value.address=='oldAddress' && createNegoOrder.value.oldAddressName=='') ||
-                  (createNegoOrder.value.address=='newAddress' && createNegoOrder.value.newAddressCity=='' &&
-                  createNegoOrder.value.newAddressDistrict=='' && createNegoOrder.value.newAddressWard=='' &&
-                  createNegoOrder.value.newAddressValue=='')"
+                  (createNegoOrder.value.address=='newAddress' && (createNegoOrder.value.newAddressCity=='' ||
+                  createNegoOrder.value.newAddressDistrict=='' || createNegoOrder.value.newAddressWard=='' ||
+                  createNegoOrder.value.newAddressValue==''))"
                   (click)="updateNego(createNegoOrder.value)">
             <i class="fa fa-check" aria-hidden="true"></i>
             OK

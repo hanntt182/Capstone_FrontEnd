@@ -7,41 +7,11 @@
                style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a *ngIf="tenderStatus=='active'" class="nav-link active" data-toggle="tab"
-                   href="#active" role="tab"
-                   aria-controls="active" aria-selected="true" (click)="changeStatus('active')"> Active </a>
-                <a *ngIf="tenderStatus!='active'" class="nav-link" data-toggle="tab" href="#active"
-                   role="tab"
-                   aria-controls="active" aria-selected="true" (click)="changeStatus('active')"> Active </a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="tenderStatus=='closed'" class="nav-link active" data-toggle="tab"
-                   href="#closed" role="tab"
-                   aria-controls="closed" aria-selected="true" (click)="changeStatus('closed')"> Closed </a>
-                <a *ngIf="tenderStatus!='closed'" class="nav-link" data-toggle="tab" href="#closed"
-                   role="tab"
-                   aria-controls="closed" aria-selected="true" (click)="changeStatus('closed')"> Closed </a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="tenderStatus=='finished'" class="nav-link active" data-toggle="tab"
-                   href="#finished" role="tab"
-                   aria-controls="finished" aria-selected="false" (click)="changeStatus('finished')">
-                  Finished </a>
-                <a *ngIf="tenderStatus!='finished'" class="nav-link" data-toggle="tab"
-                   href="#finished" role="tab"
-                   aria-controls="finished" aria-selected="false" (click)="changeStatus('finished')">
-                  Finished </a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="tenderStatus=='cancel'" class="nav-link active" data-toggle="tab"
-                   href="#cancel" role="tab"
-                   aria-controls="cancel" aria-selected="false" (click)="changeStatus('cancel')">
-                  Cancel </a>
-                <a *ngIf="tenderStatus!='cancel'" class="nav-link" data-toggle="tab" href="#cancel"
-                   role="tab"
-                   aria-controls="cancel" aria-selected="false" (click)="changeStatus('cancel')">
-                  Cancel </a>
+              <li class="nav-item" *ngFor="let tenderStatusTab of tenderStatusTabs">
+                <a *ngIf="tenderStatus==tenderStatusTab" class="nav-link active" (click)="changeStatus(tenderStatusTab)"
+                   style="cursor: default"> {{tenderStatusTab | titlecase}} </a>
+                <a *ngIf="tenderStatus!=tenderStatusTab" class="nav-link" (click)="changeStatus(tenderStatusTab)"
+                   style="cursor: default"> {{tenderStatusTab | titlecase}} </a>
               </li>
             </ul>
 

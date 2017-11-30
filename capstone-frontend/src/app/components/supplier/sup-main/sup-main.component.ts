@@ -24,6 +24,9 @@ export class SupMainComponent implements OnInit {
   public backgroundColorPie = [];
   public hoverBackgroundColorPie = [];
 
+  public dataOrder = [];
+  public dataRevenue = [];
+
 
   constructor(private commonService: CommonService,
               private constants: Constants) {
@@ -89,6 +92,9 @@ export class SupMainComponent implements OnInit {
             }]
         };
       }
+
+      this.dataOrder = response[0].NUMBER_ORDER;
+      this.dataRevenue = response[1].REVENUE;
 
     });
   }

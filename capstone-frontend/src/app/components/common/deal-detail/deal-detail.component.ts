@@ -91,7 +91,7 @@ export class DealDetailComponent implements OnInit, OnDestroy {
     };
     this.dealService.joinDeal(this.constants.JOINDEAL, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
-      this.checkDeal = true;
+      this.ngOnInit();
     }, error => {
       this.toastr.error(error._body, 'Error!', {showCloseButton: true});
       console.log(error);

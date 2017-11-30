@@ -15,6 +15,7 @@ export class OrderListComponent implements OnInit {
   public totalPage;
   public orderStatus;
   public pages: any[] = [1];
+  public orderStatusTabs = ['waiting', 'paying', 'shipping', 'success', 'cancel', 'finished'];
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,

@@ -82,6 +82,7 @@ import {BuyDealOrderComponent} from './components/buyer/buy-deal-order/buy-deal-
 import {TextMaskModule} from 'angular2-text-mask';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
