@@ -108,8 +108,12 @@ public GETRECOMMENDEDLISTPOSTBYPOST = this.HTTP + this.SERVER_IP + this.SERVER_P
 
 public GETTOP15POSTBYRATEDESC = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getTop15PostByRateDesc/";
 
-
+//Dashboard
 public STATISTICSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/statisticSupplier/";
+
+//Notification
+public COUNTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/countNotification/";
+public GETLISTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListNotification/";
 
 
 constructor(){}

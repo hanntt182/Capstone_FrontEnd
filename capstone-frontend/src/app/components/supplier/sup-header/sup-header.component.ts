@@ -4,6 +4,7 @@ import {NegoService} from '../../../services/nego.service';
 import {Constants} from './../../../constants';
 import {LoginService} from "../../../services/login.service";
 import {ToastsManager} from "ng2-toastr";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
   selector: 'app-sup-header',
@@ -14,11 +15,14 @@ export class SupHeaderComponent implements OnInit {
 
   public user;
   public negoID;
+  public countNoti;
+  public notifications;
 
   constructor(private router: Router,
               private negoService: NegoService,
               private constants: Constants,
               private loginService: LoginService,
+              private notificationService: NotificationService,
               private toastr: ToastsManager,
               private vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -28,6 +32,26 @@ export class SupHeaderComponent implements OnInit {
     if (!this.user) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
+  }
+
+  countNotification(userId){
+    let data = {
+      'UserID': userId
+    };
+    this.notificationService.countNotification(this.constants.COUNTNOTIFICATION, data).subscribe((response: any) => {
+      this.countNoti = response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getListNotification(userId){
+    let data = {
+      'UserID': userId
+    };
+    this.notificationService.getListNotification(this.constants.GETLISTNOTIFICATION, data).subscribe((response: any) => {
+      this.notifications = response;
+    });
   }
 
   logout() {

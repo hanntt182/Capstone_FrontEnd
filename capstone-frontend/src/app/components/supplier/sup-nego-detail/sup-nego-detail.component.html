@@ -40,9 +40,9 @@
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form #searchNegoForm="ngForm">
-        <div class="col-md-12 row input-group">
+        <div class="col-md-12 row input-group" style="margin: 0px;padding: 0px">
           <input type="text" name="searchNego" ngModel class="form-control" placeholder="Search for..."
-                 aria-label="Search for...">
+                 aria-label="Search for..." (keyup)="clearSearch(searchNegoForm.value.searchNego)">
           <span class="input-group-btn">
             <button class="btn btn-secondary" type="button" (click)="searchNego(searchNegoForm.value.searchNego)">
               <i class="fa fa-search" aria-hidden="true"></i>
@@ -50,7 +50,7 @@
           </span>
         </div>
       </form>
-      <div class="row align-items-start" style=" border: 1px solid #E6E7EB; margin: 0px; padding: 0px">
+      <div id="listNego" class="row align-items-start" style=" border: 1px solid #E6E7EB; margin: 0px; padding: 0px">
         <div *ngFor="let nego of negotiations" class="row col-sm-12" (click)="changeNego(nego.negotiationID)"
              style="border-bottom: 1px solid #E6E7EB;padding: 0px; margin: 0px; background-color: white">
           <img

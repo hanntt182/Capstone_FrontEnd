@@ -38,7 +38,7 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   public setDisabledOld = false;
 
   private serverUrl = 'http://localhost:8080/SWP49X/socket';
-  private stompClient;
+  private stompClient = null;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -67,15 +67,19 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       });
       this.getMessage(this.negoID);
 
+      if (this.stompClient != null) {
+        this.stompClient.disconnect();
+      }
+
       let ws = new SockJS(this.serverUrl);
       this.stompClient = Stomp.over(ws);
-      let that = this;
       this.stompClient.connect({}, () => {
-        that.stompClient.subscribe('/chat/' + this.negoID, (message) => {
+        this.stompClient.subscribe('/chat/' + this.negoID, (message) => {
           if (message.body) {
             this.messages.push(JSON.parse(message.body));
+            console.log(message.body);
           }
-        });
+        }, {id: this.user.userId});
       });
     });
 
@@ -160,7 +164,12 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
   changeNego(negoID) {
     this.router.navigate(['/buyer/negotiation/' + this.negoStatus + '/' + negoID]);
-    this.ngOnInit();
+  }
+
+  clearSearch(searchValue) {
+    if (searchValue == '') {
+      this.searchNego('');
+    }
   }
 
   searchNego(searchValue) {
@@ -186,11 +195,6 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       Message: sendMessageForm.message
     };
     this.stompClient.send('/app/send/message', {}, JSON.stringify(data));
-    // this.negoService.sendMessage(this.constants.SENDMESSAGE, data).subscribe((response: any) => {
-    //   console.log('Send this message:' + response);
-    // }, error => {
-    //   console.log(error);
-    // });
   }
 
   updateNego(createNegoOrder) {

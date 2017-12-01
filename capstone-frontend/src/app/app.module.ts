@@ -81,6 +81,7 @@ import {BuyDealOrderComponent} from './components/buyer/buy-deal-order/buy-deal-
 
 import {TextMaskModule} from 'angular2-text-mask';
 
+import {NotificationService} from './services/notification.service';
 
 
 @NgModule({
@@ -137,7 +138,7 @@ import {TextMaskModule} from 'angular2-text-mask';
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,
-    TenderService, CreateTenderGuard, DealService],
+    TenderService, CreateTenderGuard, DealService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
