@@ -83,6 +83,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 
 import {NotificationService} from './services/notification.service';
 
+import {DecimalPipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,7 @@ import {NotificationService} from './services/notification.service';
   ],
   providers: [Constants, LoginService, CatalogService, CommonService, PostService, AdminRoleGuard,
     StaffRoleGuard, SupRoleGuard, BuyRoleGuard, CreateOrderGuard, OrderService, NegoService,
-    TenderService, CreateTenderGuard, DealService, NotificationService],
+    TenderService, CreateTenderGuard, DealService, NotificationService, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

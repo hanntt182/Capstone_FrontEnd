@@ -46,7 +46,7 @@ export class CreateOrderComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    this.addresses = this.user.address;
+    this.getListAddress(this.user.userId);
 
     this.commonService.getListCity(this.constants.GETLISTCITY).subscribe((response: any) => {
       this.cities = response.LtsItem;
@@ -69,12 +69,23 @@ export class CreateOrderComponent implements OnInit {
     });
   }
 
+  getListAddress(userID) {
+    let data = {
+      'UserID': userID
+    };
+    this.orderService.getListAddress(this.constants.GETLISTADDRESS, data).subscribe((response: any) => {
+      this.addresses = response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
   backToPrevious() {
     history.back();
   }
 
   checkAddress(e, createOrderForm) {
-    console.log(e.target.value);
     if (e.target.value == 'newAddress') {
       this.setDisabledOld = true;
       this.setDisabledNew = false;

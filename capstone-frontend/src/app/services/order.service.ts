@@ -23,6 +23,10 @@ export class OrderService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  getListAddress(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
   createOrder(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
@@ -55,7 +59,7 @@ export class OrderService {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 
-  cancleOrder(apiUrl, data): Observable<any> {
+  cancelOrder(apiUrl, data): Observable<any> {
     return this._http.post(apiUrl, data).map((response: Response) => response.text());
   }
 }

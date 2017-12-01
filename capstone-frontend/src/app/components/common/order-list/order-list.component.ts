@@ -17,7 +17,7 @@ export class OrderListComponent implements OnInit {
   public totalPage;
   public orderStatus;
   public pages: any[] = [1];
-  public orderStatusTabs = ['waiting', 'paying', 'shipping', 'success', 'cancelled', 'finished'];
+  public orderStatusTabs = ['waiting', 'paying', 'shipping', 'success', 'cancelled'];
 
   //Socket for Order
   //private serverOrderUrl = 'http://localhost:8080/SWP49X/order';

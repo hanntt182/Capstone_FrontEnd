@@ -121,7 +121,7 @@
               <div class="row col-sm-12" *ngFor="let postShip of postShips">
                 <div class="col-sm-2 text-right">{{postShip.postShipID.ship.shipName}} :</div>
                 <div class="col-sm-9">{{postShip.shippingMinTime}} day(s) - {{postShip.shippingMaxTime}} day(s) :
-                  {{postShip.shippingFee}} VND
+                  {{postShip.shippingFee | number:'1.0-2'}} VND
                 </div>
               </div>
             </div>

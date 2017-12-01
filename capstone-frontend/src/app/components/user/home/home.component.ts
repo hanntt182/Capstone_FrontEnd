@@ -146,5 +146,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  formatTenderFile(fileName) {
+    let fileArray = [];
+    if (fileName != null) {
+      fileArray = fileName.split('-');
+    }
+    let newName = '';
+    if (fileArray.length == 3) {
+      newName += fileArray[2];
+    } else if (fileArray.length > 3) {
+      for (let i = 2; i < fileArray.length; i++) {
+        newName += fileArray[i];
+      }
+    }
+    return newName;
+  }
+
 
 }

@@ -20,6 +20,7 @@ public VIEWPROFILEDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.
 public GET5NEWTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/get5NewTender/";
 public GETLISTBRANDBYCATALOG = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListBrandByCatalog/";
 
+//Post
 public CREATEPOST = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createPost/";
 public GETLISTDESCRIPTION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListDescription/";
 public CREATEPOSTDESCRIPTION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createPostDescription/";
@@ -39,7 +40,7 @@ public VOTEPOST = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PA
 public GETLISTREVIEW = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListReview/";
 
 
-
+//Order
 public CREATEORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createOrder/";
 public SEARCHORDERSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchOrderSupplier/";
 public SEARCHORDERBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchOrderBuyer/";
@@ -47,14 +48,15 @@ public SEARCHORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER
 public CONFIRMORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/confirmOrder/";
 public VIEWORDERDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/viewOrderDetail/";
 public PAYMENTBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/paymentBuyer/";
-public CANCELORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancleOrder/";
+public CANCELORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/cancelOrder/";
 public CONFIRMSHIPPING = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/confirmShipping/";
 public GETLISTCITY = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListCity/";
 public GETLISTDISTRICT = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListDistrict/";
 public GETLISTWARD = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListWard/";
+public GETLISTADDRESS = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListAddress/";
 
 
-
+//Negotiation
 public CREATENEGOTIATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createNegotiation/";
 public SEARCHLISTNEGOTIATIONBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchListNegotiationBuyer/";
 public SEARCHLISTNEGOTIATIONSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchListNegotiationSupplier/";
@@ -76,7 +78,7 @@ public SEARCHTENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVE
 
 
 
-
+//Tender
 public GETLISTPAYMENTMODE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListPaymentMode/";
 public CREATETENDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/createTender/";
 public SEARCHTENDERBUYER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/searchTenderBuyer/";

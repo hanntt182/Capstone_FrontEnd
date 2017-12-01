@@ -23,7 +23,7 @@
       <th scope="row">{{(myTender.tenderTitle.length>40)? (myTender.tenderTitle |
         slice:0:40)+'...':(myTender.tenderTitle)}}</th>
       <td>{{myTender.product.productName}}</td>
-      <td>{{myTender.tenderValue | number:'1.0-2'}}</td>
+      <td>{{myTender.tenderValue | number:'1.0-2'}} VND</td>
       <td>{{myTender.closedDay}}</td>
     </tr>
     </tbody>

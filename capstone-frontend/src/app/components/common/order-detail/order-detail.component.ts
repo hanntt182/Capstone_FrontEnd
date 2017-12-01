@@ -82,7 +82,7 @@ export class OrderDetailComponent implements OnInit {
       'UserID': this.user.userId,
       'OrderID': this.orderID
     };
-    this.orderService.cancleOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
+    this.orderService.cancelOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
       if (this.user.role == 'BUYER') {
         this.toastr.success(response, 'Success!', {showCloseButton: true});
         setTimeout(() => {

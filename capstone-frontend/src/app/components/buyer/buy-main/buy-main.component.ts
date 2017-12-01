@@ -69,7 +69,7 @@ export class BuyMainComponent implements OnInit {
         this.labelOfPie.push(this.statusOfPie[i]);
         this.dataOfPie.push(response[1].PIE_CHART_STATUS[i + 1].number_order);
         this.backgroundColorPie.push(this.colorOfPie[i]);
-        this.hoverBackgroundColorPie.push(this.colorOfPie[i]);
+        //this.hoverBackgroundColorPie.push(this.colorOfPie[i]);
       }
       this.data = {
         labels: this.labelOfPie,
@@ -77,7 +77,7 @@ export class BuyMainComponent implements OnInit {
           {
             data: this.dataOfPie,
             backgroundColor: this.backgroundColorPie,
-            hoverBackgroundColor: this.hoverBackgroundColorPie
+            hoverBackgroundColor: this.backgroundColorPie
           }]
       };
 

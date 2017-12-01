@@ -497,7 +497,7 @@
               <tbody>
               <tr *ngFor="let tenderFile of tender?.tenderFiles; let i = index">
                 <td scope="row">{{i + 1}}</td>
-                <td><a href="{{tenderFile.fileUrl}}">{{tenderFile.fileUrl|slice:34}}</a></td>
+                <td><a href="{{tenderFile.fileUrl}}">{{formatTenderFile(tenderFile.fileUrl)}}</a></td>
               </tr>
               </tbody>
             </table>
@@ -571,13 +571,13 @@
           There are no participants in the bidding
         </div>
         <div *ngIf="tenderHistories!=null" class="row col-sm-12 table-responsive text-center"
-             style="margin: 0px;padding: 10px">
+             style="margin: 0px;padding: 0px">
           <table class="table table-hover">
             <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Supplier</th>
-              <th scope="col">Period of work(days)</th>
+              <th scope="col">Period of work</th>
               <th scope="col">Bid Price (VND)</th>
               <th scope="col">Attach document</th>
               <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'" scope="col">
@@ -593,10 +593,14 @@
               <th scope="row">{{i+1}}</th>
               <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
               <td>
-                {{tenderHistory.workPeriod}}
+                {{tenderHistory.workPeriod}} day(s)
               </td>
-              <td>{{tenderHistory.bidPrice | number:'1.0-2'}} VND</td>
-              <td><a href="{{tenderHistory.fileUrl}}">{{formatTenderFile(tenderHistory.fileUrl)}}</a></td>
+              <td>{{tenderHistory.bidPrice | number:'1.0-2'}}</td>
+              <td>
+                <a href="{{tenderHistory.fileUrl}}">
+                  {{(formatTenderFile(tenderHistory.fileUrl).length>10)? (formatTenderFile(tenderHistory.fileUrl) |
+                  slice:0:10)+'...':(formatTenderFile(tenderHistory.fileUrl))}}</a>
+              </td>
               <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
                   style="padding: 5px">
                 <div style="font-size: 12px">
@@ -910,7 +914,8 @@
         </div>
         <div class="row col-sm-12" style="margin: 0px;padding: 10px">
           <div class="col-sm-4">Attached Document:</div>
-          <div class="col-sm-8"><a href="{{myTenderInfo?.fileUrl}}">{{formatTenderFile(myTenderInfo?.fileUrl)}}</a></div>
+          <div class="col-sm-8"><a href="{{myTenderInfo?.fileUrl}}">
+            {{formatTenderFile(myTenderInfo?.fileUrl)}}</a></div>
         </div>
       </div>
       <div class="justify-content-around align-items-center text-center" style="margin: 30px">
@@ -1016,32 +1021,20 @@
         <div class="row col-sm-12" style="margin: 0px;padding: 0px">
           <h5 class="modal-title" id="CompanyPart"><i class="fa fa-home fa-fw"></i> Company Information</h5>
         </div>
-        <div class="form-group" style="margin-left: 10px; margin-top: 10px">
-          <div class="row">
-            <div class="col-md-3">
-              <img src="{{companyProfile?.companyLogo}}" height="100" width="100"/>
+        <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+          <div class="row col-sm-12" style="padding: 10px 0px 0px 0px; margin: 0px;">
+            <div class="col-sm-4">
+              <img src="{{companyProfile?.companyLogo}}" style="height: 100%;max-height: 100px; width: 100%; max-width: 100px"/>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-8">
               <div>
-                <label>Name:</label>
+                <label>Name: {{companyProfile?.companyName}}</label>
               </div>
               <div style="margin-top: 5px">
-                <label>Tax Code:</label>
+                <label>Tax Code: {{companyProfile?.companyTaxCode}}</label>
               </div>
               <div style="margin-top: 5px">
-                <label>Phone:</label>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div>
-                <label>{{companyProfile?.companyName}}</label>
-              </div>
-              <div style="margin-top: 5px">
-                <label>{{companyProfile?.companyTaxCode}}</label>
-              </div>
-              <div style="margin-top: 5px">
-                <label>{{companyProfile?.companyPhone}}</label>
+                <label>Phone: {{companyProfile?.companyPhone}}</label>
               </div>
             </div>
           </div>

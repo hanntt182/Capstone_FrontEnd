@@ -305,13 +305,13 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   // }
 
 
-  cancelOrder() {
+  cancelNego() {
     let data = {
       'UserID': this.user.userId,
-      'NegotiationID': this.negoID
+      'NegotiationID': Number(this.negoID)
     };
-    this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {
-      alert(response);
+    this.negoService.cancleNegotiation(this.constants.CANCLENEGOTIATION, data).subscribe((response: any) => {
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
     }, error => {
       console.log(error);
     });

@@ -111,7 +111,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          Product(s) Amount: <b>{{productAmount}} VND</b>
+          Product(s) Amount: <b>{{productAmount | number:'1.0-2'}} VND</b>
         </div>
       </div>
     </div>
@@ -190,11 +190,11 @@
                 {{postShip.postShipID.ship.shipName}}
               </option>
             </select>
-            <label class="col-sm-3">Shipping Fee: {{shippingFee}} VND</label>
+            <label class="col-sm-3">Shipping Fee: {{shippingFee | number:'1.0-2'}} VND</label>
           </div>
         </div>
         <div class="card-footer text-right">
-          Shipping Fee: <b>{{shippingFee}} VND</b>
+          Shipping Fee: <b>{{shippingFee | number:'1.0-2'}} VND</b>
         </div>
       </div>
     </div>
@@ -228,16 +228,16 @@
   <div class="container">
     <div class="row col-sm-12" style="padding-bottom: 20px; font-size: 16px">
       <label class="col-sm-8 text-right">Product(s) Amount</label>
-      <label class="col-sm-4"> {{productAmount}} VND</label>
+      <label class="col-sm-4"> {{productAmount | number:'1.0-2'}} VND</label>
 
       <label class="col-sm-8 text-right">Shipping Amount</label>
-      <label class="col-sm-4"> {{shippingFee}} VND</label>
+      <label class="col-sm-4"> {{shippingFee | number:'1.0-2'}} VND</label>
 
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center" style="border-bottom: 1px dashed #8c8b8b"></div>
       <div class="clearfix"></div>
       <label class="col-sm-8 text-right">Total Order Amount</label>
-      <label class="col-sm-4" style="color: orangered"><h5> {{productAmount + shippingFee}} VND</h5></label>
+      <label class="col-sm-4" style="color: orangered"><h5> {{(productAmount + shippingFee) | number:'1.0-2'}} VND</h5></label>
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center">
         <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>

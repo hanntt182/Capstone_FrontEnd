@@ -226,7 +226,7 @@
             <tr>
               <th scope="col" style="width: 400px">Tender Title</th>
               <th scope="col" style="width: 250px">Product Name</th>
-              <th scope="col" style="width: 200px">Tender Value</th>
+              <th scope="col" style="width: 200px">Tender Estimated Cost</th>
               <th scope="col" style="width: 250px">Bid Closing Day</th>
             </tr>
             </thead>
@@ -236,7 +236,7 @@
                 slice:0:40)+'...':(myTender.tenderTitle)}}
               </th>
               <td>{{myTender.product.productName}}</td>
-              <td>{{myTender.tenderValue}}</td>
+              <td>{{myTender.tenderValue | number:'1.0-2'}} VND</td>
               <td>{{myTender.closedDay}}</td>
             </tr>
             </tbody>
@@ -300,7 +300,7 @@
                   <tbody>
                   <tr *ngFor="let tenderFile of tender?.tenderFiles; let i = index">
                     <td scope="row" style="padding: 5px;">{{i + 1}}</td>
-                    <td style="padding: 5px;"><a href="{{tenderFile.fileUrl}}">{{tenderFile.fileUrl|slice:34}}</a>
+                    <td style="padding: 5px;"><a href="{{tenderFile.fileUrl}}">{{formatTenderFile(tenderFile.fileUrl)}}</a>
                     </td>
                   </tr>
                   </tbody>
@@ -314,25 +314,25 @@
                 </label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Title:</label>
-                <label class="col-sm-8">{{(tender?.tenderTitle.length>35)? (tender?.tenderTitle |
+                <label class="col-sm-5">Title:</label>
+                <label class="col-sm-7">{{(tender?.tenderTitle.length>35)? (tender?.tenderTitle |
                   slice:0:35)+'...':(tender?.tenderTitle)}}</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Description:</label>
-                <label class="col-sm-8">{{tender?.description}}</label>
+                <label class="col-sm-5">Description:</label>
+                <label class="col-sm-7">{{tender?.description}}</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Tender Value:</label>
-                <label class="col-sm-8">{{tender?.tenderValue}} VND</label>
+                <label class="col-sm-5" style="padding-right: 0px">Tender Estimated Cost:</label>
+                <label class="col-sm-7">{{tender?.tenderValue | number:'1.0-2'}} VND</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Product Name:</label>
-                <label class="col-sm-8">{{tender?.product.productName}}</label>
+                <label class="col-sm-5">Product Name:</label>
+                <label class="col-sm-7">{{tender?.product.productName}}</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Period of Work:</label>
-                <label class="col-sm-8">{{tender?.periodTime}} day(s)</label>
+                <label class="col-sm-5">Period of Work:</label>
+                <label class="col-sm-7">{{tender?.periodTime}} day(s)</label>
               </div>
             </div>
             <div style="margin-bottom:5px;border: solid 1px #A0A2AD">
@@ -341,9 +341,9 @@
                   <h5>Fee Detail</h5>
                 </label>
               </div>
-              <div class="row col-sm-12">
-                <label class="col-sm-6">EMD Amount in VND:</label>
-                <label class="col-sm-6">{{tender?.emdFee}}</label>
+              <div class="row col-sm-12" style="padding: 0px; margin: 0px">
+                <label class="col-sm-6" style="padding-right: 0px">Earnest Money Deposit Amount:</label>
+                <label class="col-sm-6">{{tender?.emdFee | number:'1.0-2'}} VND</label>
               </div>
             </div>
             <div style="margin-bottom:5px;border: solid 1px #A0A2AD">
@@ -353,12 +353,12 @@
                 </label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4">Published Date:</label>
-                <label class="col-sm-8">{{tender?.createdDay}}</label>
+                <label class="col-sm-5">Published Date:</label>
+                <label class="col-sm-7">{{tender?.createdDay}}</label>
               </div>
               <div class="row col-sm-12">
-                <label class="col-sm-4" style="padding-right:0px">Bid Closing Date:</label>
-                <label class="col-sm-8">{{tender?.closedDay}}</label>
+                <label class="col-sm-5" style="padding-right:0px">Bid Closing Date:</label>
+                <label class="col-sm-7">{{tender?.closedDay}}</label>
               </div>
             </div>
             <!--<div class="row text-center align-items-center justify-content-center" style="height: 120px">
@@ -469,23 +469,23 @@
               </div>
             </div>
             <div class="row" style="padding: 0px">
-              <div class="col-sm-5" style="margin-bottom: 10px">Company Tax Code:</div>
+              <div class="col-sm-5" style="margin-bottom: 10px;padding-right: 0px">Company Tax Code:</div>
               <div class="col-sm-7" style="padding: 0px;padding-left: 5px; margin-bottom: 10px">
                 {{tender?.buyer.companyTaxCode}}
               </div>
-              <div class="col-sm-5" style="margin-bottom: 10px">Company Website:</div>
+              <div class="col-sm-5" style="margin-bottom: 10px;padding-right: 0px">Company Website:</div>
               <div class="col-sm-7" style="padding: 0px;padding-left: 5px; margin-bottom: 10px"><a
                 href="{{tender?.buyer.companyWebsite}}">{{tender?.buyer.companyWebsite}}</a></div>
-              <div class="col-sm-5" style="margin-bottom: 10px">Company Fax:</div>
+              <div class="col-sm-5" style="margin-bottom: 10px;padding-right: 0px">Company Fax:</div>
               <div class="col-sm-7" style="padding: 0px;padding-left: 5px; margin-bottom: 10px">
                 {{tender?.buyer.companyFax}}
               </div>
               <div class="col-sm-5" style="margin-bottom: 10px">Established Year:</div>
               <div class="col-sm-7" style="padding: 0px;padding-left: 5px;">{{tender?.buyer.establishedYear}}</div>
-              <div class="col-sm-5" style="margin-bottom: 10px">Company Email:</div>
+              <div class="col-sm-5" style="margin-bottom: 10px;padding-right: 0px">Company Email:</div>
               <div class="col-sm-7" style="padding: 0px;padding-left: 5px;">{{tender?.buyer.companyEmail}}</div>
-              <div class="col-sm-5">Company Address:</div>
-              <div class="col-sm-7" style="padding: 0px;padding-left: 5px;">{{tender?.buyer.companyAddress}}</div>
+              <div class="col-sm-5" style="padding-right: 0px">Company Address:</div>
+              <div class="col-sm-7" style="padding: 0px;padding-left: 5px;padding-right: 5px">{{tender?.buyer.companyAddress}}</div>
             </div>
           </div>
         </div>
