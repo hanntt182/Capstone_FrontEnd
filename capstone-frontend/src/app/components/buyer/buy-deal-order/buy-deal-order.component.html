@@ -294,3 +294,37 @@
   </div>
 
 </form>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="showReceiptKeyModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="exampleModalLabel">Successful transaction!</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container justify-content-center text-center">
+          <h5>ORDER ID: {{orderID}}</h5>
+          <div style="border: solid 1px #E6E7EB; margin: 20px; padding: 20px">
+            <h4 class="text-info">{{key}}</h4>
+          </div>
+          <small class="form-text text-muted">
+            Thank you for using our service!<br>
+            Your money has been transferred successfully.<br>
+            Please check your account. <br>
+          </small>
+          <b class="form-text text-danger">
+            Use this KEY to receive your products.<br>
+            You can check this KEY in Shipping Detail Order.
+          </b>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal" routerLink="/buyer/order-list/shipping">OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="openReceiptKeyModalButton" [hidden]="true" data-toggle="modal" data-target="#showReceiptKeyModel">Open Modal</button>

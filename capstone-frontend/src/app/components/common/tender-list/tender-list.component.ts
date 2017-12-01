@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Constants} from './../../../constants';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TenderService} from '../../../services/tender.service';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-tender-list',
@@ -19,7 +20,11 @@ export class TenderListComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private tenderService: TenderService,
-              private constants: Constants) {
+              private constants: Constants,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
+
   }
 
   ngOnInit() {
@@ -83,9 +88,10 @@ export class TenderListComponent implements OnInit {
       'TenderID': this.tenderID,
       'Reason': cancelForm.reason
     };
-    console.log(data);
     this.tenderService.cancleTender(this.constants.CANCLETENDER, data).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      document.getElementById('opencancelTenderModal').click();
+      this.router.navigate(['/buyer/tender-list/cancel']);
     }, error => {
       console.log(error);
     });

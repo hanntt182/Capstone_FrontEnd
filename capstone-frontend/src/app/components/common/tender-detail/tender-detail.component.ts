@@ -130,9 +130,12 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       'TenderID': this.tenderID,
       'Reason': cancelForm.reason
     };
-    console.log(data);
     this.tenderService.cancleTender(this.constants.CANCLETENDER, data).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout(() => {
+        document.getElementById('opencancelTenderModal').click();
+        this.router.navigate(['/buyer/tender-list/cancel']);
+      }, 1000);
     }, error => {
       console.log(error);
     });

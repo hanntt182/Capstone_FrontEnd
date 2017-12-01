@@ -100,6 +100,7 @@ public VIEWDEALDETAIL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SER
 public CHECKDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkDeal/";
 public JOINDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/joinDeal/";
 public PAYDEAL = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/payDeal/";
+public CHECKDEALLATE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/checkDealLate/";
 
 
 // Thuật toán

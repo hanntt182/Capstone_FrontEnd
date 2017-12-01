@@ -51,8 +51,10 @@ export class DealDetailComponent implements OnInit, OnDestroy {
             let minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
 
-            document.getElementById('discountTime').innerHTML = days + 'd ' + hours + 'h '
-              + minutes + 'm ' + seconds + 's ';
+            if (document.getElementById('discountTime') != null) {
+              document.getElementById('discountTime').innerHTML = days + 'd ' + hours + 'h '
+                + minutes + 'm ' + seconds + 's ';
+            }
 
             if (this.distance < 0) {
               clearInterval(this.xInterval);

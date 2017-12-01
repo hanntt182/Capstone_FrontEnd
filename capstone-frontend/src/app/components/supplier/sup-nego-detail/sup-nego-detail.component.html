@@ -104,28 +104,28 @@
 
       </div>
 
-      <div id="listMessage" class="row col-sm-12 align-items-start"
-           style="padding: 10px; margin: 0px; overflow: scroll;height: 400px" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <div class="row col-sm-12 align-items-start"
+           style="padding: 0px; margin: 0px; overflow-y: scroll;height: 400px" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <div *ngFor="let message of messages" class="row col-sm-12" style="padding: 0px; margin: 0px;">
 
           <div *ngIf="message.sender.userId == user.userId"
-               class="row col-sm-12 justify-content-end align-items-center">
+               class="row col-sm-12 justify-content-end align-items-center" style="padding: 0px;margin: 0px">
             <div class="col-sm-4"></div>
-            <div class="col-sm-7">
+            <div class="col-sm-6">
               <small>{{message.messageDay}}</small>
-              <div class="alert alert-info" role="alert">
+              <div class="alert alert-info" role="alert" style="word-wrap: break-word;">
                 {{message.message}}
               </div>
             </div>
-            <div class="col-sm-1">{{message.sender.username}}</div>
+            <div class="col-sm-2" style="padding: 0px 10px 0px 0px">{{message.sender.username}}</div>
           </div>
 
           <div *ngIf="message.sender.userId != user.userId"
-               class="row col-sm-12 justify-content-start align-items-center">
-            <div class="col-sm-1">{{message.sender.username}}</div>
-            <div class="col-sm-7">
+               class="row col-sm-12 justify-content-start align-items-center" style="padding: 0px;margin: 0px">
+            <div class="col-sm-2" style="padding: 0px 0px 0px 10px">{{message.sender.username}}</div>
+            <div class="col-sm-6">
               <small>{{message.messageDay}}</small>
-              <div class="alert alert-secondary" role="alert">
+              <div class="alert alert-secondary" role="alert" style="word-wrap: break-word;">
                 {{message.message}}
               </div>
             </div>

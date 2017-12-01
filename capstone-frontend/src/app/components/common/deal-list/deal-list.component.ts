@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DealService} from "../../../services/deal.service";
 import {Constants} from './../../../constants';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-deal-list',
@@ -13,16 +14,18 @@ export class DealListComponent implements OnInit, OnDestroy {
   public user;
   public deals;
   public dealStatus;
-  public now;
-  public xInterval;
-  public finishedDate = [];
   public lates = [];
-  public dealStatusTabs = ['ongoing', 'expried', 'success'];
+  public late;
+  public buyDealStatusTabs = ['ongoing', 'expried', 'success'];
+  public supDealStatusTabs = ['ongoing', 'expried', 'success', 'finished'];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private dealService: DealService,
-              private constants: Constants) {
+              private constants: Constants,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -33,28 +36,14 @@ export class DealListComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.dealStatus = params['dealStatus'];
       this.changePage('', 1);
-      if (this.dealStatus == 'success' && this.user.role == 'BUYER') {
-        this.xInterval = setInterval(() => {
-          for (let i = 0; i < this.deals.length; i++) {
-            this.lates.pop();
-          }
-          this.now = Date.now();
-          for (let i = 0; i < this.deals.length; i++) {
-            if (Date.parse(this.deals[i].dealHistoryID.deal.finishedDay) - this.now <= 0) {
-              this.lates.push(true);
-            } else if (Date.parse(this.deals[i].dealHistoryID.deal.finishedDay) - this.now > 0) {
-              this.lates.push(false);
-            }
-          }
-        }, 1000);
-      }
+
     });
 
 
   }
 
   ngOnDestroy() {
-    clearInterval(this.xInterval);
+    //clearInterval(this.xInterval);
   }
 
   changeStatus(status) {
@@ -66,9 +55,6 @@ export class DealListComponent implements OnInit, OnDestroy {
   }
 
   changePage(searchValue, pageNumber) {
-    /*for (let i = 0; i < this.deals.length; i++) {
-      this.finishedDate.pop();
-    }*/
     if (this.user.role == 'SUPPLIER') {
       let data = {
         'SupplierID': this.user.userId,
@@ -78,9 +64,6 @@ export class DealListComponent implements OnInit, OnDestroy {
       };
       this.dealService.searchDealSupplier(this.constants.SEARCHDEALSUPPLIER, data).subscribe((response: any) => {
         this.deals = response.content;
-        for (let i = 0; i < this.deals.length; i++) {
-          this.finishedDate.push(this.deals[i].finishedDay);
-        }
       }, error => {
         console.log(error);
       });
@@ -93,16 +76,23 @@ export class DealListComponent implements OnInit, OnDestroy {
       };
       this.dealService.searchDealBuyer(this.constants.SEARCHDEALBUYER, data).subscribe((response: any) => {
         this.deals = response.content;
-        for (let i = 0; i < this.deals.length; i++) {
-          this.finishedDate.push(this.deals[i].dealHistoryID.deal.finishedDay);
-        }
       });
     }
 
   }
 
   orderDeal(dealID) {
-    this.router.navigate(['buyer/deal-order/' + dealID]);
+    let data = {
+      'UserID': this.user.userId,
+      'DealID': dealID
+    };
+    this.dealService.checkDealLate(this.constants.CHECKDEALLATE, data).subscribe((response: any) => {
+      this.router.navigate(['buyer/deal-order/' + dealID]);
+    }, error => {
+      console.log(error);
+      this.toastr.error(error._body, 'Fail!', {showCloseButton: true});
+    });
+
   }
 
   viewDealDetail(dealID) {

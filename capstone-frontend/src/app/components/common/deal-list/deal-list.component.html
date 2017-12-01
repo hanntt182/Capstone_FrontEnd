@@ -6,8 +6,17 @@
           <div class="card-content justify-content-sm-center"
                style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px">
 
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item" *ngFor="let dealStatusTab of dealStatusTabs">
+            <ul *ngIf="this.user.role=='BUYER'" class="nav nav-tabs" role="tablist">
+              <li class="nav-item" *ngFor="let dealStatusTab of buyDealStatusTabs">
+                <a *ngIf="dealStatus==dealStatusTab" class="nav-link active" (click)="changeStatus(dealStatusTab)"
+                   style="cursor: default"> {{dealStatusTab | titlecase}} </a>
+                <a *ngIf="dealStatus!=dealStatusTab" class="nav-link" (click)="changeStatus(dealStatusTab)"
+                   style="cursor: default"> {{dealStatusTab | titlecase}} </a>
+              </li>
+            </ul>
+
+            <ul *ngIf="this.user.role=='SUPPLIER'" class="nav nav-tabs"  role="tablist">
+              <li class="nav-item" *ngFor="let dealStatusTab of supDealStatusTabs">
                 <a *ngIf="dealStatus==dealStatusTab" class="nav-link active" (click)="changeStatus(dealStatusTab)"
                    style="cursor: default"> {{dealStatusTab | titlecase}} </a>
                 <a *ngIf="dealStatus!=dealStatusTab" class="nav-link" (click)="changeStatus(dealStatusTab)"
@@ -39,11 +48,11 @@
                     <th *ngIf="user.role == 'SUPPLIER'" scope="col">Required Participants</th>
                     <th *ngIf="user.role == 'BUYER'" scope="col">Joined Date</th>
                     <th scope="col">Expried Date</th>
-                    <th scope="col" *ngIf="dealStatus=='success' && user.role=='BUYER'">Action</th>
+                    <th scope="col">Action</th>
                   </tr>
                   </thead>
                   <tbody *ngIf="user.role=='SUPPLIER'">
-                  <tr *ngFor="let deal of deals; let i = index" (click)="viewDealDetail(deal.dealID)">
+                  <tr *ngFor="let deal of deals; let i = index">
                     <th scope="row">{{i + 1}}</th>
                     <td>
                       {{deal.dealTitle}}<br>
@@ -52,10 +61,11 @@
                     <td>{{deal.currentParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
                     <td>{{deal.minParticipant}} <i class="fa fa-user" aria-hidden="true"></i></td>
                     <td><i>{{deal.closedDay}}</i></td>
+                    <td><button type="button" class="btn btn-info" (click)="viewDealDetail(deal.dealID)">View Detail</button></td>
                   </tr>
                   </tbody>
                   <tbody *ngIf="user.role=='BUYER'">
-                  <tr *ngFor="let deal of deals; let i = index" (click)="viewDealDetail(deal.dealHistoryID.deal.dealID)">
+                  <tr *ngFor="let deal of deals; let i = index">
                     <th scope="row">{{i + 1}}</th>
                     <td>
                       {{deal.dealHistoryID.deal.dealTitle}}<br>
@@ -64,11 +74,11 @@
                     <td>{{deal.joinDate}}</td>
                     <td><i>{{deal.dealHistoryID.deal.closedDay}}</i>
                     </td>
-                    <td *ngIf="dealStatus=='success'">
-                      <button *ngIf="lates[i] == false" class="btn btn-success" (click)="orderDeal(deal.dealHistoryID.deal.dealID)">
+                    <td>
+                      <button type="button" class="btn btn-info" (click)="viewDealDetail(deal.dealHistoryID.deal.dealID)">View Detail</button>
+                      <button *ngIf="dealStatus=='success'" class="btn btn-success" (click)="orderDeal(deal.dealHistoryID.deal.dealID)">
                         Order
                       </button>
-                      <label *ngIf="lates[i] == true" class="text-danger">This deal has expired to order</label>
                     </td>
                   </tr>
                   </tbody>

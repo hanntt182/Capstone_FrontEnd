@@ -27,6 +27,8 @@ export class BuyDealOrderComponent implements OnInit {
   public setDisabledNew = false;
   public setDisabledOld = false;
   public address;
+  public orderID;
+  public key;
   public banks = ['Orient Commercial Joint Stock Bank',
     'Asia Commercial Bank',
     'Tien Phong Commercial Joint Stock Bank',
@@ -227,12 +229,13 @@ export class BuyDealOrderComponent implements OnInit {
       'Remark': createDealOrderForm.remark
     };
     this.dealService.payDeal(this.constants.PAYDEAL, data).subscribe((response: any) => {
-      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      this.orderID = response.OrderID;
+      this.key = response.ReceiptCode;
+      document.getElementById('openReceiptKeyModalButton').click();
     }, error => {
       this.toastr.error(error._body, 'Error!', {showCloseButton: true});
       console.log(error);
     });
-    console.log(createDealOrderForm);
   }
 
 }

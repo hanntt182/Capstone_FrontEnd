@@ -80,7 +80,6 @@ export class OrderDetailComponent implements OnInit {
       'UserID': this.user.userId,
       'OrderID': this.orderID
     };
-    console.log(data);
     this.orderService.cancleOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
       alert(response);
       if (this.user.role == 'BUYER') {
@@ -92,6 +91,7 @@ export class OrderDetailComponent implements OnInit {
       }
     }, error => {
       console.log(error);
+      this.toastr.error(error._body, 'Fail!', {showCloseButton: true});
     });
   }
 

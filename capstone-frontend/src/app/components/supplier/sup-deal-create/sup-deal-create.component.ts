@@ -130,6 +130,7 @@ export class SupDealCreateComponent implements OnInit {
   }
 
   countDiscountPrice(createDealForm) {
+    this.discountPrice = 0;
     if (createDealForm.Price != '' && createDealForm.Price != 'e' && createDealForm.Discount != '' && createDealForm.Discount != 'e') {
       this.discountPrice = createDealForm.Price - (createDealForm.Price * createDealForm.Discount) / 100;
     }

@@ -46,9 +46,7 @@ export class HeaderComponent implements OnInit {
         this.loginService.setUser(response);
         this.user = this.loginService.getUser();
         localStorage.setItem('currentUser', JSON.stringify(this.user));
-        $('#loginModal').hide();
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
+        document.getElementById('openModalButton').click();
         this.toastr.success('Login successfully!', 'Success!', {showCloseButton: true});
       }
     }, error => {

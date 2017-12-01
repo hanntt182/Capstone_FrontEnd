@@ -22,11 +22,11 @@
             </div>
             <div class="row">
               <label class="col-sm-3">Quantity: </label>
-              <label class="col-sm-9">{{negotiation?.quantity}}</label>
+              <label class="col-sm-9">{{negotiation?.quantity}} / {{negotiation?.unit}}</label>
             </div>
             <div class="row">
               <label class="col-sm-3">Unit Price: </label>
-              <label class="col-sm-9">{{negotiation?.offerPrice}}</label>
+              <label class="col-sm-9">{{negotiation?.offerPrice}} VND</label>
             </div>
             <div class="row">
               <label class="col-sm-3">Supplier: </label>
@@ -44,18 +44,18 @@
             </div>
             <div class="row ">
               <label class="col-sm-3">Product Amount: </label>
-              <label class="col-sm-9">{{negotiation?.quantity * negotiation?.offerPrice}}</label>
+              <label class="col-sm-9">{{negotiation?.quantity * negotiation?.offerPrice}} VND</label>
             </div>
             <div class="row ">
               <label class="col-sm-3">Shipping Fee: </label>
-              <label class="col-sm-9">{{negotiation?.shipPrice}}</label>
+              <label class="col-sm-9">{{negotiation?.shipPrice}} VND</label>
             </div>
             <div class="row">
               <label class="col-sm-8">----------------------------------------------------</label>
             </div>
             <div class="row">
               <label class="col-sm-3">Order Amount: </label>
-              <label class="col-sm-9">{{(negotiation?.quantity * negotiation?.offerPrice) + negotiation?.shipPrice}}</label>
+              <label class="col-sm-9">{{(negotiation?.quantity * negotiation?.offerPrice) + negotiation?.shipPrice}} VND</label>
             </div>
           </div>
         </div>
