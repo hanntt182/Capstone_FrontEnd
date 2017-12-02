@@ -40,18 +40,18 @@
             </div>
             <div class="row ">
               <label class="col-sm-3">Product Amount: </label>
-              <label class="col-sm-9">{{order?.productPrice}}</label>
+              <label class="col-sm-9">{{order?.productPrice|number:'1.0-2'}}</label>
             </div>
             <div class="row ">
               <label class="col-sm-3">Shipping Fee: </label>
-              <label class="col-sm-9">{{order?.shipPrice}}</label>
+              <label class="col-sm-9">{{order?.shipPrice|number:'1.0-2'}}</label>
             </div>
             <div class="row">
               <label class="col-sm-8">----------------------------------------------------</label>
             </div>
             <div class="row">
               <label class="col-sm-3">Order Amount: </label>
-              <label class="col-sm-9">{{order?.totalPrice}}</label>
+              <label class="col-sm-9">{{order?.totalPrice|number:'1.0-2'}}</label>
             </div>
           </div>
         </div>

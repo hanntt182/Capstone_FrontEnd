@@ -8,7 +8,7 @@
           <div class="col-sm-5 justify-content-center">
             <div class="row justify-content-center" style="padding: 10px">
               <img imageZoom="" lensBorder="1" src="{{deal?.dealImage}}"
-                   style="max-width: 300px; width: 100%"
+                   style="max-width: 300px; width: 100%; max-height: 300px; height: 100%;"
                    onerror="if (this.src != '../../../../assets/img/image-default.jpg') this.src = '../../../../assets/img/image-default.jpg';">
             </div>
           </div>
@@ -24,9 +24,9 @@
             </div>
             <div class="row align-items-center" style="padding-left: 20px; font-size: 20px">
               <i class="fa fa-usd" aria-hidden="true"></i>
-              <b class="text-primary" style="text-decoration: line-through;margin: 0px; margin-left: 5px">{{deal?.firstPrice}}VND</b>
+              <b class="text-primary" style="text-decoration: line-through;margin: 0px; margin-left: 5px">{{deal?.firstPrice|number:'1.0-2'}}VND</b>
               => <b
-              class="text-success"> {{deal?.discountPrice}} VND</b>
+              class="text-success"> {{deal?.discountPrice|number:'1.0-2'}} VND</b>
             </div>
             <div class="row align-items-center" style="padding-left: 20px; margin-bottom: 20px; font-size: 20px">
               <i class="fa fa-user" aria-hidden="true"></i>

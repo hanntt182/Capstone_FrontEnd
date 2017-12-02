@@ -1,36 +1,26 @@
 <div class="container" style="margin-top: 30px">
   <div class="row justify-content-around col-sm-12" style="margin: 0px; padding: 20px">
-    <p-chart type="pie" [data]="data" height="300"></p-chart>
-    <p-chart type="bar" [data]="data1" height="300" width="500"></p-chart>
-  </div>
-
-
-  <div class="row col-sm-12 justify-content-around" style="margin: 0px; padding: 20px">
-
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="col-sm-6">
+      <div class="col-sm-12 row justify-content-start" style="margin: 0px; padding:0px">
+        <label>All Order: {{allOrder}}</label>
+        <label style="margin-left: 20px">All Succeed Order: {{allOrderSuccess}}</label>
+      </div>
+      <div class="col-sm-12 row" style="margin: 0px; padding:0px">
+        <p-chart type="pie" [data]="data" height="300"></p-chart>
       </div>
     </div>
-
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="col-sm-6">
+      <div class="col-sm-12 row" style="margin: 0px; padding:0px">
+        <label>Choose Catalog: </label>
+        <select class="form-control" (change)="getDataByCatalog($event.target.value)"
+                style="width: 200px;margin-left: 20px;">
+          <option *ngFor="let category of categories" value="{{category.catalogId}}">{{category.catalogName}}</option>
+        </select>
       </div>
-    </div>
-
-    <div class="card border-info mb-3" style="max-width: 20rem;">
-      <div class="card-header bg-info text-white">Order</div>
-      <div class="card-body text-info">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <div class="col-sm-12 row" style="margin: 0px; padding:0px">
+        <p-chart type="pie" [data]="data1" height="300"></p-chart>
       </div>
     </div>
   </div>
-
 
 </div>

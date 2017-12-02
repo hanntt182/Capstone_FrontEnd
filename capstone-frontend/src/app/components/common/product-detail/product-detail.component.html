@@ -47,7 +47,7 @@
               <p class="text-secondary">{{post?.brand.brandName}} - {{post?.catalog.catalogName}}</p>
             </div>
             <div class="row" style="padding-left:20px; font-size: 18px">
-              <b>{{post?.minPrice}} - {{post?.maxPrice}}</b> / {{post?.unit}} | {{post?.minOrderQuantity}}
+              <b>{{post?.minPrice | number:'1.0-2'}} VND - {{post?.maxPrice | number:'1.0-2'}} VND</b> / {{post?.unit}} | {{post?.minOrderQuantity}}
               {{post?.unit}}(Min. Order)
             </div>
             <div class="row" style="padding:20px; background-color: #f2f3f7">

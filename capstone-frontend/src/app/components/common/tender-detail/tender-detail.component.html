@@ -518,7 +518,7 @@
             <label class="col-sm-7">{{tender?.description}}</label>
           </div>
           <div class="row col-sm-12">
-            <label class="col-sm-5">Tender Value:</label>
+            <label class="col-sm-5">Tender Estimated Cost:</label>
             <label class="col-sm-7">{{tender?.tenderValue}} VND</label>
           </div>
           <div class="row col-sm-12">
@@ -536,9 +536,9 @@
               <h4>Fee Detail</h4>
             </label>
           </div>
-          <div class="row col-sm-12">
-            <label class="col-sm-5">EMD Amount in VND:</label>
-            <label class="col-sm-7">{{tender?.emdFee}}</label>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-8">Earnest Money Deposit Amount in VND:</label>
+            <label class="col-sm-4">{{tender?.emdFee}}</label>
           </div>
         </div>
         <div style="margin-left: 30px;margin-right: 30px; margin-bottom:20px;padding:20px; border: solid 1px #A0A2AD">
@@ -577,8 +577,9 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Supplier</th>
-              <th scope="col">Rate</th>
+              <th scope="col">Period of work(days)</th>
               <th scope="col">Bid Price (VND)</th>
+              <th scope="col">Attach document</th>
               <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'" scope="col">
                 Voted
               </th>
@@ -591,12 +592,11 @@
             <tr *ngFor="let tenderHistory of tenderHistories; let i = index">
               <th scope="row">{{i+1}}</th>
               <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
-              <td style="padding: 5px">
-                <div style="font-size: 12px">
-                  <rating [(ngModel)]="tenderHistory.tenderHistoryID.supplier.rate" [readonly]="true"></rating>
-                </div>
+              <td>
+                {{tenderHistory.workPeriod}}
               </td>
-              <td>{{tenderHistory.bidPrice | currency:'VND':'code':'1.0-0':'vi'}}</td>
+              <td>{{tenderHistory.bidPrice | number:'1.0-2'}} VND</td>
+              <td><a href="{{tenderHistory.fileUrl}}">{{formatTenderFile(tenderHistory.fileUrl)}}</a></td>
               <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
                   style="padding: 5px">
                 <div style="font-size: 12px">
@@ -890,6 +890,27 @@
                     (mousedown)="star($event)"></rating>
           </div>
 
+        </div>
+      </div>
+      <div *ngIf="user.role=='SUPPLIER'" class="card" style="margin: 30px;margin-left: 0px">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Bid Information</h4>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+            <div class="col-sm-4">Tender Date:</div>
+            <div class="col-sm-8">{{myTenderInfo?.tenderDate}}</div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-4">Bid Price:</div>
+          <div class="col-sm-8">{{myTenderInfo?.bidPrice| number:'1.0-2'}} VND</div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-4">Period of work(days):</div>
+          <div class="col-sm-8">{{myTenderInfo?.workPeriod}} day(s)</div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-4">Attached Document:</div>
+          <div class="col-sm-8"><a href="{{myTenderInfo?.fileUrl}}">{{formatTenderFile(myTenderInfo?.fileUrl)}}</a></div>
         </div>
       </div>
       <div class="justify-content-around align-items-center text-center" style="margin: 30px">

@@ -113,6 +113,8 @@ public GETTOP15POSTBYRATEDESC = this.HTTP + this.SERVER_IP + this.SERVER_PORT + 
 
 //Dashboard
 public STATISTICSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/statisticSupplier/";
+public STATISTICORDERBUYERWITHSTATUS = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/statisticOrderBuyerWithStatus/";
+public STATISTICORDERBUYERWITHBRAND = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/statisticOrderBuyerWithBrand/";
 
 //Notification
 public COUNTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/countNotification/";

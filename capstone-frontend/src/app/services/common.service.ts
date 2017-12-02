@@ -27,6 +27,14 @@ export class CommonService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  statisticOrderBuyerWithStatus(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
+  statisticOrderBuyerWithBrand(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
   getListCity(apiUrl): Observable<any> {
     return this._http.get(apiUrl).map((response: Response) => response.json());
   }

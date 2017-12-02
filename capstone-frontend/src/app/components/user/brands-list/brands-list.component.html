@@ -15,16 +15,17 @@
     <div class="row justify-content-center" style="padding: 20px">
       <div class="card text-center col-sm-5 hvr-glow" *ngFor="let post of posts" style="margin: 10px; padding: 10px"
            (click)="viewPostDetail(post.postId)">
-        <div class="row col-sm-12 align-items-center" style="margin:0px; height:200px">
+        <div class="row col-sm-12 align-items-center" style="margin:0px; height:200px; padding: 0px">
           <div class="col-sm-4" style="padding: 0px">
             <img src="{{post.primaryImage}}"
                  alt="Card image cap" style="padding: 10px;max-width: 150px; height: auto">
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-8" style="padding: 0px;">
             <h5>{{post.postTitle}}</h5>
             <div class="row col-sm-12">Product Name: {{post.product.productName}}</div>
             <div class="row col-sm-12">Supplier: {{post.supplier.companyName}}</div>
-            <div class="row col-sm-12"><b>Price: {{post.minPrice}} - {{post.maxPrice}} / {{post.unit}}</b></div>
+            <div class="row col-sm-12"><b>Price: {{post.minPrice | number:'1.0-2'}} VND - {{post.maxPrice | number:'1.0-2'}} VND</b></div>
+            <div class="row col-sm-12">Unit: {{post.unit}}</div>
             <div class="row col-sm-12">Required Quanity: {{post.minOrderQuantity}}</div>
             <button type="button" class="btn btn-info" (click)="createNego(post.postId)">Contact Supplier</button>
             <button type="button" class="btn btn-outline-info" (click)="createOrder(post.postId)"> Start Order</button>

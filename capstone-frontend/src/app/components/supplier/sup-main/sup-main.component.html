@@ -9,8 +9,8 @@
 
     <div class="card border-secondary mb-3" style="max-width: 400px; margin-right: 50px; margin-left: 50px">
       <div class="card-header bg-secondary text-white"><b>All Order: {{dataOrder[0]?.number_order}} order(s)</b></div>
-      <div class="card-body text-secondary">
-        <table class="table table-hover">
+      <div class="card-body text-secondary" style="padding: 0px;">
+        <table class="table table-hover" style="margin: 0px">
           <tbody>
           <tr>
             <td scope="row">Waiting: {{dataOrder[1]?.number_order}} order(s)</td>
@@ -37,17 +37,17 @@
 
     <div class="card border-secondary mb-3" style="max-width: 400px; margin-right: 50px;">
       <div class="card-header bg-secondary text-white"><b>Revenue</b></div>
-      <div class="card-body text-secondary">
-        <table class="table table-hover">
+      <div class="card-body text-secondary" style="padding: 0px;">
+        <table class="table table-hover" style="margin: 0px;">
           <tbody>
           <tr>
-            <td scope="row">Today:  VND</td>
+            <td scope="row">Today: {{dataRevenue[0]?.revenue}} VND</td>
           </tr>
           <tr>
-            <td scope="row">This week:  VND</td>
+            <td scope="row">This week: {{dataRevenue[1]?.revenue}} VND</td>
           </tr>
           <tr>
-            <td scope="row">This month:  VND</td>
+            <td scope="row">This month: {{dataRevenue[2]?.revenue}} VND</td>
           </tr>
           </tbody>
         </table>

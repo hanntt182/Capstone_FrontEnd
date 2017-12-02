@@ -13,8 +13,8 @@
         <label style="margin-bottom:0px">Discount: {{deal.discount}} %</label>
         <div>
           <i class="fa fa-usd" aria-hidden="true"></i>
-          <b class="text-primary" style="text-decoration: line-through; margin-left: 5px">{{deal.firstPrice}}VND</b><b
-          class="text-success"> {{deal.discountPrice}} VND</b>
+          <b class="text-primary" style="text-decoration: line-through; margin-left: 5px">{{deal.firstPrice|number:'1.0-2'}}VND</b><b
+          class="text-success"> {{deal.discountPrice|number:'1.0-2'}} VND</b>
         </div>
         <div>
           <i class="fa fa-user" aria-hidden="true"></i>

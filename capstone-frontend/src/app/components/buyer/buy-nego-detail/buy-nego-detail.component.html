@@ -54,10 +54,16 @@
         <div *ngFor="let nego of negotiations" class="row col-sm-12" (click)="changeNego(nego.negotiationID)"
              style="border-bottom: 1px solid #E6E7EB;padding: 0px; margin: 0px; background-color: white">
           <div *ngIf="nego.negotiationID == negoID" class="col-sm-12 row" style="margin: 0;padding: 0px; background: #E6E7EB">
-            <img
-              src="{{nego.post.primaryImage}}"
-              style="width: 48px;height: 48px">
-            <strong class="col-sm-10">{{nego.post.postTitle}}</strong>
+            <div class="col-sm-12 row" style="padding: 0px; margin: 0px">
+              <div class="col-sm-2" style="padding: 0px">
+                <img
+                  src="{{nego.post.primaryImage}}"
+                  style="max-width: 48px; width: 100%; max-height: 48px; height: 100%">
+              </div>
+              <div class="col-sm-6" style="padding: 0px">{{nego.post.postTitle}}</div>
+              <div class="col-sm-4" style="padding: 0px"><small><i>NegotiationID: {{nego.negotiationID}}</i></small></div>
+            </div>
+
             <div class="col-sm-8 offset-2">
               <!--<img class="rounded-circle"
                    src="https://sc02.alicdn.com/kf/HTB131ahSVXXXXbjXFXXq6xXFXXXq/Original-Unlocked-Redmi-Note-4-Xiaomi-32gb.jpg_100x100.jpg"
@@ -241,7 +247,7 @@
             </div>
           </div>
           <div class="card-footer text-right">
-            Product(s) Amount: <b>{{productAmount}} VND</b>
+            Product(s) Amount: <b>{{productAmount|number:'1.0-2'}} VND</b>
           </div>
         </div>
 
@@ -315,7 +321,7 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
               <label class="col-sm-6" style="padding: 0px;">Total order amount</label>
-              <label class="col-sm-6" style="padding: 0px;">{{totalAmount}} VND</label>
+              <label class="col-sm-6" style="padding: 0px;">{{totalAmount|number:'1.0-2'}} VND</label>
             </div>
           </div>
         </div>
@@ -344,7 +350,7 @@
         </div>-->
 
         <div class="row text-right justify-content-end" style="margin-right: 50px">
-          Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
+          Total Order Amount: <h5 style="color: orangered">{{totalAmount|number:'1.0-2'}} VND</h5>
         </div>
 
         <!--<div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end"-->
@@ -441,7 +447,7 @@
             </div>
           </div>
           <div class="card-footer text-right">
-            Product(s) Amount: <b>{{productAmount}} VND</b>
+            Product(s) Amount: <b>{{productAmount|number:'1.0-2'}} VND</b>
           </div>
         </div>
 
@@ -606,7 +612,7 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px; font-size: 15px">
               <label class="col-sm-6" style="padding: 0px;">Total order amount</label>
-              <label class="col-sm-6" style="padding: 0px;">{{totalAmount}} VND</label>
+              <label class="col-sm-6" style="padding: 0px;">{{totalAmount|number:'1.0-2'}} VND</label>
             </div>
           </div>
         </div>
@@ -641,7 +647,7 @@
         </div>-->
 
         <div class="row text-right justify-content-end" style="margin-right: 50px">
-          Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
+          Total Order Amount: <h5 style="color: orangered">{{totalAmount|number:'1.0-2'}} VND</h5>
         </div>
 
 
@@ -772,7 +778,7 @@
         <form #editPostShipForm="ngForm">
           <div class="row col-sm-12" style="padding-top: 10px;">
             <select class="col-sm-12 form-control" name="editPostShip" ngModel #editPostShip="ngModel" required>
-              <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID.ship.shipID}}">
+              <option *ngFor="let postShip of negotiation?.post.postShips" value="{{postShip.postShipID.ship.shipName}}">
                 {{postShip.postShipID.ship.shipName}}
               </option>
             </select>

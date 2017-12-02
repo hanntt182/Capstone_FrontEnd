@@ -5,6 +5,7 @@ import {Constants} from './../../../constants';
 import {now} from "moment";
 import {ToastsManager} from "ng2-toastr";
 import {CommonService} from "../../../services/common.service";
+import {split} from "ts-node/dist";
 
 @Component({
   selector: 'app-tender-detail',
@@ -31,6 +32,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public tenderHistories;
   public winBidder;
   public companyProfile;
+  public myTenderInfo;
 
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -80,6 +82,34 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
           this.tenderHistories = null;
         }
       });
+
+      this.viewTenderInfoOfSup(this.user.userId, this.tenderID);
+    });
+  }
+
+  formatTenderFile(fileName) {
+    let fileArray = [];
+    if (fileName != null) {
+      fileArray = fileName.split('-');
+    }
+    let newName = '';
+    if (fileArray.length == 3) {
+      newName += fileArray[2];
+    } else if (fileArray.length > 3) {
+      for (let i = 2; i < fileArray.length; i++) {
+        newName += fileArray[i];
+      }
+    }
+    return newName;
+  }
+
+  viewTenderInfoOfSup(supID, tenderID) {
+    let data = {
+      'SupplierID': supID,
+      'TenderID': tenderID
+    };
+    this.tenderService.viewTenderHistoryDetail(this.constants.VIEWTENDERHISTORYDETAIL, data).subscribe((response: any) => {
+      this.myTenderInfo = response;
     });
   }
 

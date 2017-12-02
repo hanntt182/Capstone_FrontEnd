@@ -95,8 +95,8 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
         this.stompClientNegoDetail.subscribe('/negotiation/' + this.negoID, (negotiation) => {
           if (negotiation.body) {
             this.negotiation = JSON.parse(negotiation.body);
-            //this.messages.push(JSON.parse(message.body));
-            //console.log(message.body);
+            this.productAmount = this.negotiation.quantity * this.negotiation.offerPrice;
+            this.totalAmount = this.productAmount + this.negotiation.shipPrice;
           }
         }, {id: this.user.userId});
       });
@@ -175,14 +175,13 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  cancelOrder() {
+  cancelNego() {
     let data = {
       'UserID': this.user.userId,
       'NegotiationID': Number(this.negoID)
     };
-    this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {
+    this.negoService.cancleNegotiation(this.constants.CANCLENEGOTIATION, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
-      //alert(response);
     }, error => {
       console.log(error);
     });

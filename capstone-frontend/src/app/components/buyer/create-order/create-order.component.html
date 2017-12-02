@@ -38,7 +38,6 @@
               <thead>
               <tr>
                 <th scope="col"> Product Name</th>
-                <th scope="col"></th>
                 <th scope="col"> Quantity <span class="star">*</span></th>
                 <th scope="col"> Unit</th>
                 <th scope="col"> Your offer (per unit price)<span class="star">*</span></th>
@@ -47,15 +46,14 @@
               </thead>
               <tbody>
               <tr class="align-items-center">
-                <td scope="row" style="width:100px">
-                  <img src="{{post?.primaryImage}}" style="max-width: 80px;height: auto">
-                </td>
-                <td>
+                <td style="width: 280px;">
                   <div class="row col-sm-12">{{post?.postTitle}}</div>
 
-                  <div class="row col-sm-12">{{post?.product.productName}}</div>
+                  <div class="row col-sm-12" style="margin-bottom: 5px"><small>{{post?.product.productName}}</small></div>
+
+                  <img src="{{post?.primaryImage}}" style="max-width: 70px;width: 100%; max-height: 70px; height: 100%">
                 </td>
-                <td style="padding-right: 0px; padding-left: 0px; width: 255px">
+                <td style="padding-right: 0px; padding-left: 0px; width: 170px">
                   <div class="form-group">
                     <input style="width: 110px" type="number" class="form-control" [min]="post?.minOrderQuantity"
                            [max]="1000000000"
@@ -63,8 +61,13 @@
                            (change)="countAmount(createOrderForm.value)" #quantity="ngModel" required>
                     <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
                          class="error" style="padding:0px; font-size:13px">
-                      <div *ngIf="quantity.errors.required">
-                        Quantity is required and must be a number.
+                      <div *ngIf="quantity.value==e">
+                        Quantity must be a number.
+                      </div>
+                      <div *ngIf="quantity.value!=e">
+                        <div *ngIf="quantity.errors.required">
+                          Quantity is required.
+                        </div>
                       </div>
                       <div *ngIf="quantity.errors?.min">
                         Quantity must be ≥ {{post?.minOrderQuantity}}
@@ -78,10 +81,10 @@
                 <td scope="row">
                   <label>{{post?.unit}}</label>
                 </td>
-                <td style="padding-right: 0px; padding-left: 0px; width: 265px">
+                <td style="padding-right: 0px; padding-left: 0px; width: 350px">
                   <div class="form-group">
                     <input type="number" class="form-control"
-                           placeholder="{{post?.minPrice}} ≤ price ≤ {{post?.maxPrice}}" id="offerPrice"
+                           placeholder="{{post?.minPrice | number:'1.0-2'}} VND ≤ price ≤ {{post?.maxPrice | number:'1.0-2'}} VND" id="offerPrice"
                            [min]="post?.minPrice" [max]="post?.maxPrice" name="offerPrice" ngModel
                            (change)="countAmount(createOrderForm.value)" #offerPrice="ngModel" required>
                     <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"

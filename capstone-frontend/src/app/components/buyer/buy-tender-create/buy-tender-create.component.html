@@ -55,20 +55,20 @@
           <div class="row col-sm-12">
             <div class="col-sm-2"></div>
             <div class="row col-sm-10" style="padding-top: 20px">
-              <label style="padding-right: 10px" class="col-sm-3 text-right">Tender Value: <span
+              <label style="padding-right: 10px" class="col-sm-3 text-right">Tender Estimated Cost: <span
                 class="star">*</span></label>
               <div class="col-sm-8">
                 <input class="form-control col-sm-12" type="number" required name="TenderValue" ngModel
                        #TenderValue="ngModel" [min]="0" [max]="1000000000000">
                 <div class="error" *ngIf="TenderValue.invalid && (TenderValue.dirty || TenderValue.touched)">
                   <div *ngIf="TenderValue.errors.required">
-                    Tender Value is required and must be a number.
+                    Tender Estimated Cost is required and must be a number.
                   </div>
                   <div *ngIf="TenderValue.errors?.min">
-                    Tender Value must be ≥ 0
+                    Tender Estimated Cost must be ≥ 0
                   </div>
                   <div *ngIf="TenderValue.errors?.max">
-                    Tender Value must be ≤ 1.000.000.000.000
+                    Tender Estimated Cost must be ≤ 1.000.000.000.000
                   </div>
                 </div>
               </div>
@@ -236,7 +236,7 @@
           <div class="row col-sm-12">
             <div class="col-sm-2"></div>
             <div class="row col-sm-10" style="padding-top: 10px">
-              <label>EMD Fee Excemption Allowed: <span class="star">*</span></label>
+              <label>Earnest Money Deposit Fee Excemption Allowed: <span class="star">*</span></label>
               <div class="col-sm-12">
                 <div class="row col-sm-12">
                   <label class="form-check-label" style="margin:10px">
@@ -255,13 +255,13 @@
                 <div class="row col-sm-12 align-items-center">
                   <div class="error" *ngIf="createTenderForm.value.EMDFee == 'No' && (Fee.dirty || Fee.touched)" style="margin-left:60px">
                     <div *ngIf="Fee.value==''">
-                      EMD Fee is required and must be a number.
+                      Earnest Money Deposit Fee is required and must be a number.
                     </div>
                     <div *ngIf="Fee.errors?.min">
-                      EMD Fee must be ≥ 1000
+                      Earnest Money Deposit Fee must be ≥ 1000
                     </div>
                     <div *ngIf="Fee.errors?.max">
-                      EMD Fee must be ≤ 1.000.000.000.000
+                      Earnest Money Deposit Fee must be ≤ 1.000.000.000.000
                     </div>
                   </div>
                 </div>

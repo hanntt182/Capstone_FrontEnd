@@ -68,8 +68,10 @@ export class OrderDetailComponent implements OnInit {
       'OrderID': this.orderID
     };
     this.orderService.confirmOrder(this.constants.CONFIRMORDER, data).subscribe((response: any) => {
-      alert(response);
-      this.router.navigate(['/supplier/order-list/paying']);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout(() => {
+        this.router.navigate(['/supplier/order-list/paying']);
+      }, 1000);
     }, error => {
       console.log(error);
     });
@@ -81,13 +83,16 @@ export class OrderDetailComponent implements OnInit {
       'OrderID': this.orderID
     };
     this.orderService.cancleOrder(this.constants.CANCELORDER, data).subscribe((response: any) => {
-      alert(response);
       if (this.user.role == 'BUYER') {
         this.toastr.success(response, 'Success!', {showCloseButton: true});
-        this.router.navigate(['/buyer/order-list/cancelled']);
+        setTimeout(() => {
+          this.router.navigate(['/buyer/order-list/cancelled']);
+        }, 1000);
       } else if (this.user.role == 'SUPPLIER') {
         this.toastr.success(response, 'Success!', {showCloseButton: true});
-        this.router.navigate(['/supplier/order-list/cancelled']);
+        setTimeout(() => {
+          this.router.navigate(['/supplier/order-list/cancelled']);
+        }, 1000);
       }
     }, error => {
       console.log(error);
@@ -107,10 +112,12 @@ export class OrderDetailComponent implements OnInit {
     };
     this.orderService.confirmShipping(this.constants.CONFIRMSHIPPING, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
-      this.router.navigate(['/supplier/order-list/success']);
+      setTimeout(() => {
+        this.router.navigate(['/supplier/order-list/success']);
+      }, 1000);
     }, error => {
       console.log(error);
-      alert(error._body);
+      this.toastr.error(error._body, 'Fail!', {showCloseButton: true});
     });
   }
 
