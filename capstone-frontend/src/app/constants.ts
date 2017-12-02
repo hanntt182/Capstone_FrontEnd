@@ -115,6 +115,8 @@ public STATISTICSUPPLIER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.
 //Notification
 public COUNTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/countNotification/";
 public GETLISTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListNotification/";
+public UPDATENOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/updateNotification/";
+public RESETCOUNT = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/resetCount/";
 
 
 constructor(){}

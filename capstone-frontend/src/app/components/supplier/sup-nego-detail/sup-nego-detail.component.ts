@@ -60,7 +60,9 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
       console.log(this.stompClient);
 
       if (this.stompClient != null) {
-        this.stompClient.disconnect();
+        if (this.stompClient.ws.url == this.serverUrl) {
+          this.stompClient.disconnect();
+        }
       }
 
       let ws = new SockJS(this.serverUrl);
@@ -71,7 +73,7 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
             this.messages.push(JSON.parse(message.body));
             console.log(message.body);
           }
-        });
+        }, {id: this.user.userId});
       });
 
     });

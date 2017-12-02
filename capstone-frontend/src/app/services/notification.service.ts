@@ -19,4 +19,12 @@ export class NotificationService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  updateNotification(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
+  resetCount(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.text());
+  }
+
 }
