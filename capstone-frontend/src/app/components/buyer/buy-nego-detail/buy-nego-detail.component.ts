@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NegoService} from '../../../services/nego.service';
@@ -8,6 +8,7 @@ import * as $ from 'jquery';
 import {CommonService} from '../../../services/common.service';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-buy-nego-detail',
@@ -45,7 +46,10 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
               private constants: Constants,
               private orderService: OrderService,
               private router: Router,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
 
@@ -58,17 +62,13 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       this.negoID = params['negoId'];
       this.negoStatus = params['negoStatus'];
       this.searchNego('');
-      let data = {
-        'NegotiationID': this.negoID
-      };
-      this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
-        this.negotiation = response;
-        this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
-      });
+      this.viewNegoDetail(this.negoID);
       this.getMessage(this.negoID);
-
+      console.log(this.stompClient);
       if (this.stompClient != null) {
-        this.stompClient.disconnect();
+        if (this.stompClient.ws.url == this.serverUrl) {
+          this.stompClient.disconnect();
+        }
       }
 
       let ws = new SockJS(this.serverUrl);
@@ -93,6 +93,16 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  viewNegoDetail(negoID) {
+    let data = {
+      'NegotiationID': negoID
+    };
+    this.negoService.viewNegotiationDetail(this.constants.VIEWNEGOTIATIONDETAIL, data).subscribe((response: any) => {
+      this.negotiation = response;
+      this.countAmount(response.quantity, response.offerPrice, response.shipPrice);
+    });
   }
 
   checkAddress(e, createOrderForm) {
@@ -214,7 +224,7 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       this.shipID = createNegoOrder.postShip;
     } else if (this.negotiation.ship != null) {
       for (let i = 0; i < this.negotiation.post.postShips.length; i++) {
-        if (this.negotiation.post.postShips[i].postShipID.ship.shipName == document.getElementById('editShippingMethod').innerHTML) {
+        if (this.negotiation.post.postShips[i].postShipID.ship.shipName == document.getElementById('editShippingMethod').innerText) {
           this.shipID = this.negotiation.post.postShips[i].postShipID.ship.shipID;
         }
       }
@@ -224,7 +234,7 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       'NegotiationID': Number(this.negoID),
       'OfferPrice': Number(createNegoOrder.offerPrice),
       'Quantity': Number(createNegoOrder.quantity),
-      'ShipID': Number(createNegoOrder.postShip),
+      'ShipID': this.shipID,
       'ShippingTime': Number(createNegoOrder.shippingTime),
       'ShipFee': Number(createNegoOrder.feeShip),
       'Remark': createNegoOrder.remark,
@@ -232,9 +242,11 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
     };
     this.negoService.updateNegotiationBuyer(this.constants.UPDATENEGOTIATIONBUYER, data).subscribe((response: any) => {
       this.negotiation = response;
-      alert('Update success');
+      this.toastr.success('Update successfully!', 'Success!', {showCloseButton: true});
     }, error => {
-      console.log(error);
+      this.toastr.error('This Negotiation has been confirmed. You can not update', 'Fail!', {showCloseButton: true});
+      this.router.navigate(['/buyer/negotiation/finished/' + this.negoID]);
+      this.viewNegoDetail(this.negoID);
     });
   }
 
@@ -260,13 +272,14 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
     $('.modal-backdrop').remove();
   }
 
-  payNegoOrder() {
-    this.router.navigate(['/buyer/payment-nego/' + this.negoID]);
-  }
+  // payNegoOrder() {
+  //   this.router.navigate(['/buyer/payment-nego/' + this.negoID]);
+  // }
 
 
   cancelOrder() {
     let data = {
+      'UserID': this.user.userId,
       'NegotiationID': this.negoID
     };
     this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {

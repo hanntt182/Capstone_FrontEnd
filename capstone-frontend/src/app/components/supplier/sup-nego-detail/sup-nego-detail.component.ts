@@ -57,6 +57,7 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
         this.totalAmount = this.productAmount + response.shipPrice;
       });
       this.getMessage(this.negoID);
+      console.log(this.stompClient);
 
       if (this.stompClient != null) {
         this.stompClient.disconnect();
@@ -138,6 +139,9 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
     };
     this.negoService.confirmNegotiation(this.constants.CONFIRMNEGOTIATION, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout( () => {
+        this.router.navigate(['/supplier/order-list/paying']);
+      }, 1000);
       this.ngOnInit();
     }, error => {
       console.log(error);
@@ -146,6 +150,7 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
 
   cancelOrder() {
     let data = {
+      'UserID': this.user.userId,
       'NegotiationID': this.negoID
     };
     this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {

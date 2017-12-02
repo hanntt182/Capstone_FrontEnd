@@ -347,23 +347,23 @@
           Total Order Amount: <h5 style="color: orangered">{{totalAmount}} VND</h5>
         </div>
 
-        <div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end"
-             style="margin-right: 50px; margin-bottom: 20px">
-          <button style="margin-right: 10px" type="button" class="btn btn-success"
-                  [disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null
-                  || negotiation?.address==null || negotiation?.ship==null
-                  || negotiation?.offerPrice==null || negotiation?.shipPrice==null
-                  || negotiation?.remark==null"
-                  (click)="payNegoOrder()">
-            <i class="fa fa-check" aria-hidden="true"></i>
-            Payment
-          </button>
-          <button type="button" class="btn btn-danger"
-                  (click)="cancelOrder()">
-            <i class="fa fa-times" aria-hidden="true"></i>
-            Cancel
-          </button>
-        </div>
+        <!--<div *ngIf="negotiation?.status.statusName=='NEGOTIATING'" class="row text-right justify-content-end"-->
+             <!--style="margin-right: 50px; margin-bottom: 20px">-->
+          <!--<button style="margin-right: 10px" type="button" class="btn btn-success"-->
+                  <!--[disabled]="negotiation?.quantity==null || negotiation?.shippingTime==null-->
+                  <!--|| negotiation?.address==null || negotiation?.ship==null-->
+                  <!--|| negotiation?.offerPrice==null || negotiation?.shipPrice==null-->
+                  <!--|| negotiation?.remark==null"-->
+                  <!--(click)="payNegoOrder()">-->
+            <!--<i class="fa fa-check" aria-hidden="true"></i>-->
+            <!--Payment-->
+          <!--</button>-->
+          <!--<button type="button" class="btn btn-danger"-->
+                  <!--(click)="cancelOrder()">-->
+            <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+            <!--Cancel-->
+          <!--</button>-->
+        <!--</div>-->
 
       </form>
     </div>
@@ -423,7 +423,7 @@
                        class="form-control" value="{{negotiation?.offerPrice}}" [min]="0"
                        [max]="negotiation?.post.maxPrice">
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" style="padding: 0px">
                 <label> VND /piece</label>
               </div>
               <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
@@ -475,7 +475,7 @@
                      (change)="countAmount(createNegoOrder.value.quantity, createNegoOrder.value.offerPrice, createNegoOrder.value.feeShip)"
                      class="col-sm-5 form-control" #feeShip="ngModel" required [min]="0"
                      value="{{negotiation?.shipPrice}}">
-              <label class="col-sm-2"> VND </label>
+              <label class="col-sm-2" style="padding: 0px 0px 0px 5px;"> VND </label>
               <div *ngIf="feeShip.invalid && (feeShip.dirty || feeShip.touched)"
                    class="error">
                 <div *ngIf="feeShip.errors.required">
