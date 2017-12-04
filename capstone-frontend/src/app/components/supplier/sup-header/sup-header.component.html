@@ -52,8 +52,8 @@
 
       </ul>
       <ul *ngIf="user" class="nav navbar-right pull-right col-sm-2">
-        <li class="nav-item dropdown">
-          <a (click)="resetCount()" style="color: white; cursor: pointer" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown" style="width: 70px">
+          <a (click)="resetCount()" style="color: white; cursor: pointer" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-bell" aria-hidden="true"></i>
             <span *ngIf="count>0" class="badge badge-secondary">{{count}}</span>
           </a>

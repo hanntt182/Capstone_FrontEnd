@@ -25,9 +25,13 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
   public totalAmount;
   public xInterval;
 
+  //Socket for Message
   private serverUrl = 'http://localhost:8080/SWP49X/socket';
-  private title = 'WebSockets chat';
   private stompClient = null;
+
+  //Socket for Nego Detail
+  private serverNegoDetailUrl = 'http://localhost:8080/SWP49X/negotiation';
+  private stompClientNegoDetail = null;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -57,8 +61,8 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
         this.totalAmount = this.productAmount + response.shipPrice;
       });
       this.getMessage(this.negoID);
-      console.log(this.stompClient);
 
+      //Socket for Message
       if (this.stompClient != null) {
         if (this.stompClient.ws.url == this.serverUrl) {
           this.stompClient.disconnect();
@@ -72,6 +76,27 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
           if (message.body) {
             this.messages.push(JSON.parse(message.body));
             console.log(message.body);
+          }
+        }, {id: this.user.userId});
+      });
+
+
+      //Socket for Nego Detail
+      console.log(this.stompClientNegoDetail);
+      if (this.stompClientNegoDetail != null) {
+        if (this.stompClientNegoDetail.ws.url == this.serverNegoDetailUrl) {
+          this.stompClientNegoDetail.disconnect();
+        }
+      }
+
+      let wsNego = new SockJS(this.serverNegoDetailUrl);
+      this.stompClientNegoDetail = Stomp.over(wsNego);
+      this.stompClientNegoDetail.connect({}, () => {
+        this.stompClientNegoDetail.subscribe('/negotiation/' + this.negoID, (negotiation) => {
+          if (negotiation.body) {
+            this.negotiation = JSON.parse(negotiation.body);
+            //this.messages.push(JSON.parse(message.body));
+            //console.log(message.body);
           }
         }, {id: this.user.userId});
       });

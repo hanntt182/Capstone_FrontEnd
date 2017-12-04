@@ -134,7 +134,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
       setTimeout(() => {
         document.getElementById('opencancelTenderModal').click();
-        this.router.navigate(['/buyer/tender-list/cancel']);
+        this.router.navigate(['/buyer/tender-list/cancelled']);
       }, 1000);
     }, error => {
       console.log(error);

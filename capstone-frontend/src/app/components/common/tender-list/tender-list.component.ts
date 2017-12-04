@@ -15,7 +15,7 @@ export class TenderListComponent implements OnInit {
   public tenderStatus;
   public tenders;
   public tenderID;
-  public tenderStatusTabs = ['active', 'closed', 'finished', 'cancel'];
+  public tenderStatusTabs = ['active', 'closed', 'finished', 'cancelled'];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -91,7 +91,7 @@ export class TenderListComponent implements OnInit {
     this.tenderService.cancleTender(this.constants.CANCLETENDER, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
       document.getElementById('opencancelTenderModal').click();
-      this.router.navigate(['/buyer/tender-list/cancel']);
+      this.router.navigate(['/buyer/tender-list/cancelled']);
     }, error => {
       console.log(error);
     });

@@ -38,8 +38,13 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   public setDisabledNew = false;
   public setDisabledOld = false;
 
+  //Socket for Message
   private serverUrl = 'http://localhost:8080/SWP49X/socket';
   private stompClient = null;
+
+  //Socket for Nego Detail
+  private serverNegoDetailUrl = 'http://localhost:8080/SWP49X/negotiation';
+  private stompClientNegoDetail = null;
 
   constructor(private activatedRoute: ActivatedRoute,
               private negoService: NegoService,
@@ -64,7 +69,8 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       this.searchNego('');
       this.viewNegoDetail(this.negoID);
       this.getMessage(this.negoID);
-      console.log(this.stompClient);
+
+      //Socket for Message
       if (this.stompClient != null) {
         if (this.stompClient.ws.url == this.serverUrl) {
           this.stompClient.disconnect();
@@ -78,6 +84,27 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
           if (message.body) {
             this.messages.push(JSON.parse(message.body));
             console.log(message.body);
+          }
+        }, {id: this.user.userId});
+      });
+
+
+      //Socket for Nego Detail
+      if (this.stompClientNegoDetail != null) {
+        if (this.stompClientNegoDetail.ws.url == this.serverNegoDetailUrl) {
+          this.stompClientNegoDetail.disconnect();
+        }
+      }
+
+      let wsNego = new SockJS(this.serverNegoDetailUrl);
+      this.stompClientNegoDetail = Stomp.over(wsNego);
+      this.stompClientNegoDetail.connect({}, () => {
+        this.stompClientNegoDetail.subscribe('/negotiation/' + this.negoID, (negotiation) => {
+          if (negotiation.body) {
+            this.negotiation = JSON.parse(negotiation.body);
+            this.countAmount(this.negotiation.quantity, this.negotiation.offerPrice, this.negotiation.shipPrice);
+            //this.messages.push(JSON.parse(message.body));
+            //console.log(message.body);
           }
         }, {id: this.user.userId});
       });
@@ -241,12 +268,13 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
       'Address': this.address
     };
     this.negoService.updateNegotiationBuyer(this.constants.UPDATENEGOTIATIONBUYER, data).subscribe((response: any) => {
-      this.negotiation = response;
+      console.log(response);
       this.toastr.success('Update successfully!', 'Success!', {showCloseButton: true});
     }, error => {
       this.toastr.error('This Negotiation has been confirmed. You can not update', 'Fail!', {showCloseButton: true});
       this.router.navigate(['/buyer/negotiation/finished/' + this.negoID]);
       this.viewNegoDetail(this.negoID);
+      console.log(error);
     });
   }
 

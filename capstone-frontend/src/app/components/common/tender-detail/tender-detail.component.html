@@ -579,7 +579,7 @@
               <th scope="col">Supplier</th>
               <th scope="col">Rate</th>
               <th scope="col">Bid Price (VND)</th>
-              <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'" scope="col">
+              <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'" scope="col">
                 Voted
               </th>
               <th *ngIf="tender?.status.statusName=='ACTIVE' || tender?.status.statusName=='CLOSED'" scope="col">
@@ -597,7 +597,7 @@
                 </div>
               </td>
               <td>{{tenderHistory.bidPrice | currency:'VND':'code':'1.0-0':'vi'}}</td>
-              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+              <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
                   style="padding: 5px">
                 <div style="font-size: 12px">
                   <rating [(ngModel)]="tenderHistory.star" [readonly]="true"></rating>
@@ -744,7 +744,7 @@
           <div class="col-sm-6" style="padding-right: 5px; margin-bottom: 10px">Company Email:</div>
           <div class="col-sm-6" style="padding: 0px">{{tender?.winner.companyEmail}}</div>
         </div>
-        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
              class="row justify-content-center col-sm-12" style="margin: 0px;padding: 10px">
           <div *ngIf="rateWinner==0 || rateWinner==null" class="col-sm-12 text-center"><h5>You can rate for this
             Winner</h5></div>
@@ -878,7 +878,7 @@
           <div class="col-sm-6" style="padding: 0px">{{tender?.buyer.companyEmail}}</div>
         </div>
 
-        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCEL'"
+        <div *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
              class="row justify-content-center col-sm-12" style="margin: 0px;padding: 10px">
           <div *ngIf="rateBuyer==0 || rateBuyer==null" class="col-sm-12 text-center"><h5>You can rate for this Bid
             Solicitor</h5></div>

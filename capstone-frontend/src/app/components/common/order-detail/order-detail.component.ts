@@ -84,10 +84,10 @@ export class OrderDetailComponent implements OnInit {
       alert(response);
       if (this.user.role == 'BUYER') {
         this.toastr.success(response, 'Success!', {showCloseButton: true});
-        this.router.navigate(['/buyer/order-list/cancel']);
+        this.router.navigate(['/buyer/order-list/cancelled']);
       } else if (this.user.role == 'SUPPLIER') {
         this.toastr.success(response, 'Success!', {showCloseButton: true});
-        this.router.navigate(['/supplier/order-list/cancel']);
+        this.router.navigate(['/supplier/order-list/cancelled']);
       }
     }, error => {
       console.log(error);
