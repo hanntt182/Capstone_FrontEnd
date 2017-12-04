@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Constants} from './../../../constants';
 import {OrderService} from "../../../services/order.service";
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
 
 @Component({
   selector: 'app-order-list',
@@ -17,6 +19,10 @@ export class OrderListComponent implements OnInit {
   public pages: any[] = [1];
   public orderStatusTabs = ['waiting', 'paying', 'shipping', 'success', 'cancelled', 'finished'];
 
+  //Socket for Order
+  private serverOrderUrl = 'http://localhost:8080/SWP49X/order';
+  private stompClientOrder = null;
+
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private constants: Constants,
@@ -31,8 +37,31 @@ export class OrderListComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.orderStatus = params['orderStatus'];
       this.changePage('', 1);
+
+      //Socket for Message
+      if (this.stompClientOrder != null) {
+        if (this.stompClientOrder.ws.url == this.serverOrderUrl) {
+          this.stompClientOrder.disconnect();
+        }
+      }
+
+      let ws = new SockJS(this.serverOrderUrl);
+      this.stompClientOrder = Stomp.over(ws);
+      this.stompClientOrder.connect({}, () => {
+        this.stompClientOrder.subscribe('/order/' + this.user.userId, (orders) => {
+          if (orders.body) {
+            if ((<HTMLInputElement>document.getElementById('searchOrder')) != null) {
+              this.changePage((<HTMLInputElement>document.getElementById('searchOrder')).value, 1);
+              console.log(this.orders);
+            } else {
+              this.changePage('', 1);
+            }
+          }
+        }, {id: this.user.userId});
+      });
     });
   }
+
 
   changeStatus(status) {
     if (this.user.role == 'BUYER') {

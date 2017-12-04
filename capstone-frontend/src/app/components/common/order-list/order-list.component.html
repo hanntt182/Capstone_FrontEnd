@@ -20,7 +20,7 @@
                 <h5></h5>
                 <form #searchForm="ngForm" class="form-inline">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="search" ngModel>
+                    <input id="searchOrder" type="text" class="form-control" name="search" ngModel>
                   </div>
                   <button type="submit" class="btn btn-default"
                           (click)="changePage(searchForm.value.search, 1)">Search
