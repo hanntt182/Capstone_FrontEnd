@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   public notifications = [];
   public count = 0;
 
-  private serverNotiUrl = 'http://localhost:8080/SWP49X/notify';
+  //private serverNotiUrl = 'http://localhost:8080/SWP49X/notify';
   private stompClientNoti = null;
 
   constructor(private constants: Constants,
@@ -50,11 +50,11 @@ export class HeaderComponent implements OnInit {
   connectSocket(userID) {
     this.getCountAndListNotification(userID);
     if (this.stompClientNoti != null) {
-      if (this.stompClientNoti.ws.url == this.serverNotiUrl) {
+      if (this.stompClientNoti.ws.url == this.constants.SOCKETNOTIFY) {
         this.stompClientNoti.disconnect();
       }
     }
-    let ws = new SockJS(this.serverNotiUrl);
+    let ws = new SockJS(this.constants.SOCKETNOTIFY);
     this.stompClientNoti = Stomp.over(ws);
     this.stompClientNoti.connect({}, () => {
       this.stompClientNoti.subscribe('/notify/' + userID, (notify) => {
@@ -141,7 +141,7 @@ export class HeaderComponent implements OnInit {
     this.loginService.setLogin(false);
     localStorage.removeItem('currentUser');
     if (this.stompClientNoti != null) {
-      if (this.stompClientNoti.ws.url == this.serverNotiUrl) {
+      if (this.stompClientNoti.ws.url == this.constants.SOCKETNOTIFY) {
         this.stompClientNoti.disconnect();
       }
     }

@@ -20,7 +20,7 @@ export class OrderListComponent implements OnInit {
   public orderStatusTabs = ['waiting', 'paying', 'shipping', 'success', 'cancelled', 'finished'];
 
   //Socket for Order
-  private serverOrderUrl = 'http://localhost:8080/SWP49X/order';
+  //private serverOrderUrl = 'http://localhost:8080/SWP49X/order';
   private stompClientOrder = null;
 
   constructor(private router: Router,
@@ -40,12 +40,12 @@ export class OrderListComponent implements OnInit {
 
       //Socket for Message
       if (this.stompClientOrder != null) {
-        if (this.stompClientOrder.ws.url == this.serverOrderUrl) {
+        if (this.stompClientOrder.ws.url == this.constants.SOCKETORDER) {
           this.stompClientOrder.disconnect();
         }
       }
 
-      let ws = new SockJS(this.serverOrderUrl);
+      let ws = new SockJS(this.constants.SOCKETORDER);
       this.stompClientOrder = Stomp.over(ws);
       this.stompClientOrder.connect({}, () => {
         this.stompClientOrder.subscribe('/order/' + this.user.userId, (orders) => {

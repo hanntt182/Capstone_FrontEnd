@@ -39,11 +39,11 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
   public setDisabledOld = false;
 
   //Socket for Message
-  private serverUrl = 'http://localhost:8080/SWP49X/socket';
+  //private serverUrl = 'http://localhost:8080/SWP49X/socket';
   private stompClient = null;
 
   //Socket for Nego Detail
-  private serverNegoDetailUrl = 'http://localhost:8080/SWP49X/negotiation';
+  //private serverNegoDetailUrl = 'http://localhost:8080/SWP49X/negotiation';
   private stompClientNegoDetail = null;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -72,12 +72,12 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
       //Socket for Message
       if (this.stompClient != null) {
-        if (this.stompClient.ws.url == this.serverUrl) {
+        if (this.stompClient.ws.url == this.constants.SOCKETMESSAGE) {
           this.stompClient.disconnect();
         }
       }
 
-      let ws = new SockJS(this.serverUrl);
+      let ws = new SockJS(this.constants.SOCKETMESSAGE);
       this.stompClient = Stomp.over(ws);
       this.stompClient.connect({}, () => {
         this.stompClient.subscribe('/chat/' + this.negoID, (message) => {
@@ -91,12 +91,12 @@ export class BuyNegoDetailComponent implements OnInit, OnDestroy {
 
       //Socket for Nego Detail
       if (this.stompClientNegoDetail != null) {
-        if (this.stompClientNegoDetail.ws.url == this.serverNegoDetailUrl) {
+        if (this.stompClientNegoDetail.ws.url == this.constants.SOCKETNEGO) {
           this.stompClientNegoDetail.disconnect();
         }
       }
 
-      let wsNego = new SockJS(this.serverNegoDetailUrl);
+      let wsNego = new SockJS(this.constants.SOCKETNEGO);
       this.stompClientNegoDetail = Stomp.over(wsNego);
       this.stompClientNegoDetail.connect({}, () => {
         this.stompClientNegoDetail.subscribe('/negotiation/' + this.negoID, (negotiation) => {

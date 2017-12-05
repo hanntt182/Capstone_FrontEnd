@@ -19,7 +19,7 @@ export class BuyHeaderComponent implements OnInit {
   public negoID;
   public count;
   public notifications = [];
-  private serverNotiUrl = 'http://localhost:8080/SWP49X/notify';
+  //private serverNotiUrl = 'http://localhost:8080/SWP49X/notify';
   private stompClientNoti = null;
 
   constructor(private router: Router,
@@ -44,11 +44,11 @@ export class BuyHeaderComponent implements OnInit {
   connectSocket(userID) {
     this.getCountAndListNotification(userID);
     if (this.stompClientNoti != null) {
-      if (this.stompClientNoti.ws.url == this.serverNotiUrl) {
+      if (this.stompClientNoti.ws.url == this.constants.SOCKETNOTIFY) {
         this.stompClientNoti.disconnect();
       }
     }
-    let ws = new SockJS(this.serverNotiUrl);
+    let ws = new SockJS(this.constants.SOCKETNOTIFY);
     this.stompClientNoti = Stomp.over(ws);
     this.stompClientNoti.connect({}, () => {
       this.stompClientNoti.subscribe('/notify/' + userID, (notify) => {
@@ -114,7 +114,7 @@ export class BuyHeaderComponent implements OnInit {
     this.loginService.setLogin(false);
     localStorage.removeItem('currentUser');
     if (this.stompClientNoti != null) {
-      if (this.stompClientNoti.ws.url == this.serverNotiUrl) {
+      if (this.stompClientNoti.ws.url == this.constants.SOCKETNOTIFY) {
         this.stompClientNoti.disconnect();
       }
     }

@@ -6,6 +6,7 @@ public HTTP = 'http://';
 public SERVER_IP = 'localhost';
 public SERVER_PORT = ':8080';
 public SERVER_PATH= '/SWP49X/api';
+public SOCKET_PATH= '/SWP49X';
 
 // API
 public LOGIN = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/login/";
@@ -118,6 +119,12 @@ public COUNTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.
 public GETLISTNOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/getListNotification/";
 public UPDATENOTIFICATION = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/updateNotification/";
 public RESETCOUNT = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SERVER_PATH + "/resetCount/";
+
+//Real-time
+public SOCKETNOTIFY = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SOCKET_PATH + "/notify";
+public SOCKETORDER = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SOCKET_PATH + "/order";
+public SOCKETMESSAGE = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SOCKET_PATH + "/socket";
+public SOCKETNEGO = this.HTTP + this.SERVER_IP + this.SERVER_PORT + this.SOCKET_PATH + "/negotiation";
 
 
 constructor(){}
