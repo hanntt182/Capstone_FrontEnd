@@ -178,10 +178,11 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
   cancelOrder() {
     let data = {
       'UserID': this.user.userId,
-      'NegotiationID': this.negoID
+      'NegotiationID': Number(this.negoID)
     };
     this.negoService.cancleNegotiation(this.constants.CANCELORDER, data).subscribe((response: any) => {
-      alert(response);
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      //alert(response);
     }, error => {
       console.log(error);
     });

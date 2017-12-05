@@ -39,6 +39,10 @@ export class CommonService {
     return this._http.post(apiUrl, data).map((response: Response) => response.json());
   }
 
+  viewProfileDetail(apiUrl, data): Observable<any> {
+    return this._http.post(apiUrl, data).map((response: Response) => response.json());
+  }
+
   setOrder(data) {
     this.order = new Order(data);
   }

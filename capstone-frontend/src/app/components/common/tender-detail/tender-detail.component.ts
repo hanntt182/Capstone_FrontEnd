@@ -4,6 +4,7 @@ import {TenderService} from "../../../services/tender.service";
 import {Constants} from './../../../constants';
 import {now} from "moment";
 import {ToastsManager} from "ng2-toastr";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-tender-detail',
@@ -29,14 +30,16 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public rateWinner;
   public tenderHistories;
   public winBidder;
+  public companyProfile;
 
 
   constructor(private activatedRoute: ActivatedRoute,
               private tenderService: TenderService,
+              private commonService: CommonService,
               private constants: Constants,
               private router: Router,
               private toastr: ToastsManager,
-              private vcr: ViewContainerRef) {
+              private vcr: ViewContainerRef,) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -115,8 +118,13 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
 
   }
 
-  viewCompanyInformation(userID){
-
+  viewCompanyInformation(userID) {
+    let data = {
+      'UserID': userID
+    };
+    this.commonService.viewProfileDetail(this.constants.VIEWPROFILEDETAIL, data).subscribe((response: any) => {
+      this.companyProfile = response;
+    });
     document.getElementById('openCompanyInformationModal').click();
   }
 
@@ -170,9 +178,19 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     };
     this.tenderService.chooseBidder(this.constants.CHOOSEBIDDER, data).subscribe((response: any) => {
       this.tender = response;
-      $('#chooseBidderModal').hide();
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
+      this.starsCount = response.buyer.rate;
+      this.buyerRateStar = response.buyer.rate;
+      if (this.tender.winner != null) {
+        this.winnerRateStar = response.winner.rate;
+        this.winnerTotal = response.winner.star1 + response.winner.star2 + response.winner.star3 + response.winner.star4
+          + response.winner.star5;
+      }
+      this.rateWinner = response.star;
+      this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
+      document.getElementById('openChooseBidderModel').click();
+      // $('#chooseBidderModal').hide();
+      // $('body').removeClass('modal-open');
+      // $('.modal-backdrop').remove();
       this.toastr.success('Choose winner successfully!', 'Success!', {showCloseButton: true});
     }, error => {
       console.log(error);
