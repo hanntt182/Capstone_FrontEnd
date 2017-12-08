@@ -990,23 +990,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #cancelTenderForm="ngForm">
-          <div class="row text-center justify-content-center align-items-center">
-            <label class="col-sm-3">Reason: </label>
-            <input type="text" class="form-control col-sm-8" name="reason" #reason="ngModel" required ngModel
-                   placeholder="Enter reason to cancel tender">
-          </div>
-          <div *ngIf="reason.invalid && (reason.dirty || reason.touched)"
-               class="error row text-center justify-content-center">
-            <div *ngIf="reason.errors.required">
-              Reason is required.
-            </div>
-          </div>
-        </form>
+          <label>Are you sure?</label>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" [disabled]="!cancelTenderForm.valid"
-                (click)="cancelTender(cancelTenderForm.value)">Cancel Tender
+        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel
+        </button>
+        <button type="button" class="btn btn-danger"
+                (click)="cancelTender()">Confirm
         </button>
       </div>
     </div>

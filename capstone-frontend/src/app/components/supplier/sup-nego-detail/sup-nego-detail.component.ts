@@ -182,6 +182,9 @@ export class SupNegoDetailComponent implements OnInit, OnDestroy {
     };
     this.negoService.cancleNegotiation(this.constants.CANCLENEGOTIATION, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
+      setTimeout( () => {
+        this.router.navigate(['/supplier/negotiation/finished/' + this.negoID]);
+      }, 1000);
     }, error => {
       console.log(error);
     });

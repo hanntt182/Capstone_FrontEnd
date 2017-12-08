@@ -70,7 +70,7 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.confirmOrder(this.constants.CONFIRMORDER, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
       setTimeout(() => {
-        this.router.navigate(['/supplier/order-list/paying']);
+        this.router.navigate(['/supplier/order-list/waiting']);
       }, 1000);
     }, error => {
       console.log(error);
@@ -113,7 +113,7 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.confirmShipping(this.constants.CONFIRMSHIPPING, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});
       setTimeout(() => {
-        this.router.navigate(['/supplier/order-list/success']);
+        this.router.navigate(['/supplier/order-list/shipping']);
       }, 1000);
     }, error => {
       console.log(error);

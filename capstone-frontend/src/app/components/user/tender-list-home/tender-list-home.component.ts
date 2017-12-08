@@ -25,6 +25,8 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
   public myTenderInfo;
   public fileType: boolean;
   public attachFile = null;
+  public pages: any[] = [1];
+  public totalPage;
 
 
   constructor(private constants: Constants,
@@ -78,12 +80,19 @@ export class TenderListHomeComponent implements OnInit, OnDestroy {
 
 
   search(searchValue, pageNumber) {
+    for (let i = this.pages.length; i > 0; i--) {
+      this.pages.pop();
+    }
     let data = {
       'SearchValue': searchValue,
       'pageNumber': pageNumber
     };
     this.tenderService.searchTender(this.constants.SEARCHTENDER, data).subscribe((response: any) => {
       this.tenders = response.content;
+      this.totalPage = response.totalPages;
+      for (let i = 1; i <= this.totalPage; i++) {
+        this.pages.push(i);
+      }
     });
   }
 

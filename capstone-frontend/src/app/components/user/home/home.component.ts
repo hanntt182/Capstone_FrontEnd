@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Constants} from './../../../constants';
 import {CatalogService} from "../../../services/catalog.service";
 import {Router} from "@angular/router";
 import {TenderService} from "../../../services/tender.service";
 import {PostService} from "../../../services/post.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-home',
@@ -27,12 +28,17 @@ export class HomeComponent implements OnInit {
   public starReview1s = [];
   public starReview2s = [];
   public starReview3s = [];
+  public fileType: boolean;
+  public attachFile = null;
 
   constructor(private constants: Constants,
               private catalogService: CatalogService,
               private router: Router,
               private tenderService: TenderService,
-              private postService: PostService) {
+              private postService: PostService,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -162,5 +168,35 @@ export class HomeComponent implements OnInit {
     return newName;
   }
 
+  importAttachFile(e) {
+    this.fileType = true;
+    if (e.target.files[0].type != 'application/pdf' &&
+      e.target.files[0].type != 'application/msword' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+      e.target.files[0].type != 'application/vnd.ms-excel' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      this.fileType = false;
+      return;
+    } else {
+      this.attachFile = e.target.files[0];
+    }
+  }
+
+  bidTender(tenderID, price, period) {
+    let formData = new FormData();
+    formData.append('TenderID', tenderID);
+    formData.append('SupplierID', this.user.userId);
+    formData.append('BidPrice', price);
+    formData.append('SuppFile', this.attachFile);
+    formData.append('WorkPeriod', period);
+    this.tenderService.bidTender(this.constants.BIDTENDER, formData).subscribe((response: any) => {
+      console.log(response);
+      document.getElementById('tenderDetailButton').click();
+      this.toastr.success(response, 'Success!', {showCloseButton: true});
+      this.router.navigate(['/tender']);
+    }, error => {
+      console.log(error);
+    });
+  }
 
 }

@@ -188,8 +188,7 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
 
   cancelTender(cancelForm) {
     let data = {
-      'TenderID': this.tenderID,
-      'Reason': cancelForm.reason
+      'TenderID': this.tenderID
     };
     this.tenderService.cancleTender(this.constants.CANCLETENDER, data).subscribe((response: any) => {
       this.toastr.success(response, 'Success!', {showCloseButton: true});

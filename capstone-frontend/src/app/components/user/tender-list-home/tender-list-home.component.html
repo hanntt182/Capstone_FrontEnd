@@ -1,33 +1,83 @@
-<div class="container" style="padding: 30px">
-  <div class="row justify-content-center align-items-center" style="padding: 40px">
-    <form #searchTenderForm="ngForm" class="form-inline">
-      <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
-      <button type="button" class="btn btn-primary" style="margin-left: 20px"
-              (click)="search(searchTenderForm.value.searchTender, 1)">Search
-      </button>
-    </form>
+<div class="container-fluid">
+  <div class="row col-sm-12" style="margin: 0px;padding: 0px">
+    <div class="col-sm-9">
+      <div class="card" style="margin-top: 20px;margin-bottom: 20px;padding: 20px">
+        <div class="row justify-content-center align-items-center" style="padding: 40px">
+          <form #searchTenderForm="ngForm" class="form-inline">
+            <input type="text" name="searchTender" ngModel class="form-control" placeholder="Search tender...">
+            <button type="button" class="btn btn-primary" style="margin-left: 20px"
+                    (click)="search(searchTenderForm.value.searchTender, 1)">Search
+            </button>
+          </form>
+        </div>
+        <table class="table hvr-glow" *ngFor="let myTender of tenders"
+               style="border: 1px solid #e6e7eb; background-color: white; font-size: 15px"
+               (click)="viewTenderDetail(myTender.tenderID)">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width: 350px">Tender Title</th>
+            <th scope="col" style="width: 250px">Product Name</th>
+            <th scope="col" style="width: 200px">Tender Estimated Cost</th>
+            <th scope="col" style="width: 250px">Bid Closing Day</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">{{(myTender.tenderTitle.length>30)? (myTender.tenderTitle |
+              slice:0:30)+'...':(myTender.tenderTitle)}}</th>
+            <td>{{myTender.product.productName}}</td>
+            <td>{{myTender.tenderValue | number:'1.0-2'}} VND</td>
+            <td><i>{{myTender.closedDay}}</i></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages">
+              <a class="page-link" [routerLink]="['./']"
+                 (click)="search(searchTenderForm.value.searchTender, page)">{{page}}</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card" style="margin-top: 20px;margin-bottom: 20px; overflow: auto">
+        <div class="card-header">
+          <h5 style="margin: 0px">Bid Document Template</h5>
+        </div>
+        <div class="card-body" style="padding-top: 10px">
+          <label class="text-muted" style="font-size: 14px">(Click to download)</label><br>
+          <a href="../../../../assets/doc/Bidder_Information_Form.docx">Bid Information Form</a><br>
+          <a href="../../../../assets/doc/Invitation_for_Bids_Form.docx">Invitation For Bids Form</a><br>
+          <a href="../../../../assets/doc/Price_Schedule_Form.docx">Price Schedule Form</a><br>
+          <a href="../../../../assets/doc/Letter_Of_Bid_Form.docx">Letter Of Bid Form</a><br>
+          <a href="../../../../assets/doc/Manufacturer’s_Authorization_Form.docx">Manufacturer’s Authorization Form</a><br>
+          <a href="../../../../assets/doc/Letter_of_Acceptance_Form.docx">Letter Of Acceptance Form</a><br>
+          <a href="../../../../assets/doc/Bid_Evaluation_Report_Form.docx">Bid Evaluation Report Form</a><br>
+          <a href="../../../../assets/doc/Bid_Securing_Declaration_Form.docx">Bid Securing Declaration Form</a><br>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 20px;margin-bottom: 20px; overflow: auto">
+        <div class="card-header">
+          <h5 style="margin: 0px">Bid Information</h5>
+        </div>
+        <div class="card-body">
+          <label>.....</label><br>
+          <label>.....</label><br>
+          <label>.....</label><br>
+        </div>
+      </div>
+    </div>
   </div>
-  <table class="table hvr-glow" *ngFor="let myTender of tenders"
-         style="border: 1px solid #e6e7eb; background-color: white"
-         (click)="viewTenderDetail(myTender.tenderID)">
-    <thead class="thead-light">
-    <tr>
-      <th scope="col" style="width: 400px">Tender Title</th>
-      <th scope="col" style="width: 250px">Product Name</th>
-      <th scope="col" style="width: 200px">Tender Estimated Cost</th>
-      <th scope="col" style="width: 250px">Bid Closing Day</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th scope="row">{{(myTender.tenderTitle.length>40)? (myTender.tenderTitle |
-        slice:0:40)+'...':(myTender.tenderTitle)}}</th>
-      <td>{{myTender.product.productName}}</td>
-      <td>{{myTender.tenderValue | number:'1.0-2'}} VND</td>
-      <td>{{myTender.closedDay}}</td>
-    </tr>
-    </tbody>
-  </table>
+
 </div>
 
 

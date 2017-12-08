@@ -215,7 +215,7 @@
 
     </div>
 
-    <div *ngIf="negotiation?.checked==true" class="col-sm-4"
+    <div *ngIf="negotiation?.checked==true || negotiation?.status.statusName=='FINISHED'" class="col-sm-4"
          style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
       <form #createNegoOrderConfirm="ngForm">
         <div class="card" style="margin: 20px;">
@@ -271,8 +271,13 @@
             <div class="row col-sm-12" style="padding-top: 10px;">
               <label class="col-sm-5">Shipping Method</label>
               <div class="col-sm-7">
-                <input name="shipMethod" required class="form-control"
-                       value="{{negotiation?.ship.shipName}}" disabled ngModel="{{negotiation?.ship.shipName}}">
+                <div *ngIf="negotiation?.ship!=null" style="margin: 0px;padding: 0px">
+                  <input name="shipMethod" required class="form-control"
+                         value="{{negotiation?.ship.shipName}}" disabled ngModel="{{negotiation?.ship.shipName}}">
+                </div>
+                <div *ngIf="negotiation?.ship==null" style="margin: 0px;padding: 0px">
+                  <input name="shipMethod" required class="form-control" disabled >
+                </div>
               </div>
               <!--<div *ngIf="negotiation?.postShip==null" class="col-sm-7">
                 <input *ngIf="negotiation?.postShip==null" disabled type="text" name="offerPrice" required ngModel
@@ -387,7 +392,7 @@
     </div>
 
 
-    <div *ngIf="negotiation?.checked==false" class="col-sm-4"
+    <div *ngIf="negotiation?.checked==false && negotiation?.status.statusName=='NEGOTIATING'" class="col-sm-4"
          style="padding: 0px; border-left: 1px solid #E6E7EB; overflow: auto; font-size: 15px">
       <form #createNegoOrder="ngForm">
         <div class="card" style="margin: 20px;">
@@ -723,7 +728,6 @@
                 <label class="form-check-label">
                   <input class="form-check-input" type="radio" name="editAddress" value="newAddress" ngModel>
                   New Address
-
                   <div class="form-group form-inline">
                     <label class="col-sm-4">City</label>
                     <select style="width: 149px;" class="form-control col-sm-8"
