@@ -49,7 +49,9 @@
                 <td style="width: 280px;">
                   <div class="row col-sm-12">{{post?.postTitle}}</div>
 
-                  <div class="row col-sm-12" style="margin-bottom: 5px"><small>{{post?.product.productName}}</small></div>
+                  <div class="row col-sm-12" style="margin-bottom: 5px">
+                    <small>{{post?.product.productName}}</small>
+                  </div>
 
                   <img src="{{post?.primaryImage}}" style="max-width: 70px;width: 100%; max-height: 70px; height: 100%">
                 </td>
@@ -84,7 +86,8 @@
                 <td style="padding-right: 0px; padding-left: 0px; width: 350px">
                   <div class="form-group">
                     <input type="number" class="form-control"
-                           placeholder="{{post?.minPrice | number:'1.0-2'}} VND ≤ price ≤ {{post?.maxPrice | number:'1.0-2'}} VND" id="offerPrice"
+                           placeholder="{{post?.minPrice | number:'1.0-2'}} VND ≤ price ≤ {{post?.maxPrice | number:'1.0-2'}} VND"
+                           id="offerPrice"
                            [min]="post?.minPrice" [max]="post?.maxPrice" name="offerPrice" ngModel
                            (change)="countAmount(createOrderForm.value)" #offerPrice="ngModel" required>
                     <div *ngIf="offerPrice.invalid && (offerPrice.dirty || offerPrice.touched)"
@@ -93,10 +96,10 @@
                         Offer Price is required and must be a number.
                       </div>
                       <div *ngIf="offerPrice.errors?.min">
-                        Offer Price must be ≥ {{post?.minPrice}}
+                        Offer Price must be ≥ {{post?.minPrice | number:'1.0-2'}}
                       </div>
                       <div *ngIf="offerPrice.errors?.max">
-                        Offer Price must be ≤ {{post?.maxPrice}}
+                        Offer Price must be ≤ {{post?.maxPrice | number:'1.0-2'}}
                       </div>
                     </div>
                   </div>
@@ -237,12 +240,17 @@
       <div class="col-sm-4 text-center" style="border-bottom: 1px dashed #8c8b8b"></div>
       <div class="clearfix"></div>
       <label class="col-sm-8 text-right">Total Order Amount</label>
-      <label class="col-sm-4" style="color: orangered"><h5> {{(productAmount + shippingFee) | number:'1.0-2'}} VND</h5></label>
+      <label class="col-sm-4" style="color: orangered"><h5> {{(productAmount + shippingFee) | number:'1.0-2'}} VND</h5>
+      </label>
       <div class="col-sm-6"></div>
       <div class="col-sm-4 text-center">
         <button type="button" class="btn btn-secondary" (click)="backToPrevious()">Back</button>
         <button
-          [disabled]="!createOrderForm.valid || createOrderForm.value.address==''"
+          [disabled]="!createOrderForm.valid || createOrderForm.value.address=='' ||
+                     (createOrderForm.value.address=='oldAddress' && createOrderForm.value.oldAddressName =='') ||
+                     (createOrderForm.value.address=='newAddress' && (createOrderForm.value.newAddressCity =='' ||
+                     createOrderForm.value.newAddressDistrict =='' || createOrderForm.value.newAddressWard =='' ||
+                     createOrderForm.value.newAddressValue ==''))"
           type="button"
           class="btn btn-info" (click)="createOrder(createOrderForm.value)"> Order
         </button>

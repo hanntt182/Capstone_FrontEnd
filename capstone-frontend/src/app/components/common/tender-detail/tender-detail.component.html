@@ -564,7 +564,7 @@
     <div class="col-sm-6" style="padding:0px">
       <div *ngIf="user.role=='BUYER'" class="card" style="margin: 30px;margin-left: 0px">
         <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
-          <h4 class="col-sm-8">Tender History</h4>
+          <h4 class="col-sm-8">Tender List</h4>
         </div>
         <div *ngIf="tenderHistories==null" class="row col-sm-12 justify-content-center"
              style="margin: 0px;padding: 50px">
@@ -577,9 +577,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Supplier</th>
-              <th scope="col">Period of work</th>
-              <th scope="col">Bid Price (VND)</th>
-              <th scope="col">Attach document</th>
+              <th scope="col">Bid Submission Date</th>
               <th *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'" scope="col">
                 Voted
               </th>
@@ -593,13 +591,7 @@
               <th scope="row">{{i+1}}</th>
               <td>{{tenderHistory.tenderHistoryID.supplier.companyName}}</td>
               <td>
-                {{tenderHistory.workPeriod}} day(s)
-              </td>
-              <td>{{tenderHistory.bidPrice | number:'1.0-2'}}</td>
-              <td>
-                <a href="{{tenderHistory.fileUrl}}">
-                  {{(formatTenderFile(tenderHistory.fileUrl).length>10)? (formatTenderFile(tenderHistory.fileUrl) |
-                  slice:0:10)+'...':(formatTenderFile(tenderHistory.fileUrl))}}</a>
+                <i>{{tenderHistory.tenderDate}}</i>
               </td>
               <td *ngIf="tender?.status.statusName=='FINISHED' || tender?.status.statusName=='CANCELLED'"
                   style="padding: 5px">
@@ -619,7 +611,7 @@
                   <button *ngIf="tender?.status.statusName=='CLOSED'" type="button" class="btn btn-success"
                           style="width: 30px;height: 30px;border-radius: 50%;padding: 2px"
                           (click)="showChooseBidder(tenderHistory.tenderHistoryID.supplier.userId); chooseBidderForm.reset()"
-                          data-toggle="tooltip" data-placement="top" title="Choose Winner">
+                          data-toggle="tooltip" data-placement="top" title="Acceptance of bids">
                     <i class="fa fa-check" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -632,7 +624,7 @@
       </div>
       <div *ngIf="user.role=='BUYER' && tender?.winner!=null" class="card" style="margin: 30px;margin-left: 0px">
         <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
-          <h4 class="col-sm-8">Winner Information</h4>
+          <h4 class="col-sm-8">Winning Bidder Information</h4>
         </div>
         <div class="row col-sm-12" style="margin: 0px;padding: 10px">
           <div class="col-sm-3" style="padding:5px">
@@ -760,6 +752,18 @@
                     (mousedown)="star($event)"></rating>
           </div>
 
+        </div>
+      </div>
+      <div *ngIf="user.role=='SUPPLIER'" class="card" style="margin: 30px;margin-left: 0px">
+        <div class="row col-sm-12 align-items-center" style="padding-top: 20px;margin: 0px;">
+          <h4 class="col-sm-8">Bid Evaluation Information</h4>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+          <div class="col-sm-4">Tender Date:</div>
+          <div class="col-sm-8">
+            <a href="{{tender?.assessFile}}">{{formatBERFile(tender?.assessFile)}}</a>
+            <label class="text-muted">(Bid Evaluation Report)</label>
+          </div>
         </div>
       </div>
       <div *ngIf="user.role=='SUPPLIER'" class="card" style="margin: 30px;margin-left: 0px">
@@ -901,8 +905,8 @@
           <h4 class="col-sm-8">Bid Information</h4>
         </div>
         <div class="row col-sm-12" style="margin: 0px;padding: 10px">
-            <div class="col-sm-4">Tender Date:</div>
-            <div class="col-sm-8">{{myTenderInfo?.tenderDate}}</div>
+          <div class="col-sm-4">Tender Date:</div>
+          <div class="col-sm-8">{{myTenderInfo?.tenderDate}}</div>
         </div>
         <div class="row col-sm-12" style="margin: 0px;padding: 10px">
           <div class="col-sm-4">Bid Price:</div>
@@ -938,30 +942,34 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Choose Bidder</h5>
+        <h5 class="modal-title">Acceptance of bids</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #chooseBidderForm="ngForm">
-          <div class="row text-center justify-content-center align-items-center">
-            <label class="col-sm-3">Reason: </label>
-            <input type="text" class="form-control col-sm-8" name="reasonChoose" #reasonChoose="ngModel" required
-                   ngModel
-                   placeholder="Enter reason to choose bidder">
-          </div>
-          <div *ngIf="reasonChoose.invalid && (reasonChoose.dirty || reasonChoose.touched)"
-               class="error row text-center justify-content-center">
-            <div *ngIf="reasonChoose.errors.required">
-              Reason is required.
+          <div class="row align-items-center">
+            <label class="col-sm-6">Bid Evaluation Report (BER): </label>
+            <div class="col-sm-6">
+              <button onclick="document.querySelector('#BERFile').click()">
+                Add File
+              </button>
+              <input hidden type="file" accept=".xlsx,.xls,.doc,.docx,.pdf"
+                     (change)="importBERFile($event)"
+                     class="form-control-file" id="BERFile">
+              <div *ngIf="fileType == false" class="error">Supported formats: .doc .docx .xls .xlsx .pdf</div>
             </div>
           </div>
-        </form>
+          <div class="row align-items-center">
+            <div class="col-sm-6"></div>
+            <div *ngIf="BERFile!=null" class="col-sm-6 text-dark">
+              {{BERFile.name}}
+            </div>
+          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" [disabled]="!chooseBidderForm.valid"
-                (click)="chooseBidder(chooseBidderForm.value)">Choose Bidder
+        <button type="button" class="btn btn-danger" [disabled]="BERFile == null"
+                (click)="chooseBidder()">Choose Bidder
         </button>
       </div>
     </div>
@@ -1015,16 +1023,40 @@
 <div class="modal fade" id="CompanyInformationModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document" style="width: 600px">
     <div class="modal-content">
       <div class="modal-body">
         <div class="row col-sm-12" style="margin: 0px;padding: 0px">
-          <h5 class="modal-title" id="CompanyPart"><i class="fa fa-home fa-fw"></i> Company Information</h5>
+          <h5 class="modal-title" style="margin: 10px;">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i> Bids Submission Information
+          </h5>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Bid Submission Date: </label>
+            <label class="col-sm-8"><i>{{myTenderInfo?.tenderDate}}</i></label>
+          </div>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Bid Price: </label>
+            <label class="col-sm-8">{{myTenderInfo?.bidPrice | number:'1.0-2'}} VND</label>
+          </div>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Period of work: </label>
+            <label class="col-sm-8">{{myTenderInfo?.workPeriod}} day(s)</label>
+          </div>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Letter of Bid: </label>
+            <label class="col-sm-8"><a href="{{myTenderInfo?.fileUrl}}">{{formatTenderFile(myTenderInfo?.fileUrl)}}</a></label>
+          </div>
+        </div>
+        <div class="row col-sm-12" style="margin: 0px;padding: 0px">
+          <h5 class="modal-title" style="margin: 10px;">
+            <i class="fa fa-home fa-fw"></i> Company Information
+          </h5>
         </div>
         <div class="row col-sm-12" style="margin: 0px; padding: 0px">
           <div class="row col-sm-12" style="padding: 10px 0px 0px 0px; margin: 0px;">
             <div class="col-sm-4">
-              <img src="{{companyProfile?.companyLogo}}" style="height: 100%;max-height: 100px; width: 100%; max-width: 100px"/>
+              <img src="{{companyProfile?.companyLogo}}"
+                   style="height: 100%;max-height: 100px; width: 100%; max-width: 100px"/>
             </div>
             <div class="col-sm-8">
               <div>
@@ -1038,163 +1070,160 @@
               </div>
             </div>
           </div>
-          <div class="well well-sm" style="margin-top: 20px">
-            <div class="row">
-              <div class="col-xs-10 col-md-4 text-center">
-                <h1 class="rating-num">
-                  4.0</h1>
-                <div class="rating">
-                  <span class="fa fa-star"></span><span class="fa fa-star">
-                            </span><span class="fa fa-star"></span><span class="fa fa-star">
-                            </span><span class="fa fa-star"></span>
+          <div class="row col-sm-12" style="margin: 0px;padding: 10px">
+            <div class="col-sm-5 text-center" style="padding:8px">
+              <h2>{{companyProfile?.rate | number:'1.1-1'}}</h2>
+              <div>
+                <rating [ngModel]="companyProfile?.rate" [readonly]="true"></rating>
+              </div>
+              <div>
+                <span class="fa fa-user">
+                </span>
+                {{companyTotal}}
+                total
+              </div>
+            </div>
+            <div class="col-sm-7" style="padding: 0px">
+              <div class="row  align-items-center text-center" style="padding: 0px">
+                <div class="col-sm-2" style="font-size: 12px; padding: 0px">
+                  <rating [(ngModel)]="star5" [readonly]="true" [max]="1"></rating>
+                  <label>5</label>
                 </div>
-                <div>
-                  <span class="fa fa-user"></span>1,050,008 total
+                <div class="col-sm-7" style="padding: 0px">
+                  <div class="progress" style="height: 10px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [style.width]="(companyProfile?.star5/companyTotal)*100+'%'">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  0%
+                </div>
+                <div *ngIf="companyTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  {{(companyProfile?.star5/companyTotal)*100 | number:'1.0-2'}}%
                 </div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="row rating-desc">
-                  <div class="col-xs-3 col-md-3 text-right">
-                    <span class="fa fa-star"></span>5
-                  </div>
-                  <div class="col-xs-8 col-md-9">
-                    <div class="progress progress-striped">
-                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                           aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                        <span class="sr-only">80%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end 5 -->
-                  <div class="col-xs-3 col-md-3 text-right">
-                    <span class="fa fa-star"></span>4
-                  </div>
-                  <div class="col-xs-8 col-md-9">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                           aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                        <span class="sr-only">60%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end 4 -->
-                  <div class="col-xs-3 col-md-3 text-right">
-                    <span class="fa fa-star"></span>3
-                  </div>
-                  <div class="col-xs-8 col-md-9">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                           aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                        <span class="sr-only">40%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end 3 -->
-                  <div class="col-xs-3 col-md-3 text-right">
-                    <span class="fa fa-star"></span>2
-                  </div>
-                  <div class="col-xs-8 col-md-9">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                           aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                        <span class="sr-only">20%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end 2 -->
-                  <div class="col-xs-3 col-md-3 text-right">
-                    <span class="fa fa-star"></span>1
-                  </div>
-                  <div class="col-xs-8 col-md-9">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                           aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                        <span class="sr-only">15%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end 1 -->
+              <div class="row  align-items-center text-center" style="padding: 0px">
+                <div class="col-sm-2" style="font-size: 12px; padding: 0px">
+                  <rating [(ngModel)]="star4" [readonly]="true" [max]="1"></rating>
+                  <label>4</label>
                 </div>
-                <!-- end row -->
+                <div class="col-sm-7" style="padding: 0px">
+                  <div class="progress" style="height: 10px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [style.width]="(companyProfile?.star4/companyTotal)*100+'%'">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  0%
+                </div>
+                <div *ngIf="companyTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  {{(companyProfile?.star4/companyTotal)*100 | number:'1.0-2'}}%
+                </div>
               </div>
+              <div class="row  align-items-center text-center" style="padding: 0px">
+                <div class="col-sm-2" style="font-size: 12px; padding: 0px">
+                  <rating [(ngModel)]="star3" [readonly]="true" [max]="1"></rating>
+                  <label>3</label>
+                </div>
+                <div class="col-sm-7" style="padding: 0px">
+                  <div class="progress" style="height: 10px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [style.width]="(companyProfile?.star3/companyTotal)*100+'%'">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  0%
+                </div>
+                <div *ngIf="companyTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  {{(companyProfile?.star3/companyTotal)*100 | number:'1.0-2'}}%
+                </div>
+              </div>
+              <div class="row  align-items-center text-center" style="padding: 0px">
+                <div class="col-sm-2" style="font-size: 12px; padding: 0px">
+                  <rating [(ngModel)]="star2" [readonly]="true" [max]="1"></rating>
+                  <label>2</label>
+                </div>
+                <div class="col-sm-7" style="padding: 0px">
+                  <div class="progress" style="height: 10px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [style.width]="(companyProfile?.star2/companyTotal)*100+'%'">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  0%
+                </div>
+                <div *ngIf="companyTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  {{(companyProfile?.star2/companyTotal)*100 | number:'1.0-2'}}%
+                </div>
+              </div>
+              <div class="row  align-items-center text-center" style="padding: 0px">
+                <div class="col-sm-2" style="font-size: 12px; padding: 0px">
+                  <rating [(ngModel)]="star1" [readonly]="true" [max]="1"></rating>
+                  <label>1</label>
+                </div>
+                <div class="col-sm-7" style="padding: 0px">
+                  <div class="progress" style="height: 10px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100"
+                         [style.width]="(companyProfile?.star1/companyTotal)*100+'%'">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyTotal==0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  0%
+                </div>
+                <div *ngIf="companyTotal!=0" class="col-sm-2" style="font-size: 12px;padding: 0px;">
+                  {{(companyProfile?.star1/companyTotal)*100 | number:'1.0-2'}}%
+                </div>
+              </div>
+
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div style="margin-top: 25px">
-                <label>Address:</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>Website:</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>Fax:</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>Established Year:</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>Email:</label>
-              </div>
-            </div>
-            <div class="col-md-7">
-              <div style="margin-top: 20px">
-                <label>{{companyProfile?.companyAddress}}</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>{{companyProfile?.companyWebsite}}</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>{{companyProfile?.companyFax}}</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>{{companyProfile?.establishedYear}}</label>
-              </div>
-              <div style="margin-top: 10px">
-                <label>{{companyProfile?.companyEmail}}</label>
-              </div>
-            </div>
+          <div class="row col-sm-12" style="padding: 0px;margin: 0px">
+            <label class="col-sm-4">Address:</label>
+            <label class="col-sm-8">{{companyProfile?.companyAddress}}</label>
+          </div>
+          <div class="row col-sm-12" style="padding: 0px;margin: 0px">
+            <label class="col-sm-4">Website:</label>
+            <label class="col-sm-8">{{companyProfile?.companyWebsite}}</label>
+          </div>
+          <div class="row col-sm-12" style="padding: 0px;margin: 0px">
+            <label class="col-sm-4">Fax:</label>
+            <label class="col-sm-8">{{companyProfile?.companyFax}}</label>
+          </div>
+          <div class="row col-sm-12" style="padding: 0px;margin: 0px">
+            <label class="col-sm-4">Established Year:</label>
+            <label class="col-sm-8">{{companyProfile?.establishedYear}}</label>
+          </div>
+          <div class="row col-sm-12" style="padding: 0px;margin: 0px">
+            <label class="col-sm-4">Email:</label>
+            <label class="col-sm-8">{{companyProfile?.companyEmail}}</label>
           </div>
 
         </div>
-      </div>
-
-      <div class="modal-body">
-        <h5 id="UserPart"><i class="fa fa-user fa-fw"></i> User Information</h5>
-        <div class="row" style="margin-top: 20px">
-          <div class="col-md-3" style="margin-left: 30px">
-            <label>
-              User Name:
-            </label>
+        <div class="row col-sm-12" style="margin: 0px;padding: 0px">
+          <h5 class="modal-title" style="margin: 10px;">
+            <i class="fa fa-user fa-fw"></i> User Information
+          </h5>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">User Name:</label>
+            <label class="col-sm-8">{{companyProfile?.username}}</label>
           </div>
-          <div class="col-md-7 ">
-            <label>
-              {{companyProfile?.username}}
-            </label>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Email:</label>
+            <label class="col-sm-8">{{companyProfile?.email}}</label>
           </div>
-        </div>
-        <div class="row" style="margin-top: 10px">
-          <div class="col-md-3" style="margin-left: 30px">
-            <label>
-              Email:
-            </label>
-          </div>
-          <div class="col-md-7 ">
-            <label>
-              {{companyProfile?.email}}
-            </label>
-          </div>
-        </div>
-        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
-          <div class="col-md-3" style="margin-left: 30px">
-            <label>
-              Phone:
-            </label>
-          </div>
-          <div class="col-md-7 ">
-            <label>
-              {{companyProfile?.phone}}
-            </label>
+          <div class="row col-sm-12" style="margin: 0px; padding: 0px">
+            <label class="col-sm-4">Phone:</label>
+            <label class="col-sm-8">{{companyProfile?.phone}}</label>
           </div>
         </div>
       </div>

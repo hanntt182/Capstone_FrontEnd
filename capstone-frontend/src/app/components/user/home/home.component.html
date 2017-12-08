@@ -85,10 +85,10 @@
                 <img src="{{recommendPost1.primaryImage}}"
                      style="display: inline; width: 100%;max-width: 150px">
               </div>
-              <div style="width: 200px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
+              <div style="width: 250px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
                 <span>{{recommendPost1.postTitle}}</span>
                 <p style="font-size: 15px; color: #242424; font-weight: 500;margin-bottom:0px">
-                  {{recommendPost1.minPrice}}~{{recommendPost1.maxPrice}}</p>
+                  {{recommendPost1.minPrice | number:'1.0-2'}} VND~{{recommendPost1.maxPrice | number:'1.0-2'}} VND</p>
                 <div class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px">
                   <div style="font-size: 10px;">
                     <rating [(ngModel)]="starReview1s[i]" [readonly]="true"></rating>
@@ -113,10 +113,10 @@
                 <img src="{{recommendPost2.primaryImage}}"
                      style="display: inline; width: 100%;max-width: 150px">
               </div>
-              <div style="width: 200px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
+              <div style="width: 250px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
                 <span>{{recommendPost2.postTitle}}</span>
                 <p style="font-size: 15px; color: #242424; font-weight: 500;margin-bottom:0px">
-                  {{recommendPost2.minPrice}}~{{recommendPost2.maxPrice}}</p>
+                  {{recommendPost2.minPrice | number:'1.0-2'}} VND~{{recommendPost2.maxPrice | number:'1.0-2'}} VND</p>
                 <div class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px">
                   <div style="font-size: 10px;">
                     <rating [(ngModel)]="starReview2s[i]" [readonly]="true"></rating>
@@ -141,10 +141,10 @@
                 <img src="{{recommendPost3.primaryImage}}"
                      style="display: inline; width: 100%;max-width: 150px">
               </div>
-              <div style="width: 200px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
+              <div style="width: 250px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
                 <span>{{recommendPost3.postTitle}}</span>
                 <p style="font-size: 15px; color: #242424; font-weight: 500;margin-bottom:0px">
-                  {{recommendPost3.minPrice}}~{{recommendPost3.maxPrice}}</p>
+                  {{recommendPost3.minPrice | number:'1.0-2'}} VND~{{recommendPost3.maxPrice | number:'1.0-2'}} VND</p>
                 <div class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px">
                   <div style="font-size: 10px;">
                     <rating [(ngModel)]="starReview3s[i]" [readonly]="true"></rating>
@@ -577,7 +577,7 @@
             <tr>
               <th scope="col">Bid Price</th>
               <th scope="col">Period of work</th>
-              <th scope="col">Attach file</th>
+              <th scope="col">Letter of Bid</th>
               <th scope="col">Bid Day</th>
             </tr>
             </thead>

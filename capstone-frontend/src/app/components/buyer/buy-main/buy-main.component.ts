@@ -15,8 +15,9 @@ export class BuyMainComponent implements OnInit {
 
   // Pie Chart for Status
   data: any;
-  public colorOfPie = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81', '"#ff9933', '#cc33ff', '#6600ff', '#cccc00', '#ff3300', '#20c997', '#dc3545'];
-  public statusOfPie = ['Waiting', 'Paying', 'Shipping', 'Success', 'Finished', 'Cancelled'];
+  public colorOfPie = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81', '#ff9933', '#cc33ff', '#6600ff',
+    '#cccc00', '#ff3300', '#92B558', '#672E3B', '#005960', '#9C9A40', '#95DEE3', '#EDCDC2'];;
+  public statusOfPie = ['Waiting', 'Paying', 'Shipping', 'Success', 'Cancelled'];
   public labelOfPie = [];
   public dataOfPie = [];
   public backgroundColorPie = [];
@@ -24,7 +25,8 @@ export class BuyMainComponent implements OnInit {
 
   // Pie Chart for Brand
   data1: any;
-  public colorOfPie1 = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81', '"#ff9933', '#cc33ff', '#6600ff', '#cccc00', '#ff3300', '#20c997', '#dc3545'];
+  public colorOfPie1 = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81', '#ff9933', '#cc33ff',
+    '#6600ff', '#cccc00', '#ff3300', '#92B558', '#672E3B', '#005960', '#9C9A40', '#95DEE3', '#EDCDC2'];;
   public labelOfPie1 = [];
   public dataOfPie1 = [];
   public backgroundColorPie1 = [];
@@ -69,7 +71,6 @@ export class BuyMainComponent implements OnInit {
         this.labelOfPie.push(this.statusOfPie[i]);
         this.dataOfPie.push(response[1].PIE_CHART_STATUS[i + 1].number_order);
         this.backgroundColorPie.push(this.colorOfPie[i]);
-        //this.hoverBackgroundColorPie.push(this.colorOfPie[i]);
       }
       this.data = {
         labels: this.labelOfPie,
@@ -90,7 +91,6 @@ export class BuyMainComponent implements OnInit {
     this.labelOfPie1 = [];
     this.dataOfPie1 = [];
     this.hoverBackgroundColorPie1 = [];
-    this.hoverBackgroundColorPie1 = [];
     let data1 = {
       'BuyerID': this.user.userId,
       'CatalogID': catalogID
@@ -101,7 +101,9 @@ export class BuyMainComponent implements OnInit {
         this.labelOfPie1.push(response.PIE_CHART_BRAND[i].orderName);
         this.dataOfPie1.push(response.PIE_CHART_BRAND[i].number_order);
         this.hoverBackgroundColorPie1.push(this.colorOfPie1[i]);
+        console.log(this.colorOfPie1[i]);
       }
+      console.log(this.colorOfPie1);
       this.data1 = {
         labels: this.labelOfPie1,
         datasets: [

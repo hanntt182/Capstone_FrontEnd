@@ -3,7 +3,7 @@
     <div class="col-sm-3"
          style="background-color: white; border-right: 1px solid #E6E7EB; padding: 0px; overflow: auto;">
       <form>
-        <div class="col-md-12 row input-group">
+        <div class="col-md-12 row input-group" style="margin: 0px;padding: 0px">
           <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
           <span class="input-group-btn">
             <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -61,27 +61,37 @@
                   src="{{nego.post.primaryImage}}"
                   style="max-width: 48px; width: 100%; max-height: 48px; height: 100%">
               </div>
-              <div class="col-sm-6" style="padding: 0px">{{nego.post.postTitle}}</div>
-              <div class="col-sm-4" style="padding: 0px">
-                <small><i>NegotiationID: {{nego.negotiationID}}</i></small>
-              </div>
+              <div class="col-sm-6" style="padding: 0px;font-weight: 600;">{{nego.post.postTitle}}</div>
+              <div class="col-sm-4" style="padding: 0px"><small><i>NegotiationID: {{nego.negotiationID}}</i></small></div>
             </div>
 
-            <div class="col-sm-8 offset-2">
-              <!--<img class="rounded-circle"
-                   src="https://sc02.alicdn.com/kf/HTB131ahSVXXXXbjXFXXq6xXFXXXq/Original-Unlocked-Redmi-Note-4-Xiaomi-32gb.jpg_100x100.jpg"
-                   style="width: 48px;height: 48px">-->Supplier: {{nego.post.supplier.username}}
+            <div class="row col-sm-8 offset-2 align-items-center">
+              <div *ngIf="nego.buyer.companyLogo!=null"
+                   [style.background-image]="'url(' + nego.buyer.companyLogo + ')'"
+                   style="background-size: 30px 30px;border-radius:50%; width: 30px;height: 30px"></div>
+              <div *ngIf="nego.buyer.companyLogo==null"
+                   style="background-image:url('./../../../../assets/img/company-default.png'); background-size: 30px 30px;border-radius:50%; width: 30px;height: 30px"></div>
+              <label style="margin: 0px;margin-left: 5px; font-size: 15px">Contact name: {{nego.buyer.username}}</label>
             </div>
           </div>
           <div *ngIf="nego.negotiationID != negoID" class="col-sm-12 row" style="margin: 0;padding: 0px;">
-            <img
-              src="{{nego.post.primaryImage}}"
-              style="width: 48px;height: 48px">
-            <strong class="col-sm-10">{{nego.post.postTitle}}</strong>
-            <div class="col-sm-8 offset-2">
-              <!--<img class="rounded-circle"
-                   src="https://sc02.alicdn.com/kf/HTB131ahSVXXXXbjXFXXq6xXFXXXq/Original-Unlocked-Redmi-Note-4-Xiaomi-32gb.jpg_100x100.jpg"
-                   style="width: 48px;height: 48px">-->Supplier: {{nego.post.supplier.username}}
+            <div class="col-sm-12 row" style="padding: 0px; margin: 0px">
+              <div class="col-sm-2" style="padding: 0px">
+                <img
+                  src="{{nego.post.primaryImage}}"
+                  style="max-width: 48px; width: 100%; max-height: 48px; height: 100%">
+              </div>
+              <div class="col-sm-6" style="padding: 0px;font-weight: 600;">{{nego.post.postTitle}}</div>
+              <div class="col-sm-4" style="padding: 0px"><small><i>NegotiationID: {{nego.negotiationID}}</i></small></div>
+            </div>
+
+            <div class="row col-sm-8 offset-2 align-items-center">
+              <div *ngIf="nego.buyer.companyLogo!=null"
+                   [style.background-image]="'url(' + nego.buyer.companyLogo + ')'"
+                   style="background-size: 30px 30px;border-radius:50%; width: 30px;height: 30px"></div>
+              <div *ngIf="nego.buyer.companyLogo==null"
+                   style="background-image:url('./../../../../assets/img/company-default.png'); background-size: 30px 30px;border-radius:50%; width: 30px;height: 30px"></div>
+              <label style="margin: 0px;margin-left: 5px; font-size: 15px">Contact name: {{nego.buyer.username}}</label>
             </div>
           </div>
         </div>
@@ -197,7 +207,7 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
               <div class="col-sm-4">
-                <label><span class="star">*</span>Quantity: </label>
+                <label>Quantity </label>
               </div>
               <div class="col-sm-5">
                 <input disabled name="quantity" required type="text" ngModel="{{negotiation?.quantity}}"
@@ -209,7 +219,7 @@
             </div>
             <div class="row col-sm-12" style="padding-top: 10px">
               <div class="col-sm-4">
-                <label><span class="star">*</span>Unit Price: </label>
+                <label>Unit Price </label>
               </div>
               <div class="col-sm-5">
                 <input disabled type="text" name="offerPrice" required ngModel="{{negotiation?.offerPrice}}"
@@ -253,7 +263,7 @@
               <label class="col-sm-2" style="padding: 0px 0px 0px 5px">VND</label>
             </div>
             <div class="row col-sm-12" style="padding-top: 10px;  padding-right: 0px">
-              <label class="col-sm-5">Shipment Date:</label>
+              <label class="col-sm-5">Shipment Date </label>
               <div class="col-sm-7" style="padding: 0px; font-size: 14px">
                 Ship <input name="shippingTime" ngModel="{{negotiation?.shippingTime}}" type="number" required
                             value="{{negotiation?.shippingTime}}" disabled
@@ -312,7 +322,7 @@
         <div class="card" style="margin: 20px;">
           <div class="card-body">
             <div class="row col-sm-12">
-              <h5>Order Remark<span class="star">*</span></h5>
+              <h5>Order Remark</h5>
             </div>
             <div class="row col-sm-12">
             <textarea class="form-control" name="remark" rows="5"

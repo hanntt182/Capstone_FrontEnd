@@ -47,7 +47,8 @@
               <p class="text-secondary">{{post?.brand.brandName}} - {{post?.catalog.catalogName}}</p>
             </div>
             <div class="row" style="padding-left:20px; font-size: 18px">
-              <b>{{post?.minPrice | number:'1.0-2'}} VND - {{post?.maxPrice | number:'1.0-2'}} VND</b> / {{post?.unit}} | {{post?.minOrderQuantity}}
+              <b>{{post?.minPrice | number:'1.0-2'}} VND - {{post?.maxPrice | number:'1.0-2'}} VND</b> / {{post?.unit}}
+              | {{post?.minOrderQuantity}}
               {{post?.unit}}(Min. Order)
             </div>
             <div class="row" style="padding:20px; background-color: #f2f3f7">
@@ -125,7 +126,7 @@
                 </div>
               </div>
             </div>
-            <div class="row col-sm-12" style="padding: 20px; border-bottom: 1px dashed #8c8b8b">
+            <div class="row col-sm-12" style="padding: 20px;">
               <h4>Product Description</h4>
               <div class="row col-sm-12">
                 <table class="table table-responsive table-bordered">
@@ -404,10 +405,11 @@
                 <img src="{{recommendPost1.primaryImage}}"
                      style="display: inline; width: 100%;max-width: 150px">
               </div>
-              <div style="width: 200px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
+              <div style="width: 250px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
                 <span>{{recommendPost1.postTitle}}</span>
                 <p style="font-size: 15px; color: #242424; font-weight: 500;margin-bottom:0px">
-                  {{recommendPost1.minPrice}} VND ~ {{recommendPost1.maxPrice}} VND</p>
+                  {{recommendPost1.minPrice | number:'1.0-2'}} VND ~ {{recommendPost1.maxPrice | number:'1.0-2'}}
+                  VND</p>
                 <div class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px">
                   <div style="font-size: 10px;">
                     <rating [(ngModel)]="starReview1s[i]" [readonly]="true"></rating>
@@ -432,10 +434,10 @@
                 <img src="{{recommendPost2.primaryImage}}"
                      style="display: inline; width: 100%;max-width: 150px">
               </div>
-              <div style="width: 200px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
+              <div style="width: 250px; margin-left: auto;margin-right: auto;overflow: hidden; text-align: center">
                 <span>{{recommendPost2.postTitle}}</span>
                 <p style="font-size: 15px; color: #242424; font-weight: 500;margin-bottom:0px">
-                  {{recommendPost2.minPrice}}~{{recommendPost2.maxPrice}}</p>
+                  {{recommendPost2.minPrice | number:'1.0-2'}} VND~{{recommendPost2.maxPrice | number:'1.0-2'}} VND</p>
                 <div class="row col-sm-12 align-items-center justify-content-center" style="margin: 0px">
                   <div style="font-size: 10px;">
                     <rating [(ngModel)]="starReview2s[i]" [readonly]="true"></rating>

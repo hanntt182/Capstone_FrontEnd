@@ -25,10 +25,7 @@
             <td scope="row">Succeed: {{dataOrder[4]?.number_order}} order(s)</td>
           </tr>
           <tr>
-            <td scope="row">Finished: {{dataOrder[5]?.number_order}} order(s)</td>
-          </tr>
-          <tr>
-            <td scope="row">Cancelled: {{dataOrder[6]?.number_order}} order(s)</td>
+            <td scope="row">Cancelled: {{dataOrder[5]?.number_order}} order(s)</td>
           </tr>
           </tbody>
         </table>
@@ -41,13 +38,13 @@
         <table class="table table-hover" style="margin: 0px;">
           <tbody>
           <tr>
-            <td scope="row">Today: {{dataRevenue[0]?.revenue}} VND</td>
+            <td scope="row">Today: {{dataRevenue[0]?.revenue | number:'1.0-2'}} VND</td>
           </tr>
           <tr>
-            <td scope="row">This week: {{dataRevenue[1]?.revenue}} VND</td>
+            <td scope="row">This week: {{dataRevenue[1]?.revenue | number:'1.0-2'}} VND</td>
           </tr>
           <tr>
-            <td scope="row">This month: {{dataRevenue[2]?.revenue}} VND</td>
+            <td scope="row">This month: {{dataRevenue[2]?.revenue | number:'1.0-2'}} VND</td>
           </tr>
           </tbody>
         </table>

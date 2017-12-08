@@ -27,12 +27,15 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
   public star5 = 5;
   public total;
   public winnerTotal;
+  public companyTotal;
   public rateBuyer;
   public rateWinner;
   public tenderHistories;
   public winBidder;
   public companyProfile;
   public myTenderInfo;
+  public fileType: boolean;
+  public BERFile = null;
 
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -103,6 +106,22 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     return newName;
   }
 
+  formatBERFile(fileName) {
+    let fileArray = [];
+    if (fileName != null) {
+      fileArray = fileName.split('-');
+    }
+    let newName = '';
+    if (fileArray.length == 2) {
+      newName += fileArray[1];
+    } else if (fileArray.length > 2) {
+      for (let i = 1; i < fileArray.length; i++) {
+        newName += fileArray[i];
+      }
+    }
+    return newName;
+  }
+
   viewTenderInfoOfSup(supID, tenderID) {
     let data = {
       'SupplierID': supID,
@@ -152,9 +171,13 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     let data = {
       'UserID': userID
     };
+
     this.commonService.viewProfileDetail(this.constants.VIEWPROFILEDETAIL, data).subscribe((response: any) => {
       this.companyProfile = response;
+      this.companyTotal = response.star1 + response.star2 + response.star3 + response.star4 + response.star5;
     });
+
+    this.viewTenderInfoOfSup(userID, this.tenderID);
     document.getElementById('openCompanyInformationModal').click();
   }
 
@@ -200,13 +223,26 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
     document.getElementById('openChooseBidderModel').click();
   }
 
-  chooseBidder(chooseBidderForm) {
-    let data = {
-      'TenderID': this.tenderID,
-      'SupplierID': this.winBidder,
-      'Reason': chooseBidderForm.reasonChoose
-    };
-    this.tenderService.chooseBidder(this.constants.CHOOSEBIDDER, data).subscribe((response: any) => {
+  importBERFile(e) {
+    this.fileType = true;
+    if (e.target.files[0].type != 'application/pdf' &&
+      e.target.files[0].type != 'application/msword' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+      e.target.files[0].type != 'application/vnd.ms-excel' &&
+      e.target.files[0].type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      this.fileType = false;
+      return;
+    } else {
+      this.BERFile = e.target.files[0];
+    }
+  }
+
+  chooseBidder() {
+    let formData = new FormData();
+    formData.append('TenderID', this.tenderID);
+    formData.append('SupplierID', this.winBidder);
+    formData.append('AssessFile', this.BERFile);
+    this.tenderService.chooseBidder(this.constants.CHOOSEBIDDER, formData).subscribe((response: any) => {
       this.tender = response;
       this.starsCount = response.buyer.rate;
       this.buyerRateStar = response.buyer.rate;
@@ -218,15 +254,14 @@ export class TenderDetailComponent implements OnInit, OnDestroy {
       this.rateWinner = response.star;
       this.total = response.buyer.star1 + response.buyer.star2 + response.buyer.star3 + response.buyer.star4 + response.buyer.star5;
       document.getElementById('openChooseBidderModel').click();
-      // $('#chooseBidderModal').hide();
-      // $('body').removeClass('modal-open');
-      // $('.modal-backdrop').remove();
-      this.toastr.success('Choose winner successfully!', 'Success!', {showCloseButton: true});
+      this.toastr.success('Acceptance of Bids is successful!', 'Success!', {showCloseButton: true});
     }, error => {
       console.log(error);
       this.toastr.error(error._body, 'Error!', {showCloseButton: true});
     });
   }
+
+
 
   ngOnDestroy() {
   }

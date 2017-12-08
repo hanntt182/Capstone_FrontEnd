@@ -178,9 +178,10 @@ export class CreateOrderComponent implements OnInit {
     console.log(data);
     this.orderService.createOrder(this.constants.CREATEORDER, data).subscribe((response: any) => {
       if (response == 'CREATE SUCCESSFULLY') {
-        alert(response);
         this.toastr.success('Create order successfully. Please wait for approve...', 'Success!', {showCloseButton: true});
-        this.router.navigate(['/buyer/order-list/waiting']);
+        setTimeout(() => {
+          this.router.navigate(['/buyer/order-list/waiting']);
+        }, 1000);
       }
     }, error => {
       console.log(error);

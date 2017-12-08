@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../../services/common.service";
 import {Constants} from './../../../constants';
+import {DecimalPipe} from "@angular/common";
 
 @Component({
   selector: 'app-sup-main',
@@ -18,7 +19,8 @@ export class SupMainComponent implements OnInit {
 
   // Pie Chart
   data: any;
-  public colorOfPie = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81', '"#ff9933', '#cc33ff', '#6600ff', '#cccc00', '#ff3300'];
+  public colorOfPie = ['#FF6384', '#36A2EB', '#FFCE56', '#0bcc81',
+    '#ff9933', '#cc33ff', '#6600ff', '#cccc00', '#ff3300', '#92B558', '#672E3B', '#005960', '#9C9A40', '#95DEE3', '#EDCDC2'];
   public labelOfPie = [];
   public dataOfPie = [];
   public backgroundColorPie = [];
@@ -29,7 +31,8 @@ export class SupMainComponent implements OnInit {
 
 
   constructor(private commonService: CommonService,
-              private constants: Constants) {
+              private constants: Constants,
+              private decimalPipe: DecimalPipe) {
 
 
   }
